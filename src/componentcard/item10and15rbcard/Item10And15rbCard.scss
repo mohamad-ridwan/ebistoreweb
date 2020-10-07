@@ -1,0 +1,11 @@
+@import '../../util/variable/variable.scss';
+
+.item-10-and-15rb-card{
+    display: flex;
+    flex-direction: column;
+    height: 25vh;
+    width: 100%;
+    background: $colorSatu;
+    border-radius: $brdrRadiusBox;
+    text-decoration: none;
+}

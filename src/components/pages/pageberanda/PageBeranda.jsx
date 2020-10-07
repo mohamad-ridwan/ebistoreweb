@@ -2,6 +2,7 @@ import React from 'react'
 import { useState } from 'react'
 import CarouselCard from '../../../componentcard/carouselcard/CarouselCard'
 import JudulCard from '../../../componentcard/judulcard/JudulCard'
+import Sec10And15rbCard from '../../../componentcard/sec10and15rbcard/Sec10And15rbCard'
 
 import './PageBeranda.scss'
 
@@ -74,11 +75,17 @@ const PageBeranda = () => {
                     {/* Judul */}
                     <JudulCard txtJudul="Serba 10rb" />
                     {/* END Judul */}
+
+                    {/* Section Serba 10rb */}
+                    <Sec10And15rbCard/>
+                    {/* END Section Serba 10rb */}
                 </section>
                 {/* END Section 3 */}
 
                 {/* Section 4 */}
-                
+                <section className="section-4-pageBeranda">
+                    
+                </section>
                 {/* END Section 4 */}
             </div>
         </>
