@@ -1,0 +1,40 @@
+@import '../../util/variable/variable.scss';
+
+// Navbar
+.navbar-pageCard{
+    display: flex;
+    height: $heightNavPage;
+    width: 100%;
+    background: $colorTiga;
+    box-shadow: $boxShdwNavPage;
+
+    // Row nav
+    .row-nav-pageCard{
+        display: flex;
+        height: auto;
+        width: 100%;
+        align-items: center;
+        padding: $padNavPage;
+
+        // Btn Back Page Nav
+        .btn-back-nav-pageCard{
+            display: flex;
+            font-size: $fontSzBtnBckNav;
+            color: $colorSatu;
+            text-decoration: none;
+        }
+        // END Btn Back Page Nav
+
+        // Title Page Nav
+        .title-page-nav-pageCard{
+            display: flex;
+            font-size: $fontSzTitNav;
+            font-family: $fontFamilyJudul;
+            margin: $margTitNav;
+            color: $colorDua;
+        }
+        // END Title Page Nav
+    }
+    // END Row nav
+}
+// END Navbar

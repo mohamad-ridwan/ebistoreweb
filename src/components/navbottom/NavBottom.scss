@@ -1,0 +1,12 @@
+@import '../../util/variable/variable.scss';
+
+.navBottom{
+    display: flex;
+    position: fixed;
+    height: $heightNavBottom;   
+    background: $colorTiga;
+    box-shadow: 0 -2px 5px -1px rgba(0,0,0,0.5);
+    bottom: 0;
+    left: 0;
+    right: 0;
+}

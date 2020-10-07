@@ -1,0 +1,48 @@
+@import '../../util/variable/variable.scss';
+
+// NoGroup
+.noGroup{
+    display: flex;
+    flex-direction: column;
+    width: 20%;
+    justify-content: center;
+    align-items: center;
+
+    // btnGroup
+    #btnGroup{
+        text-decoration: none;
+        overflow: hidden;
+
+        // IconGroup
+        #iconGroup{
+            font-size: 18px;
+            color: $colorSatu;
+        }
+        // END IconGroup
+
+        // Txt IconGroup
+        #txtGroup{
+            font-size: 12px;
+            font-family: $fontFamilyJudul;
+            color: $colorSatu;
+        }
+        // END Txt IconGroup
+        
+    }
+    // END BtnGroup
+}
+// END NoGroup
+
+// Row
+.row-navBottom{
+    overflow: hidden;
+
+    .img-btn-home-navBottom{
+        height: 35px;
+        width: 35px;
+        margin: 3px 0 0 0;
+        object-fit: cover;
+        object-position: center;
+    }
+}
+// END Row
