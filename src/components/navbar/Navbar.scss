@@ -1,0 +1,102 @@
+@import '../../util/variable/variable.scss';
+
+.navbar{
+    display: flex;
+    height: $heightNavHome;
+    background: $colorTiga;
+    box-shadow: $boxShdwNavPage;
+    margin: 0 0 5px 0;
+
+    // Row1
+    .row1-navbar{
+        display: flex;
+        width: 60%;
+        padding: 0 0 0 10px;
+        overflow: hidden;
+
+        .link-brand-navbar{
+            display: flex;
+            text-decoration: none;
+            align-items: center;
+
+            // Image Brand
+            .img-brand-navbar{
+                display: flex;
+                height: 35px;
+                width: 35px;
+                object-fit: cover;
+            }
+            // END Image Brand
+
+            // Name Brand
+            .nm-brand-navbar{
+                display: flex;
+                align-items: center;
+
+                // Txt1
+                .txt1-brand-navbar{
+                    display: flex;
+                    font-size: 35px;
+                    font-family: $fontFmNvbr;
+                    color: $colorSatu;
+                    text-decoration: none;
+                }
+                // END Txt1
+
+                // Txt2
+                .txt2-brand-navbar{
+                    display: flex;
+                    font-size: 20px;
+                    font-family: $fontFmNvbr;
+                    color: $colorSatu;
+                    margin: 11px 0 0 0;
+
+                    &::after{
+                        content: '.com';
+                        color: $colorDua;
+                    }
+                }
+                // END Txt2
+            }
+            // END Name Brand
+        }
+    }
+    // END Row1
+
+    // Row2
+    .row2-navbar{
+        display: flex;
+        flex-direction: row;
+        width: 40%;
+        align-items: center;
+        justify-content: flex-end;
+        padding: 0 10px 0 0;
+
+        // Link Img Profile
+        .circ-img-profile-navbar{
+            display: flex;
+            height: 35px;
+            width: 35px;
+            border-radius: 500px;
+
+            .img-profile-navbar{
+                display: flex;
+                object-fit: cover;
+            }
+        }
+        // END Link Img Profile
+
+        // Name Account User
+        .name-act-user-navbar{
+            display: flex;
+            font-size: 13px;
+            font-family: $fontFamilyJudul;
+            font-weight: $fontWeightJudul;
+            color: $colorSatu;
+            margin: 0 0px 0 5px;
+        }
+        // END Name Account User
+        
+    }
+    // END Row2
+}

@@ -1,0 +1,101 @@
+@import '../../../util/variable/variable.scss';
+
+// Wrapper
+.wrapper-pageFavorit{
+    display: flex;
+    flex-direction: column;
+    height: $heightWrappPage;
+
+    // Container Body PageFavorit
+    .cont-body-pageFavorit{
+        display: flex;
+        flex-direction: column;
+        position: relative;
+        height: $heightBodContPage;
+        justify-content: center;
+        align-items: center;
+
+        // Circle Info
+        .circ-info-pageFavorit{
+            display: flex;
+            flex-direction: column;
+            position: absolute;
+            height: 200px;
+            width: 200px;
+            background: $colorSatu;
+            box-shadow: $boxShdwCircInfo;
+            border-radius: 500px;
+            justify-content: center;
+            align-items: center;
+            padding: 0 20px;
+            top: 150px;
+            animation: circleInfo 600ms ease-out 1;
+
+            // TXT Circle Info
+            .txt1-circ-inf-pageFavorit{
+                display: flex;
+                font-size: 12px;
+                font-family: $fontFamilyJudul;
+                text-align: center;
+                color: $colorTiga;
+            }
+            // END TXT Circle Info
+
+            // Img Circle Info
+            .img-circ-info-pageFavorit{
+                display: flex;
+                height: 70px;
+                width: 70px;
+                margin: 10px 0 0 0;
+                object-fit: cover;
+                object-position: center;
+            }
+            // END Img Circle Info
+        }
+        // END Circle Info
+    }
+    // END Container Body PageFavorit
+}
+// END Wrapper
+
+// Animation for circle Info
+@keyframes circleInfo{
+    0%{
+        height: 0;
+        width: 0;
+        background: transparent;
+    }
+    10%{
+        height: 0;
+        width: 0;
+        background: transparent;
+    }
+    20%{
+        height: 0;
+        width: 0;
+        background: transparent;
+    }
+    30%{
+        height: 0;
+        width: 0;
+        background: transparent;
+    }
+    40%{
+        height: 50px;
+        width: 50px;
+        background: transparent;
+    }
+    60%{
+        height: 200px;
+        width: 200px;
+        background: #fff;
+        box-shadow: none;
+    }
+    90%{
+        height: 160px;
+        width: 160px;
+        background: #fff;
+        box-shadow: none;
+    }
+}
+// END Animation for circle Info

@@ -1,0 +1,85 @@
+// color / backgroundColor
+$colorSatu: #fff;
+$colorDua: #F1D0A5;
+$colorTiga: #152238;
+$colorEmpat: #eee;
+$colorLima: #222;
+$colorEnam: #fd798f;
+$colorTujuh: #152238ce;
+$colorDelapan: #ff0000;
+$colorSembilan: #ff0000d0;
+$colorSepuluh: #476581;
+$colorSebelas: #f3eb0c;
+
+// Judul Di Home
+$heightJudul: 15vh;
+$marginTopTxtJudul: 30px;
+$fontSizeJudul: 1.1em;
+$fontFamilyJudul: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+$fontWeightJudul: 500;
+$fontStyleJudul: italic;
+
+// Button Description Web
+$fontSizeDescWeb: 12px;
+
+// Box Product
+$fontSizeNmPd: 15px;
+$fontSizePricePd: 20px;
+$fntSizeHrgNrml: 11px;
+$fontSizeHargaNml: 9px;
+$fontSizePriceDisc: 10px;
+$fontSizeGroup: 9px;
+$fontSizeBtnViewBuy: 12px;
+$heightImgProduct: 150px;
+$fontSzIcnTsProduct:20px;
+$margIcnTsProduct: 0 10px 0 0;
+$padRowIcnTsProduct: 0 0 0 10px;
+$imgBoxCardProduct: 32vh;
+$ukuranCircDiscNewBoxCardProduct: 35px;
+$topCircGroupDiscNewsBoxCardProduct: 5px;
+$fntSzCircGroup: 15px;
+$leftRightCicGroup: 5px;
+$rotateCircNew: rotate(-20deg);
+$margTxtHrgNrml: 5px 0 0 0;
+$brdrRadiusBox: 10px;
+$margRate: 0 3px 0 0;
+// For Btn View AND Buy
+$paddBtnTopBtm: 15px 0 10px 0;
+$hghtBtnVB: 32px;
+$widthBtnVB: 35%;
+$bxShdwBtnVB: 0 2px 5px -1px rgba(0,0,0,0.5);
+
+// Box Serba10rb / 15rb (Di Home)
+$fontSizeNmPd10rb15rb: 12px;
+$fontSizeGrupBox: 10px;
+$heightImgBox: 90px;
+
+// For Font Family All
+$fntFmlyAll: 'Quicksand', sans-serif;
+
+// Navbar For Home
+$heightNavHome: 11vh;
+$fontFmNvbr: 'Fredoka One', cursive;
+// For Page Home
+$fontSizeAllPgHme: 13px;
+$paddLRPgHme: 0 10px;
+
+// NavBottom
+$heightNavBottom: 9vh;
+
+// Navbar For Page 
+$heightNavPage: 8vh;
+$fontSzBtnBckNav: 18px;
+$padNavPage: 0 10px;
+$fontSzTitNav: 17px;
+$margTitNav: 0 0 0 20px;
+$boxShdwNavPage: 0 3px 5px -1px rgba(0,0,0,0.5);
+// Body For Page Keranjang - Notif
+$heightBodContPage: 90vh;
+$heightWrappPage: 100vh;
+$boxShdwCircInfo: 0 3px 5px -1px rgba(0,0,0,0.2);
+
+// For Carousel
+$heightWrappCarousel: 70vh;
+$padBodCardCaro : 0 15% 0 15%;
+$backgCarousel:  #34495e25;

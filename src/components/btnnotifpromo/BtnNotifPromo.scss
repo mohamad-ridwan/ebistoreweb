@@ -1,0 +1,131 @@
+@import '../../util/variable/variable.scss';
+
+// Btn Notif Promo
+.circ-btn-notifPromo{
+    display: flex;
+    position: fixed;
+    height: 40px;
+    width: 40px;
+    background: $colorTiga;
+    box-shadow: 2px 2px 5px -1px rgba(0,0,0,0.4);
+    color: $colorSatu;
+    border-radius: 500px;
+    justify-content: center;
+    align-items: center;
+    bottom: 65px;
+    left: 8px;
+    border: none;
+    outline: none;
+    z-index: 9999;
+
+    #btn-notifPromo{
+        display: flex;
+        font-size: 15px;
+        animation: AiconBtn 1700ms ease infinite;
+    }
+}
+// END Btn Notif Promo
+
+// Modal Notif Promo
+.modal-notifPromo{
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    height: auto;
+    width: 40vw;
+    background: $colorSatu;
+    box-shadow: 0 2px 8px -1px rgba(0,0,0,0.2);
+    border-radius: 10px;
+    bottom: 110px;
+    left: -180px;
+    padding: 10px;
+
+    // Column1
+    .col1-notifPromo{
+        display: flex;
+        height: auto;
+        width: 100%;
+
+        .txt-notifPromo{
+            display: flex;
+            font-size: $fontSizeAllPgHme;
+            font-family: $fontFamilyJudul;
+            color: #000;
+            text-align: start;
+        }
+    }
+    // END Column1
+
+    // Column2
+    .col2-notifPromo{
+        display: flex;
+        flex-direction: row-reverse;
+        height: auto;
+        width: 100%;
+        margin: 10px 0 0 0;
+
+        .btn-look-notifPromo{
+            display: flex;
+            background: $colorTiga;
+            box-shadow: 2px 2px 3px -1px rgba(0,0,0,0.5);
+            color: $colorSatu;
+            border-radius: 5px;
+            border: none;
+            outline: none;
+            padding: 5px;
+            margin: 0 2px 5px 0;
+            font-size: $fontSizeAllPgHme;
+            font-family: $fontFamilyJudul;
+        }
+    }
+    // END Column2
+}
+// END Modal Notif Promo
+
+// Animasi for icon button promo
+@keyframes AiconBtn{
+    10%{
+        transform: rotate(0deg);
+    }
+    20%{
+        transform: rotate(-45deg);
+    }
+    30%{
+        transform: rotate(45deg);
+    }
+    40%{
+        transform: rotate(-45deg);
+    }
+    50%{
+        transform: rotate(45deg);
+    }
+    60%{
+        transform: rotate(-10deg);
+    }
+    70%{
+        transform: rotate(10deg);
+    }
+    80%{
+        transform: rotate(-5deg);
+    }
+    90%{
+        transform: rotate(5deg);
+    }
+    100%{
+        transform: rotate(0deg);
+    }
+}
+// END Animasi for icon button promo
+
+// Animasi for circle button promo
+@keyframes AbtnCircle{
+    0%{
+        height: 0;
+        width: 0;
+    }
+    100%{
+        height: 37px;
+        width: 37px;
+    }
+}
+// END Animasi for circle button promo

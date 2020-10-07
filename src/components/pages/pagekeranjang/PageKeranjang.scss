@@ -1,0 +1,284 @@
+@import '../../../util/variable/variable.scss';
+
+// Wrapper
+.wrapper-pageKeranjang{
+    display: flex;
+    flex-direction: column;
+    height: $heightWrappPage;
+    background: $colorEmpat;
+    overflow: hidden;
+
+    // Container Body
+    .cont-body-pageKeranjang{
+        display: flex;
+        flex-direction: column;
+        position: relative;
+        height: $heightBodContPage;
+        justify-content: center;
+        align-items: center;
+
+        // Icon Exclamation
+        #icon-exc-pageKeranjang{
+            display: flex;
+            position: absolute;
+            top: 60px;
+            right: 120px;
+            font-size: 55px;
+            color: $colorTiga;
+            overflow: hidden;
+            animation: iconExclamation 550ms ease 1;
+        }
+        // END Icon Exclamation
+
+        // Icon Circle1
+        #icon-circ1-pageKeranjang{
+            display: flex;
+            position: absolute;
+            font-size: 17px;
+            color: $colorSatu;
+            top: 120px;
+            right: 140px;
+            overflow: hidden;
+            animation: circle1 500ms ease 1;
+        }
+        // END Icon Circle1
+
+        // Icon Circle2
+        #icon-circ2-pageKeranjang{
+            display: flex;
+            position: absolute;
+            font-size: 22px;
+            color: $colorSatu;
+            top: 138px;
+            right: 158px;
+            overflow: hidden;
+            animation: circle2 610ms ease 1;
+        }
+        // END Icon Circle2
+
+        // Icon Circle3
+        #icon-circ3-pageKeranjang{
+            display: flex;
+            position: absolute;
+            font-size: 30px;
+            color: $colorSatu;
+            top: 165px;
+            right: 170px;
+            overflow: hidden;
+            animation: circle3 700ms ease 1;
+        }
+        // END Icon Circle3
+
+        // Circle Info
+        .circ-info-pageKeranjang{
+            display: flex;
+            flex-direction: column;
+            position: absolute;
+            height: 200px;
+            width: 200px;
+            top: 200px;
+            right: 70px;
+            background: $colorSatu;
+            box-shadow: $boxShdwCircInfo;
+            border-radius: 500px;
+            justify-content: center;
+            align-items: center;
+            padding: 0 20px;
+            animation: circle4 600ms ease-out 1;
+
+            // TXT Circle Info
+            .txt1-circ-inf-pageKeranjang{
+                display: flex;
+                font-size: 12px;
+                font-family: $fontFamilyJudul;
+                text-align: center;
+                color: $colorTiga;
+            }
+            // END TXT Circle Info
+
+            // Img Circle Info
+            .img-circ-info-pageKeranjang{
+                display: flex;
+                height: 70px;
+                width: 70px;
+                margin: 10px 0 0 0;
+                object-fit: cover;
+                object-position: center;
+            }
+            // END Img Circle Info
+        }
+        // END Circle Info
+    }
+    // END Container Body
+}
+// END Wrapper
+
+
+// Animation for exclamation
+@keyframes iconExclamation{
+    0%{
+        font-size: 10px;
+    }
+    45%{
+        font-size: 55px;
+    }
+    47%{
+        font-size: 40px;
+    }
+}
+// END Animation for exclamation
+
+// Animation for circle1
+@keyframes circle1{
+    5%{
+        font-size: 0px;
+    }
+    10%{
+        font-size: 0px;
+    }
+    15%{
+        font-size: 0px;
+    }
+    20%{
+        font-size: 0px;
+    }
+    25%{
+        font-size: 0px;
+    }
+    30%{
+        font-size: 0px;
+    }
+    90%{
+        font-size: 0px;
+    }
+}
+// END Animation for circle1
+
+// Animation for circle2
+@keyframes circle2{
+    1.1%{
+        font-size: 0px;
+    }
+    1.2%{
+        font-size: 0px;
+    }
+    1.3%{
+        font-size: 0px;
+    }
+    1.4%{
+        font-size: 0px;
+    }
+    1.5%{
+        font-size: 0px;
+    }
+    1.6%{
+        font-size: 0px;
+    }
+    90%{
+        font-size: 0px;
+    }
+}
+// END Animation for circle2
+
+// Animation for circle3
+@keyframes circle3{
+    1.1%{
+        font-size: 0px;
+    }
+    1.2%{
+        font-size: 0px;
+    }
+    1.3%{
+        font-size: 0px;
+    }
+    1.4%{
+        font-size: 0px;
+    }
+    1.5%{
+        font-size: 0px;
+    }
+    1.6%{
+        font-size: 0px;
+    }
+    90%{
+        font-size: 0px;
+    }
+}
+// END Animation for circle3
+
+// Animation for circle4
+@keyframes circle4{
+    0%{
+        height: 0;
+        width: 0;
+        background: transparent;
+    }
+    10%{
+        height: 0;
+        width: 0;
+        background: transparent;
+    }
+    20%{
+        height: 0;
+        width: 0;
+        background: transparent;
+    }
+    30%{
+        height: 0;
+        width: 0;
+        background: transparent;
+    }
+    40%{
+        height: 50px;
+        width: 50px;
+        background: transparent;
+    }
+    60%{
+        height: 200px;
+        width: 200px;
+        background: #fff;
+        box-shadow: none;
+    }
+    90%{
+        height: 160px;
+        width: 160px;
+        background: #fff;
+        box-shadow: none;
+    }
+}
+// END Animation for circle4
+
+// Animation for btnBox
+@keyframes btnBox{
+    0%{
+        height: 0;
+        width: 0;
+        background: #fff;
+    }
+    10%{
+        height: 0;
+        width: 0;
+        background: #fff;
+    }
+    20%{
+        height: 0;
+        width: 0;
+        background: #fff;
+    }
+    30%{
+        height: 0;
+        width: 0;
+        background: #fff;
+    }
+    40%{
+        height: 50px;
+        width: 140px;
+        background: #fff;
+    }
+    60%{
+        height: 80px;
+        width: 150px;
+        box-shadow: none;
+    }
+}
+// END Animation for btnBox

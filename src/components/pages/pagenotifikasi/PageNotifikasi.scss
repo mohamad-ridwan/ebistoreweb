@@ -1,0 +1,179 @@
+@import '../../../util/variable/variable.scss';
+
+// Wrapper
+.wrapper-pageNotifikasi{
+    display: flex;
+    flex-direction: column;
+    height: $heightWrappPage;
+
+    // Container Body Page
+    .cont-body-pageNotifikasi{
+        display: flex;
+        flex-direction: column;
+        position: relative;
+        height: $heightBodContPage;
+        justify-content: center;
+        align-items: center;
+
+        // Circle Info
+        .circ-info-pageNotifikasi{
+            display: flex;
+            flex-direction: column;
+            position: absolute;
+            height: 200px;
+            width: 200px;
+            background: $colorSatu;
+            box-shadow: $boxShdwCircInfo;
+            border-radius: 500px;
+            justify-content: center;
+            align-items: center;
+            padding: 0 20px;
+            top: 100px;
+            animation: circleInfo 600ms ease-out 1;
+
+            .imgInfo-pageNotifikasi{
+                display: flex;
+                height: 130px;
+                width: 130px;
+                object-fit: cover;
+            }
+
+            #txtA{
+                position: absolute;
+                color: $colorEnam;
+            }
+
+            .txt1-pageNotifikasi{
+                display: flex;
+                font-size: 10px;
+                top: 40px;
+                left: 80px;
+                transform: rotate(-40deg);
+                animation: animationSleepPeople1 1300ms ease-out infinite;
+            }
+
+            .txt2-pageNotifikasi{
+                display: flex;
+                font-size: 15px;
+                top: 25px;
+                left: 92px;
+                transform: rotate(-20deg);
+                animation: animationSleepPeople2 1310ms ease-out infinite;
+            }
+
+            .txt3-pageNotifikasi{
+                display: flex;
+                font-size: 20px;
+                top: 10px;
+                left: 110px;
+                transform: rotate(-10deg);
+                animation: animationSleepPeople3 1320ms ease-out infinite;
+            }
+        }
+
+        // Container Text Info
+        .cont-txt-info-pageNotifikasi{
+            display: flex;
+            position: absolute;
+            height: auto;
+            width: 100%;
+            justify-content: center;
+            align-items: center;
+            padding: 0 20px;
+            top: 330px;
+
+            .txtInfo-pageNotifikasi{
+                display: flex;
+                font-size: 15px;
+                font-family: $fontFamilyJudul;
+                color: #555;
+            }
+        }
+        // END Container Text Info
+    }
+    // END Container Body Page
+}
+// END Wrapper
+
+// Animation for circle Info
+@keyframes circleInfo{
+    0%{
+        height: 0;
+        width: 0;
+        background: transparent;
+    }
+    10%{
+        height: 0;
+        width: 0;
+        background: transparent;
+    }
+    20%{
+        height: 0;
+        width: 0;
+        background: transparent;
+    }
+    30%{
+        height: 0;
+        width: 0;
+        background: transparent;
+    }
+    40%{
+        height: 50px;
+        width: 50px;
+        background: transparent;
+    }
+    60%{
+        height: 200px;
+        width: 200px;
+        background: #fff;
+        box-shadow: none;
+    }
+    90%{
+        height: 160px;
+        width: 160px;
+        background: #fff;
+        box-shadow: none;
+    }
+}
+// END Animation for circle Info
+
+// Animation for sleep people notification
+// Animation1
+@keyframes animationSleepPeople1 {
+    0%{
+        font-size: 10px;
+        // margin: 75px 0 0 95px;
+    }
+    50%{
+        font-size: 20px;
+        // margin: 55px 0 0 95px;
+    }
+}
+// END Animation1
+
+// Animation2
+@keyframes animationSleepPeople2 {
+    0%{
+        font-size: 15px;
+        // margin: 50px 0 0 105px;
+    }
+    50%{
+        font-size: 30px;
+        // margin: 35px 0 0 105px;
+    }
+}
+// END Animation2
+
+// Animation3
+@keyframes animationSleepPeople3 {
+    0%{
+        font-size: 20px;
+        // margin: 30px 0 0 125px;
+    }
+    50%{
+        font-size: 40px;
+        // margin: 20px 0 0 125px;
+    }
+}
+// END Animation3
+// END Animation for sleep people notification

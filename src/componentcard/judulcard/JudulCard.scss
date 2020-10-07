@@ -1,0 +1,18 @@
+@import '../../util/variable/variable.scss';
+
+.wrapper-judulCard{
+    display: flex;
+    height: $heightJudul;
+    justify-content: center;
+    align-items: center;
+
+    .txt-judul-judulCard{
+        display: flex;
+        font-size: $fontSizeJudul;
+        font-family: $fontFamilyJudul;
+        font-weight: $fontWeightJudul;
+        font-style: $fontStyleJudul;
+        color: $colorLima;
+        margin-top: $marginTopTxtJudul;
+    }
+}

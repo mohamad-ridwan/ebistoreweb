@@ -1,0 +1,289 @@
+@import '../../util/variable/variable.scss';
+
+// Container
+.container-boxCard{
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    width: 100%;
+    background: $colorSatu;
+    border-radius: $brdrRadiusBox;
+
+    // Content1
+    .content1-boxCard{
+        display: flex;
+        height: 8vh;
+        width: 100%;
+        background: transparent;
+
+        // Row1
+        .row1-c1-boxCard{
+            display: flex;
+            height: 100%;
+            width: 80%;
+            background: $colorTujuh;
+            align-items: center;
+            padding: $padRowIcnTsProduct;
+
+            // BtnTsGroup
+            #btnTsGroup{
+                display: flex;
+                color: $colorSatu;
+                text-decoration: none;
+                margin: $margIcnTsProduct;
+            }
+            // END BtnTsGroup
+
+            // IconTsGroup
+            #iconTsGroup{
+                display: flex;
+                font-size: $fontSzIcnTsProduct;
+            }
+            // END IconTsGroup
+
+            // Btn Like
+            .btnLike-tools-boxCard{
+                align-items: center;
+
+                .totLike-boxCard{
+                    font-size: $fontSizeAllPgHme;
+                    margin: 8px 5px 0 0;
+                }
+            }
+            // END Btn Like
+
+            // Btn Favorite
+            .btnFavorite-tools-boxCard{
+                display: flex;
+                
+                i{
+                    color: $colorDelapan;
+                }
+            }
+            // END Btn Favorite
+        }
+        // END Row1
+
+        // Row1
+        .row2-c1-boxCard{
+            display: flex;
+            height: 100%;
+            width: 20%;
+            background: $colorTiga;
+            align-items: center;
+            justify-content: center;
+
+            // Btn Share
+            #btnTsGroup{
+                display: flex;
+                color: $colorSatu;
+                text-decoration: none;
+
+                i{
+                    font-size: $fontSzIcnTsProduct;
+                }
+            }
+            // END Btn Share
+        }
+        // END Row1
+    }
+    // END Content1
+
+    // Content2
+    .content2-boxCard{
+        display: flex;
+        position: relative;
+        height: auto;
+
+        // Circ Group
+        #circGroup{
+            display: flex;
+            position: absolute;
+            height: $ukuranCircDiscNewBoxCardProduct;
+            width: $ukuranCircDiscNewBoxCardProduct;
+            background: $colorSembilan;
+            border-radius: 500px;
+            justify-content: center;
+            align-items: center;
+            top: $topCircGroupDiscNewsBoxCardProduct;
+            z-index: 1;
+        }
+        // END Circ Group
+
+        // Circ Txt Group
+        #circTxtGroup{
+            font-size: $fntSzCircGroup;
+            color: $colorSatu;
+        }
+        // END Circ Txt Group
+
+        // Circ Disc
+        .circ-disc-c2-boxCard{
+            display: flex;
+            left: $leftRightCicGroup;
+        }
+        // END Circ Disc
+
+        // Circ New
+        .circ-new-c2-boxCard{
+            display: flex;
+            right: $leftRightCicGroup;
+            transform: $rotateCircNew;
+        }
+        // END Circ New
+
+        // Image Product Carousel
+        .carousel{
+            display: flex;
+            height: 100%;
+            width: 100%;
+
+            .carousel-inner{
+                display: flex;
+                overflow: hidden;
+                height: 100%;
+                width: 100%;
+            
+                .img-boxCard{
+                    display: flex;
+                    height: $imgBoxCardProduct;
+                    width: 100%;
+                    object-fit: cover;
+                }
+            }
+        }
+        // END Image Product Carousel
+    }
+    // END Content2
+
+    // Content3
+    .content3-boxCard{
+        display: flex;
+        flex-direction: column;
+        height: auto;
+        width: 100%;
+
+        // Col1
+        .col1-content3-boxCard{
+            display: flex;
+            flex-direction: column;
+            height: auto;
+            width: 100%;
+            padding: 0 5px 0 5px;
+
+            // Col1 Group
+            #col1-group{
+                font-family: $fontFamilyJudul;
+                text-align: start;
+                padding: 3px 0 0 0;
+            }
+            // END Col1 Group
+
+            // Nama Makanan
+            .txt-nameM-boxCard{
+                font-size: $fontSizeNmPd;
+            }
+            // END Nama Makanan
+
+            // Harga Makanan
+            .txt-hargaM-boxCard{
+                font-size: $fontSizePricePd;
+                font-weight: $fontWeightJudul;
+                color: $colorTujuh;
+            }
+            // END Harga Makanan
+
+            // Txt Harga Normal
+            .txt-hargaNormal-boxCard{
+                font-size: $fntSizeHrgNrml;
+                margin: $margTxtHrgNrml;
+            }
+            // END Txt Harga Normal
+
+            // Harga Normal
+            .hargaNormal-boxCard{
+                display: flex;
+                font-size: $fontSizeNmPd;
+                color: $colorTujuh;
+                text-decoration: line-through;
+            }
+            // END Harga Normal
+        }
+        // END Col1
+
+        // Col2
+        .col2-content3-boxCard{
+            display: flex;
+            flex-direction: column;
+            height: auto;
+            width: 100%;
+            padding: 5px 0 0 5px;
+
+            // Column Rate
+            .colRate-content3-boxCard{
+                display: flex;
+                align-items: center;
+                
+                // Rate
+                #iRate-boxCard{
+                    display: flex;
+                    margin: $margRate;
+                    color: $colorSebelas;
+                }
+                // END Rate
+
+                // KetRate
+                .ketRate-boxCard{
+                    display: flex;
+                    font-size: $fontSizeBtnViewBuy;
+                }
+                // END KetRate
+            }
+            // END Column Rate
+
+            // Column Stock
+            .colStock-content3-boxCard{
+                display: flex;
+                margin: $margTxtHrgNrml;
+
+                // Stock
+                .stock-boxCard{
+                    display: flex;
+                    font-size: $fontSizeBtnViewBuy;
+                }
+                // END Stock
+            }
+            // END Column Stock
+        }
+        // END Col2
+
+        // Btn View AND Buy
+        .cont-btn-view-buy-boxCard{
+            display: flex;
+            height: auto;
+            justify-content: space-around;
+            align-items: center;
+            padding: $paddBtnTopBtm;
+
+            // Btn View
+            #btnVB-boxCard{
+                display: flex;
+                height: $hghtBtnVB;
+                width: $widthBtnVB;
+                background: $colorTiga;
+                box-shadow: $bxShdwBtnVB;
+                color: $colorSatu;
+                border-radius: 500px;
+                justify-content: center;
+                align-items: center;
+                text-decoration: none;
+                cursor: pointer;
+                font-size: $fontSizeNmPd;
+            }
+            // END Btn View
+        }
+        // END Btn View AND Buy
+    }
+    // END Content3
+}
+// END Container
