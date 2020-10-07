@@ -8,8 +8,8 @@
     width: 100%;
     margin: 0 0 55px 0;
 
-    // Container1
-    .container-1-pageBeranda{
+    // Section1
+    .section-1-pageBeranda{
         display: flex;
         flex-direction: column;
         height: auto;
@@ -91,23 +91,23 @@
         }
         // END Modal Description App
     }
-    // END Container1
+    // END Section1
 
-    // Container2
-    .container-2-pageBeranda{
+    // Section2
+    .section-2-pageBeranda{
         display: flex;
         flex-direction: column;
         height: auto;
     }
-    // END Container2
+    // END Section2
 
-    // Container3
-    .container-3-pageBeranda{
+    // Section3
+    .section-3-pageBeranda{
         display: flex;
         flex-direction: column;
         height: auto;
         border: 1px solid blue;
     }
-    // END Container3
+    // END Section3
 }
 // END Wrapper

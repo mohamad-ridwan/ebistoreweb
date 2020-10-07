@@ -2,6 +2,7 @@ import React from 'react'
 import { useState } from 'react'
 import CarouselCard from '../../../componentcard/carouselcard/CarouselCard'
 import JudulCard from '../../../componentcard/judulcard/JudulCard'
+import Sec10And15rbCard from '../../../componentcard/sec10and15rbcard/Sec10And15rbCard'
 
 import './PageBeranda.scss'
 
@@ -15,8 +16,8 @@ const PageBeranda = () => {
     return (
         <>
             <div className="wrapper-pageBeranda">
-                {/* Container 1 */}
-                <div className="container-1-pageBeranda">
+                {/* Section 1 */}
+                <section className="section-1-pageBeranda">
                     {/* Btn Description App */}
                     <button type="button" className="descApp-pageBeranda" onClick={function () {
                         setModal(!modal)
@@ -54,11 +55,11 @@ const PageBeranda = () => {
                         </p>
                     </div>
                     {/* END Modal Description App */}
-                </div>
-                {/* END Container 1 */}
+                </section>
+                {/* END Section 1 */}
 
-                {/* Container 2 */}
-                <div className="container-2-pageBeranda">
+                {/* Section 2 */}
+                <section className="section-2-pageBeranda">
                     {/* Judul */}
                     <JudulCard txtJudul="Dengan Semua Harga" />
                     {/* END Judul */}
@@ -66,16 +67,26 @@ const PageBeranda = () => {
                     {/* Column Card Carousel */}
                     <CarouselCard />
                     {/* END Column Card Carousel */}
-                </div>
-                {/* END Container 2 */}
+                </section>
+                {/* END Section 2 */}
 
-                {/* Container 3 */}
-                <div className="container-3-pageBeranda">
+                {/* Section 3 */}
+                <section className="section-3-pageBeranda">
                     {/* Judul */}
                     <JudulCard txtJudul="Serba 10rb" />
                     {/* END Judul */}
-                </div>
-                {/* END Container 3 */}
+
+                    {/* Section Serba 10rb */}
+                    <Sec10And15rbCard/>
+                    {/* END Section Serba 10rb */}
+                </section>
+                {/* END Section 3 */}
+
+                {/* Section 4 */}
+                <section className="section-4-pageBeranda">
+                    
+                </section>
+                {/* END Section 4 */}
             </div>
         </>
     )

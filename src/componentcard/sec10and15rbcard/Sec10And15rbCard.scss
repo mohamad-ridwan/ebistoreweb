@@ -1,0 +1,49 @@
+@import '../../util/variable/variable.scss';
+
+.section-10-and-15rb-card{
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    width: 100%;
+    background: $colorDuabelas;
+    padding: $paddSec1015rbCard;
+    border: 1px solid red;
+
+    // Col1
+    .col1-sec-10-15rb-card{
+        display: flex;
+    }
+    // END Col1
+
+    // Col2
+    .col2-sec-10-15rb-card{
+        display: flex;
+        margin: 10px 0 0 0;
+    }
+    // END Col2
+
+    // Row1
+    .row1-10-15rb-card{
+        display: flex;
+        height: auto;
+        width: 50%;
+        margin: 0 10px 0 0;
+    }
+    // END Row1
+
+    // Row1
+    .row2-10-15rb-card{
+        display: flex;
+        height: auto;
+        width: 50%;
+    }
+    // END Row1
+
+    // Col3
+    .col3-sec-10-15rb-card{
+        display: flex;
+        height: auto;
+        margin: 10px 0 0 0;
+    }
+    // END Col3
+}
