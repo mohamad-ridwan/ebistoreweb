@@ -2,7 +2,8 @@ import React from 'react'
 import { useState } from 'react'
 import CarouselCard from '../../../componentcard/carouselcard/CarouselCard'
 import JudulCard from '../../../componentcard/judulcard/JudulCard'
-import Sec10And15rbCard from '../../../componentcard/sec10and15rbcard/Sec10And15rbCard'
+import Sec10rbCard from '../../../componentcard/sec10rbcard/Sec10rbCard'
+import Sec15rbCard from '../../../componentcard/sec15rbcard/Sec15rbCard'
 
 import './PageBeranda.scss'
 
@@ -59,7 +60,7 @@ const PageBeranda = () => {
                 {/* END Section 1 */}
 
                 {/* Section 2 */}
-                <section className="section-2-pageBeranda">
+                <section className="section-2-pageBeranda" id="secGroup">
                     {/* Judul */}
                     <JudulCard txtJudul="Dengan Semua Harga" />
                     {/* END Judul */}
@@ -71,22 +72,36 @@ const PageBeranda = () => {
                 {/* END Section 2 */}
 
                 {/* Section 3 */}
-                <section className="section-3-pageBeranda">
+                <section className="section-3-pageBeranda" id="secGroup">
                     {/* Judul */}
                     <JudulCard txtJudul="Serba 10rb" />
                     {/* END Judul */}
 
                     {/* Section Serba 10rb */}
-                    <Sec10And15rbCard/>
+                    <Sec10rbCard/>
                     {/* END Section Serba 10rb */}
                 </section>
                 {/* END Section 3 */}
 
                 {/* Section 4 */}
-                <section className="section-4-pageBeranda">
-                    
+                <section className="section-4-pageBeranda" id="secGroup">
+                    {/* Judul */}
+                    <JudulCard txtJudul="Serba 15rb" />
+                    {/* END Judul */}
+
+                    {/* Section Serba 15rb */}
+                    <Sec15rbCard/>
+                    {/* END Section Serba 15rb */}
                 </section>
                 {/* END Section 4 */}
+
+                {/* Section 5 */}
+                <div className="section-5-pageBeranda" id="secGroup">
+                    {/* Judul */}
+                    <JudulCard txtJudul="Promo Akhir Pekan" />
+                    {/* END Judul */}
+                </div>
+                {/* END Section 5 */}
             </div>
         </>
     )

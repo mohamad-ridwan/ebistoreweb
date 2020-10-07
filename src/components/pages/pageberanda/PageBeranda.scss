@@ -93,21 +93,12 @@
     }
     // END Section1
 
-    // Section2
-    .section-2-pageBeranda{
+    // Section 2 - 5
+    #secGroup{
         display: flex;
         flex-direction: column;
         height: auto;
     }
-    // END Section2
-
-    // Section3
-    .section-3-pageBeranda{
-        display: flex;
-        flex-direction: column;
-        height: auto;
-        border: 1px solid blue;
-    }
-    // END Section3
+    // END Section 2 - 5
 }
 // END Wrapper

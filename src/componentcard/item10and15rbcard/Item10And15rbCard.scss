@@ -3,9 +3,98 @@
 .item-10-and-15rb-card{
     display: flex;
     flex-direction: column;
-    height: 25vh;
+    position: relative;
+    height: auto;
     width: 100%;
     background: $colorSatu;
     border-radius: $brdrRadiusBox;
     text-decoration: none;
+
+    // Discount And New Group
+    #discNewGroup{
+        display: flex;
+        position: absolute;
+        height: 30px;
+        width: 30px;
+        justify-content: center;
+        align-items: center;
+        border-radius: 500px;
+        top: 5px;
+    }
+    // END Discount And New Group
+
+    // Txt Discount And New Group
+    #txtDiscNewGroup{
+        display: flex;
+        font-size: 12px;
+        color: $colorSatu;
+    }
+    // END Txt Discount And New Group
+
+    // Discount
+    .discount-10-15rb-card{
+        left: 5px;
+    }
+    // END Discount
+
+    // New
+    .new-10-15rb-card{
+        right: 5px;
+        transform: $rotateCircNew;
+    }
+    // END New
+
+    // Column
+    .col-desk-item-10-and-15rb-card{
+        display: flex;
+        flex-direction: column;
+        height: auto;
+        padding: 5px;
+
+        // Name Produk
+        .name-p-10-15rb-card{
+            display: flex;
+            font-size: $fontSizeNmPd10rb15rb;
+            text-align: start;
+            color: #000;
+        }
+        // END Name Produk
+
+        // Column Grade Produk
+        .col-grade-p-card{
+            display: flex;
+            height: auto;
+            width: 100%;
+            align-items: center;
+
+            // Star
+            i{
+                display: flex;
+                font-size: $fontSizeGrupBox;
+                color: $colorSebelas;
+                margin: 0 3px 0 0;
+            }
+            // END Star
+
+            // Total Grade
+            .angk-terjual-card{
+                display: flex;
+                font-size: $fontSizeGrupBox;
+                color: #000;
+            }
+            // END Total Grade
+
+        }
+        // END Column Grade Produk
+
+        // Stock
+        .txt-stock-card{
+            display: flex;
+            font-size: $fontSizeGrupBox;
+            color: #000;
+            text-align: start;
+        }
+        // END Stock
+    }
+    // END Column
 }
