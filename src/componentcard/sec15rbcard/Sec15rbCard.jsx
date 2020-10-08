@@ -104,6 +104,8 @@ export default function Sec15rbCard() {
               brRadius="8px"
               jsContent="center"
               algItems="center"
+              bxShdw="0 2px 3px -1px rgba(0,0,0,0.3)"
+              margin="0 0 2px 0"
               ftSize="13px"
               color="#152238"
               fWeight="500"

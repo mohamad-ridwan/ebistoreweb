@@ -11,6 +11,8 @@ const ButtonCard = ({
     algItems, 
     bxShdw, 
     brRadius,
+    margin,
+    padding,
     ftSize,
     color,
     fWeight,
@@ -26,11 +28,13 @@ const ButtonCard = ({
                 alignItems: `${algItems}`,
                 boxShadow: `${bxShdw}`,
                 borderRadius: `${brRadius}`,
-                textDecoration: 'none',
+                margin: `${margin}`,
+                padding: `${padding}`,
                 // For Font
                 fontSize: `${ftSize}`,
                 color: `${color}`,
-                fontWeight: `${fWeight}`
+                fontWeight: `${fWeight}`,
+                textDecoration: 'none',
             }}>{txtBtn}</Link>
         </>
     )

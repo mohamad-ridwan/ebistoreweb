@@ -20,14 +20,16 @@ export default function Item10And15rbCard({
 }) {
   return (
     <>
-          <Link to={page} className="item-10-and-15rb-card">
+          <Link to={page} className="item-10-and-15rb-card" style={{
+            boxShadow: '0 2px 3px -1px rgba(0,0,0,0.3)'
+          }}>
               {/* Image */}
               <img src={img} alt="" className="img-10-and-15rb-card" style={{
                 display: 'flex',
                 height: '20vh',
                 objectFit: 'center',
                 objectPosition: 'center',
-                background: '#fff'
+                background: '#fff',
               }}/>
               {/* END Image */}
 
