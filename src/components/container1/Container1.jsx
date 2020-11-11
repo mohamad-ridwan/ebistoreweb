@@ -17,7 +17,7 @@ const Container1 = () => {
     return (
         <>
             {/* Max-width 400px */}
-            <Media query="(max-width: 400px)" render={() => (
+            <Media query="(max-width: 450px)" render={() => (
                 <>
                     <Router>
                         <Switch>

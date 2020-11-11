@@ -5,7 +5,7 @@ import './Item10And15rbCard.scss'
 export default function Item10And15rbCard({
   page,
   img,
-  bckgCirc1,
+  bckgCirc1,  
   bckgCirc2,
   txtDisc,
   txtNew,
@@ -26,7 +26,8 @@ export default function Item10And15rbCard({
               {/* Image */}
               <img src={img} alt="" className="img-10-and-15rb-card" style={{
                 display: 'flex',
-                height: '20vh',
+                height: 'auto',
+                width: '100%',
                 objectFit: 'center',
                 objectPosition: 'center',
                 background: '#fff',

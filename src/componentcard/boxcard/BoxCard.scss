@@ -148,9 +148,10 @@
             
                 .img-boxCard{
                     display: flex;
-                    height: $imgBoxCardProduct;
+                    height: auto;
                     width: 100%;
                     object-fit: cover;
+                    object-position: center;
                 }
             }
         }
