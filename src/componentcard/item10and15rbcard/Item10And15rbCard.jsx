@@ -2,8 +2,7 @@ import React from 'react';
 import {Link} from 'react-router-dom'
 import './Item10And15rbCard.scss'
 
-export default function Item10And15rbCard({
-  page,
+const Item10And15rbCard = ({page,
   img,
   bckgCirc1,  
   bckgCirc2,
@@ -17,7 +16,8 @@ export default function Item10And15rbCard({
   star5,
   totTerjual,
   totStock
-}) {
+  })=>{
+    
   return (
     <>
           <Link to={page} className="item-10-and-15rb-card" style={{
@@ -89,5 +89,7 @@ export default function Item10And15rbCard({
               {/* END Column */}
           </Link>
     </>
-  );
+);
 }
+
+export default Item10And15rbCard
