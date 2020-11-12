@@ -1,7 +1,7 @@
 import React from 'react'
 import { useState } from 'react'
 import BoxCard from '../boxcard/BoxCard'
-import avatarnew from '../../img/avatarnew.jpg'
+import avatarnew from '../../img/tiga.png'
 
 import './CarouselCard.scss'
 

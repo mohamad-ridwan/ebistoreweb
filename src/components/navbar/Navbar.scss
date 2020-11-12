@@ -2,10 +2,13 @@
 
 .navbar{
     display: flex;
+    position: fixed;
     height: 70px;
+    width: 100%;
     background: $colorTiga;
     box-shadow: $boxShdwNavPage;
     margin: 0 0 5px 0;
+    z-index: 111;
 
     // Row1
     .row1-navbar{

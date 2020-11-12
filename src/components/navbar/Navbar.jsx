@@ -25,8 +25,8 @@ const Navbar = () => {
     return (
         <>
             <div className="navbar" style={{
-                transform: hide ? 'translateY(-20vh)' : 'translateY(0)',
-                transition: '.5s',
+                transform: hide ? 'translateY(-200px)' : 'translateY(0)',
+                transition: '.5s all cubic-bezier(0.64,-0.24, 0.43, 1.24)',
             }}>
                 {/* Row1 */}
                 <div className="row1-navbar">

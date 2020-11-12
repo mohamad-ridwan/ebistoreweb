@@ -2,7 +2,7 @@ import React from 'react'
 import ButtonCard from '../buttoncard/ButtonCard'
 import Item10And15rbCard from '../item10and15rbcard/Item10And15rbCard'
 import './Sec15rbCard.scss'
-import img from '../../img/avatarnew.jpg'
+import img from '../../img/satu.jpeg'
 
 export default function Sec15rbCard() {
     return (
