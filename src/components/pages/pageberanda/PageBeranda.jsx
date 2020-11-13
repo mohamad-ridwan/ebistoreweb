@@ -1,10 +1,11 @@
+import Axios from 'axios'
 import React from 'react'
+import { useEffect } from 'react'
 import { useState } from 'react'
-import CarouselCard from '../../../componentcard/carouselcard/CarouselCard'
+import Slider from 'react-slick'
+import BoxCard from '../../../componentcard/bocxcard/BoxCard'
 import JudulCard from '../../../componentcard/judulcard/JudulCard'
-import Sec10rbCard from '../../../componentcard/sec10rbcard/Sec10rbCard'
-import Sec15rbCard from '../../../componentcard/sec15rbcard/Sec15rbCard'
-
+import img from '../../../img/satu.jpeg'
 import './PageBeranda.scss'
 
 const PageBeranda = () => {
@@ -13,6 +14,14 @@ const PageBeranda = () => {
     let [modal, setModal] = useState(false)
     // END Create Modal Desc App
 
+    // carousel react-slick
+    const settings = {
+        autoplay: true,
+        infinite: true,
+        slidesToShow: 2,
+        slidesToScroll: 1,
+        speed: 600
+    }
 
     return (
         <>
@@ -62,12 +71,39 @@ const PageBeranda = () => {
                 {/* Section 2 */}
                 <section className="section-2-pageBeranda" id="secGroup">
                     {/* Judul */}
-                    <JudulCard txtJudul="Dengan Semua Harga" />
+                        <JudulCard
+                        txtJudul={"Dengan Semua Harga"}
+                     />
                     {/* END Judul */}
 
-                    {/* Column Card Carousel */}
-                    <CarouselCard />
-                    {/* END Column Card Carousel */}
+                    {/* semua harga */}
+                    <div id="carouselExampleIndicators" className="carousel slide" data-ride="carousel">
+                        <ol className="carousel-indicators">
+                            <li data-target="#carouselExampleIndicators" data-slide-to={0} className="active" />
+                            <li data-target="#carouselExampleIndicators" data-slide-to={1} />
+                            <li data-target="#carouselExampleIndicators" data-slide-to={2} />
+                        </ol>
+                        <div className="carousel-inner">
+                            <div className="carousel-item active">
+
+                            </div>
+                            <div className="carousel-item">
+
+                            </div>
+                            <div className="carousel-item">
+
+                            </div>
+                        </div>
+                        <a className="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                            <span className="carousel-control-prev-icon" aria-hidden="true" />
+                            <span className="sr-only">Previous</span>
+                        </a>
+                        <a className="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                            <span className="carousel-control-next-icon" aria-hidden="true" />
+                            <span className="sr-only">Next</span>
+                        </a>
+                    </div>
+                    {/* end semua harga */}
                 </section>
                 {/* END Section 2 */}
 
@@ -78,8 +114,82 @@ const PageBeranda = () => {
                     {/* END Judul */}
 
                     {/* Section Serba 10rb */}
-                    <Sec10rbCard/>
+                    <div className="box-serba10rb">
+                        <Slider {...settings} className="boxSlide">
+                        <BoxCard
+                                flxDirectWrapp={"column"}
+                                heightWrapp={"auto"}
+                                widthWrapp={"calc(96%)"}
+                                displayNavBtn={"none"}
+                                imgProduk={img}
+                                nama={"Makaroni Panggang"}
+                                price={"Rp. 10.000"}
+                                stock={"Stock (20)"}
+                                displayBtnBuy={"none"}
+                                bdrRadius={"10px"}
+                                fontNama={"10pt"}
+                                fontStock={"8pt"}
+                                mrginWrapp={"2px auto"}
+                                paddContent={"10px"}
+                                mrgnStock={"5px 0 0px 0"}
+                            />
+                            <BoxCard
+                                flxDirectWrapp={"column"}
+                                heightWrapp={"auto"}
+                                widthWrapp={"calc(96%)"}
+                                displayNavBtn={"none"}
+                                imgProduk={img}
+                                nama={"Makaroni Original"}
+                                price={"Rp. 10.000"}
+                                stock={"Stock (20)"}
+                                displayBtnBuy={"none"}
+                                bdrRadius={"10px"}
+                                fontNama={"10pt"}
+                                fontStock={"8pt"}
+                                mrginWrapp={"2px auto"}
+                                paddContent={"10px"}
+                                mrgnStock={"5px 0 0px 0"}
+                            />
+                            <BoxCard
+                                flxDirectWrapp={"column"}
+                                heightWrapp={"auto"}
+                                widthWrapp={"calc(96%)"}
+                                displayNavBtn={"none"}
+                                imgProduk={img}
+                                nama={"Makaroni Barbeque"}
+                                price={"Rp. 10.000"}
+                                stock={"Stock (20)"}
+                                displayBtnBuy={"none"}
+                                bdrRadius={"10px"}
+                                fontNama={"10pt"}
+                                fontStock={"8pt"}
+                                mrginWrapp={"2px auto"}
+                                paddContent={"10px"}
+                                mrgnStock={"5px 0 0px 0"}
+                            />
+                            <BoxCard
+                                flxDirectWrapp={"column"}
+                                heightWrapp={"auto"}
+                                widthWrapp={"calc(96%)"}
+                                displayNavBtn={"none"}
+                                imgProduk={img}
+                                nama={"Makaroni Keju Mozarella"}
+                                price={"Rp. 10.000"}
+                                stock={"Stock (20)"}
+                                displayBtnBuy={"none"}
+                                bdrRadius={"10px"}
+                                fontNama={"10pt"}
+                                fontStock={"8pt"}
+                                mrginWrapp={"2px auto"}
+                                paddContent={"10px"}
+                                mrgnStock={"5px 0 0px 0"}
+                            />
+                        </Slider>
+                    </div>
                     {/* END Section Serba 10rb */}
+
+                    {/* Btn View */}
+                    {/* End Btn View */}
                 </section>
                 {/* END Section 3 */}
 
@@ -90,7 +200,7 @@ const PageBeranda = () => {
                     {/* END Judul */}
 
                     {/* Section Serba 15rb */}
-                    <Sec15rbCard/>
+                    
                     {/* END Section Serba 15rb */}
                 </section>
                 {/* END Section 4 */}

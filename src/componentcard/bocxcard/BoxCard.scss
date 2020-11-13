@@ -1,0 +1,54 @@
+@import '../../util/variable/variable.scss';
+
+.wrapp-boxCard{
+    display: flex;
+    height: auto;
+    background-color: $colorSatu;
+    box-shadow: 0 2px 4px -1px rgba(0,0,0,0.1);
+
+    .nav-btn-produk{
+        position: absolute;
+        height: auto;
+        width: auto;
+    }
+
+    .img-produk{
+        display: flex;
+        height: auto;
+        width: 100%;
+    }
+
+    .box-content-produk{
+        display: flex;
+        flex-direction: column;
+        height: auto;
+        width: 100%;
+        padding: 5px 10px;
+
+        // name Group
+        .nameGroup{
+            display: flex;
+            text-align: start;
+            color: #555;
+        }
+        // end name Group
+
+        // price Group
+        .priceGroup{
+            display: flex;
+            color: $colorSepuluh;
+            font-weight: 500;
+            text-align: start;
+        }
+        // end price Group
+
+        // box Buy
+        .btn-buy-produk{
+            height: auto;
+            width: 100%;
+            background-color: $colorTiga;
+            text-decoration: none;
+        }
+        // end Box Buy
+    }
+}

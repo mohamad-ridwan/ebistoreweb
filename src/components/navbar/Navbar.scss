@@ -3,7 +3,7 @@
 .navbar{
     display: flex;
     position: fixed;
-    height: 70px;
+    height: $heightNavHome;
     width: 100%;
     background: $colorTiga;
     box-shadow: $boxShdwNavPage;
