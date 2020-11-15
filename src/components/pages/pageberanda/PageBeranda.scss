@@ -104,14 +104,23 @@
     // end carousel semua harga
 
     // section3
-    .section-3-pageBeranda{
-        .box-serba10rb{
+    // .section-3-pageBeranda{
+    // }
+    // section3
+
+    // Section 2 - 5
+    #secGroup{
+        display: flex;
+        flex-direction: column;
+        height: auto;
+
+        .box-group{
             display: flex;
             height: auto;
             width: 100%;
             background-color: $colorDuabelas;
             justify-content: center;
-            padding: 20px 10px 18px 10px;
+            padding: 8px 10px 8px 10px;
 
             .boxSlide{
                 display: flex;
@@ -120,14 +129,6 @@
                 align-items: baseline;
             }
         }
-    }
-    // section3
-
-    // Section 2 - 5
-    #secGroup{
-        display: flex;
-        flex-direction: column;
-        height: auto;
     }
     // END Section 2 - 5
 }

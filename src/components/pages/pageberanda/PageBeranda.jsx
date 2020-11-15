@@ -19,8 +19,8 @@ const PageBeranda = () => {
         autoplay: true,
         infinite: true,
         slidesToShow: 2,
-        slidesToScroll: 1,
-        speed: 600
+        slidesToScroll: 2,
+        speed: 400
     }
 
     return (
@@ -72,49 +72,215 @@ const PageBeranda = () => {
                 <section className="section-2-pageBeranda" id="secGroup">
                     {/* Judul */}
                         <JudulCard
-                        txtJudul={"Dengan Semua Harga"}
+                        txtJudul={"Semua Harga"}
                      />
                     {/* END Judul */}
 
-                    {/* semua harga */}
-                    <div id="carouselExampleIndicators" className="carousel slide" data-ride="carousel">
-                        <ol className="carousel-indicators">
-                            <li data-target="#carouselExampleIndicators" data-slide-to={0} className="active" />
-                            <li data-target="#carouselExampleIndicators" data-slide-to={1} />
-                            <li data-target="#carouselExampleIndicators" data-slide-to={2} />
-                        </ol>
-                        <div className="carousel-inner">
-                            <div className="carousel-item active">
-
-                            </div>
-                            <div className="carousel-item">
-
-                            </div>
-                            <div className="carousel-item">
-
-                            </div>
-                        </div>
-                        <a className="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-                            <span className="carousel-control-prev-icon" aria-hidden="true" />
-                            <span className="sr-only">Previous</span>
-                        </a>
-                        <a className="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-                            <span className="carousel-control-next-icon" aria-hidden="true" />
-                            <span className="sr-only">Next</span>
-                        </a>
+                    {/* Section Semua Harga */}
+                    <div className="box-group">
+                        <Slider {...settings} className="boxSlide">
+                        <BoxCard
+                                flxDirectWrapp={"column"}
+                                heightWrapp={"auto"}
+                                widthWrapp={"calc(96%)"}
+                                displayNavBtn={"none"}
+                                imgProduk={img}
+                                nama={"Makaroni Panggang"}
+                                price={"Rp. 2.000"}
+                                stock={"Stock (20)"}
+                                displayBtnBuy={"none"}
+                                bdrRadius={"10px"}
+                                fontNama={"10pt"}
+                                fontStock={"8pt"}
+                                mrginWrapp={"2px auto"}
+                                paddContent={"10px"}
+                                mrgnStock={"5px 0 0px 0"}
+                            />
+                            <BoxCard
+                                flxDirectWrapp={"column"}
+                                heightWrapp={"auto"}
+                                widthWrapp={"calc(96%)"}
+                                displayNavBtn={"none"}
+                                imgProduk={img}
+                                nama={"Makaroni Original"}
+                                price={"Rp. 3.000"}
+                                stock={"Stock (20)"}
+                                displayBtnBuy={"none"}
+                                bdrRadius={"10px"}
+                                fontNama={"10pt"}
+                                fontStock={"8pt"}
+                                mrginWrapp={"2px auto"}
+                                paddContent={"10px"}
+                                mrgnStock={"5px 0 0px 0"}
+                            />
+                            <BoxCard
+                                flxDirectWrapp={"column"}
+                                heightWrapp={"auto"}
+                                widthWrapp={"calc(96%)"}
+                                displayNavBtn={"none"}
+                                imgProduk={img}
+                                nama={"Makaroni Barbeque"}
+                                price={"Rp. 5.000"}
+                                stock={"Stock (20)"}
+                                displayBtnBuy={"none"}
+                                bdrRadius={"10px"}
+                                fontNama={"10pt"}
+                                fontStock={"8pt"}
+                                mrginWrapp={"2px auto"}
+                                paddContent={"10px"}
+                                mrgnStock={"5px 0 0px 0"}
+                            />
+                            <BoxCard
+                                flxDirectWrapp={"column"}
+                                heightWrapp={"auto"}
+                                widthWrapp={"calc(96%)"}
+                                displayNavBtn={"none"}
+                                imgProduk={img}
+                                nama={"Makaroni Keju Mozarella"}
+                                price={"Rp. 7.000"}
+                                stock={"Stock (20)"}
+                                displayBtnBuy={"none"}
+                                bdrRadius={"10px"}
+                                fontNama={"10pt"}
+                                fontStock={"8pt"}
+                                mrginWrapp={"2px auto"}
+                                paddContent={"10px"}
+                                mrgnStock={"5px 0 0px 0"}
+                            />
+                            <BoxCard
+                                flxDirectWrapp={"column"}
+                                heightWrapp={"auto"}
+                                widthWrapp={"calc(96%)"}
+                                displayNavBtn={"none"}
+                                imgProduk={img}
+                                nama={"Makaroni Jagung Bakar"}
+                                price={"Rp. 17.000"}
+                                stock={"Stock (20)"}
+                                displayBtnBuy={"none"}
+                                bdrRadius={"10px"}
+                                fontNama={"10pt"}
+                                fontStock={"8pt"}
+                                mrginWrapp={"2px auto"}
+                                paddContent={"10px"}
+                                mrgnStock={"5px 0 0px 0"}
+                            />
+                            <BoxCard
+                                flxDirectWrapp={"column"}
+                                heightWrapp={"auto"}
+                                widthWrapp={"calc(96%)"}
+                                displayNavBtn={"none"}
+                                imgProduk={img}
+                                nama={"Makaroni Rumput Laut"}
+                                price={"Rp. 13.000"}
+                                stock={"Stock (20)"}
+                                displayBtnBuy={"none"}
+                                bdrRadius={"10px"}
+                                fontNama={"10pt"}
+                                fontStock={"8pt"}
+                                mrginWrapp={"2px auto"}
+                                paddContent={"10px"}
+                                mrgnStock={"5px 0 0px 0"}
+                            />
+                        </Slider>
                     </div>
-                    {/* end semua harga */}
+                    {/* END Section Semua Harga */}
                 </section>
                 {/* END Section 2 */}
 
                 {/* Section 3 */}
                 <section className="section-3-pageBeranda" id="secGroup">
                     {/* Judul */}
+                    <JudulCard txtJudul="Serba 5rb" />
+                    {/* END Judul */}
+
+                    {/* Section Serba 5rb */}
+                    <div className="box-group">
+                        <Slider {...settings} className="boxSlide">
+                        <BoxCard
+                                flxDirectWrapp={"column"}
+                                heightWrapp={"auto"}
+                                widthWrapp={"calc(96%)"}
+                                displayNavBtn={"none"}
+                                imgProduk={img}
+                                nama={"Makaroni Panggang"}
+                                price={"Rp. 5.000"}
+                                stock={"Stock (20)"}
+                                displayBtnBuy={"none"}
+                                bdrRadius={"10px"}
+                                fontNama={"10pt"}
+                                fontStock={"8pt"}
+                                mrginWrapp={"2px auto"}
+                                paddContent={"10px"}
+                                mrgnStock={"5px 0 0px 0"}
+                            />
+                            <BoxCard
+                                flxDirectWrapp={"column"}
+                                heightWrapp={"auto"}
+                                widthWrapp={"calc(96%)"}
+                                displayNavBtn={"none"}
+                                imgProduk={img}
+                                nama={"Makaroni Original"}
+                                price={"Rp. 5.000"}
+                                stock={"Stock (20)"}
+                                displayBtnBuy={"none"}
+                                bdrRadius={"10px"}
+                                fontNama={"10pt"}
+                                fontStock={"8pt"}
+                                mrginWrapp={"2px auto"}
+                                paddContent={"10px"}
+                                mrgnStock={"5px 0 0px 0"}
+                            />
+                            <BoxCard
+                                flxDirectWrapp={"column"}
+                                heightWrapp={"auto"}
+                                widthWrapp={"calc(96%)"}
+                                displayNavBtn={"none"}
+                                imgProduk={img}
+                                nama={"Makaroni Barbeque"}
+                                price={"Rp. 5.000"}
+                                stock={"Stock (20)"}
+                                displayBtnBuy={"none"}
+                                bdrRadius={"10px"}
+                                fontNama={"10pt"}
+                                fontStock={"8pt"}
+                                mrginWrapp={"2px auto"}
+                                paddContent={"10px"}
+                                mrgnStock={"5px 0 0px 0"}
+                            />
+                            <BoxCard
+                                flxDirectWrapp={"column"}
+                                heightWrapp={"auto"}
+                                widthWrapp={"calc(96%)"}
+                                displayNavBtn={"none"}
+                                imgProduk={img}
+                                nama={"Makaroni Keju Mozarella"}
+                                price={"Rp. 5.000"}
+                                stock={"Stock (20)"}
+                                displayBtnBuy={"none"}
+                                bdrRadius={"10px"}
+                                fontNama={"10pt"}
+                                fontStock={"8pt"}
+                                mrginWrapp={"2px auto"}
+                                paddContent={"10px"}
+                                mrgnStock={"5px 0 0px 0"}
+                            />
+                        </Slider>
+                    </div>
+                    {/* END Section Serba 5rb */}
+
+                    {/* Btn View */}
+                    {/* End Btn View */}
+                </section>
+                {/* END Section 3 */}
+
+                {/* Section 4 */}
+                <section className="section-4-pageBeranda" id="secGroup">
+                    {/* Judul */}
                     <JudulCard txtJudul="Serba 10rb" />
                     {/* END Judul */}
 
                     {/* Section Serba 10rb */}
-                    <div className="box-serba10rb">
+                    <div className="box-group">
                         <Slider {...settings} className="boxSlide">
                         <BoxCard
                                 flxDirectWrapp={"column"}
@@ -187,31 +353,99 @@ const PageBeranda = () => {
                         </Slider>
                     </div>
                     {/* END Section Serba 10rb */}
-
-                    {/* Btn View */}
-                    {/* End Btn View */}
-                </section>
-                {/* END Section 3 */}
-
-                {/* Section 4 */}
-                <section className="section-4-pageBeranda" id="secGroup">
-                    {/* Judul */}
-                    <JudulCard txtJudul="Serba 15rb" />
-                    {/* END Judul */}
-
-                    {/* Section Serba 15rb */}
-                    
-                    {/* END Section Serba 15rb */}
                 </section>
                 {/* END Section 4 */}
 
                 {/* Section 5 */}
                 <div className="section-5-pageBeranda" id="secGroup">
                     {/* Judul */}
-                    <JudulCard txtJudul="Promo Akhir Pekan" />
+                    <JudulCard txtJudul={"Serba 15rb"} />
                     {/* END Judul */}
+                    
+                    {/* Section Serba 15rb */}
+                    <div className="box-group">
+                        <Slider {...settings} className="boxSlide">
+                        <BoxCard
+                                flxDirectWrapp={"column"}
+                                heightWrapp={"auto"}
+                                widthWrapp={"calc(96%)"}
+                                displayNavBtn={"none"}
+                                imgProduk={img}
+                                nama={"Makaroni Panggang"}
+                                price={"Rp. 15.000"}
+                                stock={"Stock (20)"}
+                                displayBtnBuy={"none"}
+                                bdrRadius={"10px"}
+                                fontNama={"10pt"}
+                                fontStock={"8pt"}
+                                mrginWrapp={"2px auto"}
+                                paddContent={"10px"}
+                                mrgnStock={"5px 0 0px 0"}
+                            />
+                            <BoxCard
+                                flxDirectWrapp={"column"}
+                                heightWrapp={"auto"}
+                                widthWrapp={"calc(96%)"}
+                                displayNavBtn={"none"}
+                                imgProduk={img}
+                                nama={"Makaroni Original"}
+                                price={"Rp. 15.000"}
+                                stock={"Stock (20)"}
+                                displayBtnBuy={"none"}
+                                bdrRadius={"10px"}
+                                fontNama={"10pt"}
+                                fontStock={"8pt"}
+                                mrginWrapp={"2px auto"}
+                                paddContent={"10px"}
+                                mrgnStock={"5px 0 0px 0"}
+                            />
+                            <BoxCard
+                                flxDirectWrapp={"column"}
+                                heightWrapp={"auto"}
+                                widthWrapp={"calc(96%)"}
+                                displayNavBtn={"none"}
+                                imgProduk={img}
+                                nama={"Makaroni Barbeque"}
+                                price={"Rp. 15.000"}
+                                stock={"Stock (20)"}
+                                displayBtnBuy={"none"}
+                                bdrRadius={"10px"}
+                                fontNama={"10pt"}
+                                fontStock={"8pt"}
+                                mrginWrapp={"2px auto"}
+                                paddContent={"10px"}
+                                mrgnStock={"5px 0 0px 0"}
+                            />
+                            <BoxCard
+                                flxDirectWrapp={"column"}
+                                heightWrapp={"auto"}
+                                widthWrapp={"calc(96%)"}
+                                displayNavBtn={"none"}
+                                imgProduk={img}
+                                nama={"Makaroni Keju Mozarella"}
+                                price={"Rp. 15.000"}
+                                stock={"Stock (20)"}
+                                displayBtnBuy={"none"}
+                                bdrRadius={"10px"}
+                                fontNama={"10pt"}
+                                fontStock={"8pt"}
+                                mrginWrapp={"2px auto"}
+                                paddContent={"10px"}
+                                mrgnStock={"5px 0 0px 0"}
+                            />
+                        </Slider>
+                    </div>
+                    {/* END Section Serba 15rb */}
                 </div>
                 {/* END Section 5 */}
+
+                {/* Section 6 */}
+                <div className="section-6-pageBeranda" id="secGroup">
+                    {/* Judul */}
+                    <JudulCard txtJudul={"Promo Akhir Pekan"} />
+                    {/* END Judul */}
+                </div>
+                {/* END Section 6 */}
             </div>
         </>
     )
