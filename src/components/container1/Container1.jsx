@@ -12,6 +12,10 @@ import HelmetPageBeranda from '../pages/pageberanda/helmetpageberanda/HelmetPage
 import PageBeranda from '../pages/pageberanda/PageBeranda';
 import HelmetPageNotifikasi from '../pages/pagenotifikasi/helmetpagenotifikasi/HelmetPageNotifikasi';
 import BtnNotifPromo from '../btnnotifpromo/BtnNotifPromo';
+import PageProfil from '../pages/pageprofil/PageProfil';
+import HelmetPageProfil from '../pages/pageprofil/helmetpageprofil/HelmetPageProfil';
+import PageAlamat from '../pages/pagealamat/PageAlamat';
+import HelmetPageAlamat from '../pages/pagealamat/helmetpagealamat/HelmetPageAlamat';
 
 const Container1 = () => {
     return (
@@ -21,6 +25,22 @@ const Container1 = () => {
                 <>
                     <Router>
                         <Switch>
+
+                            {/* page alamat*/}
+                            <Route path='/pagealamat'>
+                                <PageAlamat/>
+
+                                <HelmetPageAlamat/>
+                            </Route>
+                            {/* end page alamat */}
+
+                            {/* Page Profil */}
+                            <Route path='/pageprofil'>
+                                <PageProfil/>
+
+                                <HelmetPageProfil/>                
+                            </Route>
+                            {/* END Page Profil */}
 
                             {/* For Page Notifikasi */}
                             <Route path='/pagenotifikasi'>

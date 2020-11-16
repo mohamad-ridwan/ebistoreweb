@@ -57,7 +57,7 @@ const Navbar = () => {
                 {/* Row2 */}
                 <div className="row2-navbar">
                     {/* Link Img Profile */}
-                    <Link to='/' className="circ-img-profile-navbar">
+                    <Link to='/pageprofil' className="circ-img-profile-navbar">
                         <img src={avatarNew} className="img-profile-navbar" alt="" />
                     </Link>
                     {/* END Link Img Profile */}
