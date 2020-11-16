@@ -8,7 +8,7 @@ const BtnCard = ({
     heightBtn,
     widthBtn,
     marginBtn,
-    paddName
+    paddName,
 })=>{
     return(
         <>

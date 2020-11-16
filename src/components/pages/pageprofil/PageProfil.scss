@@ -13,6 +13,27 @@
         background-color: $colorSatu;
         margin-top: 10px;
     }
+
+    .box-alamat{
+        display: flex;
+        flex-direction: column;
+        height: auto;
+        width: 100%;
+        text-align: start;
+        padding: 10px 10px 0 10px;
+
+        .title-alamat{
+            display: flex;
+            font-size: 13pt;
+            font-weight: 500;
+        }
+
+        .txt-alamat{
+            display: flex;
+            font-size: 11pt;
+            margin-top: 10px;
+        }
+    }
     
     .box-input-alamat{
         display: flex;
@@ -21,7 +42,7 @@
         width: 100%;
         justify-content: start;
         text-align: start;
-        padding: 20px 10px;
+        padding: 20px 0px;
 
         .deskripsi{
             display: flex;
