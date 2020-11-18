@@ -6,7 +6,7 @@ const HelmetDetailProduk = ()=>{
         <>
         <Helmet>
             <title>Detail Produk | Ebi Store</title>
-            <meta name="description" content="halaman detail produk" />
+            <meta name="description" content="halaman detail produk"/>
         </Helmet>
         </>
     )

@@ -53,11 +53,6 @@
                     font-family: $fontFmNvbr;
                     color: $colorSatu;
                     margin: 11px 0 0 0;
-
-                    &::after{
-                        content: '.com';
-                        color: $colorDua;
-                    }
                 }
                 // END Txt2
             }

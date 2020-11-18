@@ -16,8 +16,12 @@ import PageProfil from '../pages/pageprofil/PageProfil';
 import HelmetPageProfil from '../pages/pageprofil/helmetpageprofil/HelmetPageProfil';
 import PageAlamat from '../pages/pagealamat/PageAlamat';
 import HelmetPageAlamat from '../pages/pagealamat/helmetpagealamat/HelmetPageAlamat';
-import HelmetDetailProduk from '../pages/detailproduk/helmetdetailproduk/HelmetDetailProduk';
+import SemuaProduk from '../pages/semuaproduk/SemuaProduk';
+import HelmetSemuaProduk from '../pages/semuaproduk/helmetsemuaproduk/HelmetSemuaProduk';
 import DetailProduk from '../pages/detailproduk/DetailProduk';
+import HelmetDetailProduk from '../pages/detailproduk/helmetdetailproduk/HelmetDetailProduk';
+import HelmetTransaksi from '../pages/transaksi/helmettransaksi/HelmetTransaksi';
+import Transaksi from '../pages/transaksi/Transaksi';
 
 const Container1 = () => {
     return (
@@ -28,13 +32,30 @@ const Container1 = () => {
                     <Router>
                         <Switch>
 
-                            {/* page detail produk */}
+                            {/* Transaksi */}
+                            <Route path='/transaksi'>
+                                <Transaksi/>
+
+                                <HelmetTransaksi/>
+                            </Route>
+                            
+                            {/* end Transaksi */}
+
+                            {/* detail produk */}
                             <Route path='/detailproduk'>
                                 <DetailProduk/>
 
                                 <HelmetDetailProduk/>
                             </Route>
-                            {/* end page detail produk */}
+                            {/* end detail produk */}
+
+                            {/* page semua produk */}
+                            <Route path='/semuaproduk'>
+                                <SemuaProduk/>
+
+                                <HelmetSemuaProduk/>
+                            </Route>
+                            {/* end page semua produk */}
 
                             {/* page alamat*/}
                             <Route path='/pagealamat'>

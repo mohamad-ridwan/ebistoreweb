@@ -180,7 +180,7 @@ const PageBeranda = () => {
                         widthBtn={'auto'}
                         btnName={'Lihat Semua'}
                         marginBtn={'10px 0 0 0'}
-                        link={'/'}
+                        link={'/detailproduk'}
                         />
                     </div>
                     {/* END Section Semua Harga */}
@@ -228,7 +228,7 @@ const PageBeranda = () => {
                         widthBtn={'auto'}
                         btnName={'Lihat Semua'}
                         marginBtn={'10px 0 0 0'}
-                        link={'/detailproduk'}
+                        link={'/semuaproduk'}
                         />
                     </div>
                     {/* END Section Serba 5rb */}

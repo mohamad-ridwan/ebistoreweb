@@ -1,0 +1,114 @@
+@import '../../../util/variable/variable.scss';
+
+.wrapp-transaksi{
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    width: 100%;
+    padding: 10px 20px;
+    margin-top: 55px;
+    text-align: start;
+
+    .img-produk{
+        display: flex;
+        height: 150px;
+        width: 150px;
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0 2px 6px -1px rgba(0,0,0,0.2);
+        object-fit: cover;
+        object-position: center;
+        margin-bottom: 10px;
+    }
+
+    // margin group
+    .margGroup{
+        margin-top: 5px;
+    }
+    // end margin group
+
+    .label-produk{
+        display: flex;
+        font-size: 10pt;
+        font-weight: bold;
+        color: $colorSepuluh;
+    }
+
+    .name-produk{
+        display: flex;
+        font-size: 12pt;
+    }
+
+    .price-produk{
+        display: flex;
+        font-size: 14pt;
+        font-weight: bold;
+        color: $colorSepuluh;
+    }
+
+    // box total beli
+    .box-total-beli{
+        display: flex;
+        height: auto;
+        width: 100%;
+        justify-content: flex-end;
+        align-items: center;
+        margin-top: 10px;
+
+        .total-dibeli{
+            display: flex;
+            font-size: 10pt;
+            margin: 0 10px 0 0;
+        }
+
+        .input-total{
+            display: flex;
+            height: auto;
+            width: auto;
+            position: relative;
+
+            // btn group
+            .btnGroup{
+                display: flex;
+                position: absolute;
+                height: 20px;
+                width: 20px;
+                background-color: $colorTiga;
+                justify-content: center;
+                align-items: center;
+                border: none;
+                outline: none;
+                border-radius: 5px;
+                box-shadow: 0 2px 4px -1px rgba(0,0,0,0.5);
+            }
+            // end btn group
+
+            .btn-mines{
+                display: flex;
+                left: 0;
+            }
+
+            .btn-plus{
+                display: flex;
+                right: 0;
+            }
+
+            .btnGroup{
+                display: flex;
+                font-size: 9pt;
+                color: #fff;
+            }
+
+            .input-angka{
+                display: flex;
+                height: 20px;
+                width: 80px;
+                border: none;
+                outline: none;
+                text-align: center;
+                border-radius: 5px;
+            }
+        }
+    }
+    // end box total belu
+}

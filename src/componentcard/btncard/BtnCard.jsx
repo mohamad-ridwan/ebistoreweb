@@ -9,6 +9,11 @@ const BtnCard = ({
     widthBtn,
     marginBtn,
     paddName,
+    positionBtn,
+    topBtn,
+    leftBtn,
+    rightBtn,
+    bottomBtn
 })=>{
     return(
         <>
@@ -16,6 +21,11 @@ const BtnCard = ({
             height: `${heightBtn}`,
             width : `${widthBtn}`,
             margin: `${marginBtn}`,
+            position: `${positionBtn}`,
+            top: `${topBtn}`,
+            left: `${leftBtn}`,
+            right: `${rightBtn}`,
+            bottom: `${bottomBtn}`
         }}>
            <p className="paragraph" style={{
                padding: `${paddName}`

@@ -13,10 +13,12 @@
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-helmet": "^6.1.0",
+    "react-img-carousel": "^1.7.0",
     "react-media": "^1.10.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.3",
     "react-slick": "^0.27.13",
+    "react-swipe": "^6.0.4",
     "slick-carousel": "^1.8.1",
     "styled-jsx": "^3.3.0"
   },

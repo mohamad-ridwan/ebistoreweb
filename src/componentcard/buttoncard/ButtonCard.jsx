@@ -16,7 +16,9 @@ const ButtonCard = ({
     ftSize,
     color,
     fWeight,
-    txtBtn}) => {
+    txtBtn,
+    positionBtn
+}) => {
     return (
         <>
             <Link to={page} className="button-card" style={{
@@ -35,6 +37,7 @@ const ButtonCard = ({
                 color: `${color}`,
                 fontWeight: `${fWeight}`,
                 textDecoration: 'none',
+                position: `${positionBtn}`
             }}>{txtBtn}</Link>
         </>
     )
