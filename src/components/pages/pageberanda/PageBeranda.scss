@@ -6,7 +6,7 @@
     flex-direction: column;
     height: auto;
     width: 100%;
-    margin: 70px 0 55px 0;
+    margin: 70px 0 80px 0;
 
     // Section1
     .section-1-pageBeranda{
@@ -116,5 +116,37 @@
         }
     }
     // END Section 2 - 5
+
+    // container promo akhir pekan
+    .container-promo{
+        display: flex;
+        position: relative;
+        height: auto;
+        width: 100%;
+        background-image: linear-gradient(180deg, rgba(0, 0, 0, 0.829) -15%, rgba(255, 255, 255, 0.144));
+
+        .img-promo{
+            display: flex;
+            height: auto;
+            width: 100%;
+            object-fit: cover;
+            object-position: center;
+            z-index: -1;
+        }
+
+        .time-promo{
+            display: flex;
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            font-size: 15pt;
+            text-shadow: 2px 2px rgba(255, 255, 255, 0.144);
+            font-weight: bold;
+            color: #fff;
+            padding: 5px;
+            text-align: start;
+        }
+    }
+    // end container promo akhir pekan
 }
 // END Wrapper

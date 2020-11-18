@@ -7,6 +7,7 @@ import BoxCard from '../../../componentcard/bocxcard/BoxCard'
 import BtnCard from '../../../componentcard/btncard/BtnCard'
 import JudulCard from '../../../componentcard/judulcard/JudulCard'
 import img from '../../../img/satu.jpeg'
+import imgPromo from '../../../img/promo.jpg'
 import './PageBeranda.scss'
 
 const PageBeranda = () => {
@@ -339,6 +340,18 @@ const PageBeranda = () => {
                     {/* Judul */}
                     <JudulCard txtJudul={"Promo Akhir Pekan"} />
                     {/* END Judul */}
+
+                    {/* container promo akhir pekan */}
+                    <div className="container-promo">
+                        <img src={imgPromo} alt="" className="img-promo"/>
+
+                        <p className="time-promo">
+                            Berakhir Pada :
+                            <br/>
+                            Jam: 08.00 Detik: 05
+                        </p>
+                    </div>
+                    {/* end container promo akhir pekan */}
                 </div>
                 {/* END Section 6 */}
             </div>

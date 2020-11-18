@@ -1,0 +1,31 @@
+{
+  "files": {
+    "main.css": "/static/css/main.ccf035c0.chunk.css",
+    "main.js": "/static/js/main.9a70020b.chunk.js",
+    "main.js.map": "/static/js/main.9a70020b.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.63b3f9b6.js",
+    "runtime-main.js.map": "/static/js/runtime-main.63b3f9b6.js.map",
+    "static/js/2.575046c2.chunk.js": "/static/js/2.575046c2.chunk.js",
+    "static/js/2.575046c2.chunk.js.map": "/static/js/2.575046c2.chunk.js.map",
+    "index.html": "/index.html",
+    "precache-manifest.c1a913220dacddae7397f1b8fefc36b3.js": "/precache-manifest.c1a913220dacddae7397f1b8fefc36b3.js",
+    "service-worker.js": "/service-worker.js",
+    "static/css/main.ccf035c0.chunk.css.map": "/static/css/main.ccf035c0.chunk.css.map",
+    "static/js/2.575046c2.chunk.js.LICENSE.txt": "/static/js/2.575046c2.chunk.js.LICENSE.txt",
+    "static/media/avatarnew.jpg": "/static/media/avatarnew.ae4fc4e8.jpg",
+    "static/media/heart.svg": "/static/media/heart.86acfc45.svg",
+    "static/media/homestore.svg": "/static/media/homestore.6f065403.svg",
+    "static/media/logo.svg": "/static/media/logo.ee7cd8ed.svg",
+    "static/media/macaroni.svg": "/static/media/macaroni.e541ae08.svg",
+    "static/media/picnic.svg": "/static/media/picnic.09859c6c.svg",
+    "static/media/promo.jpg": "/static/media/promo.2dc5e86a.jpg",
+    "static/media/satu.jpeg": "/static/media/satu.9176ea22.jpeg",
+    "static/media/sleeping.svg": "/static/media/sleeping.f4cfa0b0.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.63b3f9b6.js",
+    "static/js/2.575046c2.chunk.js",
+    "static/css/main.ccf035c0.chunk.css",
+    "static/js/main.9a70020b.chunk.js"
+  ]
+}
