@@ -16,6 +16,8 @@ import PageProfil from '../pages/pageprofil/PageProfil';
 import HelmetPageProfil from '../pages/pageprofil/helmetpageprofil/HelmetPageProfil';
 import PageAlamat from '../pages/pagealamat/PageAlamat';
 import HelmetPageAlamat from '../pages/pagealamat/helmetpagealamat/HelmetPageAlamat';
+import HelmetDetailProduk from '../pages/detailproduk/helmetdetailproduk/HelmetDetailProduk';
+import DetailProduk from '../pages/detailproduk/DetailProduk';
 
 const Container1 = () => {
     return (
@@ -25,6 +27,14 @@ const Container1 = () => {
                 <>
                     <Router>
                         <Switch>
+
+                            {/* page detail produk */}
+                            <Route path='/detailproduk'>
+                                <DetailProduk/>
+
+                                <HelmetDetailProduk/>
+                            </Route>
+                            {/* end page detail produk */}
 
                             {/* page alamat*/}
                             <Route path='/pagealamat'>

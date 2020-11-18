@@ -93,21 +93,6 @@
     }
     // END Section1
 
-    // carousel semua harga
-    .carousel{
-        display: flex;
-        height: 300px;
-        width: 100%;
-        background: #888;
-        padding: 0 10px;
-    }
-    // end carousel semua harga
-
-    // section3
-    // .section-3-pageBeranda{
-    // }
-    // section3
-
     // Section 2 - 5
     #secGroup{
         display: flex;
@@ -116,9 +101,9 @@
 
         .box-group{
             display: flex;
+            flex-direction: column;
             height: auto;
             width: 100%;
-            background-color: $colorDuabelas;
             justify-content: center;
             padding: 8px 10px 8px 10px;
 

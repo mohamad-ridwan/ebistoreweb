@@ -23,7 +23,9 @@ const BoxCard=({
     fontNama,
     fontStock,
     paddContent,
-    mrgnStock
+    mrgnStock,
+    label,
+    fontLabel
 })=>{
     return(
         <>
@@ -50,8 +52,14 @@ const BoxCard=({
             <div className="box-content-produk" style={{
                 padding: `${paddContent}`
             }}>
+                <p className="label-produk priceGroup" style={{
+                    fontSize: `${fontLabel}`
+                }}>
+                    {label}
+                </p>
                 <p className="name-produk nameGroup" style={{
                     fontSize: `${fontNama}`,
+                    margin: `${mrgnStock}`,
                 }}>
                     {nama}
                 </p>
