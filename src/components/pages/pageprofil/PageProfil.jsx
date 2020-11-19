@@ -1,25 +1,49 @@
 import Axios from 'axios'
+import { useStoreActions, useStoreState } from 'easy-peasy'
 import React, { useEffect } from 'react'
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
+import Alamat from '../../../componentcard/alamat/Alamat'
 import BtnCard from '../../../componentcard/btncard/BtnCard'
 import NavbarPageCard from '../../../componentcard/navbarpagecard/NavbarPageCard'
 import './PageProfil.scss'
 
 const PageProfil =()=>{
 
-    const [dataAlamat, setDataAlamat] = useState([])
+    const [alamat, setAlamat] = useState([]);
 
-    useEffect(()=>{
-        Axios.get('http://localhost:3004/alamat')
+    const getPostAPI = ()=>{
+        Axios.get('http://localhost:62542/v5/dataalamat/getalamat')
         .then(result=>{
             const resAPI = result.data
-            
-            setDataAlamat(resAPI)
+
+            setAlamat(resAPI.dataAlamat)
         })
         .catch(err=>{
-            console.log('error:', err)
+            console.log('data failed in get', err)
         })
+    }
+
+    // delete post alamat
+    let handleRemove = (data)=>{
+        Axios.delete(`http://localhost:62542/v5/dataalamat/postalamat/${data}`)
+        .then(result=>{
+            setAlamat(result)
+            // For real time database
+            // Call again get api for repeat return
+            getPostAPI();
+        })
+        .catch(err=>{
+            console.log('failed to delete', err)
+        })
+    }
+    // end delete post alamat
+
+    const addTodo = useStoreActions((actions)=> actions.addTodo);
+    const [value, setValue] = React.useState();
+
+    useEffect(()=>{
+        getPostAPI();
     }, [])
 
     return(
@@ -40,18 +64,17 @@ const PageProfil =()=>{
                     Alamat Kamu :
                 </p>
 
-                {dataAlamat && dataAlamat.length > 0
-                ? dataAlamat.map(e=>{
+                {alamat && alamat.length > 0
+                ? alamat.map(e=>{
                     return(
-                        <p className="txt-alamat"
-                            key={e.id}
-                            >
-                            {e.jalan}, {e.desa},
-                            <br/>
-                            {e.kecamatan}, {e.kota},
-                            <br/>
-                            {e.provinsi}, {e.kodePos}
-                        </p>
+                        <>
+                        <Alamat
+                        data={e}
+                        remove={handleRemove}
+                        update={addTodo(value)}
+                        />
+                  
+                        </>
                     )
                 }): (
                     <>
@@ -59,7 +82,7 @@ const PageProfil =()=>{
                         <p className="deskripsi">
                             Kamu belum mengisi alamat kamu,
                             <br/>
-                            Silahkan isi alamat kamu untuk mempermudah belanja kamu
+                            Silahkan isi alamat kamu untuk mempermudah transaksi kamu
                         </p>
 
                         <BtnCard

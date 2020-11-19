@@ -19,6 +19,8 @@ const limaRibuRoutes = require('./src/routes/limaribu')
 const sepuluhRibuRoutes = require('./src/routes/sepuluhribu')
 // For API produk 15RB
 const limaBelasRibuRoutes = require('./src/routes/limabelasribu')
+// For Data Alamat
+const dataAlamatRoutes = require('./src/routes/alamat')
 // For API web fetchAPI
 const blogRoutes = require('./src/routes/blog');
 
@@ -64,8 +66,10 @@ server.use('/v2/makaroni', limaRibuRoutes)
 server.use('/v3/makaroni', sepuluhRibuRoutes)
 // For Endpoint 15RB
 server.use('/v4/makaroni', limaBelasRibuRoutes)
+// For Data ALamat
+server.use('/v5/dataalamat', dataAlamatRoutes)
 // For Endpoint web fetchAPI
-server.use('/v5/blog', blogRoutes);
+server.use('/v6/blog', blogRoutes);
 
 // handle middleware
 server.use((error, req, res, next)=>{

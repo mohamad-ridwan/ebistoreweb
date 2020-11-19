@@ -11,26 +11,8 @@
         height: auto;
         width: 100%;
         padding: 0px 10px;
-        margin-top: 20px;
+        margin-top: 70px;
         justify-content: start;
         text-align: start;
-
-        .labelGroup{
-            display: flex;
-            font-size: 12pt;
-            font-weight: 500;
-        }
-
-        .inputGroup{
-            display: flex;
-            height: 50px;
-            width: 100%;
-            border-radius: 8px;
-            border: none;
-            outline: none;
-            padding: 0 10px;
-            margin: 10px 0;
-            box-shadow: 0 1px 4px -1px rgba(0,0,0,0.1);
-        }
     }
 }
