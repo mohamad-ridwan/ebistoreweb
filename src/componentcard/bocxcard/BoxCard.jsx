@@ -2,92 +2,72 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import './BoxCard.scss'
 
-const BoxCard=({
-    flxDirectWrapp,
-    heightWrapp,
-    widthWrapp,
-    mrginWrapp,
-    bdrRadius,
-    displayNavBtn,
-    iconShare,
-    iconHeart,
-    iconBasket,
-    imgProduk,
-    nama,
-    price,
-    txtHargaNormal,
-    hargaNormal,
-    stock,
-    displayBtnBuy,
-    btnBuy,
-    fontNama,
-    fontStock,
-    paddContent,
-    mrgnStock,
-    label,
-    fontLabel
-})=>{
+const BoxCard=(props)=>{
     return(
         <>
-        <div className="wrapp-boxCard" style={{
-            flexDirection: `${flxDirectWrapp}`,
-            height: `${heightWrapp}`,
-            width: `${widthWrapp}`,
-            margin: `${mrginWrapp}`,
-            borderRadius: `${bdrRadius}`
-        }}>
+        <Link className="wrapp-boxCard" style={{
+            flexDirection: `${props.flxDirectWrapp}`,
+            height: `${props.heightWrapp}`,
+            width: `${props.widthWrapp}`,
+            margin: `${props.mrginWrapp}`,
+            borderRadius: `${props.bdrRadius}`,
+            textDecoration: 'none',
+            outline: 'none'
+        }}
+        onClick={()=>props.detail(props.data._id)}
+        >
             {/* Nav Button */}
             <div className="nav-btn-produk" style={{
-                display: `${displayNavBtn}`,
+                display: `${props.displayNavBtn}`,
             }}>
-                <i className={iconShare}></i>
-                <i className={iconHeart}></i>
-                <i className={iconBasket}></i>
+                <i className={props.iconShare}></i>
+                <i className={props.iconHeart}></i>
+                <i className={props.iconBasket}></i>
             </div>
             {/* end Nav Button */}
 
-            <img src={imgProduk} alt="" className="img-produk"/>
+            <img src={props.imgProduk} alt="" className="img-produk"/>
 
             {/* Box Content Produk */}
             <div className="box-content-produk" style={{
-                padding: `${paddContent}`
+                padding: `${props.paddContent}`
             }}>
                 <p className="label-produk priceGroup" style={{
-                    fontSize: `${fontLabel}`
+                    fontSize: `${props.fontLabel}`
                 }}>
-                    {label}
+                    {props.data.label}
                 </p>
                 <p className="name-produk nameGroup" style={{
-                    fontSize: `${fontNama}`,
-                    margin: `${mrgnStock}`,
+                    fontSize: `${props.fontNama}`,
+                    margin: `${props.mrgnStock}`,
                 }}>
-                    {nama}
+                    {props.data.name}
                 </p>
                 <p className="harga-produk priceGroup" style={{
-                    margin: `${mrgnStock}`,
+                    margin: `${props.mrgnStock}`,
                 }}>
-                    {price}
+                    Rp. {props.data.price}
                 </p>
                 <p className="txt-harga-normal nameGroup">
-                    {txtHargaNormal}
+                    {props.txtHargaNormal}
                 </p>
                 <p className="price-harga-normal priceGroup">
-                    {hargaNormal}
+                    {props.hargaNormal}
                 </p>
                 <p className="stock nameGroup" style={{
-                    fontSize: `${fontStock}`,
-                    margin: `${mrgnStock}`,
+                    fontSize: `${props.fontStock}`,
+                    margin: `${props.mrgnStock}`,
                 }}>
-                    {stock}
+                    Stock ({props.data.stock})
                 </p>
 
                 {/* box buy */}
                 <Link className="btn-buy-produk" style={{
-                    display: `${displayBtnBuy}`
-                }}>{btnBuy}</Link>
+                    display: `${props.displayBtnBuy}`
+                }}>{props.btnBuy}</Link>
             </div>
             {/* end Box Content Produk */}
-        </div>
+        </Link>
         </>
     )
 }

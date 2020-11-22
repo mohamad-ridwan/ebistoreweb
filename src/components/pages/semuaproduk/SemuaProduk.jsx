@@ -40,16 +40,12 @@ const SemuaProduk = ()=>{
                         ? semuaProduk.map(e=>{
                             return(
                                 <BoxCard
-                                key={e._id}
                                 flxDirectWrapp={"column"}
                                 heightWrapp={"auto"}
                                 widthWrapp={"calc(48%)"}
                                 displayNavBtn={"none"}
                                 imgProduk={img}
-                                label={e.label}
-                                nama={e.name}
-                                price={`Rp. ${e.price}`}
-                                stock={`Stock (${e.stock})`}
+                                data={e}
                                 displayBtnBuy={"none"}
                                 bdrRadius={"10px"}
                                 mrginWrapp={"5px 5px 10px 0"}

@@ -1,30 +1,65 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import NavbarPageCard from '../../../componentcard/navbarpagecard/NavbarPageCard'
 import './DetailProduk.scss'
 import Slider from 'react-slick'
 import imgProduk from '../../../img/satu.jpeg'
 import BtnCard from '../../../componentcard/btncard/BtnCard'
-import { Link } from 'react-router-dom'
+import { Link, matchPath, useHistory, useLocation, useParams, useRouteMatch, withRouter } from 'react-router-dom'
 import img from '../../../img/avatarnew.jpg'
+import Axios from 'axios'
+import { useState } from 'react'
+import { Component } from 'react'
 
-const DetailProduk = ()=>{
+class DetailProduk extends Component {
+
+    state = {
+        post : {
+            label : '',
+            name : '',
+            price : '',
+            stock: ''
+        }
+    }
 
     // carousel react-slick
-    const settings = {
+    settings = {
         slidesToShow: 1,
         slidesToScroll: 1,
         speed: 200
     }
 
+    componentDidMount(){
+        // dapatkan id dari id yang masuk
+        const id = this.props.match.params.id
+        Axios.get(`http://localhost:62542/v2/makaroni/getlimaribu/${id}`)
+        .then(result=>{
+            let post = result.data
+            // Agar bisa mendapatkan data yg masuk
+            // Ganti data yg masuk dengan data yg baru
+            this.setState({
+                post: {
+                    label : post.data.label,
+                    name : post.data.name,
+                    price: post.data.price,
+                    stock: post.data.stock
+                }
+            })
+        })
+        .catch(err=>{
+            console.log(err)
+        })
+    }
+
+    render(){
     return(
         <>
         <div className="wrapp-detail-produk">
             <NavbarPageCard
                 linkPage={'/'}
                 titlePageNav={'Detail Produk'}
-            />  
+            />
 
-            <Slider {...settings} className={'slider-img-produk'}>
+            <Slider {...this.settings} className={'slider-img-produk'}>
                 <img src={imgProduk} alt="" className="img-produk"/>
                 <img src={imgProduk} alt="" className="img-produk"/>
                 <img src={imgProduk} alt="" className="img-produk"/>
@@ -33,18 +68,18 @@ const DetailProduk = ()=>{
             {/* deskripsi produk */}
             <div className="deskripsi-produk">
                 <div className="rowKiri">
-                    <p className="label-produk labelGroup">
-                        Beli 2 Gratis 2
-                    </p>
-                    <p className="name-produk marginGroup">
-                        Makaroni Rumput Laut
-                    </p>
-                    <p className="price-produk marginGroup">
-                        Rp. 15.000
-                    </p>
-                    <p className="stock-produk labelGroup marginGroup">
-                        Stock (20)
-                    </p>
+                <p className="label-produk labelGroup">
+                    {this.state.post.label}
+                </p>
+                <p className="name-produk marginGroup">
+                    {this.state.post.name}
+                </p>
+                <p className="price-produk marginGroup">
+                    Rp. {this.state.post.price}
+                </p>
+                <p className="stock-produk labelGroup marginGroup">
+                    Stock ({this.state.post.stock})
+                </p>           
                 </div>
                 <div className="rowKanan">
                 <BtnCard
@@ -148,5 +183,6 @@ const DetailProduk = ()=>{
         </>
     )
 }
+}
 
-export default DetailProduk
+export default withRouter(DetailProduk)

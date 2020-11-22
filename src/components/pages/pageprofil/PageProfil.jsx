@@ -39,8 +39,8 @@ const PageProfil =()=>{
     }
     // end delete post alamat
 
-    const addTodo = useStoreActions((actions)=> actions.addTodo);
-    const [value, setValue] = React.useState();
+    // const addTodo = useStoreActions((actions)=> actions.addTodo);
+    // const [value, setValue] = React.useState();
 
     useEffect(()=>{
         getPostAPI();
@@ -71,9 +71,8 @@ const PageProfil =()=>{
                         <Alamat
                         data={e}
                         remove={handleRemove}
-                        update={addTodo(value)}
+                        // update={addTodo(value)}
                         />
-                  
                         </>
                     )
                 }): (

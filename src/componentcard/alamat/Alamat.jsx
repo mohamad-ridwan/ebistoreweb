@@ -16,7 +16,7 @@ const Alamat = (props)=>{
             {/* Box Edit and delete */}
             <div className="box-edit-and-delete">
                 <Link to='/pagealamat' className="btnEdit btnGroup"
-                onClick={()=> props.update(props.data)}
+                // onClick={()=> props.update(props.data)}
                 >
                     <p className="edit nmGroup">
                         Edit

@@ -60,6 +60,18 @@ exports.getAlamat = (req, res, next) =>{
     })
 }
 
+// GET with params ID
+// exports.getAlamatById = (req, res, next)=>{
+//     const getId = req.params.getId
+//     PostAlamat.findById(getId)
+//     .then(result=>{
+//         if(!result){
+//             const error = new Error('data ')
+//         }
+//     })
+//     .catch()
+// }
+
 // PUT
 exports.updateAlamat = (req, res, next) =>{
     const jalan = req.body.jalan;

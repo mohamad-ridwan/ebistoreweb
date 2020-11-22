@@ -9,6 +9,7 @@ import JudulCard from '../../../componentcard/judulcard/JudulCard'
 import img from '../../../img/satu.jpeg'
 import imgPromo from '../../../img/promo.jpg'
 import './PageBeranda.scss'
+import {matchPath, useHistory, useLocation, useParams, useRouteMatch, withRouter} from 'react-router-dom'
 
 const PageBeranda = () => {
 
@@ -76,6 +77,16 @@ const PageBeranda = () => {
             console.log('data failed in get', err)
         })
     }
+    
+    // params Detail Produk
+    const history = useHistory()
+
+    const handleDetail = (_id)=>{
+        history.push({
+            pathname: `detail-produk/${_id}`
+        })
+    }
+    // END params Detail produk
 
     // carousel react-slick
     const settings = {
@@ -153,21 +164,18 @@ const PageBeranda = () => {
                             ? dataProduk.map(e=>{
                                 return (
                                     <BoxCard
-                                    key={e._id}
                                     flxDirectWrapp={"column"}
                                     heightWrapp={"auto"}
                                     widthWrapp={"calc(96%)"}
                                     displayNavBtn={"none"}
                                     imgProduk={img}
-                                    label={e.label}
-                                    nama={e.name}
-                                    price={`Rp. ${e.price}`}
-                                    stock={`Stock (${e.stock})`}
+                                    data={e}
                                     displayBtnBuy={"none"}
                                     bdrRadius={"10px"}
                                     mrginWrapp={"10px auto"}
                                     paddContent={"10px"}
                                     mrgnStock={"5px 0 0px 0"}
+                                    detail={handleDetail}
                                     />
                                 )
                             }):(
@@ -180,7 +188,7 @@ const PageBeranda = () => {
                         widthBtn={'auto'}
                         btnName={'Lihat Semua'}
                         marginBtn={'10px 0 0 0'}
-                        link={'/detailproduk'}
+                        link={'/transaksi'}
                         />
                     </div>
                     {/* END Section Semua Harga */}
@@ -200,23 +208,19 @@ const PageBeranda = () => {
                         ? produkLimaRibu.map(i=>{
                             return(
                                 <BoxCard
-                                key={i._id}
-                                flxDirectWrapp={"column"}
-                                heightWrapp={"auto"}
-                                widthWrapp={"calc(96%)"}
-                                displayNavBtn={"none"}
-                                imgProduk={img}
-                                label={i.label}
-                                fontLabel={"8pt"}
-                                nama={i.name}
-                                price={`Rp. ${i.price}`}
-                                stock={`Stock (${i.stock})`}
-                                displayBtnBuy={"none"}
-                                bdrRadius={"10px"}
-                                mrginWrapp={"10px auto"}
-                                paddContent={"10px"}
-                                mrgnStock={"5px 0 0px 0"}
-                            />
+                                    flxDirectWrapp={"column"}
+                                    heightWrapp={"auto"}
+                                    widthWrapp={"calc(96%)"}
+                                    displayNavBtn={"none"}
+                                    imgProduk={img}
+                                    data={i}
+                                    displayBtnBuy={"none"}
+                                    bdrRadius={"10px"}
+                                    mrginWrapp={"10px auto"}
+                                    paddContent={"10px"}
+                                    mrgnStock={"5px 0 0px 0"}
+                                    detail={handleDetail}
+                                    />
                             )
                         }):(
                             <div className="wait">failed</div>
@@ -228,7 +232,7 @@ const PageBeranda = () => {
                         widthBtn={'auto'}
                         btnName={'Lihat Semua'}
                         marginBtn={'10px 0 0 0'}
-                        link={'/semuaproduk'}
+                        link={'/detail-produk/2'}
                         />
                     </div>
                     {/* END Section Serba 5rb */}
@@ -250,22 +254,18 @@ const PageBeranda = () => {
                             {produkSepuluhRibu && produkSepuluhRibu.length > 0 ? produkSepuluhRibu.map(e=>{
                                 return(
                                     <BoxCard
-                                    key={e._id}
                                     flxDirectWrapp={"column"}
                                     heightWrapp={"auto"}
                                     widthWrapp={"calc(96%)"}
                                     displayNavBtn={"none"}
                                     imgProduk={img}
-                                    label={e.label}
-                                    fontLabel={"8pt"}
-                                    nama={e.name}
-                                    price={`Rp. ${e.price}`}
-                                    stock={`Stock (${e.stock})`}
+                                    data={e}
                                     displayBtnBuy={"none"}
                                     bdrRadius={"10px"}
                                     mrginWrapp={"10px auto"}
                                     paddContent={"10px"}
                                     mrgnStock={"5px 0 0px 0"}
+                                    detail={handleDetail}
                                     />
                                 )
                             }):(
@@ -300,22 +300,18 @@ const PageBeranda = () => {
                             ? produkLimaBelasRibu.map(e=>{
                                 return(
                                     <BoxCard
-                                    key={e._id}
                                     flxDirectWrapp={"column"}
                                     heightWrapp={"auto"}
                                     widthWrapp={"calc(96%)"}
                                     displayNavBtn={"none"}
                                     imgProduk={img}
-                                    label={e.label}
-                                    fontLabel={"8pt"}
-                                    nama={e.name}
-                                    price={`Rp. ${e.price}`}
-                                    stock={`Stock (${e.stock})`}
+                                    data={e}
                                     displayBtnBuy={"none"}
                                     bdrRadius={"10px"}
                                     mrginWrapp={"10px auto"}
                                     paddContent={"10px"}
                                     mrgnStock={"5px 0 0px 0"}
+                                    detail={handleDetail}
                                     />
                                 )
                             }):(

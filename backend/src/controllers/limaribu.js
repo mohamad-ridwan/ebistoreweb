@@ -64,3 +64,24 @@ exports.getLimaRibu = (req, res, next)=>{
         next(err)
     })
 }
+
+// GET with params ID
+exports.getLimaRibuById = (req, res, next)=>{
+    const getId = req.params.getId
+    postProduct.findById(getId)
+    .then(result=>{
+        // Handling kesalahan pemanggilan ID
+        if(!result){
+            const error = new Error('data lima ribu tidak ada!!');
+            error.errorStatus = 404;
+            throw error;
+        }
+        res.status(200).json({
+            message : "data berhasil di dapatkan!!",
+            data: result
+        })
+    })
+    .catch(err=>{
+        next(err)
+    })
+}

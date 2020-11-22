@@ -47,23 +47,16 @@ class PageAlamat extends Component {
         })
     }
 
-    // Global State for handle update
-    store = createStore({
-        handleUpdate : (data)=>{
-            this.setState({
-                dataAlamat : data,
-                isUpdate: true
-            })
-        },
-        addTodo: action((state, payload)=>{
-            state.todos.push({text: payload, done: false});
+    handleUpdate = (data)=>{
+        this.setState({
+            dataAlamat : data,
+            isUpdate: true
         })
-    })
-    // end global state for handle update
+    }
 
     handleSubmit = ()=>{
         alert('Data Berhasil Tersimpan!')
-        this.postAlamatAPI(); 
+        this.postAlamatAPI();
     }
 
     componentDidMount(){
@@ -129,6 +122,7 @@ class PageAlamat extends Component {
                     widthBtn={'auto'}
                     btnName={'Simpan Alamat'}
                     marginBtn={'10px 0'}
+                    link={"/pageprofil"}
                     />
                </Link>
                

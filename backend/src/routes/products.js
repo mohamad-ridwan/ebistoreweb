@@ -12,6 +12,6 @@ router.post('/postproduk', productController.createProduct);
 router.get('/getproduk', productController.getProduct);
 
 // GET with params ID
-router.get('/getproductbyid/:productId', productController.getProductById)
+router.get('/getproductbyid/', productController.getProductById)
 
 module.exports = router

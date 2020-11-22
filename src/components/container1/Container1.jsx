@@ -1,5 +1,5 @@
 import React from 'react'
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route, withRouter } from 'react-router-dom';
 import PageNotifikasi from '../pages/pagenotifikasi/PageNotifikasi';
 import PageFavorit from '../pages/pagefavorit/PageFavorit';
 import HelmetPageFavorit from '../pages/pagefavorit/helmetpagefavorit/HelmetPageFavorit';
@@ -42,7 +42,7 @@ const Container1 = () => {
                             {/* end Transaksi */}
 
                             {/* detail produk */}
-                            <Route path='/detailproduk'>
+                            <Route path='/detail-produk/:id'>
                                 <DetailProduk/>
 
                                 <HelmetDetailProduk/>

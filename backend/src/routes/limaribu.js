@@ -8,6 +8,9 @@ const limaRibuController = require('../controllers/limaribu');
 router.post('/postlimaribu', limaRibuController.createLimaRibu)
 
 // GET with query params
-router.get('/getlimaribu', limaRibuController.getLimaRibu)
+router.get('/getlimaribu/', limaRibuController.getLimaRibu)
+
+// GET with params ID
+router.get('/getlimaribu/:getId', limaRibuController.getLimaRibuById)
 
 module.exports = router

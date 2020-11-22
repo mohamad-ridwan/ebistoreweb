@@ -7,26 +7,23 @@ import { useEffect } from 'react'
 
 const NavbarPageCard = ({ linkPage, titlePageNav }) => {
 
-    const [hide, setHide] = useState(false)
+    // const [hide, setHide] = useState(false)
 
-    useEffect(()=>{
-        let prevScroll = window.pageYOffset
-        window.onscroll = ()=>{
-            let currentScroll = window.pageYOffset
+    // useEffect(()=>{
+    //     let prevScroll = window.pageYOffset
+    //     window.onscroll = ()=>{
+    //         let currentScroll = window.pageYOffset
 
-            prevScroll > currentScroll ? setHide(!true) : setHide (!false)
+    //         prevScroll > currentScroll ? setHide(!true) : setHide (!false)
 
-            prevScroll = currentScroll
-        }
-    }, [])
+    //         prevScroll = currentScroll
+    //     }
+    // }, [])
 
     return (
         <>
             {/* Navbar */}
-            <div className="navbar-pageCard" style={{
-                transform: hide ? 'translateY(-200px)' : 'translateY(0)',
-                transition: '.5s all cubic-bezier(0.64,-0.24, 0.43, 1.24)',
-            }}>
+            <div className="navbar-pageCard">
                 {/* Row nav */}
                 <div className="row-nav-pageCard">
                     {/* Btn Back Page Nav */}
@@ -36,9 +33,9 @@ const NavbarPageCard = ({ linkPage, titlePageNav }) => {
                     {/* END Btn Back Page Nav */}
 
                     {/* Title page nav */}
-                    <p className="title-page-nav-pageCard">
+                    <a href="#" className="title-page-nav-pageCard">
                         {titlePageNav}
-                    </p>
+                    </a>
                     {/* END Title page nav */}
                 </div>
                 {/* END Row nav */}
