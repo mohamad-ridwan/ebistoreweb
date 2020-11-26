@@ -46,7 +46,7 @@ const BoxCard=(props)=>{
                 <p className="harga-produk priceGroup" style={{
                     margin: `${props.mrgnStock}`,
                 }}>
-                    Rp. {props.data.price}
+                    Rp {props.data.price}
                 </p>
                 <p className="txt-harga-normal nameGroup">
                     {props.txtHargaNormal}

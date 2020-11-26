@@ -188,7 +188,7 @@ const PageBeranda = () => {
                         widthBtn={'auto'}
                         btnName={'Lihat Semua'}
                         marginBtn={'10px 0 0 0'}
-                        link={'/transaksi'}
+                        link={'/detail-produk/1'}
                         />
                     </div>
                     {/* END Section Semua Harga */}

@@ -9,24 +9,62 @@ import img from '../../../img/avatarnew.jpg'
 import Axios from 'axios'
 import { useState } from 'react'
 import { Component } from 'react'
+import DetailCard from '../../../componentcard/detailcard/DetailCard'
 
 class DetailProduk extends Component {
 
     state = {
-        post : {
-            label : '',
-            name : '',
-            price : '',
-            stock: ''
+        post : [
+            {
+                _id : '',
+                label: '',
+                name: '',
+                price: '',
+                stock: ''
+            }
+        ],
+        postKeranjang : {
+            id : '',
+            label: '',
+            name: '',
+            price: ''
         }
     }
 
-    // carousel react-slick
-    settings = {
-        slidesToShow: 1,
-        slidesToScroll: 1,
-        speed: 200
+    handleKeranjang = ()=>{
+        let id = this.props.match.params.id
+        Axios.post(`http://localhost:62542/v7/makaroni/postkeranjang/${id}`)
+        .then(result=>{
+            let post = result.data
+            this.setState({
+                postKeranjang : {
+                    id : post.data.id,
+                    label : post.data.label,
+                    name : post.data.name,
+                    price: post.data.price
+                }
+            })
+            alert('masuk', result.data)
+            console.log('success', result.data)
+        })
+        .catch(err=>{
+            alert('failed', err)
+            console.log(err)
+        })
     }
+
+    // carousel react-slick
+    // settings = {
+    //     slidesToShow: 1,
+    //     slidesToScroll: 1,
+    //     speed: 200
+    // }
+
+    // to transaksion
+    handleTransaksi = (id)=>{
+        this.props.history.push(`/transaksi/${id}`)
+    }
+    // end to transaksion
 
     componentDidMount(){
         // dapatkan id dari id yang masuk
@@ -37,12 +75,15 @@ class DetailProduk extends Component {
             // Agar bisa mendapatkan data yg masuk
             // Ganti data yg masuk dengan data yg baru
             this.setState({
-                post: {
-                    label : post.data.label,
-                    name : post.data.name,
-                    price: post.data.price,
-                    stock: post.data.stock
-                }
+                post: [
+                    {   
+                        _id : post.data._id,
+                        label : post.data.label,
+                        name : post.data.name,
+                        price: post.data.price,
+                        stock: post.data.stock
+                    }
+                ]
             })
         })
         .catch(err=>{
@@ -51,6 +92,7 @@ class DetailProduk extends Component {
     }
 
     render(){
+
     return(
         <>
         <div className="wrapp-detail-produk">
@@ -59,38 +101,19 @@ class DetailProduk extends Component {
                 titlePageNav={'Detail Produk'}
             />
 
-            <Slider {...this.settings} className={'slider-img-produk'}>
-                <img src={imgProduk} alt="" className="img-produk"/>
-                <img src={imgProduk} alt="" className="img-produk"/>
-                <img src={imgProduk} alt="" className="img-produk"/>
-            </Slider>
-
-            {/* deskripsi produk */}
-            <div className="deskripsi-produk">
-                <div className="rowKiri">
-                <p className="label-produk labelGroup">
-                    {this.state.post.label}
-                </p>
-                <p className="name-produk marginGroup">
-                    {this.state.post.name}
-                </p>
-                <p className="price-produk marginGroup">
-                    Rp. {this.state.post.price}
-                </p>
-                <p className="stock-produk labelGroup marginGroup">
-                    Stock ({this.state.post.stock})
-                </p>           
-                </div>
-                <div className="rowKanan">
-                <BtnCard
-                    heightBtn={'35px'}
-                    widthBtn={'100%'}
-                    btnName={'Beli'}
-                    link={'/transaksi'}
-                />
-                </div>                
-            </div>
-            {/* end deskripsi produk */}
+            {/* Detail Card */}
+            {this.state.post.map((e)=>{
+                    return(
+                    <>
+                       <DetailCard
+                            data={e}
+                            buy={this.handleTransaksi}
+                            toPageShopp={this.handleKeranjang}
+                       />
+                    </>
+                    )
+                })}
+            {/* END Detail Card
 
             {/* keterangan makaroni */}
             <div className="keterangan-makaroni">

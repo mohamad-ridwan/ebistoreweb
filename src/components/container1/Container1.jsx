@@ -22,6 +22,7 @@ import DetailProduk from '../pages/detailproduk/DetailProduk';
 import HelmetDetailProduk from '../pages/detailproduk/helmetdetailproduk/HelmetDetailProduk';
 import HelmetTransaksi from '../pages/transaksi/helmettransaksi/HelmetTransaksi';
 import Transaksi from '../pages/transaksi/Transaksi';
+import WindowScroll from '../../componentcard/windowscroll/WindowScroll';
 
 const Container1 = () => {
     return (
@@ -30,10 +31,10 @@ const Container1 = () => {
             <Media query="(max-width: 450px)" render={() => (
                 <>
                     <Router>
+                        <WindowScroll>
                         <Switch>
-
                             {/* Transaksi */}
-                            <Route path='/transaksi'>
+                            <Route path='/transaksi/:id'>
                                 <Transaksi/>
 
                                 <HelmetTransaksi/>
@@ -90,7 +91,7 @@ const Container1 = () => {
                             {/* END For Page Favorit */}
 
                             {/* For Page Keranjang */}
-                            <Route path='/pagekeranjang'>
+                            <Route path='/pagekeranjang/'>
                                 <PageKeranjang />
 
                                 <HelmetPageKeranjang />
@@ -116,6 +117,7 @@ const Container1 = () => {
                             {/* END For Page Home */}
 
                         </Switch>
+                        </WindowScroll>
 
                         <NavBottom />
                     </Router>

@@ -7,27 +7,98 @@ import Axios from 'axios'
 import { useEffect } from 'react'
 import Alamat from '../../../componentcard/alamat/Alamat'
 import indo from '../../../img/indomaret.svg'
+import { Link } from 'react-router-dom'
+import BtnCard from '../../../componentcard/btncard/BtnCard'
+import { Component } from 'react'
+import {withRouter} from 'react-router-dom'
+import BoxWhite from '../../../componentcard/boxwhite/BoxWhite'
 
-const Transaksi = ()=>{
+class Transaksi extends Component {
 
-    let [alamat, setAlamat] = useState([])
+    state = {
+        alamat : [],
+        // Jika ingin melakukan mapping data
+        // maka di perlukan array custom untuk menSupport mapping
+        produk : {
+            _id: '',
+            label : '',
+            name: '',
+            price: '',
+        },
+        totalBeli : 1
+    }
 
-    const getAlamat = ()=>{
+    handlePlus = ()=>{
+        // update value state total beli ke value yg di tambahkan
+        this.setState({
+            // call propertynya
+            totalBeli : this.state.totalBeli + 1
+        })
+    }
+
+    handleMinus = ()=>{
+        // update value state total beli ke value yg di kurangkan
+        // handle btn minus ketika value kebih kecil dari 0
+        if(this.state.totalBeli > 1){
+            // Jalankan value lebih besar dr 0
+            this.setState({
+                totalBeli : this.state.totalBeli - 1
+            })
+        }
+    }
+
+    // Data Produk
+    produkAPI = ()=>{
+        let id = this.props.match.params.id
+        Axios.get(`http://localhost:62542/v2/makaroni/getlimaribu/${id}`)
+        .then(result=>{
+            let post = result.data
+            this.setState({
+                produk : {
+                    _id : post.data._id,
+                    label: post.data.label,
+                    name: post.data.name,
+                    price: post.data.price
+                }
+            })
+        })
+        .catch(err=>{
+            console.log('failed in get produk', err)
+        })
+    }
+    // end data produk
+
+    // Alamat
+    alamatAPI = ()=>{
         Axios.get('http://localhost:62542/v5/dataalamat/getalamat')
-        .then(result =>{
-            const resAlamat = result.data
-
-            setAlamat(resAlamat.dataAlamat)
+        .then(result=>{
+            this.setState({
+                alamat: result.data.dataAlamat
+            })
         })
         .catch(err=>{
             console.log('failed', err)
         })
     }
+    // END Alamat
 
-    useEffect(()=>{
-        getAlamat()
-    })
+    // hitung total
+    hitungTotal = ()=>{
+        const hargaMakaroni = parseInt(2000)
+        const hargaKurir = parseInt(5000)
 
+        const total = hargaKurir + hargaMakaroni
+        console.log('hasil :', total.toString());
+    }
+    // end hitung total
+
+    componentDidMount(){
+        this.alamatAPI();
+        this.produkAPI();
+        this.hitungTotal.toString()
+    }
+    
+    render(){
     return(
         <>
         <NavbarPageCard
@@ -36,48 +107,35 @@ const Transaksi = ()=>{
         />
         <div className="wrapp-transaksi">
             {/* detail produk pesanan */}
-            <div className="container-detailProduk">
-                <img src={img} alt="" className="img-produk"/>
 
-                <div className="detail-nameProduk">
-                    <p className="label-produk margGroup">
-                        Beli 2 Gratis 2
-                    </p>
-                    <p className="name-produk margGroup">
-                        Makaroni Jagung Bakar
-                    </p>
-                    <p className="price-produk margGroup">
-                        Rp. 5.000
-                    </p>
-
-                    {/* box total beli */}
-                    <div className="box-total-beli">
-                        <p className="total-dibeli">
-                            Total yang di beli :
-                        </p>
-
-                        <div className="input-total">
-                            <button className="btn-mines btnGroup">
-                                <i className="fas fa-minus" id="btnGroup"></i>
-                            </button>
-                            <input type="number" className="input-angka" placeholder="1"/>
-                            <button className="btn-plus btnGroup">
-                                <i className="fas fa-plus" id="btnGroup"></i>
-                            </button>
-                        </div>
-                    </div>
-                    {/* end box total beli */}
-                </div>
-            </div>
+            <BoxWhite
+                img={img}
+                label={this.state.produk.label}
+                name={this.state.produk.name}
+                price={this.state.produk.price}
+                display={"flex"}
+                titleTotalBeli={"Total yang di beli"}
+                heightImg={"110px"}
+                widthImg={"110px"}
+                margBox={"0px 10px 0 10px"}
+                marginName={"10px 0 0 0"}
+                paddBox={"10px 10px 40px 10px"}
+                displayBeli={"none"}
+                positionBox={"relative"}
+                displayBtnDelete={"none"}
+                handleMinus={this.handleMinus}
+                handlePlus={this.handlePlus}
+                inputAngka={this.state.totalBeli}
+            />
             {/* end detail produk pesanan */}
 
             {/* deskripsi alamat */}
             <div className="deskripsi-alamat">
                 <p className="title-alamat">
-                    Alamat
                 </p>
-                {alamat && alamat.length > 0
-                ? alamat.map(e=>{
+
+                {this.state.alamat && this.state.alamat.length > 0
+                ? this.state.alamat.map(e=>{
                     return(
                         <>
                             <Alamat
@@ -102,7 +160,7 @@ const Transaksi = ()=>{
                     <div className="container-logo-pembayaran">
                         <img src={indo} alt="" className="logo-pembayaran"/>
                         <p className="name-logo">
-                         - Indomaret
+                        • Indomaret
                         </p>
                     </div>
                     <p className="kurir-pengiriman">
@@ -119,9 +177,36 @@ const Transaksi = ()=>{
                 </div>
             </div>
             {/* end pembayaran */}
+
+            {/* bayar */}
+            <div className="bayar">
+                <div className="column-btn-bayar">
+                    <p className="total-harga">
+                        Total Bayar
+                        <br/>
+                        {this.hitungTotal}
+                    </p>
+
+                    <BtnCard
+                        heightBtn={"35px"}
+                        widthBtn={"80px"}
+                        btnName={"Bayar"}
+                        fontWeight={"bold"}
+                    />
+                </div>
+                
+                <p className="deskripsi-total-harga">
+                    {this.state.produk.name} = Rp {this.state.produk.price}
+                    <br/>
+                    Kurir = Rp 2.000
+                    <br/>
+                    Total = Rp 7.000
+                </p>
+            </div>
+            {/* end bayar */}
         </div>
         </>
     )
 }
-
-export default Transaksi
+}
+export default withRouter(Transaksi)

@@ -1,0 +1,130 @@
+@import '../../util/variable/variable.scss';
+
+.wrapper-detail-card{
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    height: auto;
+    width: 100%;
+    
+    #iconGroup{
+        display: flex;
+        position: absolute;
+        top: 60px;
+        font-size: 18pt;
+        color: #fff;
+        opacity: 0.9;
+        z-index: 9;
+    }
+
+    .cart{
+        display: flex;
+        right: 60px;
+    }
+
+    .love{
+        display: flex;
+        right: 10px;
+    }
+
+
+    // slider
+    .slider-img-produk{
+        display: flex;
+        height: auto;
+        width: 100%;
+        margin-top: 50px;
+
+        .img-produk{
+            display: flex;
+            height: 250px;
+            width: 100%;
+            object-fit: cover;
+            object-position: center;
+        }
+    }
+    // end slider
+
+    // deskripsi
+    .deskripsi-produk{
+        display: flex;
+        position: relative;
+        height: auto;
+        width: 100%;
+        text-align: start;
+        padding: 20px 10px;
+        border-bottom: 10px solid #ddd;
+
+        // row kiri
+        .rowKiri{
+            display: flex;
+            flex-direction: column;
+            height: auto;
+            width: 70%;
+
+            // label group
+            .labelGroup{
+                display: flex;
+                font-size: 10pt;
+                font-weight: normal;
+            }
+            // end label group
+            
+            // margin group
+            .marginGroup{
+                margin-top: 10px;
+            }
+            // end margin group
+
+            .label-produk{
+                display: flex;
+                font-weight: bold;
+                color: $colorSepuluh;
+            }
+
+            .name-produk{
+                display: flex;
+                font-size: 12pt;
+                margin-top: 10px;
+                color: #000;
+            }
+
+            .price-produk{
+                display: flex;
+                font-size: 16pt;
+                font-weight: bold;
+                color: $colorSepuluh;
+            }
+
+            .stock-produk{
+                display: flex;
+                color: #000;
+            }
+        }
+        // end row kiri
+
+        // row kanan
+        .rowKanan{
+            display: flex;
+            height: auto;
+            width: 30%;
+            padding: 0 0 0 5px;
+
+            .btn-buy{
+                display: flex;
+                height: 35px;
+                width: 100%;
+                background-color: $colorTiga;
+                align-items: center;
+                justify-content: center;
+                text-decoration: none;
+                color: #fff;
+                border-radius: 10px;
+                box-shadow: 0 2px 5px -1px rgba(0,0,0,0.5);
+            }
+        }
+        // end row kanan
+    }
+    // end deskripsi
+}
+

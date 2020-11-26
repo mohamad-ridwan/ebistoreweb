@@ -10,134 +10,6 @@
     text-align: start;
     margin-bottom: 55px;
 
-    // detail produk pesanan
-    .container-detailProduk{
-        display: flex;
-        position: relative;
-        height: auto;
-        width: auto;
-        padding: 10px 10px 40px 10px;
-        background-color: #fff;
-        box-shadow: 0 2px 5px -1px rgba(0,0,0,0.1);
-        border-radius: 8px;
-        margin: 0 10px;
-
-        .img-produk{
-            display: flex;
-            height: 110px;
-            width: 110px;
-            background-color: #fff;
-            border-radius: 10px;
-            box-shadow: 0 2px 6px -1px rgba(0,0,0,0.2);
-            object-fit: cover;
-            object-position: center;
-            margin-bottom: 10px;
-            margin-right: 10px;
-        }
-
-        .detail-nameProduk{
-            display: flex;
-            height: auto;
-            width: auto;
-            flex-direction: column;
-            padding: 0 0px 0 0;
-
-            // margin group
-            .margGroup{
-                margin-top: 10px;
-            }
-            // end margin group
-        
-            .label-produk{
-                display: flex;
-                font-size: 10pt;
-                font-weight: bold;
-                color: $colorSepuluh;
-            }
-        
-            .name-produk{
-                display: flex;
-                font-size: 12pt;
-            }
-        
-            .price-produk{
-                display: flex;
-                font-size: 14pt;
-                font-weight: bold;
-                color: $colorSepuluh;
-            }
-        
-            // box total beli
-            .box-total-beli{
-                display: flex;
-                position: absolute;
-                height: auto;
-                width: 100%;
-                justify-content: flex-end;
-                align-items: center;
-                bottom: 10px;
-                right: 10px;
-        
-                .total-dibeli{
-                    display: flex;
-                    font-size: 10pt;
-                    margin: 0 10px 0 0;
-                }
-        
-                .input-total{
-                    display: flex;
-                    height: auto;
-                    width: auto;
-                    position: relative;
-        
-                    // btn group
-                    .btnGroup{
-                        display: flex;
-                        position: absolute;
-                        height: 20px;
-                        width: 20px;
-                        background-color: $colorTiga;
-                        justify-content: center;
-                        align-items: center;
-                        border: none;
-                        outline: none;
-                        border-radius: 5px;
-                        box-shadow: 0 2px 4px -1px rgba(0,0,0,0.5);
-                    }
-                    // end btn group
-        
-                    .btn-mines{
-                        display: flex;
-                        left: 0;
-                    }
-        
-                    .btn-plus{
-                        display: flex;
-                        right: 0;
-                    }
-        
-                    .btnGroup{
-                        display: flex;
-                        font-size: 9pt;
-                        color: #fff;
-                    }
-        
-                    .input-angka{
-                        display: flex;
-                        height: 20px;
-                        width: 80px;
-                        border: none;
-                        outline: none;
-                        text-align: center;
-                        border-radius: 5px;
-                    }
-                }
-            }
-            // end box total belu
-        }
-    }
-    // end detail produk pesanan
-
     // deskripsi alamat
     .deskripsi-alamat{
         display: flex;
@@ -166,7 +38,7 @@
         border-radius: 8px;
         box-shadow: 0 2px 5px -1px rgba(0,0,0,0.1);
         margin: 20px 10px;
-        padding: 20px;
+        padding: 20px 30px;
 
         .title-pembayaran{
             display: flex;
@@ -205,7 +77,7 @@
             .kurir-pengiriman{
                 display: flex;
                 font-size: 9pt;
-                color: #555;
+                color: #888;
                 line-height: 20px;
             }
 
@@ -214,7 +86,7 @@
                 height: auto;
                 width: 100px;
                 align-items: center;
-                border: 1px solid #aaa;
+                border: 1px solid $colorTiga;
                 border-radius: 5px;
                 outline: none;
                 background-color: transparent;
@@ -232,4 +104,42 @@
         }
     }
     // end pembayaran
+
+    // bayar
+    .bayar{
+        display: flex;
+        flex-direction: column;
+        height: auto;
+        width: auto;
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 2px 5px -1px rgba(0,0,0,0.1);
+        margin: 0px 10px;
+        padding: 20px 0px;
+
+        .column-btn-bayar{
+            display: flex;
+            height: auto;
+            width: auto;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 30px 10px 30px;
+            border-bottom: 1px solid #ddd;
+
+            .total-harga{
+                display: flex;
+                font-size: 12pt;
+                font-weight: bold;
+            }
+        } 
+
+        .deskripsi-total-harga{
+            display: flex;
+            font-size: 9pt;
+            color: #888;
+            padding: 10px 30px 0 30px;
+            line-height: 20px;
+        }
+    }
+    // end bayar
 }

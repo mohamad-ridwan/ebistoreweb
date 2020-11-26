@@ -14,7 +14,7 @@ const NavBottom = () => {
                 {/* END Row */}
 
                 {/* Row */}
-                <NavbottomCard linkPage="/pagekeranjang" iconLinkNavBtm="fas fa-shopping-cart" txtLinkNavBtm="Keranjang" />
+                <NavbottomCard linkPage="/pagekeranjang/1" iconLinkNavBtm="fas fa-shopping-cart" txtLinkNavBtm="Keranjang" />
                 {/* END Row */}
 
                 {/* Row */}

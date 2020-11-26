@@ -13,7 +13,8 @@ const BtnCard = ({
     topBtn,
     leftBtn,
     rightBtn,
-    bottomBtn
+    bottomBtn,
+    fontWeight
 })=>{
     return(
         <>
@@ -28,6 +29,7 @@ const BtnCard = ({
             bottom: `${bottomBtn}`
         }}>
            <p className="paragraph" style={{
+               fontWeight: `${fontWeight}`,
                padding: `${paddName}`
            }}>
                 {btnName}
