@@ -2,7 +2,7 @@ import Axios from 'axios'
 import { action, createStore } from 'easy-peasy'
 import React from 'react'
 import { Component } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, withRouter } from 'react-router-dom'
 import BtnCard from '../../../componentcard/btncard/BtnCard'
 import FormAlamat from '../../../componentcard/formalamat/FormAlamat'
 import NavbarPageCard from '../../../componentcard/navbarpagecard/NavbarPageCard'
@@ -11,52 +11,43 @@ import './PageAlamat.scss'
 class PageAlamat extends Component {
 
     state = {
-        dataAlamat : {
-            id : 1,
+        formAlamat : {
+            id: 1,
             jalan: '',
             desa: '',
-            kecamatan : '',
+            kecamatan: '',
             kota: '',
             provinsi: '',
-            kodePos: '',
-            userId: 1
-        },
-        isUpdate: false
-    }
-
-    // POST alamat API
-    postAlamatAPI = ()=>{
-        Axios.post(`http://localhost:62542/v5/dataalamat/postalamat/`, this.state.dataAlamat)
-        .then((result)=>{
-            this.setState({
-                dataAlamat: result
-            })
-        }, (err)=>{
-            console.log('data failed in post' ,err)
-        })
+            kodePos: ''
+        }
     }
 
     handleFormChange = (event)=>{
-        let dataAlamatNew = {...this.state.dataAlamat};
+        // console.log(event.target.name)
+        let formAlamatNew = {...this.state.formAlamat}
         let timestamp = new Date().getTime();
-        dataAlamatNew['id'] = timestamp;
-        dataAlamatNew[event.target.name] = event.target.value
-
+        formAlamatNew['id'] = timestamp
+        formAlamatNew[event.target.name] = event.target.value
         this.setState({
-            dataAlamat: dataAlamatNew
+            formAlamat : formAlamatNew
         })
     }
 
-    handleUpdate = (data)=>{
-        this.setState({
-            dataAlamat : data,
-            isUpdate: true
+    postData = ()=>{
+        Axios.post('http://localhost:62542/v5/dataalamat/postalamat/',
+        this.state.formAlamat)
+        .then((result)=>{
+            console.log(result)
+        })
+        .catch(err=>{
+            console.log('failed in post', err)
         })
     }
 
     handleSubmit = ()=>{
-        alert('Data Berhasil Tersimpan!')
-        this.postAlamatAPI();
+        alert('Alamat berhasil di simpan!!')
+        this.postData()
+        this.props.history.push('/pageprofil')
     }
 
     componentDidMount(){
@@ -66,16 +57,11 @@ class PageAlamat extends Component {
 
     return(
         <>
-        <div className="wrapper-alamat">
-            <NavbarPageCard
+        <NavbarPageCard
                 linkPage={'/pageprofil'}
                 titlePageNav={'Form Alamat'}
             />
-
-            <form action="" className="form-alamat"
-                onSubmit={this.handleFormChange}
-            >
-            
+        <div className="wrapper-alamat">
                 <FormAlamat
                     title={"Jalan"}
                     valueName={"jalan"}
@@ -100,37 +86,40 @@ class PageAlamat extends Component {
                     valueName={"kota"}
                     placeholder={"Masukkan Nama Kota / Kabupaten"}
                     handle={this.handleFormChange}
+
                 />
                 <FormAlamat
                     title={"Provinsi"}
                     valueName={"provinsi"}
                     placeholder={"Masukkan Nama Provinsi"}
                     handle={this.handleFormChange}
+         
                 />
                 <FormAlamat
                     title={"Kode Pos"}
                     valueName={"kodePos"}
                     placeholder={"Masukkan Kode Pos"}
                     handle={this.handleFormChange}
+                    submit={this.handleSubmit}
                 />
 
                 <Link style={{
                     textDecoration: 'none'
-                }} onClick={this.handleSubmit}>
+                }}
+                    onClick={this.handleSubmit}
+                 >
                     <BtnCard
                     heightBtn={'50px'}
                     widthBtn={'auto'}
                     btnName={'Simpan Alamat'}
-                    marginBtn={'10px 0'}
+                    marginBtn={'10px'}
                     link={"/pageprofil"}
                     />
                </Link>
-               
-            </form>
         </div>
         </>
     )
 }
 }
 
-export default PageAlamat
+export default withRouter(PageAlamat)

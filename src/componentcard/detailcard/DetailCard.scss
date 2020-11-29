@@ -126,5 +126,39 @@
         // end row kanan
     }
     // end deskripsi
+
+    // keterangan makaroni
+    .keterangan-makaroni{
+        display: flex;
+        flex-direction: column;
+        height: auto;
+        width: 100%;
+        text-align: start;
+        padding: 20px 10px;
+        border-bottom: 10px solid #ddd;
+
+        // title group
+        .titleGroup{
+            display: flex;
+            font-size: 12pt;
+            font-weight: bold;
+            margin-top: 0px;
+        }
+        // end title group
+
+        // paragrap Group
+        .paragrapGroup{
+            display: flex;
+            font-size: 11pt;
+            margin-top: 15px;
+        }
+        // end paragrap Group
+
+        .komposisi{
+            display: flex;
+            margin-top: 20px;
+        }
+    }
+    // end keterangan makaroni
 }
 

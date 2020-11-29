@@ -5,6 +5,7 @@
     height: auto;
     background-color: $colorSatu;
     box-shadow: 0 2px 6px -1px rgba(0,0,0,0.3);
+    border-radius: 10px 30px 10px 10px;
 
     .nav-btn-produk{
         position: absolute;
@@ -15,7 +16,9 @@
     .img-produk{
         display: flex;
         height: auto;
+        max-height: 180px;
         width: 100%;
+        border-bottom-left-radius: 30px;
     }
 
     .box-content-produk{
@@ -50,6 +53,7 @@
         .name-produk{
             display: flex;
             font-size: 10pt;
+            text-overflow: ellipsis;
         }
 
         .stock{

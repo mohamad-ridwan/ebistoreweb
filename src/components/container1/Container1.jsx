@@ -23,6 +23,7 @@ import HelmetDetailProduk from '../pages/detailproduk/helmetdetailproduk/HelmetD
 import HelmetTransaksi from '../pages/transaksi/helmettransaksi/HelmetTransaksi';
 import Transaksi from '../pages/transaksi/Transaksi';
 import WindowScroll from '../../componentcard/windowscroll/WindowScroll';
+import Login from '../pages/login/Login';
 
 const Container1 = () => {
     return (
@@ -39,7 +40,6 @@ const Container1 = () => {
 
                                 <HelmetTransaksi/>
                             </Route>
-                            
                             {/* end Transaksi */}
 
                             {/* detail produk */}
@@ -98,8 +98,8 @@ const Container1 = () => {
                             </Route>
                             {/* END For Page Keranjang */}
 
-                            {/* For Page Home */}
-                            <Route path='/'>
+                            {/* For Home */}
+                            <Route path='/beranda'>
                                 {/* Navbar */}
                                 <Navbar />
                                 {/* END Navbar */}
@@ -113,6 +113,12 @@ const Container1 = () => {
                                 {/* Helmet Page Beranda */}
                                 <HelmetPageBeranda />
                                 {/* END Helmet Page Beranda */}
+                            </Route>
+                            {/* END For Home */}
+
+                            {/* For Page Home */}
+                            <Route path='/'>
+                                <Login/>
                             </Route>
                             {/* END For Page Home */}
 

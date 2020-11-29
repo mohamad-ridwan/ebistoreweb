@@ -21,7 +21,8 @@ const BoxWhite = (props)=>{
             <img src={props.img} alt="" className="img-card"
                 style={{
                     height: `${props.heightImg}`,
-                    width: `${props.widthImg}`
+                    width: `${props.widthImg}`,
+                    maxHeight: `${props.maxHeightImg}`
                 }}
             />
 

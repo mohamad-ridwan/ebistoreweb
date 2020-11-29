@@ -20,7 +20,10 @@ class DetailProduk extends Component {
                 label: '',
                 name: '',
                 price: '',
-                stock: ''
+                stock: '',
+                deskripsi : '',
+                komposisi: '',
+                image: '',
             }
         ],
         postKeranjang : {
@@ -69,7 +72,7 @@ class DetailProduk extends Component {
     componentDidMount(){
         // dapatkan id dari id yang masuk
         const id = this.props.match.params.id
-        Axios.get(`http://localhost:62542/v2/makaroni/getlimaribu/${id}`)
+        Axios.get(`http://localhost:62542/v8/makaroni/getall/${id}`)
         .then(result=>{
             let post = result.data
             // Agar bisa mendapatkan data yg masuk
@@ -81,7 +84,10 @@ class DetailProduk extends Component {
                         label : post.data.label,
                         name : post.data.name,
                         price: post.data.price,
-                        stock: post.data.stock
+                        stock: post.data.stock,
+                        deskripsi: post.data.deskripsi,
+                        komposisi: post.data.komposisi,
+                        image: post.data.image
                     }
                 ]
             })
@@ -107,101 +113,14 @@ class DetailProduk extends Component {
                     <>
                        <DetailCard
                             data={e}
+                            img={`http://localhost:62542/${e.image}`}
                             buy={this.handleTransaksi}
                             toPageShopp={this.handleKeranjang}
                        />
                     </>
                     )
                 })}
-            {/* END Detail Card
-
-            {/* keterangan makaroni */}
-            <div className="keterangan-makaroni">
-                <p className="title titleGroup">
-                    Deskripsi Makaroni
-                </p>
-
-                <p className="paragraph paragrapGroup">
-                    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Provident fugiat tenetur eius repudiandae vel sed nisi dolorem id dolores nesciunt.
-                </p>
-
-                <p className="komposisi titleGroup">
-                    Komposisi
-                </p>
-
-                <p className="paragraph-komposisi paragrapGroup">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit sint culpa vitae quae atque repellat quibusdam? Voluptas beatae consequatur unde?
-                </p>
-            </div>
-            {/* end keterangan makaroni */}
-
-            {/* komen user */}
-            <div className="komen-user">
-                <p className="title-komen">
-                    Tanggapan Pembeli
-                </p>
-
-                <div className="container-komen-user">
-                    <div className="rowKiri-user">
-                        <div className="profil-user">
-                            <img src={img} alt="" className="img-profil"/>
-                            <p className="name-profil">
-                                Mohamad Ridwan Apriyadi
-                            </p>
-                        </div>
-                        <p className="paragraph-komen">
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo, quod.
-                        </p>
-                        <p className="date-komen">
-                            • 12 Nov 2020
-                        </p>
-                    </div>
-                    <div className="rowKanan-user">
-                        <i className="fas fa-thumbs-down"></i>
-                    </div>
-                </div>
-
-                <div className="container-komen-user">
-                    <div className="rowKiri-user">
-                        <div className="profil-user">
-                            <img src={img} alt="" className="img-profil"/>
-                            <p className="name-profil">
-                                Mohamad Ridwan Apriyadi
-                            </p>
-                        </div>
-                        <p className="paragraph-komen">
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo, quod.
-                        </p>
-                        <p className="date-komen">
-                            • 12 Nov 2020
-                        </p>
-                    </div>
-                    <div className="rowKanan-user">
-                        <i className="fas fa-thumbs-down"></i>
-                    </div>
-                </div>
-                
-                <div className="container-komen-user">
-                    <div className="rowKiri-user">
-                        <div className="profil-user">
-                            <img src={img} alt="" className="img-profil"/>
-                            <p className="name-profil">
-                                Mohamad Ridwan Apriyadi
-                            </p>
-                        </div>
-                        <p className="paragraph-komen">
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo, quod.
-                        </p>
-                        <p className="date-komen">
-                            • 12 Nov 2020
-                        </p>
-                    </div>
-                    <div className="rowKanan-user">
-                        <i className="fas fa-thumbs-down"></i>
-                    </div>
-                </div>
-            </div>
-            {/* end komen user */}
+            {/* {/* END Detail Card */}
         </div>
         </>
     )

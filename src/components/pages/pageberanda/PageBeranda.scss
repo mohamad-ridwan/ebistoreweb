@@ -6,92 +6,31 @@
     flex-direction: column;
     height: auto;
     width: 100%;
-    margin: 70px 0 80px 0;
+    margin: 0px 0 80px 0;
 
-    // Section1
-    .section-1-pageBeranda{
+    // Background atas
+    .background-atas{
         display: flex;
-        flex-direction: column;
-        height: auto;
-        padding: 40px 10px 0 10px;
+        position: relative;
+        height: 180px;
+        width: auto;
+        background-color: $colorTiga;
+        border-bottom-left-radius: 8%;
+        border-bottom-right-radius: 8%;
         overflow: hidden;
 
-        // Btn Description App
-        .descApp-pageBeranda{
+        .bg-makaroni{
             display: flex;
-            height: 50px;
-            background: $colorTiga;
-            align-items: center;
-            box-shadow: 0 3px 5px -1px rgba(0,0,0,0.5);
-            border: none;
-            outline: none;
-            border-radius: 8px;
-            padding: 0 20px;
-            margin: 0 0 10px 0;
-            overflow: hidden;
-            transition: .3s ease-out;
-
-            &:hover{
-                background: #aaa;
-            }
-
-            // Row1
-            .row1-cont1-pageBeranda{
-                display: flex;
-                height: 100%;
-                width: 90%;
-                align-items: center;
-
-                .txt-btn-descApp-pageBeranda{
-                    display: flex;
-                    font-size: $fontSizeAllPgHme;
-                    font-family: $fontFamilyJudul;
-                    color: $colorSatu;
-                }
-            }
-            // END Row1
-
-            // Row2
-            .row2-cont1-pageBeranda{
-                display: flex;
-                height: 100%;
-                width: 10%;
-                align-items: center;
-                justify-content: flex-end;
-
-                i{
-                    display: flex;
-                    font-size: 17px;
-                    color: $colorSatu;
-                    margin: -6px 0 0 0;
-                }
-            }
-            // END Row2
+            position: absolute;
+            height: 160px;
+            width: 100%;
+            border-bottom-left-radius: 10%;
+            border-bottom-right-radius: 10%;
+            object-fit: cover;
+            object-position: bottom;
         }
-        // END Btn Description App
-
-        // Modal Description App
-        .modalDesc-app-pageBeranda{
-            display: flex;
-            flex-direction: column;
-            height: auto;
-            background: $colorSatu;
-            box-shadow: 0 2px 5px -1px rgba(0,0,0,0.2);
-            border-radius: 5px;
-            margin: 0px 0 10px 0;
-            padding: 20px;
-
-            .txtModal-descApp-pageBeranda{
-                display: flex;
-                flex-direction: column;
-                font-size: $fontSizeAllPgHme;
-                line-height: 25px;
-                text-align: center;
-            }
-        }
-        // END Modal Description App
     }
-    // END Section1
+    // end Background atas
 
     // Section 2 - 5
     #secGroup{
@@ -105,7 +44,7 @@
             height: auto;
             width: 100%;
             justify-content: center;
-            padding: 8px 10px 8px 10px;
+            padding: 0px 10px 8px 10px;
 
             .boxSlide{
                 display: flex;

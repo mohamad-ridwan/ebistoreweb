@@ -21,11 +21,7 @@ const DetailCard = (props)=>{
             <i className="fas fa-heart love" id="iconGroup"></i>
             
             <Slider {...settings} className={'slider-img-produk'}>
-                <img src={imgProduk} alt="" className="img-produk"/>
-                <img src={imgProduk} alt="" className="img-produk"/>
-                <img src={imgProduk} alt="" className="img-produk"/>
-
-                
+                <img src={props.img} alt="" className="img-produk"/>
             </Slider>
 
             {/* deskripsi produk */}
@@ -53,6 +49,26 @@ const DetailCard = (props)=>{
                 </div>                
             </div>
             {/* end deskripsi produk */}
+
+            {/* keterangan makaroni */}
+            <div className="keterangan-makaroni">
+                <p className="title titleGroup">
+                    Deskripsi Makaroni
+                </p>
+
+                <p className="paragraph paragrapGroup">
+                    {props.data.deskripsi}
+                </p>
+
+                <p className="komposisi titleGroup">
+                    Komposisi
+                </p>
+
+                <p className="paragraph-komposisi paragrapGroup">
+                    {props.data.komposisi}
+                </p>
+            </div>
+            {/* end keterangan makaroni */}
         </div>
         
         </>

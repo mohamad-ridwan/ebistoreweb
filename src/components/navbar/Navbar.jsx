@@ -8,29 +8,41 @@ import { Link } from 'react-router-dom'
 const Navbar = () => {
 
     // Create Sticky Scroll Bar
-    let [hide, setHide] = useState(false)
+    // let [hide, setHide] = useState(false)
     // END Create Sticky Scroll Bar
 
-    useEffect(() => {
-        let prevScroll = window.pageYOffset
-        window.onscroll = () => {
-            let currentScroll = window.pageYOffset
+    // useEffect(() => {
+    //     let prevScroll = window.pageYOffset
+    //     window.onscroll = () => {
+    //         let currentScroll = window.pageYOffset
 
-            prevScroll > currentScroll ? setHide(false) : setHide(true)
+    //         prevScroll > currentScroll ? setHide(false) : setHide(true)
 
-            prevScroll = currentScroll
+    //         prevScroll = currentScroll
+    //     }
+    // }, [])
+
+    const [navbar, setNavbar] = useState(false);
+
+    const changeBackground = ()=>{
+        if(window.scrollY >= 50){
+            setNavbar(true)
+        } else {
+            setNavbar(false);
         }
-    }, [])
+    }
+
+    window.addEventListener('scroll', changeBackground);
 
     return (
         <>
-            <div className="navbar" style={{
-                transform: hide ? 'translateY(-200px)' : 'translateY(0)',
-                transition: '.5s all cubic-bezier(0.64,-0.24, 0.43, 1.24)',
+            <div className={navbar ? 'navbar active color' : 'navbar'} style={{
+                // transform: hide ? 'translateY(-200px)' : 'translateY(0)',
+                // transition: '.5s all cubic-bezier(0.64,-0.24, 0.43, 1.24)',
             }}>
                 {/* Row1 */}
                 <div className="row1-navbar">
-                    <a href="#" className="link-brand-navbar">
+                    <div className="link-brand-navbar">
                         {/* Image Brand */}
                         <img src={logMacaroni} className="img-brand-navbar" alt="" />
                         {/* END Image Brand */}
@@ -50,7 +62,7 @@ const Navbar = () => {
                             {/* END Txt2 */}
                         </div>
                         {/* END Name Brand */}
-                    </a>
+                    </div>
                 </div>
                 {/* END Row1 */}
 

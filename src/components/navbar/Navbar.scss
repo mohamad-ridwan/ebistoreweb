@@ -5,10 +5,12 @@
     position: fixed;
     height: $heightNavHome;
     width: 100%;
-    background: $colorTiga;
-    box-shadow: $boxShdwNavPage;
+    background: transparent;
+    // box-shadow: $boxShdwNavPage;
     margin: 0 0 5px 0;
     z-index: 111;
+    color: $colorTiga;
+    transition: 0.2s ease-out;
 
     // Row1
     .row1-navbar{
@@ -41,7 +43,6 @@
                     display: flex;
                     font-size: 35px;
                     font-family: $fontFmNvbr;
-                    color: $colorSatu;
                     text-decoration: none;
                 }
                 // END Txt1
@@ -51,7 +52,6 @@
                     display: flex;
                     font-size: 20px;
                     font-family: $fontFmNvbr;
-                    color: $colorSatu;
                     margin: 11px 0 0 0;
                 }
                 // END Txt2
@@ -76,6 +76,7 @@
             height: 35px;
             width: 35px;
             border-radius: 500px;
+            box-shadow: 0px 5px 5px -1px rgba(0,0,0,0.5);
 
             .img-profile-navbar{
                 display: flex;
@@ -90,11 +91,17 @@
             font-size: 13px;
             font-family: $fontFamilyJudul;
             font-weight: $fontWeightJudul;
-            color: $colorSatu;
             margin: 0 0px 0 5px;
         }
         // END Name Account User
         
     }
     // END Row2
+}
+
+.active{
+    background-color: $colorTiga;
+    box-shadow: $boxShdwNavPage;
+    transition: 0.2s ease-out;
+    color: #fff;
 }

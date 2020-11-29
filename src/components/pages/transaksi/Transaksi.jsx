@@ -24,6 +24,7 @@ class Transaksi extends Component {
             label : '',
             name: '',
             price: '',
+            image: ''
         },
         totalBeli : 1
     }
@@ -50,7 +51,7 @@ class Transaksi extends Component {
     // Data Produk
     produkAPI = ()=>{
         let id = this.props.match.params.id
-        Axios.get(`http://localhost:62542/v2/makaroni/getlimaribu/${id}`)
+        Axios.get(`http://localhost:62542/v8/makaroni/getall/${id}`)
         .then(result=>{
             let post = result.data
             this.setState({
@@ -58,7 +59,8 @@ class Transaksi extends Component {
                     _id : post.data._id,
                     label: post.data.label,
                     name: post.data.name,
-                    price: post.data.price
+                    price: post.data.price,
+                    image: post.data.image
                 }
             })
         })
@@ -109,17 +111,18 @@ class Transaksi extends Component {
             {/* detail produk pesanan */}
 
             <BoxWhite
-                img={img}
+                img={`http://localhost:62542/${this.state.produk.image}`}
                 label={this.state.produk.label}
                 name={this.state.produk.name}
                 price={this.state.produk.price}
                 display={"flex"}
                 titleTotalBeli={"Total yang di beli"}
-                heightImg={"110px"}
+                heightImg={"auto"}
                 widthImg={"110px"}
+                maxHeightImg={"110px"}
                 margBox={"0px 10px 0 10px"}
                 marginName={"10px 0 0 0"}
-                paddBox={"10px 10px 40px 10px"}
+                paddBox={"10px 0px 40px 0px"}
                 displayBeli={"none"}
                 positionBox={"relative"}
                 displayBtnDelete={"none"}
@@ -131,13 +134,13 @@ class Transaksi extends Component {
 
             {/* deskripsi alamat */}
             <div className="deskripsi-alamat">
-                <p className="title-alamat">
-                </p>
-
-                {this.state.alamat && this.state.alamat.length > 0
+            {this.state.alamat && this.state.alamat.length > 0
                 ? this.state.alamat.map(e=>{
                     return(
                         <>
+                        <p className="title-alamat">
+                            Alamat
+                        </p>
                             <Alamat
                                 data={e}
                             />
@@ -145,35 +148,36 @@ class Transaksi extends Component {
                     )
                 }) : (
                     <div className="oke"></div>
-                )}
-                
+                )}            
             </div>
             {/* end deskripsi alamat */}
 
             {/* pembayaran */}
-            <div className="pembayaran">
-                <p className="title-pembayaran">
-                    Pembayaran
-                </p>
-
-                <div className="card-pembayaran">
-                    <div className="container-logo-pembayaran">
-                        <img src={indo} alt="" className="logo-pembayaran"/>
-                        <p className="name-logo">
-                        • Indomaret
-                        </p>
-                    </div>
-                    <p className="kurir-pengiriman">
-                        • Kurir - JNE
-                        <br/>
-                        Durasi Pengiriman
-                        <br/>
-                        1 - 3 Hari
+            <div className="container-pembayaran">
+                <div className="pembayaran">
+                    <p className="title-pembayaran">
+                        Pembayaran
                     </p>
-                    <button className="pilih-kurir">
-                        Pilih Kurir
-                        <i className="fas fa-angle-down"></i>
-                    </button>
+
+                    <div className="card-pembayaran">
+                        <div className="container-logo-pembayaran">
+                            <img src={indo} alt="" className="logo-pembayaran"/>
+                            <p className="name-logo">
+                            • Indomaret
+                            </p>
+                        </div>
+                        <p className="kurir-pengiriman">
+                            • Kurir - JNE
+                            <br/>
+                            Durasi Pengiriman
+                            <br/>
+                            1 - 3 Hari
+                        </p>
+                        <button className="pilih-kurir">
+                            Pilih Kurir
+                            <i className="fas fa-angle-down"></i>
+                        </button>
+                    </div>
                 </div>
             </div>
             {/* end pembayaran */}

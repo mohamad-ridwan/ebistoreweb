@@ -7,18 +7,21 @@ const FormAlamat = ({
     fungsiAutoFocus,
     handle,
     placeholder,
-    valueDefault
+    valueDefault,
+    submit
 })=>{
     return(
         <>
-        <label htmlFor="" className="labelGroup">
-            {title}
-        </label>
-        <input type="text" value={valueDefault} name={valueName} className="inputGroup"
-            placeholder={placeholder}
-            autoFocus={fungsiAutoFocus}
-            onChange={handle}
-        />
+        <form onSubmit={submit} className="form-alamat">
+            <label htmlFor="" className="labelGroup">
+                {title}
+            </label>
+            <input type="text" value={valueDefault} name={valueName} className="inputGroup"
+                placeholder={placeholder}
+                autoFocus={fungsiAutoFocus}
+                onChange={handle}
+            />
+        </form>
         </>
     )
 }

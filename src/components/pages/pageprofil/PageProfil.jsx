@@ -10,41 +10,44 @@ import './PageProfil.scss'
 
 const PageProfil =()=>{
 
-    const [alamat, setAlamat] = useState([]);
+    const [alamat, setAlamat] = useState([])
 
-    const getPostAPI = ()=>{
+    const getAlamat = ()=>{
         Axios.get('http://localhost:62542/v5/dataalamat/getalamat')
         .then(result=>{
-            const resAPI = result.data
+            const response = result.data
 
-            setAlamat(resAPI.dataAlamat)
+            setAlamat(response.dataAlamat)
         })
         .catch(err=>{
-            console.log('data failed in get', err)
+            console.log('error', err)
+        })
+    }
+    
+    const handleRemove = (data)=>{
+        Axios.delete(`http://localhost:62542/v5/dataalamat/postalamat/${data}`)
+        .then(result=>{
+            const res = result.data
+            setAlamat(res)
+
+            getAlamat()
+            alert('Data Berhasil Di Delete!')
+        })
+        .catch(err=>{
+            console.log('error', err)
         })
     }
 
     // delete post alamat
-    let handleRemove = (data)=>{
-        Axios.delete(`http://localhost:62542/v5/dataalamat/postalamat/${data}`)
-        .then(result=>{
-            setAlamat(result)
-            // For real time database
-            // Call again get api for repeat return
-            getPostAPI();
-        })
-        .catch(err=>{
-            console.log('failed to delete', err)
-        })
-    }
+
     // end delete post alamat
 
     // const addTodo = useStoreActions((actions)=> actions.addTodo);
     // const [value, setValue] = React.useState();
 
     useEffect(()=>{
-        getPostAPI();
-    }, [])
+        getAlamat();
+    })
 
     return(
         <>
@@ -63,21 +66,19 @@ const PageProfil =()=>{
                 <p className="title-alamat">
                     Alamat Kamu :
                 </p>
-
-                {alamat && alamat.length > 0
-                ? alamat.map(e=>{
-                    return(
-                        <>
-                        <Alamat
-                        data={e}
-                        remove={handleRemove}
-                        // update={addTodo(value)}
-                        />
-                        </>
-                    )
-                }): (
-                    <>
-                    <div className="box-input-alamat">
+                    {alamat && alamat.length > 0
+                    ? alamat.map(e=>{
+                        return(
+                            <>
+                            <Alamat
+                                data={e}
+                                key={e._id}
+                                remove={handleRemove}
+                            />
+                            </>
+                        )
+                    }) : (
+                        <div className="box-input-alamat">
                         <p className="deskripsi">
                             Kamu belum mengisi alamat kamu,
                             <br/>
@@ -93,8 +94,7 @@ const PageProfil =()=>{
                             paddName={'5px'}
                         />
                     </div> 
-                </>
-                )}
+                    )}
             </div>
             {/* end box alamat */}
         </div>

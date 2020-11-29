@@ -10,6 +10,7 @@ import img from '../../../img/satu.jpeg'
 import imgPromo from '../../../img/promo.jpg'
 import './PageBeranda.scss'
 import {matchPath, useHistory, useLocation, useParams, useRouteMatch, withRouter} from 'react-router-dom'
+import bgMakaroni from '../../../img/bgmakaroni.jpg'
 
 const PageBeranda = () => {
 
@@ -28,11 +29,11 @@ const PageBeranda = () => {
  
     // Semua Harga
     const getDataProduk = ()=>{
-        Axios.get('http://localhost:62542/v1/makaroni/getproduk?perPage=12')
+        Axios.get('http://localhost:62542/v8/makaroni/getall?page=8')
         .then(result=>{
             const resAPI = result.data
 
-            setDataProduk(resAPI.dataSemuaHarga)
+            setDataProduk(resAPI.data)
         })
         .catch(err=>{
             console.log('failed :', err)
@@ -41,11 +42,11 @@ const PageBeranda = () => {
 
     // 5rb
     const getLimaRibu = ()=>{
-        Axios.get('http://localhost:62542/v2/makaroni/getlimaribu?perPage=9')
+        Axios.get('http://localhost:62542/v8/makaroni/getall?page=6')
         .then(result=>{
             const resAPI = result.data
 
-            setProdukLimaRibu(resAPI.dataLimaRibu)
+            setProdukLimaRibu(resAPI.data)
         })
         .catch(err=>{
             console.log('produk 5rb failed get', err)
@@ -54,11 +55,11 @@ const PageBeranda = () => {
 
     // 10rb
     const getSepuluhRibu = ()=>{
-        Axios.get('http://localhost:62542/v3/makaroni/getsepuluhribu?perPage=7')
+        Axios.get('http://localhost:62542/v8/makaroni/getall?page=3')
         .then(result=>{
             const resAPI = result.data
 
-            setProdukSepuluhRibu(resAPI.dataSepuluhRibu)
+            setProdukSepuluhRibu(resAPI.data)
         })
         .catch(err=>{
             console.log('data failed in get', err)
@@ -67,11 +68,11 @@ const PageBeranda = () => {
 
     // 15rb
     const getLimaBelasRibu = ()=>{
-        Axios.get('http://localhost:62542/v4/makaroni/getlimabelasribu')
+        Axios.get('http://localhost:62542/v8/makaroni/getall')
         .then(result=>{
             const resAPI = result.data
 
-            setProdukLimaBelasRibu(resAPI.makaroniLimaBelasRibu)
+            setProdukLimaBelasRibu(resAPI.data)
         })
         .catch(err=>{
             console.log('data failed in get', err)
@@ -107,47 +108,9 @@ const PageBeranda = () => {
     return (
         <>
             <div className="wrapper-pageBeranda">
-                {/* Section 1 */}
-                <section className="section-1-pageBeranda">
-                    {/* Btn Description App */}
-                    <button type="button" className="descApp-pageBeranda" onClick={function () {
-                        setModal(!modal)
-                    }}>
-                        {/* Row1 */}
-                        <div className="row1-cont1-pageBeranda">
-                            <p className="txt-btn-descApp-pageBeranda">
-                                Klik Untuk Lihat Deskripsi Aplikasi
-                            </p>
-                        </div>
-                        {/* END Row1 */}
-
-                        {/* Row2 */}
-                        <div className="row2-cont1-pageBeranda">
-                            <i className="fas fa-sort-down" style={{
-                                transform: modal ? 'rotate(180deg)' : 'rotate(0deg)',
-                                marginTop: modal ? '6px' : '-6px',
-                                transition: '.3s'
-                            }}></i>
-                        </div>
-                        {/* END Row2 */}
-                    </button>
-                    {/* END Btn Description App */}
-
-                    {/* Modal Description App */}
-                    <div className="modalDesc-app-pageBeranda" style={{
-                        display: modal ? 'flex' : 'none'
-                    }}>
-                        <p className="txtModal-descApp-pageBeranda">
-                            Suka dengan jajanan yang ringan dan murah seperti makaroni?,
-                            <br />
-                            Di EbiStore ini telah menyediakan berbagai macam aneka makaroni yang di buat EbiStore!,
-                            <br />
-                            Penasaran? Scroll aja..
-                        </p>
-                    </div>
-                    {/* END Modal Description App */}
+                <section className="background-atas">
+                    <img src={bgMakaroni} alt="" className="bg-makaroni"/>
                 </section>
-                {/* END Section 1 */}
 
                 {/* Section 2 */}
                 <section className="section-2-pageBeranda" id="secGroup">
@@ -168,10 +131,9 @@ const PageBeranda = () => {
                                     heightWrapp={"auto"}
                                     widthWrapp={"calc(96%)"}
                                     displayNavBtn={"none"}
-                                    imgProduk={img}
+                                    imgProduk={`http://localhost:62542/${e.image}`}
                                     data={e}
                                     displayBtnBuy={"none"}
-                                    bdrRadius={"10px"}
                                     mrginWrapp={"10px auto"}
                                     paddContent={"10px"}
                                     mrgnStock={"5px 0 0px 0"}
@@ -208,14 +170,14 @@ const PageBeranda = () => {
                         ? produkLimaRibu.map(i=>{
                             return(
                                 <BoxCard
+                                    key={i._id}
                                     flxDirectWrapp={"column"}
                                     heightWrapp={"auto"}
                                     widthWrapp={"calc(96%)"}
                                     displayNavBtn={"none"}
-                                    imgProduk={img}
+                                    imgProduk={`http://localhost:62542/${i.image}`}
                                     data={i}
                                     displayBtnBuy={"none"}
-                                    bdrRadius={"10px"}
                                     mrginWrapp={"10px auto"}
                                     paddContent={"10px"}
                                     mrgnStock={"5px 0 0px 0"}
@@ -254,14 +216,14 @@ const PageBeranda = () => {
                             {produkSepuluhRibu && produkSepuluhRibu.length > 0 ? produkSepuluhRibu.map(e=>{
                                 return(
                                     <BoxCard
+                                    key={e._id}
                                     flxDirectWrapp={"column"}
                                     heightWrapp={"auto"}
                                     widthWrapp={"calc(96%)"}
                                     displayNavBtn={"none"}
-                                    imgProduk={img}
+                                    imgProduk={`http://localhost:62542/${e.image}`}
                                     data={e}
                                     displayBtnBuy={"none"}
-                                    bdrRadius={"10px"}
                                     mrginWrapp={"10px auto"}
                                     paddContent={"10px"}
                                     mrgnStock={"5px 0 0px 0"}
@@ -300,14 +262,14 @@ const PageBeranda = () => {
                             ? produkLimaBelasRibu.map(e=>{
                                 return(
                                     <BoxCard
+                                    key={e._id}
                                     flxDirectWrapp={"column"}
                                     heightWrapp={"auto"}
                                     widthWrapp={"calc(96%)"}
                                     displayNavBtn={"none"}
-                                    imgProduk={img}
+                                    imgProduk={`http://localhost:62542/${e.image}`}
                                     data={e}
                                     displayBtnBuy={"none"}
-                                    bdrRadius={"10px"}
                                     mrginWrapp={"10px auto"}
                                     paddContent={"10px"}
                                     mrgnStock={"5px 0 0px 0"}

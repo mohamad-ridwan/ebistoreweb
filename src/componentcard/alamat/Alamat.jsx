@@ -24,7 +24,7 @@ const Alamat = (props)=>{
                     <i className="fas fa-edit" id="iconGroup"></i>
                 </Link>
                 <Link className="btnDelete btnGroup"
-                onClick={()=> props.remove(props.data._id)}
+                    onClick={()=>props.remove(props.data._id)}
                 >
                     <p className="delete nmGroup">
                         Delete
