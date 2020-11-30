@@ -3,27 +3,37 @@
 // Navbar
 .navbar-pageCard{
     display: flex;
-    height: $heightNavPage;
+    height: auto;
+    padding: 30px 0 25px 0;
     width: 100%;
-    background: $colorTiga;
-    box-shadow: $boxShdwNavPage;
-    position: fixed;
+    // background: $colorTiga;
+    // box-shadow: $boxShdwNavPage;
+    // position: fixed;
     z-index: 11;
 
     // Row nav
     .row-nav-pageCard{
         display: flex;
+        position: relative;
         height: auto;
         width: 100%;
         align-items: center;
+        justify-content: center;
         padding: $padNavPage;
 
         // Btn Back Page Nav
         .btn-back-nav-pageCard{
             display: flex;
-            font-size: $fontSzBtnBckNav;
-            color: $colorSatu;
+            position: absolute;
             text-decoration: none;
+            justify-content: center;
+            align-items: center;
+            left: 20px;
+
+            span{
+                font-size: $fontSzBtnBckNav;
+                color: #777;
+            }
         }
         // END Btn Back Page Nav
 
@@ -31,9 +41,8 @@
         .title-page-nav-pageCard{
             display: flex;
             font-size: $fontSzTitNav;
-            font-family: $fontFamilyJudul;
-            margin: $margTitNav;
-            color: $colorDua;
+            color: #777;
+            font-weight: bold;
             text-decoration: none;
         }
         // END Title Page Nav

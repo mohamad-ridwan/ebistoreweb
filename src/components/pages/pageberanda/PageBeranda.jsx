@@ -108,8 +108,13 @@ const PageBeranda = () => {
     return (
         <>
             <div className="wrapper-pageBeranda">
-                <section className="background-atas">
-                    <img src={bgMakaroni} alt="" className="bg-makaroni"/>
+                <section className="section1-pageBeranda">
+                    <div className="box-icon iconCart">
+                        <i className="fas fa-shopping-cart"></i>
+                    </div>
+                    <div className="box-icon">
+                    <i class="far fa-bell"></i>
+                    </div>
                 </section>
 
                 {/* Section 2 */}
@@ -121,7 +126,9 @@ const PageBeranda = () => {
                     {/* END Judul */}
 
                     {/* Section Semua Harga */}
-                    <div className="box-group">
+                    <div className="box-group" style={{
+                        backgroundColor: `#fff`
+                    }}>
                         <Slider {...settings} className="boxSlide">
                             {dataProduk && dataProduk.length > 0 
                             ? dataProduk.map(e=>{
@@ -129,13 +136,13 @@ const PageBeranda = () => {
                                     <BoxCard
                                     flxDirectWrapp={"column"}
                                     heightWrapp={"auto"}
-                                    widthWrapp={"calc(96%)"}
+                                    widthWrapp={"calc(90%)"}
                                     displayNavBtn={"none"}
                                     imgProduk={`http://localhost:62542/${e.image}`}
                                     data={e}
                                     displayBtnBuy={"none"}
                                     mrginWrapp={"10px auto"}
-                                    paddContent={"10px"}
+                                    paddContent={"0px 10px 10px 10px"}
                                     mrgnStock={"5px 0 0px 0"}
                                     detail={handleDetail}
                                     />
@@ -147,10 +154,14 @@ const PageBeranda = () => {
                         
                         <BtnCard
                         heightBtn={'45px'}
-                        widthBtn={'auto'}
+                        widthBtn={'150px'}
                         btnName={'Lihat Semua'}
-                        marginBtn={'10px 0 0 0'}
-                        link={'/detail-produk/1'}
+                        marginBtn={'5px auto'}
+                        link={'/semuaproduk'}
+                        bdrRadius={"100px"}
+                        bgColor={"#ffa835"}
+                        colorP={"#fff6eb"}
+                        bxShadow={"0 3px 9px -1px rgba(0,0,0,0.2)"}
                         />
                     </div>
                     {/* END Section Semua Harga */}
@@ -158,7 +169,9 @@ const PageBeranda = () => {
                 {/* END Section 2 */}
 
                 {/* Section 3 */}
-                <section className="section-3-pageBeranda" id="secGroup">
+                <section className="section-3-pageBeranda" id="secGroup" style={{
+                        backgroundColor: `#fff`
+                    }}>
                     {/* Judul */}
                     <JudulCard txtJudul="Serba 5rb" />
                     {/* END Judul */}
@@ -173,7 +186,7 @@ const PageBeranda = () => {
                                     key={i._id}
                                     flxDirectWrapp={"column"}
                                     heightWrapp={"auto"}
-                                    widthWrapp={"calc(96%)"}
+                                    widthWrapp={"calc(90%)"}
                                     displayNavBtn={"none"}
                                     imgProduk={`http://localhost:62542/${i.image}`}
                                     data={i}
@@ -191,10 +204,14 @@ const PageBeranda = () => {
                     
                         <BtnCard
                         heightBtn={'45px'}
-                        widthBtn={'auto'}
+                        widthBtn={'150px'}
                         btnName={'Lihat Semua'}
-                        marginBtn={'10px 0 0 0'}
-                        link={'/detail-produk/2'}
+                        marginBtn={'5px auto'}
+                        link={'/detail-produk/1'}
+                        bdrRadius={"100px"}
+                        bgColor={"#ffa835"}
+                        colorP={"#fff6eb"}
+                        bxShadow={"0 3px 9px -1px rgba(0,0,0,0.2)"}
                         />
                     </div>
                     {/* END Section Serba 5rb */}
@@ -205,7 +222,9 @@ const PageBeranda = () => {
                 {/* END Section 3 */}
 
                 {/* Section 4 */}
-                <section className="section-4-pageBeranda" id="secGroup">
+                <section className="section-4-pageBeranda" id="secGroup"  style={{
+                        backgroundColor: `#fff`
+                    }}>
                     {/* Judul */}
                     <JudulCard txtJudul="Serba 10rb" />
                     {/* END Judul */}
@@ -219,7 +238,7 @@ const PageBeranda = () => {
                                     key={e._id}
                                     flxDirectWrapp={"column"}
                                     heightWrapp={"auto"}
-                                    widthWrapp={"calc(96%)"}
+                                    widthWrapp={"calc(90%)"}
                                     displayNavBtn={"none"}
                                     imgProduk={`http://localhost:62542/${e.image}`}
                                     data={e}
@@ -239,10 +258,14 @@ const PageBeranda = () => {
                     
                         <BtnCard
                         heightBtn={'45px'}
-                        widthBtn={'auto'}
+                        widthBtn={'150px'}
                         btnName={'Lihat Semua'}
-                        marginBtn={'10px 0 0 0'}
-                        link={'/'}
+                        marginBtn={'5px auto'}
+                        link={'/detail-produk/1'}
+                        bdrRadius={"100px"}
+                        bgColor={"#ffa835"}
+                        colorP={"#fff6eb"}
+                        bxShadow={"0 3px 9px -1px rgba(0,0,0,0.2)"}
                         />
                     </div>
                     {/* END Section Serba 10rb */}
@@ -250,7 +273,9 @@ const PageBeranda = () => {
                 {/* END Section 4 */}
 
                 {/* Section 5 */}
-                <div className="section-5-pageBeranda" id="secGroup">
+                <div className="section-5-pageBeranda" id="secGroup"  style={{
+                        backgroundColor: `#fff`
+                    }}>
                     {/* Judul */}
                     <JudulCard txtJudul={"Serba 15rb"} />
                     {/* END Judul */}
@@ -265,7 +290,7 @@ const PageBeranda = () => {
                                     key={e._id}
                                     flxDirectWrapp={"column"}
                                     heightWrapp={"auto"}
-                                    widthWrapp={"calc(96%)"}
+                                    widthWrapp={"calc(90%)"}
                                     displayNavBtn={"none"}
                                     imgProduk={`http://localhost:62542/${e.image}`}
                                     data={e}
@@ -283,10 +308,14 @@ const PageBeranda = () => {
                     
                         <BtnCard
                         heightBtn={'45px'}
-                        widthBtn={'auto'}
+                        widthBtn={'150px'}
                         btnName={'Lihat Semua'}
-                        marginBtn={'10px 0 0 0'}
-                        link={'/'}
+                        marginBtn={'5px auto'}
+                        link={'/detail-produk/1'}
+                        bdrRadius={"100px"}
+                        bgColor={"#ffa835"}
+                        colorP={"#fff6eb"}
+                        bxShadow={"0 3px 9px -1px rgba(0,0,0,0.2)"}
                         />
                     </div>
                     {/* END Section Serba 15rb */}

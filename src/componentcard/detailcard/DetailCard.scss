@@ -6,61 +6,76 @@
     position: relative;
     height: auto;
     width: 100%;
-    
-    #iconGroup{
+
+    .title-nm-produk{
+        display: flex;
+        font-size: 15pt;
+        color: $colorLimaBelas;
+        margin: 0 20px;
+        text-align: start;
+    }
+
+    .box-icon-detail{
         display: flex;
         position: absolute;
-        top: 60px;
-        font-size: 18pt;
-        color: #fff;
-        opacity: 0.9;
-        z-index: 9;
-    }
+        height: 40px;
+        width: 40px;
+        border-radius: 15px;
+        justify-content: center;
+        align-items: center;
+        background-color: $colorTigaBelas;
+        box-shadow: 0 1px 2px -1px rgba(0,0,0,0.1);
+        right: 20px;
+        top: 25px;
+        z-index: 11;
 
-    .cart{
-        display: flex;
-        right: 60px;
+        i{
+            display: flex;
+            font-size: 12pt;
+            color: $colorEmpatBelas;
+        }
     }
-
-    .love{
-        display: flex;
-        right: 10px;
-    }
-
 
     // slider
     .slider-img-produk{
         display: flex;
+        position: relative;
         height: auto;
         width: 100%;
-        margin-top: 50px;
-
-        .img-produk{
-            display: flex;
-            height: 250px;
-            width: 100%;
-            object-fit: cover;
-            object-position: center;
-        }
+        margin-top: 20px;
+        background-color: #fff;
     }
     // end slider
+
+    .img-produk{
+        display: flex;
+        height: auto;
+        max-height: 350px;
+        width: 100%;
+        object-fit: cover;
+        object-position: center;
+        margin-top: 20px;
+    }
 
     // deskripsi
     .deskripsi-produk{
         display: flex;
+        flex-direction: column;
         position: relative;
         height: auto;
         width: 100%;
-        text-align: start;
-        padding: 20px 10px;
-        border-bottom: 10px solid #ddd;
+        text-align: center;
+        justify-content: center;
+        padding: 10px 20px 10px 20px;
+        background-color: #fff;
 
         // row kiri
         .rowKiri{
             display: flex;
             flex-direction: column;
             height: auto;
-            width: 70%;
+            width: auto;
+            align-items: center;
 
             // label group
             .labelGroup{
@@ -85,80 +100,36 @@
             .name-produk{
                 display: flex;
                 font-size: 12pt;
+                font-weight: bold;
                 margin-top: 10px;
-                color: #000;
+                color: #777;
             }
 
             .price-produk{
                 display: flex;
                 font-size: 16pt;
                 font-weight: bold;
-                color: $colorSepuluh;
+                color: $colorLimaBelas;
             }
 
             .stock-produk{
                 display: flex;
-                color: #000;
+                color: $colorLimaBelas;
             }
         }
         // end row kiri
-
-        // row kanan
-        .rowKanan{
-            display: flex;
-            height: auto;
-            width: 30%;
-            padding: 0 0 0 5px;
-
-            .btn-buy{
-                display: flex;
-                height: 35px;
-                width: 100%;
-                background-color: $colorTiga;
-                align-items: center;
-                justify-content: center;
-                text-decoration: none;
-                color: #fff;
-                border-radius: 10px;
-                box-shadow: 0 2px 5px -1px rgba(0,0,0,0.5);
-            }
-        }
-        // end row kanan
-    }
-    // end deskripsi
-
-    // keterangan makaroni
-    .keterangan-makaroni{
-        display: flex;
-        flex-direction: column;
-        height: auto;
-        width: 100%;
-        text-align: start;
-        padding: 20px 10px;
-        border-bottom: 10px solid #ddd;
-
-        // title group
-        .titleGroup{
-            display: flex;
-            font-size: 12pt;
-            font-weight: bold;
-            margin-top: 0px;
-        }
-        // end title group
 
         // paragrap Group
         .paragrapGroup{
             display: flex;
             font-size: 11pt;
-            margin-top: 15px;
+            margin: 20px 0;
+            padding: 0 30px;
+            font-weight: bold;
+            color: #bbb;
         }
         // end paragrap Group
-
-        .komposisi{
-            display: flex;
-            margin-top: 20px;
-        }
     }
-    // end keterangan makaroni
+    // end deskripsi
 }
 

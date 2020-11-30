@@ -77,6 +77,7 @@ class DetailProduk extends Component {
             let post = result.data
             // Agar bisa mendapatkan data yg masuk
             // Ganti data yg masuk dengan data yg baru
+            console.log(result.data)
             this.setState({
                 post: [
                     {   

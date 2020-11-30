@@ -54,6 +54,7 @@ class Transaksi extends Component {
         Axios.get(`http://localhost:62542/v8/makaroni/getall/${id}`)
         .then(result=>{
             let post = result.data
+            console.log(result.data)
             this.setState({
                 produk : {
                     _id : post.data._id,

@@ -28,7 +28,9 @@ const NavbarPageCard = ({ linkPage, titlePageNav }) => {
                 <div className="row-nav-pageCard">
                     {/* Btn Back Page Nav */}
                     <Link to={linkPage} className="btn-back-nav-pageCard">
-                        <i className="fas fa-arrow-left"></i>
+                        <span class="material-icons">
+                        west
+                        </span>
                     </Link>
                     {/* END Btn Back Page Nav */}
 

@@ -106,16 +106,16 @@ const Container1 = () => {
                             {/* END For Register */}
 
                             {/* For Home */}
-                            <Route path='/beranda'>
+                            <Route path='/'>
                                 {/* Navbar */}
-                                <Navbar />
+                                {/* <Navbar /> */}
                                 {/* END Navbar */}
 
                                 {/* Page Beranda */}
                                 <PageBeranda />
                                 {/* END Page Beranda */}
 
-                                <BtnNotifPromo />
+                                {/* <BtnNotifPromo /> */}
 
                                 {/* Helmet Page Beranda */}
                                 <HelmetPageBeranda />
@@ -124,7 +124,7 @@ const Container1 = () => {
                             {/* END For Home */}
 
                             {/* For Page Home */}
-                            <Route path='/'>
+                            <Route path='/login'>
                                 <Login/>
                             </Route>
                             {/* END For Page Home */}
@@ -132,7 +132,7 @@ const Container1 = () => {
                         </Switch>
                         </WindowScroll>
 
-                        <NavBottom />
+                        {/* <NavBottom /> */}
                     </Router>
                 </>
             )} />

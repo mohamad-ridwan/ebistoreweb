@@ -1,18 +1,55 @@
+@import '../../../util/variable/variable.scss';
+
 .wrapper-semua-produk{
     display: flex;
     flex-direction: column;
     height: auto;
     width: 100%;
-    margin-bottom: 55px;
+    margin-bottom: 0px;
+
+    // Categori Nav
+    .categori-nav{
+        display: flex;
+        flex-direction: column;
+        height: auto;
+        width: 100%;
+        padding: 0 20px;
+
+        .title-ktg{
+            display: flex;
+            font-size: 25pt;
+            font-weight: bold;
+            color: #000;
+        }
+
+        .slider-allP{
+            display: flex;
+            height: auto;
+            width: 100%;
+            padding: 10px 0;
+            margin-top: 10px;
+
+            .btn-kategori{
+                display: flex;
+                font-size: 15pt;
+                color: #ddd;
+                text-decoration: none;
+                border: none;
+                outline: none;
+            }
+        }
+    }
+    // END Categori Nav
 
     .container-all-card{
         display: flex;
         flex-wrap: wrap;
         height: auto;
         width: 100%;
-        padding: 0 0 10px 10px;
-        justify-content: start;
+        padding: 20px 20px 20px 20px;
+        justify-content: space-between;
         align-items: flex-start;
-        margin: 70px 0 20px 0;
+        margin: 0px 0 0px 0;
+        background-color: #f1f1f1;
     }
 }

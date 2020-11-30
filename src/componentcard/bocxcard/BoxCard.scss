@@ -4,8 +4,8 @@
     display: flex;
     height: auto;
     background-color: $colorSatu;
-    box-shadow: 0 2px 6px -1px rgba(0,0,0,0.3);
-    border-radius: 10px 30px 10px 10px;
+    box-shadow: 0 2px 10px -1px rgba(0,0,0,0.1);
+    border-radius: 20px;
 
     .nav-btn-produk{
         position: absolute;
@@ -16,9 +16,8 @@
     .img-produk{
         display: flex;
         height: auto;
-        max-height: 180px;
+        max-height: 140px;
         width: 100%;
-        border-bottom-left-radius: 30px;
     }
 
     .box-content-produk{
@@ -27,23 +26,26 @@
         height: auto;
         width: 100%;
         padding: 5px 10px;
+        align-items: center;
+
+        // price Group
+        .priceGroup{
+            display: flex;
+            font-size: 10pt;
+            color: $colorLimaBelas;
+            font-weight: bold;
+            text-align: start;
+        }
+        // end price Group
 
         // name Group
         .nameGroup{
             display: flex;
             text-align: start;
-            color: #000;
+            color: #777;
+            font-weight: bold;
         }
         // end name Group
-
-        // price Group
-        .priceGroup{
-            display: flex;
-            color: $colorSepuluh;
-            font-weight: bold;
-            text-align: start;
-        }
-        // end price Group
 
         .label-produk{
             display: flex;
@@ -53,12 +55,19 @@
         .name-produk{
             display: flex;
             font-size: 10pt;
+            width: 100%;
+            margin: 0 10px;
             text-overflow: ellipsis;
+            justify-content: center;
+            text-align: center;
+            padding-bottom: 5px;
+            border-bottom: 1px solid #ccc;
         }
 
         .stock{
             display: flex;
             font-size: 8pt;
+            color: $colorLimaBelas;
         }
 
         // box Buy

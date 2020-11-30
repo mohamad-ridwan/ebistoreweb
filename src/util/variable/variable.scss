@@ -11,13 +11,16 @@ $colorSembilan: #ff0000d0;
 $colorSepuluh: #476581;
 $colorSebelas: #f3eb0c;
 $colorDuabelas: #34495e25;
+$colorTigaBelas : #fff6eb;
+$colorEmpatBelas : #faba67;
+$colorLimaBelas : #ffa835;
 
 // Judul Di Home
-$heightJudul: 80px;
+$heightJudul: 50px;
 $marginTopTxtJudul: 30px;
 $fontSizeJudul: 15pt;
 $fontFamilyJudul: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-$fontWeightJudul: 500;
+$fontWeightJudul: bold;
 $fontStyleJudul: normal;
 
 // Button Description Web
@@ -72,10 +75,10 @@ $paddLRPgHme: 0 10px;
 $heightNavBottom: 55px;
 
 // Navbar For Page 
-$heightNavPage: 50px;
-$fontSzBtnBckNav: 18px;
+$heightNavPage: 100px;
+$fontSzBtnBckNav: 30pt;
 $padNavPage: 0 10px;
-$fontSzTitNav: 17px;
+$fontSzTitNav: 15pt;
 $margTitNav: 0 0 0 20px;
 $boxShdwNavPage: 0 3px 5px -1px rgba(0,0,0,0.5);
 // Body For Page Keranjang - Notif

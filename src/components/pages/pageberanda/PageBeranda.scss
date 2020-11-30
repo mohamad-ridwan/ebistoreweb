@@ -8,29 +8,37 @@
     width: 100%;
     margin: 0px 0 80px 0;
 
-    // Background atas
-    .background-atas{
+    // Section 1
+    .section1-pageBeranda{
         display: flex;
-        position: relative;
-        height: 180px;
-        width: auto;
-        background-color: $colorTiga;
-        border-bottom-left-radius: 8%;
-        border-bottom-right-radius: 8%;
-        overflow: hidden;
+        height: auto;
+        width: 100%;
+        justify-content: flex-end;
+        padding: 2px 20px;
+        margin: 20px 0 20px 0;
 
-        .bg-makaroni{
+        .box-icon{
             display: flex;
-            position: absolute;
-            height: 160px;
-            width: 100%;
-            border-bottom-left-radius: 10%;
-            border-bottom-right-radius: 10%;
-            object-fit: cover;
-            object-position: bottom;
+            height: 40px;
+            width: 40px;
+            border-radius: 15px;
+            justify-content: center;
+            align-items: center;
+            background-color: $colorTigaBelas;
+            box-shadow: 0 1px 2px -1px rgba(0,0,0,0.1);
+
+            i{
+                display: flex;
+                font-size: 12pt;
+                color: $colorEmpatBelas;
+            }
+        }
+
+        .iconCart{
+            margin-right: 10px;
         }
     }
-    // end Background atas
+    // END Section1
 
     // Section 2 - 5
     #secGroup{
@@ -44,7 +52,7 @@
             height: auto;
             width: 100%;
             justify-content: center;
-            padding: 0px 10px 8px 10px;
+            padding: 0px 12px 8px 12px;
 
             .boxSlide{
                 display: flex;

@@ -13,6 +13,7 @@ html{
 body{
   background:#fff;
   overflow-x: hidden;
+  font-family: 'Varela', sans-serif;
 }
 
 .App {

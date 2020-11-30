@@ -19,7 +19,9 @@ const BtnCard = ({
     bgColor,
     display,
     goTo,
-    loading
+    loading,
+    colorP,
+    bxShadow
 })=>{
 
     if(loading){
@@ -34,7 +36,7 @@ const BtnCard = ({
             right: `${rightBtn}`,
             bottom: `${bottomBtn}`,
             borderRadius: `${bdrRadius}`,
-            backgroundColor: `#333`
+            backgroundColor: `#333`,
         }}>
            <p className="paragraph" style={{
                fontWeight: `${fontWeight}`,
@@ -58,11 +60,13 @@ const BtnCard = ({
             right: `${rightBtn}`,
             bottom: `${bottomBtn}`,
             borderRadius: `${bdrRadius}`,
-            backgroundColor: `${bgColor}`
+            backgroundColor: `${bgColor}`,
+            boxShadow: `${bxShadow}`
         }}
             onClick={goTo}
         >
            <p className="paragraph" style={{
+               color: `${colorP}`,
                fontWeight: `${fontWeight}`,
                padding: `${paddName}`,
            }}>
