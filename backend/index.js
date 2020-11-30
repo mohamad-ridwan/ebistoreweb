@@ -25,7 +25,8 @@ const dataAlamatRoutes = require('./src/routes/alamat')
 const allProductRoutes = require('./src/routes/allproduct')
 // For data keranjang
 const keranjangRoutes = require('./src/routes/keranjang')
-// For all product
+// For Register
+const registerRoutes = require('./src/routes/register')
 // For API web fetchAPI
 const blogRoutes = require('./src/routes/blog');
 
@@ -77,6 +78,8 @@ server.use('/v5/dataalamat', dataAlamatRoutes)
 server.use('/v7/makaroni', keranjangRoutes)
 // For all product
 server.use('/v8/makaroni', allProductRoutes)
+// For Register
+server.use('/v9/register', registerRoutes)
 // For Endpoint web fetchAPI
 server.use('/v9/blog', blogRoutes);
 

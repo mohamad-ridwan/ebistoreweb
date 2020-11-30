@@ -14,11 +14,17 @@ const BtnCard = ({
     leftBtn,
     rightBtn,
     bottomBtn,
-    fontWeight
+    fontWeight,
+    bdrRadius,
+    bgColor,
+    display,
+    goTo,
+    loading
 })=>{
-    return(
-        <>
-        <Link to={link} className="btn-alamat" style={{
+
+    if(loading){
+        return <Link to={link} className="btn-alamat disable" style={{
+            display: `${display}`,
             height: `${heightBtn}`,
             width : `${widthBtn}`,
             margin: `${marginBtn}`,
@@ -26,11 +32,39 @@ const BtnCard = ({
             top: `${topBtn}`,
             left: `${leftBtn}`,
             right: `${rightBtn}`,
-            bottom: `${bottomBtn}`
+            bottom: `${bottomBtn}`,
+            borderRadius: `${bdrRadius}`,
+            backgroundColor: `#333`
         }}>
            <p className="paragraph" style={{
                fontWeight: `${fontWeight}`,
-               padding: `${paddName}`
+               padding: `${paddName}`,
+           }}>
+                Loading...
+           </p>
+        </Link>
+    }
+
+    return(
+        <>
+        <Link to={link} className="btn-alamat" style={{
+            display: `${display}`,
+            height: `${heightBtn}`,
+            width : `${widthBtn}`,
+            margin: `${marginBtn}`,
+            position: `${positionBtn}`,
+            top: `${topBtn}`,
+            left: `${leftBtn}`,
+            right: `${rightBtn}`,
+            bottom: `${bottomBtn}`,
+            borderRadius: `${bdrRadius}`,
+            backgroundColor: `${bgColor}`
+        }}
+            onClick={goTo}
+        >
+           <p className="paragraph" style={{
+               fontWeight: `${fontWeight}`,
+               padding: `${paddName}`,
            }}>
                 {btnName}
            </p>

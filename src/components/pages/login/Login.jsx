@@ -1,80 +1,76 @@
 import React from 'react'
 import { Component } from 'react'
-import { Link } from 'react-router-dom'
+import { withRouter, Link, useHistory } from 'react-router-dom'
 import './Login.scss'
 import bgLogin from '../../../img/bgmakaroni2.jpg'
 import google from '../../../img/google (1).png'
+import FormLogin from '../../../componentcard/formlogin/FormLogin'
+import { useState } from 'react'
+import Axios from 'axios'
+import { useEffect } from 'react'
+import {connect} from 'react-redux'
+import { actionUserName } from '../../../config/redux/action'
+import { loginUserAPI } from '../../../config/redux/action'
 
 class Login extends Component{
+
+    state = {
+        email : '',
+        password: '',
+    }
+
+    handleChangeText = (e)=>{
+        this.setState({
+            [e.target.id] : e.target.value
+        })
+    }
+
+    handleLogin = async ()=>{
+        const {email, password} = this.state
+        const res = await this.props.loginAPI({email, password})
+        .catch(err => err)
+        if(res === true){
+            console.log('login success')
+            this.setState({
+                email: '',
+                password: ''
+            })
+            this.props.history.push('/beranda')
+        } else {
+            console.log('failed')
+        }
+    }
+
     render(){
         return(
             <>
-            <div className="wrapper-login">
-                <section className="bg-login">
-                    <img src={bgLogin} alt="" className="img-login"/>
-                    <div className="bg-transparant">
-                        <p className="wellcome">
-                            wellcome
-                        </p>
-                        <div className="box-title">
-                            <p className="title-login">
-                                Login
-                            </p>
-                            <div className="garis-login">
-
-                            </div>
-                        </div>
-                        
-
-                        <form action="" className="form-login">
-                            <div className="box-input email">
-                                <i className="fas fa-envelope iconLeft"></i>
-                                <input type="text" className="txt-input" placeholder="Masukkan Email"/>
-                                <div className="garis-email">
-
-                                </div>
-                            </div>
-                            <div className="box-input">
-                                <i className="fas fa-key iconLeft"></i>
-                                <input type="password" className="txt-input" placeholder="Masukkan Password"/>
-                                <i className="fas fa-eye eye"></i>
-                            </div>
-                        </form>
-                    </div>
-                </section>
-
-                <section className="section-bawah">
-                    <div className="btn-sign-login">
-                        <button className="btn-group btn-sign">
-                            SIGN UP
-                        </button>
-                        <Link to='/beranda' className="btn-group btn-login">
-                            LOGIN
-                        </Link>
-                    </div>
-
-                    <div className="column-or">
-                        <div className="title-or">
-                            <div className="garis-kiri">
-
-                            </div>
-                            <p className="txt-or">
-                                OR
-                            </p>
-                            <div className="garis-kanan">
-                                
-                            </div>
-                        </div>
-
-                        <div className="btn-icon-login">
-                            <img src={google} alt="" className="icon-google"/>
-                        </div>
-                    </div>
-                </section>
-            </div>
+            {/* {this.props.userName} */}
+            <FormLogin
+                title={"Login"}
+                displayUser={"none"}
+                goLogin={"none"}
+                btnRegister={"flex"}
+                email={"email"}
+                password={"password"}
+                linkRegister={'/register'}
+                onChangeEmail={this.handleChangeText}
+                onChangePassword={this.handleChangeText}
+                onSubmit={this.handleLogin}
+                handleLogin={this.handleLogin}
+                loadingLogin={this.props.isLoading}
+                // linkHome={'/beranda'}
+            />
             </>
         )
     }
 }
 
-export default Login
+const reduxState = (state)=> ({
+    isLoading : state.isLoading
+})
+
+const reduxDispatch = (dispatch)=> ({
+    loginAPI : (data)=> dispatch(loginUserAPI(data))
+})
+
+export default connect(reduxState, reduxDispatch)(withRouter(Login))

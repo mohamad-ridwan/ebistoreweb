@@ -10,7 +10,7 @@ const NavBottom = () => {
         <>
             <div className="navBottom">
                 {/* Row */}
-                <NavbottomCard linkPage="/" iconLinkNavBtm="fas fa-store" txtLinkNavBtm="Beranda" />
+                <NavbottomCard linkPage="/beranda" iconLinkNavBtm="fas fa-store" txtLinkNavBtm="Beranda" />
                 {/* END Row */}
 
                 {/* Row */}

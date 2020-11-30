@@ -1,5 +1,5 @@
 import React from 'react'
-import { BrowserRouter as Router, Switch, Route, withRouter } from 'react-router-dom';
+import {BrowserRouter as Router, Switch, Route, withRouter } from 'react-router-dom';
 import PageNotifikasi from '../pages/pagenotifikasi/PageNotifikasi';
 import PageFavorit from '../pages/pagefavorit/PageFavorit';
 import HelmetPageFavorit from '../pages/pagefavorit/helmetpagefavorit/HelmetPageFavorit';
@@ -24,6 +24,7 @@ import HelmetTransaksi from '../pages/transaksi/helmettransaksi/HelmetTransaksi'
 import Transaksi from '../pages/transaksi/Transaksi';
 import WindowScroll from '../../componentcard/windowscroll/WindowScroll';
 import Login from '../pages/login/Login';
+import Register from '../pages/register/Register';
 
 const Container1 = () => {
     return (
@@ -97,6 +98,12 @@ const Container1 = () => {
                                 <HelmetPageKeranjang />
                             </Route>
                             {/* END For Page Keranjang */}
+
+                            {/* For Register */}
+                            <Route path='/register'>
+                                <Register/>
+                            </Route>
+                            {/* END For Register */}
 
                             {/* For Home */}
                             <Route path='/beranda'>

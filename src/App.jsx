@@ -2,9 +2,8 @@ import React, { useState } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import Container1 from './components/container1/Container1';
-import { StoreProvider } from 'easy-peasy';
-import store from './components/pages/pagealamat/PageAlamat'
-
+import {Provider} from 'react-redux'
+import {store} from './config/redux'
 function App() {
 
   // Create Loading Page Home
@@ -12,7 +11,7 @@ function App() {
   // END Create Loading Page Home
 
   return (
-    <StoreProvider store={store}>
+      <Provider store={store}>
         <div className="App">
 
         {/* Container 1 */}
@@ -24,8 +23,7 @@ function App() {
 
         {/* END Container 1 */}
         </div>
-    </StoreProvider>
-    
+      </Provider>
   );
 }
 
