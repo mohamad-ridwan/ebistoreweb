@@ -10,10 +10,11 @@ const PageKeranjang = () => {
     return (
         <>
             {/* Navbar */}
-                <NavbarPageCard linkPage="/" titlePageNav="Keranjang" />
+            <NavbarPageCard linkPage="/" titlePageNav="Keranjang" />
             {/* END Navbar */}
             <div className="wrapper-pageKeranjang">
             
+                <KeranjangCard/>
                 <KeranjangCard/>
                 <KeranjangCard/>
 

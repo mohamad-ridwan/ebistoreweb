@@ -2,11 +2,11 @@
 
 .wrapper-judulCard{
     display: flex;
+    position: relative;
     height: $heightJudul;
     justify-content: flex-start;
     align-items: flex-end;
     padding: 0 0 0 20px;
-    background-color: #fff;
 
     .txt-judul-judulCard{
         display: flex;
@@ -15,5 +15,24 @@
         font-style: $fontStyleJudul;
         color: $colorLima;
         margin-bottom: 5px;
+    }
+
+    .title-tot-produk{
+        display: flex;
+        font-size: 9pt;
+        color: #bbb;
+        font-weight: bold;
+        margin: 0 0 7px 10px;
+    }
+
+    .txt-lihat-semua{
+        display: flex;
+        position: absolute;
+        font-size: 12pt;
+        color: $colorLimaBelas;
+        bottom: 5px;
+        right: 20px;
+        text-decoration: none;
+        cursor: pointer;
     }
 }

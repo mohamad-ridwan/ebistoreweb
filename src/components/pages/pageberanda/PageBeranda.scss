@@ -7,15 +7,37 @@
     height: auto;
     width: 100%;
     margin: 0px 0 80px 0;
+    background: rgb(255,255,255);
+    background: linear-gradient(90deg, rgba(250,250,250,1) 0%, rgba(239,239,245,0.6113795860140931) 100%);
 
     // Section 1
     .section1-pageBeranda{
         display: flex;
+        position: relative;
         height: auto;
         width: 100%;
         justify-content: flex-end;
-        padding: 2px 20px;
-        margin: 20px 0 20px 0;
+        align-items: center;
+        padding: 20px 20px;
+        margin: 0px 0 0px 0;
+        background-color: #fff;
+
+        .title-home{
+            display: flex;
+            position: absolute;
+            left: 20px;
+            top: 30px;
+            font-size: 12pt;
+            font-weight: bold;
+            color: #555;
+            align-items: center;
+
+            i{
+                display: flex;
+                font-size: 12pt;
+                margin-right: 5px;
+            }
+        }
 
         .box-icon{
             display: flex;
@@ -26,11 +48,13 @@
             align-items: center;
             background-color: $colorTigaBelas;
             box-shadow: 0 1px 2px -1px rgba(0,0,0,0.1);
+            text-decoration: none;
 
             i{
                 display: flex;
                 font-size: 12pt;
                 color: $colorEmpatBelas;
+                text-decoration: none;
             }
         }
 
@@ -39,6 +63,56 @@
         }
     }
     // END Section1
+
+    // Profil
+    .container-profil{
+        display: flex;
+        height: auto;
+        width: 100%;
+        padding: 20px 20px 40px 20px;
+        align-items: center;
+        justify-content: space-between;
+        background-color: #fff;
+
+        .name-profil{
+            display: flex;
+            font-size: 25pt;
+            color: $colorLimaBelas;
+            font-weight: bold;
+        }
+
+        .img-profil{
+            display: flex;
+            height: 60px;
+            width: 60px;
+            border-radius: 500px;
+            object-fit: cover;
+            object-position: center;
+            text-decoration: none;
+        }
+    }
+    // END Profil
+
+    // Container new produk
+    .container-new-produk{
+        display: flex;
+        flex-direction: column;
+        height: auto;
+        width: 100%;
+        padding: 0 20px;
+        margin: 15px 0 0 0;
+
+        .img-new-produk{
+            display: flex;
+            height: auto;
+            max-height: 200px;
+            width: 90%;
+            border-radius: 20px;
+            object-fit: cover;
+            object-position: center;
+        }
+    }
+    // END Container new produk
 
     // Section 2 - 5
     #secGroup{

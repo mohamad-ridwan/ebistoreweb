@@ -4,7 +4,7 @@
     display: flex;
     height: auto;
     background-color: $colorSatu;
-    box-shadow: 0 2px 10px -1px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 15px -1px rgba(0,0,0,0.1);
     border-radius: 20px;
 
     .nav-btn-produk{
@@ -42,7 +42,7 @@
         .nameGroup{
             display: flex;
             text-align: start;
-            color: #777;
+            color: #555;
             font-weight: bold;
         }
         // end name Group

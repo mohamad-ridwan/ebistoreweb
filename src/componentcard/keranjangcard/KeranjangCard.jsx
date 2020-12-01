@@ -1,7 +1,7 @@
 import React from 'react'
 import './KeranjangCard.scss'
 
-import img from '../../img/satu.jpeg'
+import img from '../../img/enambelas.jpg'
 import BoxWhite from '../boxwhite/BoxWhite'
 
 const KeranjangCard = ()=>{
@@ -10,15 +10,16 @@ const KeranjangCard = ()=>{
         <div className="wrapper-card-keranjang">
             <BoxWhite
                 img={img}
-                label={"Beli 2 Gratis 2"}
                 name={"Makaroni Original"}
+                displayBeli={"none"}
                 price={"Rp 5.000"}
-                beli={"Beli"}
                 display={"none"}
-                heightImg={"70px"}
-                widthImg={"70px"}
-                margBox={"30px 0 0 0"}
+                heightImg={"100px"}
+                widthImg={"100px"}
+                margBox={"5px 0 0 0"}
                 paddBox={"10px"}
+                bgColor={"#fff"}
+                bxShadow={"0 5px 20px -6px rgba(0,0,0,0.1)"}
             />
         </div>
         </>

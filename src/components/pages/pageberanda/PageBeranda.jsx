@@ -6,78 +6,19 @@ import Slider from 'react-slick'
 import BoxCard from '../../../componentcard/bocxcard/BoxCard'
 import BtnCard from '../../../componentcard/btncard/BtnCard'
 import JudulCard from '../../../componentcard/judulcard/JudulCard'
-import img from '../../../img/satu.jpeg'
+import img from '../../../img/enambelas.jpg'
+import imgNew from '../../../img/delapanbelas.jpg'
 import imgPromo from '../../../img/promo.jpg'
 import './PageBeranda.scss'
-import {matchPath, useHistory, useLocation, useParams, useRouteMatch, withRouter} from 'react-router-dom'
+import {Link, matchPath, useHistory, useLocation, useParams, useRouteMatch, withRouter} from 'react-router-dom'
 import bgMakaroni from '../../../img/bgmakaroni.jpg'
+import avatar from '../../../img/avatarnew.jpg'
 
 const PageBeranda = () => {
 
     // Create Modal Desc App
     let [modal, setModal] = useState(false)
     // END Create Modal Desc App
-
-    // GET product semua harga
-    const [dataProduk, setDataProduk] = useState([]);
-    // GET Serba 5rb
-    const [produkLimaRibu, setProdukLimaRibu] = useState([]);
-    // GET Serba 10rb
-    const [produkSepuluhRibu, setProdukSepuluhRibu] = useState([]);
-    // GET Serba 15rb
-    const [produkLimaBelasRibu, setProdukLimaBelasRibu] = useState([]);
- 
-    // Semua Harga
-    const getDataProduk = ()=>{
-        Axios.get('http://localhost:62542/v8/makaroni/getall?page=8')
-        .then(result=>{
-            const resAPI = result.data
-
-            setDataProduk(resAPI.data)
-        })
-        .catch(err=>{
-            console.log('failed :', err)
-        })
-    }
-
-    // 5rb
-    const getLimaRibu = ()=>{
-        Axios.get('http://localhost:62542/v8/makaroni/getall?page=6')
-        .then(result=>{
-            const resAPI = result.data
-
-            setProdukLimaRibu(resAPI.data)
-        })
-        .catch(err=>{
-            console.log('produk 5rb failed get', err)
-        })
-    }
-
-    // 10rb
-    const getSepuluhRibu = ()=>{
-        Axios.get('http://localhost:62542/v8/makaroni/getall?page=3')
-        .then(result=>{
-            const resAPI = result.data
-
-            setProdukSepuluhRibu(resAPI.data)
-        })
-        .catch(err=>{
-            console.log('data failed in get', err)
-        })
-    }
-
-    // 15rb
-    const getLimaBelasRibu = ()=>{
-        Axios.get('http://localhost:62542/v8/makaroni/getall')
-        .then(result=>{
-            const resAPI = result.data
-
-            setProdukLimaBelasRibu(resAPI.data)
-        })
-        .catch(err=>{
-            console.log('data failed in get', err)
-        })
-    }
     
     // params Detail Produk
     const history = useHistory()
@@ -98,61 +39,133 @@ const PageBeranda = () => {
         speed: 400
     }
 
-    useEffect(()=>{
-        getLimaBelasRibu();
-        getSepuluhRibu();
-        getLimaRibu();
-        getDataProduk();
-    }, [])
+    const settings2= {
+        autoplay: true,
+        infinite: true,
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        speed: 600
+    }
 
     return (
         <>
             <div className="wrapper-pageBeranda">
                 <section className="section1-pageBeranda">
-                    <div className="box-icon iconCart">
+                    <p className="title-home">
+                        <i className="fas fa-home"></i>Beranda
+                    </p>
+                    <Link to='/pagekeranjang' className="box-icon iconCart">
                         <i className="fas fa-shopping-cart"></i>
-                    </div>
-                    <div className="box-icon">
+                    </Link>
+                    <Link className="box-icon">
                     <i class="far fa-bell"></i>
-                    </div>
+                    </Link>
                 </section>
+
+                {/* Profil */}
+                <section className="container-profil">
+                    <p className="name-profil">
+                        Ridwan
+                    </p>
+
+                    <Link>
+                        <img src={avatar} alt="" className="img-profil"/>
+                    </Link>
+                </section>
+                {/* END Profil */}
+
+                <JudulCard
+                    txtJudul={"New"}
+                    page={'/semuaproduk'}
+                    totProduk={"• 10 Makaroni"}
+                />
+                {/* Container New produk */}
+                <section className="container-new-produk">
+
+                    <Slider {...settings2} className="boxSlide">
+                        <img src={imgNew} alt="" className="img-new-produk"/>
+                        <img src={imgNew} alt="" className="img-new-produk"/>
+                        <img src={imgNew} alt="" className="img-new-produk"/>
+                        <img src={imgNew} alt="" className="img-new-produk"/>
+                    </Slider>
+                </section>
+                {/* END Container new produk */}
 
                 {/* Section 2 */}
                 <section className="section-2-pageBeranda" id="secGroup">
                     {/* Judul */}
                         <JudulCard
                         txtJudul={"Semua Harga"}
+                        page={'/semuaproduk'}
                      />
                     {/* END Judul */}
 
                     {/* Section Semua Harga */}
-                    <div className="box-group" style={{
-                        backgroundColor: `#fff`
-                    }}>
+                    <div className="box-group">
                         <Slider {...settings} className="boxSlide">
-                            {dataProduk && dataProduk.length > 0 
-                            ? dataProduk.map(e=>{
-                                return (
-                                    <BoxCard
+                        <BoxCard
                                     flxDirectWrapp={"column"}
                                     heightWrapp={"auto"}
                                     widthWrapp={"calc(90%)"}
                                     displayNavBtn={"none"}
-                                    imgProduk={`http://localhost:62542/${e.image}`}
-                                    data={e}
+                                    imgProduk={img}
+                                    price={"5.000"}
+                                    name={"Makaroni Original"}
+                                    stock={"10"}
                                     displayBtnBuy={"none"}
                                     mrginWrapp={"10px auto"}
                                     paddContent={"0px 10px 10px 10px"}
                                     mrgnStock={"5px 0 0px 0"}
                                     detail={handleDetail}
                                     />
-                                )
-                            }):(
-                                <div className="wait">Failed</div>
-                            )}
+                                    <BoxCard
+                                    flxDirectWrapp={"column"}
+                                    heightWrapp={"auto"}
+                                    widthWrapp={"calc(90%)"}
+                                    displayNavBtn={"none"}
+                                    imgProduk={img}
+                                    price={"5.000"}
+                                    name={"Makaroni Original"}
+                                    stock={"10"}
+                                    displayBtnBuy={"none"}
+                                    mrginWrapp={"10px auto"}
+                                    paddContent={"0px 10px 10px 10px"}
+                                    mrgnStock={"5px 0 0px 0"}
+                                    detail={handleDetail}
+                                    />
+                                    <BoxCard
+                                    flxDirectWrapp={"column"}
+                                    heightWrapp={"auto"}
+                                    widthWrapp={"calc(90%)"}
+                                    displayNavBtn={"none"}
+                                    imgProduk={img}
+                                    price={"5.000"}
+                                    name={"Makaroni Original"}
+                                    stock={"10"}
+                                    displayBtnBuy={"none"}
+                                    mrginWrapp={"10px auto"}
+                                    paddContent={"0px 10px 10px 10px"}
+                                    mrgnStock={"5px 0 0px 0"}
+                                    detail={handleDetail}
+                                    />
+                                    <BoxCard
+                                    flxDirectWrapp={"column"}
+                                    heightWrapp={"auto"}
+                                    widthWrapp={"calc(90%)"}
+                                    displayNavBtn={"none"}
+                                    imgProduk={img}
+                                    price={"5.000"}
+                                    name={"Makaroni Original"}
+                                    stock={"10"}
+                                    displayBtnBuy={"none"}
+                                    mrginWrapp={"10px auto"}
+                                    paddContent={"0px 10px 10px 10px"}
+                                    mrgnStock={"5px 0 0px 0"}
+                                    detail={handleDetail}
+                                    />
                         </Slider>
                         
-                        <BtnCard
+                        {/* <BtnCard
                         heightBtn={'45px'}
                         widthBtn={'150px'}
                         btnName={'Lihat Semua'}
@@ -162,16 +175,14 @@ const PageBeranda = () => {
                         bgColor={"#ffa835"}
                         colorP={"#fff6eb"}
                         bxShadow={"0 3px 9px -1px rgba(0,0,0,0.2)"}
-                        />
+                        /> */}
                     </div>
                     {/* END Section Semua Harga */}
                 </section>
                 {/* END Section 2 */}
 
                 {/* Section 3 */}
-                <section className="section-3-pageBeranda" id="secGroup" style={{
-                        backgroundColor: `#fff`
-                    }}>
+                <section className="section-3-pageBeranda" id="secGroup">
                     {/* Judul */}
                     <JudulCard txtJudul="Serba 5rb" />
                     {/* END Judul */}
@@ -179,30 +190,84 @@ const PageBeranda = () => {
                     {/* Section Serba 5rb */}
                     <div className="box-group">
                         <Slider {...settings} className="boxSlide">
-                        {produkLimaRibu && produkLimaRibu.length > 0
-                        ? produkLimaRibu.map(i=>{
-                            return(
-                                <BoxCard
-                                    key={i._id}
+                        <BoxCard
                                     flxDirectWrapp={"column"}
                                     heightWrapp={"auto"}
                                     widthWrapp={"calc(90%)"}
                                     displayNavBtn={"none"}
-                                    imgProduk={`http://localhost:62542/${i.image}`}
-                                    data={i}
+                                    imgProduk={img}
+                                    price={"5.000"}
+                                    name={"Makaroni Original"}
+                                    stock={"10"}
                                     displayBtnBuy={"none"}
                                     mrginWrapp={"10px auto"}
-                                    paddContent={"10px"}
+                                    paddContent={"0px 10px 10px 10px"}
                                     mrgnStock={"5px 0 0px 0"}
                                     detail={handleDetail}
                                     />
-                            )
-                        }):(
-                            <div className="wait">failed</div>
-                        )}
+                                    <BoxCard
+                                    flxDirectWrapp={"column"}
+                                    heightWrapp={"auto"}
+                                    widthWrapp={"calc(90%)"}
+                                    displayNavBtn={"none"}
+                                    imgProduk={img}
+                                    price={"5.000"}
+                                    name={"Makaroni Original"}
+                                    stock={"10"}
+                                    displayBtnBuy={"none"}
+                                    mrginWrapp={"10px auto"}
+                                    paddContent={"0px 10px 10px 10px"}
+                                    mrgnStock={"5px 0 0px 0"}
+                                    detail={handleDetail}
+                                    />
+                                    <BoxCard
+                                    flxDirectWrapp={"column"}
+                                    heightWrapp={"auto"}
+                                    widthWrapp={"calc(90%)"}
+                                    displayNavBtn={"none"}
+                                    imgProduk={img}
+                                    price={"5.000"}
+                                    name={"Makaroni Original"}
+                                    stock={"10"}
+                                    displayBtnBuy={"none"}
+                                    mrginWrapp={"10px auto"}
+                                    paddContent={"0px 10px 10px 10px"}
+                                    mrgnStock={"5px 0 0px 0"}
+                                    detail={handleDetail}
+                                    />
+                                    <BoxCard
+                                    flxDirectWrapp={"column"}
+                                    heightWrapp={"auto"}
+                                    widthWrapp={"calc(90%)"}
+                                    displayNavBtn={"none"}
+                                    imgProduk={img}
+                                    price={"5.000"}
+                                    name={"Makaroni Original"}
+                                    stock={"10"}
+                                    displayBtnBuy={"none"}
+                                    mrginWrapp={"10px auto"}
+                                    paddContent={"0px 10px 10px 10px"}
+                                    mrgnStock={"5px 0 0px 0"}
+                                    detail={handleDetail}
+                                    />
+                                    <BoxCard
+                                    flxDirectWrapp={"column"}
+                                    heightWrapp={"auto"}
+                                    widthWrapp={"calc(90%)"}
+                                    displayNavBtn={"none"}
+                                    imgProduk={img}
+                                    price={"5.000"}
+                                    name={"Makaroni Original"}
+                                    stock={"10"}
+                                    displayBtnBuy={"none"}
+                                    mrginWrapp={"10px auto"}
+                                    paddContent={"0px 10px 10px 10px"}
+                                    mrgnStock={"5px 0 0px 0"}
+                                    detail={handleDetail}
+                                    />
                         </Slider>
                     
-                        <BtnCard
+                        {/* <BtnCard
                         heightBtn={'45px'}
                         widthBtn={'150px'}
                         btnName={'Lihat Semua'}
@@ -212,7 +277,7 @@ const PageBeranda = () => {
                         bgColor={"#ffa835"}
                         colorP={"#fff6eb"}
                         bxShadow={"0 3px 9px -1px rgba(0,0,0,0.2)"}
-                        />
+                        /> */}
                     </div>
                     {/* END Section Serba 5rb */}
 
@@ -222,9 +287,7 @@ const PageBeranda = () => {
                 {/* END Section 3 */}
 
                 {/* Section 4 */}
-                <section className="section-4-pageBeranda" id="secGroup"  style={{
-                        backgroundColor: `#fff`
-                    }}>
+                <section className="section-4-pageBeranda" id="secGroup">
                     {/* Judul */}
                     <JudulCard txtJudul="Serba 10rb" />
                     {/* END Judul */}
@@ -232,31 +295,69 @@ const PageBeranda = () => {
                     {/* Section Serba 10rb */}
                     <div className="box-group">
                         <Slider {...settings} className="boxSlide">
-                            {produkSepuluhRibu && produkSepuluhRibu.length > 0 ? produkSepuluhRibu.map(e=>{
-                                return(
-                                    <BoxCard
-                                    key={e._id}
+                        <BoxCard
                                     flxDirectWrapp={"column"}
                                     heightWrapp={"auto"}
                                     widthWrapp={"calc(90%)"}
                                     displayNavBtn={"none"}
-                                    imgProduk={`http://localhost:62542/${e.image}`}
-                                    data={e}
+                                    imgProduk={img}
+                                    price={"5.000"}
+                                    name={"Makaroni Original"}
+                                    stock={"10"}
                                     displayBtnBuy={"none"}
                                     mrginWrapp={"10px auto"}
-                                    paddContent={"10px"}
+                                    paddContent={"0px 10px 10px 10px"}
                                     mrgnStock={"5px 0 0px 0"}
                                     detail={handleDetail}
                                     />
-                                )
-                            }):(
-                                <div className="wait">
-                                    FAILED
-                                </div>
-                            )}
+                                    <BoxCard
+                                    flxDirectWrapp={"column"}
+                                    heightWrapp={"auto"}
+                                    widthWrapp={"calc(90%)"}
+                                    displayNavBtn={"none"}
+                                    imgProduk={img}
+                                    price={"5.000"}
+                                    name={"Makaroni Original"}
+                                    stock={"10"}
+                                    displayBtnBuy={"none"}
+                                    mrginWrapp={"10px auto"}
+                                    paddContent={"0px 10px 10px 10px"}
+                                    mrgnStock={"5px 0 0px 0"}
+                                    detail={handleDetail}
+                                    />
+                                    <BoxCard
+                                    flxDirectWrapp={"column"}
+                                    heightWrapp={"auto"}
+                                    widthWrapp={"calc(90%)"}
+                                    displayNavBtn={"none"}
+                                    imgProduk={img}
+                                    price={"5.000"}
+                                    name={"Makaroni Original"}
+                                    stock={"10"}
+                                    displayBtnBuy={"none"}
+                                    mrginWrapp={"10px auto"}
+                                    paddContent={"0px 10px 10px 10px"}
+                                    mrgnStock={"5px 0 0px 0"}
+                                    detail={handleDetail}
+                                    />
+                                    <BoxCard
+                                    flxDirectWrapp={"column"}
+                                    heightWrapp={"auto"}
+                                    widthWrapp={"calc(90%)"}
+                                    displayNavBtn={"none"}
+                                    imgProduk={img}
+                                    price={"5.000"}
+                                    name={"Makaroni Original"}
+                                    stock={"10"}
+                                    displayBtnBuy={"none"}
+                                    mrginWrapp={"10px auto"}
+                                    paddContent={"0px 10px 10px 10px"}
+                                    mrgnStock={"5px 0 0px 0"}
+                                    detail={handleDetail}
+                                    />
                         </Slider>
                     
-                        <BtnCard
+                        {/* <BtnCard
                         heightBtn={'45px'}
                         widthBtn={'150px'}
                         btnName={'Lihat Semua'}
@@ -266,16 +367,14 @@ const PageBeranda = () => {
                         bgColor={"#ffa835"}
                         colorP={"#fff6eb"}
                         bxShadow={"0 3px 9px -1px rgba(0,0,0,0.2)"}
-                        />
+                        /> */}
                     </div>
                     {/* END Section Serba 10rb */}
                 </section>
                 {/* END Section 4 */}
 
                 {/* Section 5 */}
-                <div className="section-5-pageBeranda" id="secGroup"  style={{
-                        backgroundColor: `#fff`
-                    }}>
+                <div className="section-5-pageBeranda" id="secGroup">
                     {/* Judul */}
                     <JudulCard txtJudul={"Serba 15rb"} />
                     {/* END Judul */}
@@ -283,30 +382,69 @@ const PageBeranda = () => {
                     {/* Section Serba 15rb */}
                     <div className="box-group">
                         <Slider {...settings} className="boxSlide">
-                            {produkLimaBelasRibu && produkLimaBelasRibu.length > 0
-                            ? produkLimaBelasRibu.map(e=>{
-                                return(
-                                    <BoxCard
-                                    key={e._id}
+                        <BoxCard
                                     flxDirectWrapp={"column"}
                                     heightWrapp={"auto"}
                                     widthWrapp={"calc(90%)"}
                                     displayNavBtn={"none"}
-                                    imgProduk={`http://localhost:62542/${e.image}`}
-                                    data={e}
+                                    imgProduk={img}
+                                    price={"5.000"}
+                                    name={"Makaroni Original"}
+                                    stock={"10"}
                                     displayBtnBuy={"none"}
                                     mrginWrapp={"10px auto"}
-                                    paddContent={"10px"}
+                                    paddContent={"0px 10px 10px 10px"}
                                     mrgnStock={"5px 0 0px 0"}
                                     detail={handleDetail}
                                     />
-                                )
-                            }):(
-                                <div className="tes">FAILED</div>
-                            )}
+                                    <BoxCard
+                                    flxDirectWrapp={"column"}
+                                    heightWrapp={"auto"}
+                                    widthWrapp={"calc(90%)"}
+                                    displayNavBtn={"none"}
+                                    imgProduk={img}
+                                    price={"5.000"}
+                                    name={"Makaroni Original"}
+                                    stock={"10"}
+                                    displayBtnBuy={"none"}
+                                    mrginWrapp={"10px auto"}
+                                    paddContent={"0px 10px 10px 10px"}
+                                    mrgnStock={"5px 0 0px 0"}
+                                    detail={handleDetail}
+                                    />
+                                    <BoxCard
+                                    flxDirectWrapp={"column"}
+                                    heightWrapp={"auto"}
+                                    widthWrapp={"calc(90%)"}
+                                    displayNavBtn={"none"}
+                                    imgProduk={img}
+                                    price={"5.000"}
+                                    name={"Makaroni Original"}
+                                    stock={"10"}
+                                    displayBtnBuy={"none"}
+                                    mrginWrapp={"10px auto"}
+                                    paddContent={"0px 10px 10px 10px"}
+                                    mrgnStock={"5px 0 0px 0"}
+                                    detail={handleDetail}
+                                    />
+                                    <BoxCard
+                                    flxDirectWrapp={"column"}
+                                    heightWrapp={"auto"}
+                                    widthWrapp={"calc(90%)"}
+                                    displayNavBtn={"none"}
+                                    imgProduk={img}
+                                    price={"5.000"}
+                                    name={"Makaroni Original"}
+                                    stock={"10"}
+                                    displayBtnBuy={"none"}
+                                    mrginWrapp={"10px auto"}
+                                    paddContent={"0px 10px 10px 10px"}
+                                    mrgnStock={"5px 0 0px 0"}
+                                    detail={handleDetail}
+                                    />
                         </Slider>
                     
-                        <BtnCard
+                        {/* <BtnCard
                         heightBtn={'45px'}
                         widthBtn={'150px'}
                         btnName={'Lihat Semua'}
@@ -316,7 +454,7 @@ const PageBeranda = () => {
                         bgColor={"#ffa835"}
                         colorP={"#fff6eb"}
                         bxShadow={"0 3px 9px -1px rgba(0,0,0,0.2)"}
-                        />
+                        /> */}
                     </div>
                     {/* END Section Serba 15rb */}
                 </div>

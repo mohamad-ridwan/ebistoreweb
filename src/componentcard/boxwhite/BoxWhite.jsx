@@ -8,7 +8,9 @@ const BoxWhite = (props)=>{
             style={{
                 padding: `${props.paddBox}`,
                 margin: `${props.margBox}`,
-                position: `${props.positionBox}`
+                position: `${props.positionBox}`,
+                backgroundColor: `${props.bgColor}`,
+                boxShadow: `${props.bxShadow}`
             }}
         >
             <button className="btn-delete-card"
@@ -16,7 +18,7 @@ const BoxWhite = (props)=>{
                     display: `${props.displayBtnDelete}`
                 }}
             >
-                <i className="fas fa-trash"></i>
+                <i class="far fa-trash-alt"></i>
             </button>
             <img src={props.img} alt="" className="img-card"
                 style={{
