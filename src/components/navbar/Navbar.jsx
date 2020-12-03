@@ -3,7 +3,8 @@ import React, { useState, useEffect } from 'react'
 import '../navbar/Navbar.scss'
 import logMacaroni from '../../img/macaroni.svg'
 import avatarNew from '../../img/avatarnew.jpg'
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
+import firebase from 'firebase/app';
 
 const Navbar = () => {
 
@@ -22,10 +23,24 @@ const Navbar = () => {
     //     }
     // }, [])
 
+    const histori = useHistory()
+
+    const pushNotifikasi = () => {
+        histori.push({
+            pathname: '/pagenotifikasi'
+        })
+    }
+
+    const pushProfil = () => {
+        histori.push({
+            pathname: '/pageprofil'
+        })
+    }
+
     const [navbar, setNavbar] = useState(false);
 
-    const changeBackground = ()=>{
-        if(window.scrollY >= 50){
+    const changeBackground = () => {
+        if (window.scrollY >= 130) {
             setNavbar(true)
         } else {
             setNavbar(false);
@@ -33,6 +48,29 @@ const Navbar = () => {
     }
 
     window.addEventListener('scroll', changeBackground);
+
+    // For Get user login
+    const [getUser, setGetUser] = useState({
+        name: '',
+        photo: ''
+    })
+
+    useEffect(() => {
+        firebase.auth().onAuthStateChanged(function (user) {
+            if (user) {
+                const nameUser = user.displayName
+                const photoUser = user.photoURL
+
+                setGetUser({
+                    name: nameUser,
+                    photo: photoUser
+                })
+            } else {
+                // No user is signed in.
+            }
+        });
+    }, [])
+    // END For get user login
 
     return (
         <>
@@ -43,23 +81,19 @@ const Navbar = () => {
                 {/* Row1 */}
                 <div className="row1-navbar">
                     <div className="link-brand-navbar">
-                        {/* Image Brand */}
-                        <img src={logMacaroni} className="img-brand-navbar" alt="" />
-                        {/* END Image Brand */}
-
                         {/* Name Brand */}
                         <div className="nm-brand-navbar">
-                            {/* Txt1 */}
-                            <p className="txt1-brand-navbar">
-                                EBI
-                            </p>
-                            {/* END Txt1 */}
+                            {/* Link Img Profile */}
+                            <Link to='/pageprofil' className="circ-img-profile-navbar">
+                                <img src={getUser.photo} className="img-profile-navbar" alt="" />
+                            </Link>
+                            {/* END Link Img Profile */}
 
-                            {/* Txt2 */}
-                            <p className="txt2-brand-navbar">
-                                store
+                            {/* Name Account User */}
+                            <p className="name-act-user-navbar">
+                                {getUser.name}
                             </p>
-                            {/* END Txt2 */}
+                            {/* END Name Account User */}
                         </div>
                         {/* END Name Brand */}
                     </div>
@@ -68,17 +102,14 @@ const Navbar = () => {
 
                 {/* Row2 */}
                 <div className="row2-navbar">
-                    {/* Link Img Profile */}
-                    <Link to='/pageprofil' className="circ-img-profile-navbar">
-                        <img src={avatarNew} className="img-profile-navbar" alt="" />
+                    <Link to='/pagekeranjang' className="box-icon iconCart">
+                        <i className="fas fa-shopping-cart"></i>
                     </Link>
-                    {/* END Link Img Profile */}
-
-                    {/* Name Account User */}
-                    <p className="name-act-user-navbar">
-                        Mohamad
-                    </p>
-                    {/* END Name Account User */}
+                    <Link className="box-icon"
+                        onClick={pushNotifikasi}
+                    >
+                        <i class="far fa-bell"></i>
+                    </Link>
                 </div>
                 {/* END Row2 */}
             </div>

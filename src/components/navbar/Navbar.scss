@@ -1,7 +1,7 @@
 @import '../../util/variable/variable.scss';
 
 .navbar{
-    display: flex;
+    display: none;
     position: fixed;
     height: $heightNavHome;
     width: 100%;
@@ -10,7 +10,7 @@
     margin: 0 0 5px 0;
     z-index: 111;
     color: $colorTiga;
-    transition: 0.2s ease-out;
+    transition: 0.100s ease-out;
 
     // Row1
     .row1-navbar{
@@ -24,37 +24,37 @@
             text-decoration: none;
             align-items: center;
 
-            // Image Brand
-            .img-brand-navbar{
-                display: flex;
-                height: 35px;
-                width: 35px;
-                object-fit: cover;
-            }
-            // END Image Brand
-
             // Name Brand
             .nm-brand-navbar{
                 display: flex;
                 align-items: center;
 
-                // Txt1
-                .txt1-brand-navbar{
+                // Link Img Profile
+                .circ-img-profile-navbar{
                     display: flex;
-                    font-size: 35px;
-                    font-family: $fontFmNvbr;
-                    text-decoration: none;
-                }
-                // END Txt1
+                    height: 35px;
+                    width: 35px;
+                    border-radius: 500px;
+                    margin: 10px 0px 10px 10px;
+                    box-shadow: 0 1px 2px -1px rgba(0,0,0,0.1);
 
-                // Txt2
-                .txt2-brand-navbar{
-                    display: flex;
-                    font-size: 20px;
-                    font-family: $fontFmNvbr;
-                    margin: 11px 0 0 0;
+                    .img-profile-navbar{
+                        display: flex;
+                        object-fit: cover;
+                    }
                 }
-                // END Txt2
+                // END Link Img Profile
+
+                // Name Account User
+                .name-act-user-navbar{
+                    display: flex;
+                    font-size: 9pt;
+                    font-family: $fontFamilyJudul;
+                    font-weight: $fontWeightJudul;
+                    margin: 0 0px 0 5px;
+                    text-align: start;
+                }
+                // END Name Account User
             }
             // END Name Brand
         }
@@ -68,40 +68,38 @@
         width: 40%;
         align-items: center;
         justify-content: flex-end;
-        padding: 0 10px 0 0;
+        padding: 0 20px 0 0;
 
-        // Link Img Profile
-        .circ-img-profile-navbar{
+        .box-icon{
             display: flex;
             height: 35px;
             width: 35px;
-            border-radius: 500px;
-            box-shadow: 0px 5px 5px -1px rgba(0,0,0,0.5);
+            border-radius: 13px;
+            justify-content: center;
+            align-items: center;
+            background-color: $colorTigaBelas;
+            box-shadow: 0 1px 2px -1px rgba(0,0,0,0.1);
+            text-decoration: none;
 
-            .img-profile-navbar{
+            i{
                 display: flex;
-                object-fit: cover;
+                font-size: 11pt;
+                color: $colorEmpatBelas;
+                text-decoration: none;
             }
         }
-        // END Link Img Profile
 
-        // Name Account User
-        .name-act-user-navbar{
-            display: flex;
-            font-size: 13px;
-            font-family: $fontFamilyJudul;
-            font-weight: $fontWeightJudul;
-            margin: 0 0px 0 5px;
+        .iconCart{
+            margin-right: 10px;
         }
-        // END Name Account User
-        
     }
     // END Row2
 }
 
 .active{
-    background-color: $colorTiga;
-    box-shadow: $boxShdwNavPage;
-    transition: 0.2s ease-out;
+    display: flex;
+    background-color: $colorLimaBelas;
+    box-shadow: 0px 5px 15px -5px $colorLimaBelas;
+    transition: 0.100s ease-out;
     color: #fff;
 }

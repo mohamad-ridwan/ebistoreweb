@@ -1,0 +1,3 @@
+###
+GET http://localhost:62542/v8/makaroni/getall
+Content-Type: application/json

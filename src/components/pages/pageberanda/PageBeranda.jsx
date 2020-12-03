@@ -1,5 +1,5 @@
 import Axios from 'axios'
-import React from 'react'
+import React, { Component, useContext } from 'react'
 import { useEffect } from 'react'
 import { useState } from 'react'
 import Slider from 'react-slick'
@@ -10,25 +10,30 @@ import img from '../../../img/enambelas.jpg'
 import imgNew from '../../../img/delapanbelas.jpg'
 import imgPromo from '../../../img/promo.jpg'
 import './PageBeranda.scss'
-import {Link, matchPath, useHistory, useLocation, useParams, useRouteMatch, withRouter} from 'react-router-dom'
+import { Link, matchPath, useHistory, useLocation, useParams, useRouteMatch, withRouter } from 'react-router-dom'
 import bgMakaroni from '../../../img/bgmakaroni.jpg'
 import avatar from '../../../img/avatarnew.jpg'
+import Navbar from '../../navbar/Navbar'
+import { ServiceApi } from '../../../context/contextWrapper'
+import firebase from 'firebase/app';
 
 const PageBeranda = () => {
 
-    // Create Modal Desc App
-    let [modal, setModal] = useState(false)
-    // END Create Modal Desc App
-    
-    // params Detail Produk
-    const history = useHistory()
+    // For View Akun login
+    // END For View Akun Login
 
-    const handleDetail = (_id)=>{
-        history.push({
-            pathname: `detail-produk/${_id}`
-        })
-    }
+    // params Detail Produk
     // END params Detail produk
+
+    const histori = useHistory()
+
+    const pushNotifikasi = () => {
+        histori.push('/pagenotifikasi')
+    }
+
+    const pushProfil = () => {
+        histori.push('/pageprofil')
+    }
 
     // carousel react-slick
     const settings = {
@@ -39,7 +44,7 @@ const PageBeranda = () => {
         speed: 400
     }
 
-    const settings2= {
+    const settings2 = {
         autoplay: true,
         infinite: true,
         slidesToShow: 1,
@@ -47,8 +52,42 @@ const PageBeranda = () => {
         speed: 600
     }
 
+    // Get user login
+    const [getUser, setGetUser] = useState({
+        name: '',
+        photo: '',
+        hi: ''
+    })
+    // END get user login
+
+    // Get user login
+    const getUserFromFirebase = () => {
+        firebase.auth().onAuthStateChanged(function (user) {
+            if (user) {
+                const nameUser = user.displayName
+                const photoUser = user.photoURL
+                const sayHi = 'Hi !'
+
+                setGetUser({
+                    hi: sayHi,
+                    name: nameUser,
+                    photo: photoUser
+                })
+            } else {
+                // 
+            }
+        });
+    }
+    // Get user login
+
+    useEffect(() => {
+        getUserFromFirebase();
+    }, [])
+
+
     return (
         <>
+            <Navbar />
             <div className="wrapper-pageBeranda">
                 <section className="section1-pageBeranda">
                     <p className="title-home">
@@ -57,20 +96,27 @@ const PageBeranda = () => {
                     <Link to='/pagekeranjang' className="box-icon iconCart">
                         <i className="fas fa-shopping-cart"></i>
                     </Link>
-                    <Link className="box-icon">
-                    <i class="far fa-bell"></i>
+                    <Link className="box-icon"
+                        onClick={pushNotifikasi}
+                    >
+                        <i class="far fa-bell"></i>
                     </Link>
                 </section>
 
                 {/* Profil */}
                 <section className="container-profil">
-                    <p className="name-profil">
-                        Ridwan
-                    </p>
-
-                    <Link>
-                        <img src={avatar} alt="" className="img-profil"/>
+                    <Link to='/detail-produk/1' className="name-profil">
+                        {getUser.hi}
+                        <br />
+                        {getUser.name}
                     </Link>
+
+                    <Link
+                        onClick={pushProfil}
+                    >
+                        <img src={getUser.photo} alt="" className="img-profil" />
+                    </Link>
+
                 </section>
                 {/* END Profil */}
 
@@ -83,10 +129,10 @@ const PageBeranda = () => {
                 <section className="container-new-produk">
 
                     <Slider {...settings2} className="boxSlide">
-                        <img src={imgNew} alt="" className="img-new-produk"/>
-                        <img src={imgNew} alt="" className="img-new-produk"/>
-                        <img src={imgNew} alt="" className="img-new-produk"/>
-                        <img src={imgNew} alt="" className="img-new-produk"/>
+                        <img src={imgNew} alt="" className="img-new-produk" />
+                        <img src={imgNew} alt="" className="img-new-produk" />
+                        <img src={imgNew} alt="" className="img-new-produk" />
+                        <img src={imgNew} alt="" className="img-new-produk" />
                     </Slider>
                 </section>
                 {/* END Container new produk */}
@@ -94,77 +140,77 @@ const PageBeranda = () => {
                 {/* Section 2 */}
                 <section className="section-2-pageBeranda" id="secGroup">
                     {/* Judul */}
-                        <JudulCard
+                    <JudulCard
                         txtJudul={"Semua Harga"}
                         page={'/semuaproduk'}
-                     />
+                    />
                     {/* END Judul */}
 
                     {/* Section Semua Harga */}
                     <div className="box-group">
                         <Slider {...settings} className="boxSlide">
-                        <BoxCard
-                                    flxDirectWrapp={"column"}
-                                    heightWrapp={"auto"}
-                                    widthWrapp={"calc(90%)"}
-                                    displayNavBtn={"none"}
-                                    imgProduk={img}
-                                    price={"5.000"}
-                                    name={"Makaroni Original"}
-                                    stock={"10"}
-                                    displayBtnBuy={"none"}
-                                    mrginWrapp={"10px auto"}
-                                    paddContent={"0px 10px 10px 10px"}
-                                    mrgnStock={"5px 0 0px 0"}
-                                    detail={handleDetail}
-                                    />
-                                    <BoxCard
-                                    flxDirectWrapp={"column"}
-                                    heightWrapp={"auto"}
-                                    widthWrapp={"calc(90%)"}
-                                    displayNavBtn={"none"}
-                                    imgProduk={img}
-                                    price={"5.000"}
-                                    name={"Makaroni Original"}
-                                    stock={"10"}
-                                    displayBtnBuy={"none"}
-                                    mrginWrapp={"10px auto"}
-                                    paddContent={"0px 10px 10px 10px"}
-                                    mrgnStock={"5px 0 0px 0"}
-                                    detail={handleDetail}
-                                    />
-                                    <BoxCard
-                                    flxDirectWrapp={"column"}
-                                    heightWrapp={"auto"}
-                                    widthWrapp={"calc(90%)"}
-                                    displayNavBtn={"none"}
-                                    imgProduk={img}
-                                    price={"5.000"}
-                                    name={"Makaroni Original"}
-                                    stock={"10"}
-                                    displayBtnBuy={"none"}
-                                    mrginWrapp={"10px auto"}
-                                    paddContent={"0px 10px 10px 10px"}
-                                    mrgnStock={"5px 0 0px 0"}
-                                    detail={handleDetail}
-                                    />
-                                    <BoxCard
-                                    flxDirectWrapp={"column"}
-                                    heightWrapp={"auto"}
-                                    widthWrapp={"calc(90%)"}
-                                    displayNavBtn={"none"}
-                                    imgProduk={img}
-                                    price={"5.000"}
-                                    name={"Makaroni Original"}
-                                    stock={"10"}
-                                    displayBtnBuy={"none"}
-                                    mrginWrapp={"10px auto"}
-                                    paddContent={"0px 10px 10px 10px"}
-                                    mrgnStock={"5px 0 0px 0"}
-                                    detail={handleDetail}
-                                    />
+                            <BoxCard
+                                flxDirectWrapp={"column"}
+                                heightWrapp={"auto"}
+                                widthWrapp={"calc(90%)"}
+                                displayNavBtn={"none"}
+                                imgProduk={img}
+                                price={"5.000"}
+                                name={"Makaroni Original"}
+                                stock={"10"}
+                                displayBtnBuy={"none"}
+                                mrginWrapp={"10px auto"}
+                                paddContent={"0px 10px 10px 10px"}
+                                mrgnStock={"5px 0 0px 0"}
+
+                            />
+                            <BoxCard
+                                flxDirectWrapp={"column"}
+                                heightWrapp={"auto"}
+                                widthWrapp={"calc(90%)"}
+                                displayNavBtn={"none"}
+                                imgProduk={img}
+                                price={"5.000"}
+                                name={"Makaroni Original"}
+                                stock={"10"}
+                                displayBtnBuy={"none"}
+                                mrginWrapp={"10px auto"}
+                                paddContent={"0px 10px 10px 10px"}
+                                mrgnStock={"5px 0 0px 0"}
+
+                            />
+                            <BoxCard
+                                flxDirectWrapp={"column"}
+                                heightWrapp={"auto"}
+                                widthWrapp={"calc(90%)"}
+                                displayNavBtn={"none"}
+                                imgProduk={img}
+                                price={"5.000"}
+                                name={"Makaroni Original"}
+                                stock={"10"}
+                                displayBtnBuy={"none"}
+                                mrginWrapp={"10px auto"}
+                                paddContent={"0px 10px 10px 10px"}
+                                mrgnStock={"5px 0 0px 0"}
+
+                            />
+                            <BoxCard
+                                flxDirectWrapp={"column"}
+                                heightWrapp={"auto"}
+                                widthWrapp={"calc(90%)"}
+                                displayNavBtn={"none"}
+                                imgProduk={img}
+                                price={"5.000"}
+                                name={"Makaroni Original"}
+                                stock={"10"}
+                                displayBtnBuy={"none"}
+                                mrginWrapp={"10px auto"}
+                                paddContent={"0px 10px 10px 10px"}
+                                mrgnStock={"5px 0 0px 0"}
+
+                            />
                         </Slider>
-                        
+
                         {/* <BtnCard
                         heightBtn={'45px'}
                         widthBtn={'150px'}
@@ -190,83 +236,83 @@ const PageBeranda = () => {
                     {/* Section Serba 5rb */}
                     <div className="box-group">
                         <Slider {...settings} className="boxSlide">
-                        <BoxCard
-                                    flxDirectWrapp={"column"}
-                                    heightWrapp={"auto"}
-                                    widthWrapp={"calc(90%)"}
-                                    displayNavBtn={"none"}
-                                    imgProduk={img}
-                                    price={"5.000"}
-                                    name={"Makaroni Original"}
-                                    stock={"10"}
-                                    displayBtnBuy={"none"}
-                                    mrginWrapp={"10px auto"}
-                                    paddContent={"0px 10px 10px 10px"}
-                                    mrgnStock={"5px 0 0px 0"}
-                                    detail={handleDetail}
-                                    />
-                                    <BoxCard
-                                    flxDirectWrapp={"column"}
-                                    heightWrapp={"auto"}
-                                    widthWrapp={"calc(90%)"}
-                                    displayNavBtn={"none"}
-                                    imgProduk={img}
-                                    price={"5.000"}
-                                    name={"Makaroni Original"}
-                                    stock={"10"}
-                                    displayBtnBuy={"none"}
-                                    mrginWrapp={"10px auto"}
-                                    paddContent={"0px 10px 10px 10px"}
-                                    mrgnStock={"5px 0 0px 0"}
-                                    detail={handleDetail}
-                                    />
-                                    <BoxCard
-                                    flxDirectWrapp={"column"}
-                                    heightWrapp={"auto"}
-                                    widthWrapp={"calc(90%)"}
-                                    displayNavBtn={"none"}
-                                    imgProduk={img}
-                                    price={"5.000"}
-                                    name={"Makaroni Original"}
-                                    stock={"10"}
-                                    displayBtnBuy={"none"}
-                                    mrginWrapp={"10px auto"}
-                                    paddContent={"0px 10px 10px 10px"}
-                                    mrgnStock={"5px 0 0px 0"}
-                                    detail={handleDetail}
-                                    />
-                                    <BoxCard
-                                    flxDirectWrapp={"column"}
-                                    heightWrapp={"auto"}
-                                    widthWrapp={"calc(90%)"}
-                                    displayNavBtn={"none"}
-                                    imgProduk={img}
-                                    price={"5.000"}
-                                    name={"Makaroni Original"}
-                                    stock={"10"}
-                                    displayBtnBuy={"none"}
-                                    mrginWrapp={"10px auto"}
-                                    paddContent={"0px 10px 10px 10px"}
-                                    mrgnStock={"5px 0 0px 0"}
-                                    detail={handleDetail}
-                                    />
-                                    <BoxCard
-                                    flxDirectWrapp={"column"}
-                                    heightWrapp={"auto"}
-                                    widthWrapp={"calc(90%)"}
-                                    displayNavBtn={"none"}
-                                    imgProduk={img}
-                                    price={"5.000"}
-                                    name={"Makaroni Original"}
-                                    stock={"10"}
-                                    displayBtnBuy={"none"}
-                                    mrginWrapp={"10px auto"}
-                                    paddContent={"0px 10px 10px 10px"}
-                                    mrgnStock={"5px 0 0px 0"}
-                                    detail={handleDetail}
-                                    />
+                            <BoxCard
+                                flxDirectWrapp={"column"}
+                                heightWrapp={"auto"}
+                                widthWrapp={"calc(90%)"}
+                                displayNavBtn={"none"}
+                                imgProduk={img}
+                                price={"5.000"}
+                                name={"Makaroni Original"}
+                                stock={"10"}
+                                displayBtnBuy={"none"}
+                                mrginWrapp={"10px auto"}
+                                paddContent={"0px 10px 10px 10px"}
+                                mrgnStock={"5px 0 0px 0"}
+
+                            />
+                            <BoxCard
+                                flxDirectWrapp={"column"}
+                                heightWrapp={"auto"}
+                                widthWrapp={"calc(90%)"}
+                                displayNavBtn={"none"}
+                                imgProduk={img}
+                                price={"5.000"}
+                                name={"Makaroni Original"}
+                                stock={"10"}
+                                displayBtnBuy={"none"}
+                                mrginWrapp={"10px auto"}
+                                paddContent={"0px 10px 10px 10px"}
+                                mrgnStock={"5px 0 0px 0"}
+
+                            />
+                            <BoxCard
+                                flxDirectWrapp={"column"}
+                                heightWrapp={"auto"}
+                                widthWrapp={"calc(90%)"}
+                                displayNavBtn={"none"}
+                                imgProduk={img}
+                                price={"5.000"}
+                                name={"Makaroni Original"}
+                                stock={"10"}
+                                displayBtnBuy={"none"}
+                                mrginWrapp={"10px auto"}
+                                paddContent={"0px 10px 10px 10px"}
+                                mrgnStock={"5px 0 0px 0"}
+
+                            />
+                            <BoxCard
+                                flxDirectWrapp={"column"}
+                                heightWrapp={"auto"}
+                                widthWrapp={"calc(90%)"}
+                                displayNavBtn={"none"}
+                                imgProduk={img}
+                                price={"5.000"}
+                                name={"Makaroni Original"}
+                                stock={"10"}
+                                displayBtnBuy={"none"}
+                                mrginWrapp={"10px auto"}
+                                paddContent={"0px 10px 10px 10px"}
+                                mrgnStock={"5px 0 0px 0"}
+
+                            />
+                            <BoxCard
+                                flxDirectWrapp={"column"}
+                                heightWrapp={"auto"}
+                                widthWrapp={"calc(90%)"}
+                                displayNavBtn={"none"}
+                                imgProduk={img}
+                                price={"5.000"}
+                                name={"Makaroni Original"}
+                                stock={"10"}
+                                displayBtnBuy={"none"}
+                                mrginWrapp={"10px auto"}
+                                paddContent={"0px 10px 10px 10px"}
+                                mrgnStock={"5px 0 0px 0"}
+
+                            />
                         </Slider>
-                    
+
                         {/* <BtnCard
                         heightBtn={'45px'}
                         widthBtn={'150px'}
@@ -295,68 +341,68 @@ const PageBeranda = () => {
                     {/* Section Serba 10rb */}
                     <div className="box-group">
                         <Slider {...settings} className="boxSlide">
-                        <BoxCard
-                                    flxDirectWrapp={"column"}
-                                    heightWrapp={"auto"}
-                                    widthWrapp={"calc(90%)"}
-                                    displayNavBtn={"none"}
-                                    imgProduk={img}
-                                    price={"5.000"}
-                                    name={"Makaroni Original"}
-                                    stock={"10"}
-                                    displayBtnBuy={"none"}
-                                    mrginWrapp={"10px auto"}
-                                    paddContent={"0px 10px 10px 10px"}
-                                    mrgnStock={"5px 0 0px 0"}
-                                    detail={handleDetail}
-                                    />
-                                    <BoxCard
-                                    flxDirectWrapp={"column"}
-                                    heightWrapp={"auto"}
-                                    widthWrapp={"calc(90%)"}
-                                    displayNavBtn={"none"}
-                                    imgProduk={img}
-                                    price={"5.000"}
-                                    name={"Makaroni Original"}
-                                    stock={"10"}
-                                    displayBtnBuy={"none"}
-                                    mrginWrapp={"10px auto"}
-                                    paddContent={"0px 10px 10px 10px"}
-                                    mrgnStock={"5px 0 0px 0"}
-                                    detail={handleDetail}
-                                    />
-                                    <BoxCard
-                                    flxDirectWrapp={"column"}
-                                    heightWrapp={"auto"}
-                                    widthWrapp={"calc(90%)"}
-                                    displayNavBtn={"none"}
-                                    imgProduk={img}
-                                    price={"5.000"}
-                                    name={"Makaroni Original"}
-                                    stock={"10"}
-                                    displayBtnBuy={"none"}
-                                    mrginWrapp={"10px auto"}
-                                    paddContent={"0px 10px 10px 10px"}
-                                    mrgnStock={"5px 0 0px 0"}
-                                    detail={handleDetail}
-                                    />
-                                    <BoxCard
-                                    flxDirectWrapp={"column"}
-                                    heightWrapp={"auto"}
-                                    widthWrapp={"calc(90%)"}
-                                    displayNavBtn={"none"}
-                                    imgProduk={img}
-                                    price={"5.000"}
-                                    name={"Makaroni Original"}
-                                    stock={"10"}
-                                    displayBtnBuy={"none"}
-                                    mrginWrapp={"10px auto"}
-                                    paddContent={"0px 10px 10px 10px"}
-                                    mrgnStock={"5px 0 0px 0"}
-                                    detail={handleDetail}
-                                    />
+                            <BoxCard
+                                flxDirectWrapp={"column"}
+                                heightWrapp={"auto"}
+                                widthWrapp={"calc(90%)"}
+                                displayNavBtn={"none"}
+                                imgProduk={img}
+                                price={"5.000"}
+                                name={"Makaroni Original"}
+                                stock={"10"}
+                                displayBtnBuy={"none"}
+                                mrginWrapp={"10px auto"}
+                                paddContent={"0px 10px 10px 10px"}
+                                mrgnStock={"5px 0 0px 0"}
+
+                            />
+                            <BoxCard
+                                flxDirectWrapp={"column"}
+                                heightWrapp={"auto"}
+                                widthWrapp={"calc(90%)"}
+                                displayNavBtn={"none"}
+                                imgProduk={img}
+                                price={"5.000"}
+                                name={"Makaroni Original"}
+                                stock={"10"}
+                                displayBtnBuy={"none"}
+                                mrginWrapp={"10px auto"}
+                                paddContent={"0px 10px 10px 10px"}
+                                mrgnStock={"5px 0 0px 0"}
+
+                            />
+                            <BoxCard
+                                flxDirectWrapp={"column"}
+                                heightWrapp={"auto"}
+                                widthWrapp={"calc(90%)"}
+                                displayNavBtn={"none"}
+                                imgProduk={img}
+                                price={"5.000"}
+                                name={"Makaroni Original"}
+                                stock={"10"}
+                                displayBtnBuy={"none"}
+                                mrginWrapp={"10px auto"}
+                                paddContent={"0px 10px 10px 10px"}
+                                mrgnStock={"5px 0 0px 0"}
+
+                            />
+                            <BoxCard
+                                flxDirectWrapp={"column"}
+                                heightWrapp={"auto"}
+                                widthWrapp={"calc(90%)"}
+                                displayNavBtn={"none"}
+                                imgProduk={img}
+                                price={"5.000"}
+                                name={"Makaroni Original"}
+                                stock={"10"}
+                                displayBtnBuy={"none"}
+                                mrginWrapp={"10px auto"}
+                                paddContent={"0px 10px 10px 10px"}
+                                mrgnStock={"5px 0 0px 0"}
+
+                            />
                         </Slider>
-                    
+
                         {/* <BtnCard
                         heightBtn={'45px'}
                         widthBtn={'150px'}
@@ -378,72 +424,72 @@ const PageBeranda = () => {
                     {/* Judul */}
                     <JudulCard txtJudul={"Serba 15rb"} />
                     {/* END Judul */}
-                    
+
                     {/* Section Serba 15rb */}
                     <div className="box-group">
                         <Slider {...settings} className="boxSlide">
-                        <BoxCard
-                                    flxDirectWrapp={"column"}
-                                    heightWrapp={"auto"}
-                                    widthWrapp={"calc(90%)"}
-                                    displayNavBtn={"none"}
-                                    imgProduk={img}
-                                    price={"5.000"}
-                                    name={"Makaroni Original"}
-                                    stock={"10"}
-                                    displayBtnBuy={"none"}
-                                    mrginWrapp={"10px auto"}
-                                    paddContent={"0px 10px 10px 10px"}
-                                    mrgnStock={"5px 0 0px 0"}
-                                    detail={handleDetail}
-                                    />
-                                    <BoxCard
-                                    flxDirectWrapp={"column"}
-                                    heightWrapp={"auto"}
-                                    widthWrapp={"calc(90%)"}
-                                    displayNavBtn={"none"}
-                                    imgProduk={img}
-                                    price={"5.000"}
-                                    name={"Makaroni Original"}
-                                    stock={"10"}
-                                    displayBtnBuy={"none"}
-                                    mrginWrapp={"10px auto"}
-                                    paddContent={"0px 10px 10px 10px"}
-                                    mrgnStock={"5px 0 0px 0"}
-                                    detail={handleDetail}
-                                    />
-                                    <BoxCard
-                                    flxDirectWrapp={"column"}
-                                    heightWrapp={"auto"}
-                                    widthWrapp={"calc(90%)"}
-                                    displayNavBtn={"none"}
-                                    imgProduk={img}
-                                    price={"5.000"}
-                                    name={"Makaroni Original"}
-                                    stock={"10"}
-                                    displayBtnBuy={"none"}
-                                    mrginWrapp={"10px auto"}
-                                    paddContent={"0px 10px 10px 10px"}
-                                    mrgnStock={"5px 0 0px 0"}
-                                    detail={handleDetail}
-                                    />
-                                    <BoxCard
-                                    flxDirectWrapp={"column"}
-                                    heightWrapp={"auto"}
-                                    widthWrapp={"calc(90%)"}
-                                    displayNavBtn={"none"}
-                                    imgProduk={img}
-                                    price={"5.000"}
-                                    name={"Makaroni Original"}
-                                    stock={"10"}
-                                    displayBtnBuy={"none"}
-                                    mrginWrapp={"10px auto"}
-                                    paddContent={"0px 10px 10px 10px"}
-                                    mrgnStock={"5px 0 0px 0"}
-                                    detail={handleDetail}
-                                    />
+                            <BoxCard
+                                flxDirectWrapp={"column"}
+                                heightWrapp={"auto"}
+                                widthWrapp={"calc(90%)"}
+                                displayNavBtn={"none"}
+                                imgProduk={img}
+                                price={"5.000"}
+                                name={"Makaroni Original"}
+                                stock={"10"}
+                                displayBtnBuy={"none"}
+                                mrginWrapp={"10px auto"}
+                                paddContent={"0px 10px 10px 10px"}
+                                mrgnStock={"5px 0 0px 0"}
+
+                            />
+                            <BoxCard
+                                flxDirectWrapp={"column"}
+                                heightWrapp={"auto"}
+                                widthWrapp={"calc(90%)"}
+                                displayNavBtn={"none"}
+                                imgProduk={img}
+                                price={"5.000"}
+                                name={"Makaroni Original"}
+                                stock={"10"}
+                                displayBtnBuy={"none"}
+                                mrginWrapp={"10px auto"}
+                                paddContent={"0px 10px 10px 10px"}
+                                mrgnStock={"5px 0 0px 0"}
+
+                            />
+                            <BoxCard
+                                flxDirectWrapp={"column"}
+                                heightWrapp={"auto"}
+                                widthWrapp={"calc(90%)"}
+                                displayNavBtn={"none"}
+                                imgProduk={img}
+                                price={"5.000"}
+                                name={"Makaroni Original"}
+                                stock={"10"}
+                                displayBtnBuy={"none"}
+                                mrginWrapp={"10px auto"}
+                                paddContent={"0px 10px 10px 10px"}
+                                mrgnStock={"5px 0 0px 0"}
+
+                            />
+                            <BoxCard
+                                flxDirectWrapp={"column"}
+                                heightWrapp={"auto"}
+                                widthWrapp={"calc(90%)"}
+                                displayNavBtn={"none"}
+                                imgProduk={img}
+                                price={"5.000"}
+                                name={"Makaroni Original"}
+                                stock={"10"}
+                                displayBtnBuy={"none"}
+                                mrginWrapp={"10px auto"}
+                                paddContent={"0px 10px 10px 10px"}
+                                mrgnStock={"5px 0 0px 0"}
+
+                            />
                         </Slider>
-                    
+
                         {/* <BtnCard
                         heightBtn={'45px'}
                         widthBtn={'150px'}
@@ -468,11 +514,11 @@ const PageBeranda = () => {
 
                     {/* container promo akhir pekan */}
                     <div className="container-promo">
-                        <img src={imgPromo} alt="" className="img-promo"/>
+                        <img src={imgPromo} alt="" className="img-promo" />
 
                         <p className="time-promo">
                             Berakhir Pada :
-                            <br/>
+                            <br />
                             Jam: 08.00 Detik: 05
                         </p>
                     </div>

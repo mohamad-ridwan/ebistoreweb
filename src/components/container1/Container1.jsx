@@ -1,5 +1,5 @@
 import React from 'react'
-import {BrowserRouter as Router, Switch, Route, withRouter } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route, withRouter } from 'react-router-dom';
 import PageNotifikasi from '../pages/pagenotifikasi/PageNotifikasi';
 import PageFavorit from '../pages/pagefavorit/PageFavorit';
 import HelmetPageFavorit from '../pages/pagefavorit/helmetpagefavorit/HelmetPageFavorit';
@@ -34,102 +34,102 @@ const Container1 = () => {
                 <>
                     <Router>
                         <WindowScroll>
-                        <Switch>
-                            {/* Transaksi */}
-                            <Route path='/transaksi/:id'>
-                                <Transaksi/>
+                            <Switch>
+                                {/* Transaksi */}
+                                <Route path='/transaksi/:id'>
+                                    <Transaksi />
 
-                                <HelmetTransaksi/>
-                            </Route>
-                            {/* end Transaksi */}
+                                    <HelmetTransaksi />
+                                </Route>
+                                {/* end Transaksi */}
 
-                            {/* detail produk */}
-                            <Route path='/detail-produk/:id'>
-                                <DetailProduk/>
+                                {/* detail produk */}
+                                <Route path='/detail-produk/:id'>
+                                    <DetailProduk />
 
-                                <HelmetDetailProduk/>
-                            </Route>
-                            {/* end detail produk */}
+                                    <HelmetDetailProduk />
+                                </Route>
+                                {/* end detail produk */}
 
-                            {/* page semua produk */}
-                            <Route path='/semuaproduk'>
-                                <SemuaProduk/>
+                                {/* page semua produk */}
+                                <Route path='/semuaproduk'>
+                                    <SemuaProduk />
 
-                                <HelmetSemuaProduk/>
-                            </Route>
-                            {/* end page semua produk */}
+                                    <HelmetSemuaProduk />
+                                </Route>
+                                {/* end page semua produk */}
 
-                            {/* page alamat*/}
-                            <Route path='/pagealamat'>
-                                <PageAlamat/>
+                                {/* page alamat*/}
+                                <Route path='/pagealamat'>
+                                    <PageAlamat />
 
-                                <HelmetPageAlamat/>
-                            </Route>
-                            {/* end page alamat */}
+                                    <HelmetPageAlamat />
+                                </Route>
+                                {/* end page alamat */}
 
-                            {/* Page Profil */}
-                            <Route path='/pageprofil'>
-                                <PageProfil/>
+                                {/* Page Profil */}
+                                <Route path='/pageprofil'>
+                                    <PageProfil />
 
-                                <HelmetPageProfil/>                
-                            </Route>
-                            {/* END Page Profil */}
+                                    <HelmetPageProfil />
+                                </Route>
+                                {/* END Page Profil */}
 
-                            {/* For Page Notifikasi */}
-                            <Route path='/pagenotifikasi'>
-                                <PageNotifikasi />
+                                {/* For Page Notifikasi */}
+                                <Route path='/pagenotifikasi'>
+                                    <PageNotifikasi />
 
-                                <HelmetPageNotifikasi />
-                            </Route>
-                            {/* END For Page Notifikasi */}
+                                    <HelmetPageNotifikasi />
+                                </Route>
+                                {/* END For Page Notifikasi */}
 
-                            {/* For Page Favorit */}
-                            <Route path='/pagefavorit'>
-                                <PageFavorit />
+                                {/* For Page Favorit */}
+                                <Route path='/pagefavorit'>
+                                    <PageFavorit />
 
-                                <HelmetPageFavorit />
-                            </Route>
-                            {/* END For Page Favorit */}
+                                    <HelmetPageFavorit />
+                                </Route>
+                                {/* END For Page Favorit */}
 
-                            {/* For Page Keranjang */}
-                            <Route path='/pagekeranjang/'>
-                                <PageKeranjang />
+                                {/* For Page Keranjang */}
+                                <Route path='/pagekeranjang/'>
+                                    <PageKeranjang />
 
-                                <HelmetPageKeranjang />
-                            </Route>
-                            {/* END For Page Keranjang */}
+                                    <HelmetPageKeranjang />
+                                </Route>
+                                {/* END For Page Keranjang */}
 
-                            {/* For Register */}
-                            <Route path='/register'>
-                                <Register/>
-                            </Route>
-                            {/* END For Register */}
+                                {/* For Register */}
+                                <Route path='/register'>
+                                    <Register />
+                                </Route>
+                                {/* END For Register */}
 
-                            {/* For Home */}
-                            <Route path='/'>
-                                {/* Navbar */}
-                                {/* <Navbar /> */}
-                                {/* END Navbar */}
+                                {/* For Home */}
+                                <Route path='/beranda'>
+                                    {/* Navbar */}
+                                    {/* <Navbar /> */}
+                                    {/* END Navbar */}
 
-                                {/* Page Beranda */}
-                                <PageBeranda />
-                                {/* END Page Beranda */}
+                                    {/* Page Beranda */}
+                                    <PageBeranda />
+                                    {/* END Page Beranda */}
 
-                                {/* <BtnNotifPromo /> */}
+                                    <BtnNotifPromo />
 
-                                {/* Helmet Page Beranda */}
-                                <HelmetPageBeranda />
-                                {/* END Helmet Page Beranda */}
-                            </Route>
-                            {/* END For Home */}
+                                    {/* Helmet Page Beranda */}
+                                    <HelmetPageBeranda />
+                                    {/* END Helmet Page Beranda */}
+                                </Route>
+                                {/* END For Home */}
 
-                            {/* For Page Home */}
-                            <Route path='/login'>
-                                <Login/>
-                            </Route>
-                            {/* END For Page Home */}
+                                {/* For Page Home */}
+                                <Route path='/'>
+                                    <Login />
+                                </Route>
+                                {/* END For Page Home */}
 
-                        </Switch>
+                            </Switch>
                         </WindowScroll>
 
                         {/* <NavBottom /> */}

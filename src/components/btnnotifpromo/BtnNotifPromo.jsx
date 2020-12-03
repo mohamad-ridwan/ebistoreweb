@@ -23,7 +23,7 @@ const BtnNotifPromo = () => {
 
             {/* Modal Notif Promo */}
             <div className="modal-notifPromo" style={{
-                left: hide ? '8px' : '-180px',
+                left: hide ? '20px' : '-180px',
                 transition: '.4s'
             }}>
                 {/* Column1 */}

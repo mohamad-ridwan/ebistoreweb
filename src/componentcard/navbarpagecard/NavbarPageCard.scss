@@ -10,6 +10,7 @@
     // box-shadow: $boxShdwNavPage;
     // position: fixed;
     z-index: 11;
+    overflow: hidden;
 
     // Row nav
     .row-nav-pageCard{
@@ -20,6 +21,7 @@
         align-items: center;
         justify-content: center;
         padding: $padNavPage;
+        overflow: hidden;
 
         // Btn Back Page Nav
         .btn-back-nav-pageCard{

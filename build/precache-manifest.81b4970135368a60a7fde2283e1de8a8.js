@@ -1,23 +1,23 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "500e5d5c98b33513e453ca468f900b82",
+    "revision": "535929654817a44cd8d817b8926b3e69",
     "url": "/index.html"
   },
   {
-    "revision": "ebd8e338c8104a6e2135",
-    "url": "/static/css/main.7f98bf57.chunk.css"
+    "revision": "6d42e6e26952d7778e45",
+    "url": "/static/css/main.fc860f9c.chunk.css"
   },
   {
-    "revision": "6d150d93b587fe9583c4",
-    "url": "/static/js/2.cb108fe2.chunk.js"
+    "revision": "1fb22c7db49e42a314ad",
+    "url": "/static/js/2.c0848ba1.chunk.js"
   },
   {
-    "revision": "3453b8997016469371284a28c0e873e2",
-    "url": "/static/js/2.cb108fe2.chunk.js.LICENSE.txt"
+    "revision": "df2659f20723d9e518ad965c595b69ee",
+    "url": "/static/js/2.c0848ba1.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "ebd8e338c8104a6e2135",
-    "url": "/static/js/main.824749b2.chunk.js"
+    "revision": "6d42e6e26952d7778e45",
+    "url": "/static/js/main.e6110b4a.chunk.js"
   },
   {
     "revision": "0d7880b891e741045881",
@@ -28,12 +28,36 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/static/media/avatarnew.ae4fc4e8.jpg"
   },
   {
+    "revision": "aaad1cc98082c1491b3d0e4688ea1d84",
+    "url": "/static/media/bgmakaroni.aaad1cc9.jpg"
+  },
+  {
+    "revision": "ceb6ada908717cc90404b8aa178b3e8c",
+    "url": "/static/media/bgmakaroni2.ceb6ada9.jpg"
+  },
+  {
+    "revision": "4efe5d4a59b170e375659f8933ffcb11",
+    "url": "/static/media/delapanbelas.4efe5d4a.jpg"
+  },
+  {
+    "revision": "733ce5d63eae046f4e5b2273ad6afc10",
+    "url": "/static/media/enambelas.733ce5d6.jpg"
+  },
+  {
+    "revision": "35d57b780802730290e594663e5570a1",
+    "url": "/static/media/google (1).35d57b78.png"
+  },
+  {
     "revision": "86acfc45ef0d7fa37ea7a61332a226bd",
     "url": "/static/media/heart.86acfc45.svg"
   },
   {
     "revision": "6f06540336315174b76f08db5cef146b",
     "url": "/static/media/homestore.6f065403.svg"
+  },
+  {
+    "revision": "476407a5b72df506a60dedc2234c84cf",
+    "url": "/static/media/indomaret.476407a5.svg"
   },
   {
     "revision": "ee7cd8ed2dcec943251eb2763684fc6f",

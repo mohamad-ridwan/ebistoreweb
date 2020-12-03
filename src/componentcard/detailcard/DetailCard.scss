@@ -66,7 +66,7 @@
         width: 100%;
         text-align: center;
         justify-content: center;
-        padding: 10px 20px 10px 20px;
+        padding: 10px 0px 0px 0px;
         background-color: #fff;
 
         // row kiri
@@ -125,10 +125,149 @@
             font-size: 11pt;
             margin: 20px 0;
             padding: 0 30px;
-            font-weight: bold;
-            color: #bbb;
+            color: #aaa;
         }
         // end paragrap Group
+
+        // For page transaksi
+        .box-input-total{
+            display: flex;
+            height: auto;
+            width: 100%;
+            padding: 0 40px 40px 40px;
+            justify-content: center;
+            align-items: center;
+
+            .btnGroup{
+                display: flex;
+                height: 30px;
+                width: 30px;
+                border-radius: 500px;
+                border: 2px solid $colorLimaBelas;
+                justify-content: center;
+                align-items: center;
+                font-size: 11pt;
+                color: $colorLimaBelas;
+                background: transparent;
+            }
+
+            .input-angka{
+                display: flex;
+                height: 25px;
+                width: 150px;
+                border: none;
+                outline: none;
+                text-align: center;
+                font-size: 12pt;
+                color: $colorLimaBelas;
+                font-weight: bold;
+            }
+        }
+        // END For Page transaksi
+
+        // For Page transaksi
+        .box-alamat-and-bayar{
+            display: flex;
+            flex-direction: column;
+            height: auto;
+            width: 100%;
+            padding: 20px;
+            background: rgb(255,255,255);
+            background: linear-gradient(90deg, rgba(250,250,250,1) 0%, rgba(239,239,245,0.6113795860140931) 100%);
+
+            .box-orange{
+                display: flex;
+                flex-direction: column;
+                height: auto;
+                width: 100%;
+                border-radius: 20px;
+                background-color: $colorLimaBelas;
+                box-shadow: 0px 5px 15px -5px $colorLimaBelas;
+                padding: 20px;
+                color: #fff;
+
+                .title-alamat{
+                    display: flex;
+                    font-size: 12pt;
+                    font-weight: bold;
+                }
+
+                .txt-alamat{
+                    display: flex;
+                    font-size: 10pt;
+                    text-align: start;
+                }
+
+                .fontGroup{
+                    display: flex;
+                    font-size: 11pt;
+                }
+
+                .pengiriman{
+                    margin-top: 20px;
+                }
+
+                .durasi{
+                    display: flex;
+                    color: #555;
+                }
+
+                .price-pengiriman{
+                    align-items: center;
+
+                    i{
+                        margin-left: 5px;
+                    }
+                }
+
+                .box-jasa-transaksi{
+                    display: flex;
+                    height: auto;
+                    width: 100%;
+                    align-items: center;
+                    margin-top: 10px;
+                    
+                    .logo-jasa{
+                        display: flex;
+                        height: 25px;
+                        width: 70px;
+                        object-fit: cover;
+                        object-position: center;
+                    }
+
+                    .txt-name-jasa{
+                        display: flex;
+                        font-size: 11pt;
+                        margin-left: 5px;
+                    }
+                }
+
+                .garis-putih{
+                    display: flex;
+                    border: 1px solid #fff;
+                    border-radius: 10px;
+                    width: 100%;
+                    margin-top: 20px;
+                }
+
+                .box-bayar{
+                    display: flex;
+                    height: auto;
+                    width: 100%;
+                    align-items: center;
+                    margin-top: 20px;
+                    justify-content: space-between;
+
+                    .total-belanja{
+                        display: flex;
+                        font-size: 12pt;
+                        font-weight: bold;
+                        text-align: start;
+                    }
+                }
+            }
+        }
+        // END For Page transaksi
     }
     // end deskripsi
 }
