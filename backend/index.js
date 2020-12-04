@@ -1,3 +1,4 @@
+const cool = require('cool-ascii-faces')
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
@@ -31,20 +32,20 @@ const registerRoutes = require('./src/routes/register')
 const blogRoutes = require('./src/routes/blog');
 
 const fileStorage = multer.diskStorage({
-    destination: (req, file, cb)=>{
+    destination: (req, file, cb) => {
         cb(null, 'images');
     },
-    filename: (req, file, cb)=>{
+    filename: (req, file, cb) => {
         cb(null, new Date().getTime() + '-' + file.originalname)
     }
 })
 
 // Handling Filter Folder Image
-const fileFilter = (req, file, cb)=>{
-    if( file.mimetype === 'image/png' ||
+const fileFilter = (req, file, cb) => {
+    if (file.mimetype === 'image/png' ||
         file.mimetype === 'image/jpg' ||
         file.mimetype === 'image/jpeg'
-    ){
+    ) {
         cb(null, true);
     } else {
         cb(null, false);
@@ -54,10 +55,10 @@ const fileFilter = (req, file, cb)=>{
 server.use(bodyParser.json());
 // handling error get images with widdleware
 server.use('/images', express.static(path.join(__dirname, 'images')));
-server.use(multer({storage: fileStorage, fileFilter}).single('image'))
+server.use(multer({ storage: fileStorage, fileFilter }).single('image'))
 
 // Allow Access for mode cors Response API
-server.use((req, res, next)=>{
+server.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, PATCH, DELETE, OPTIONS');
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization', 'application/json')
@@ -84,16 +85,23 @@ server.use('/v9/register', registerRoutes)
 server.use('/v9/blog', blogRoutes);
 
 // handle middleware
-server.use((error, req, res, next)=>{
+server.use((error, req, res, next) => {
     const status = error.errorStatus || 500;
     const message = error.message;
     const data = error.data;
-    res.status(status).json({message: message, data: data});
+    res.status(status).json({ message: message, data: data });
 })
 
+const PORT = process.env.PORT || 6235
+
 mongoose.connect('mongodb+srv://ridwan:ugELM2oeKdlMmVR9@cluster0.mtciq.mongodb.net/blog?retryWrites=true&w=majority')
-.then(()=>{
-    server.listen(62542, ()=> console.log('Connection Success!!'));
-})
-.catch(err => console.log(err));
+    .then(() => {
+        server.use(express.static(path.join(__dirname, 'public')))
+        server.set('views', path.join(__dirname, 'views'))
+        server.set('view engine', 'ejs')
+        server.get('/', (req, res) => res.render('pages/index'))
+        server.get('/cool', (req, res) => res.send(cool()))
+        server.listen(PORT, () => console.log(`Listening on ${PORT}`));
+    })
+    .catch(err => console.log(err));
 
