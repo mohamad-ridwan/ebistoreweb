@@ -4,7 +4,6 @@ import './App.css';
 import Container1 from './components/container1/Container1';
 import { Provider } from 'react-redux'
 import { store } from './config/redux'
-import ContextWrapper from './context/contextWrapper';
 function App() {
 
   // Create Loading Page Home

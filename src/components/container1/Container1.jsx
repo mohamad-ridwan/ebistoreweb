@@ -52,7 +52,7 @@ const Container1 = () => {
                                 {/* end detail produk */}
 
                                 {/* page semua produk */}
-                                <Route path='/semuaproduk'>
+                                <Route path='/semuaproduk/:id'>
                                     <SemuaProduk />
 
                                     <HelmetSemuaProduk />

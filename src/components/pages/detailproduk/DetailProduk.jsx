@@ -87,12 +87,11 @@ class DetailProduk extends Component {
     componentDidMount() {
         // dapatkan id dari id yang masuk
         const id = this.props.match.params.id
-        Axios.get(`http://localhost:62542/v8/makaroni/getall/${id}`)
+        Axios.get(`http://localhost:6235/v8/makaroni/getall/${id}`)
             .then(result => {
                 let post = result.data
                 // Agar bisa mendapatkan data yg masuk
                 // Ganti data yg masuk dengan data yg baru
-                console.log(result.data)
                 this.setState({
                     post: [
                         {
@@ -124,27 +123,26 @@ class DetailProduk extends Component {
                     />
 
                     {/* Detail Card */}
-                    {/* {this.state.post.map((e)=>{
-                    return(
-                    <>
-                       
-                    </>
-                    )
-                })} */}
+                    {this.state.post.map((e) => {
+                        return (
+                            <>
+                                <DetailCard
+                                    name={e.name}
+                                    price={e.price}
+                                    stock={e.stock}
+                                    deskripsi={e.deskripsi}
+                                    img={`http://localhost:6235/${e.image}`}
+                                    // buy={this.handleTransaksi}
+                                    toPageShopp={this.handleKeranjang}
+                                    displayBoxAlamat={"none"}
+                                    minus={this.handleMinus}
+                                    plus={this.handlePlus}
+                                    valueInput={this.state.order}
+                                />
+                            </>
+                        )
+                    })}
                     {/* {/* END Detail Card */}
-                    <DetailCard
-                        name={"Makaroni Original"}
-                        price={"5.000"}
-                        stock={"20"}
-                        deskripsi={"Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat dolores id eveniet commodi, quas aspernatur facere necessitatibus dolor soluta provident."}
-                        img={img}
-                        // buy={this.handleTransaksi}
-                        toPageShopp={this.handleKeranjang}
-                        displayBoxAlamat={"none"}
-                        minus={this.handleMinus}
-                        plus={this.handlePlus}
-                        valueInput={this.state.order}
-                    />
                 </div>
             </>
         )

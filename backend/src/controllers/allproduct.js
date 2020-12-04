@@ -87,3 +87,9 @@ exports.getAllById = (req, res, next) => {
             next(err)
         })
 }
+
+// Get with username
+// exports.getAllByUsername = (req, res, next)=>{
+//     const getUsername = req.params.getUsername
+//     Schema.find
+// }

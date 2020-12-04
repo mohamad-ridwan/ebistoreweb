@@ -53,7 +53,6 @@ class Login extends Component {
         })
             .catch(function (error) {
                 console.log(error)
-                this.props.history.push('/', error)
             });
         this.props.history.push('/beranda')
     }

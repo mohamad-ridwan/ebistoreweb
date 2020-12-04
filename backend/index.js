@@ -104,7 +104,3 @@ mongoose.connect('mongodb+srv://ridwan:ugELM2oeKdlMmVR9@cluster0.mtciq.mongodb.n
         server.listen(PORT, () => console.log(`Listening on ${PORT}`));
     })
     .catch(err => console.log(err));
-
-    // 
-
-// 
