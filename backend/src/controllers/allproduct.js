@@ -2,8 +2,8 @@ const { validationResult } = require('express-validator');
 const Schema = require('../models/allproduct');
 
 // POST
-exports.postAll = (req, res, next)=>{
-    if(!req.file){
+exports.postAll = (req, res, next) => {
+    if (!req.file) {
         const err = new Error('Image Harus di Upload!');
         err.errorStatus = 422
         throw err;
@@ -18,71 +18,72 @@ exports.postAll = (req, res, next)=>{
     const image = req.file.path;
 
     const PostData = new Schema({
-        label : label,
-        name : name,
+        label: label,
+        name: name,
         price: price,
-        stock : stock,
+        stock: stock,
         deskripsi: deskripsi,
         komposisi: komposisi,
         image: image,
     })
 
     PostData.save()
-    .then(result=>{
-        res.status(201).json({
-            message: "Data makaroni berhasil di tambahkan!!",
-            allData : result
+        .then(result => {
+            res.status(201).json({
+                message: "Data makaroni berhasil di tambahkan!!",
+                allData: result
+            })
         })
-    })
-    .catch(err=>{
-        console.log(err)
-    })
+        .catch(err => {
+            console.log(err)
+        })
 }
 
 // GET with query params with id
-exports.getAll = (req, res, next)=>{
+exports.getAll = (req, res, next) => {
     const currentPage = req.query.page || 1;
     const perPage = req.query.perPage || 4;
     let totalItems;
 
     Schema.find()
-    .countDocuments()
-    .then(count=>{
-        totalItems = count;
-        return Schema.find()
-        .skip((parseInt(currentPage) - 1) * parseInt(perPage))
-        .limit(parseInt(perPage));
-    })
-    .then(result=>{
-        res.status(200).json({
-            message: "Data Berhasil di dapatkan!!",
-            data: result,
-            total_data: totalItems,
-            per_page: parseInt(perPage),
-            current_page: parseInt(currentPage)
+        .countDocuments()
+        .then(count => {
+            totalItems = count;
+            return Schema.find()
+                .skip((parseInt(currentPage) - 1) * parseInt(perPage))
+                .limit(parseInt(perPage));
         })
-    })
-    .catch(err=>{
-        next(err)
-    })
+        .then(result => {
+            res.status(200).json({
+                message: "Data Berhasil di dapatkan!!",
+                data: result,
+                total_data: totalItems,
+                per_page: parseInt(perPage),
+                current_page: parseInt(currentPage)
+            })
+        })
+        .catch(err => {
+            next(err)
+        })
 }
+// 
 
 // Get with params ID
-exports.getAllById = (req, res, next)=>{
+exports.getAllById = (req, res, next) => {
     const getId = req.params.getId
     Schema.findById(getId)
-    .then(result=>{
-        if(!result){
-            const error = new Error('data makaroni tidak ada');
-            error.errorStatus = 404;
-            throw error;
-        }
-        res.status(200).json({
-            message : "Data berhasil di dapatkan!!",
-            data: result
+        .then(result => {
+            if (!result) {
+                const error = new Error('data makaroni tidak ada');
+                error.errorStatus = 404;
+                throw error;
+            }
+            res.status(200).json({
+                message: "Data berhasil di dapatkan!!",
+                data: result
+            })
         })
-    })
-    .catch(err=>{
-        next(err)
-    })
+        .catch(err => {
+            next(err)
+        })
 }
