@@ -19,7 +19,7 @@ const DetailCard = (props) => {
             <div className="wrapper-detail-card">
 
                 <p className="title-nm-produk">
-                    {props.name}
+                    {props.data.name}
                 </p>
 
                 <div className="box-icon-detail" style={{
@@ -42,22 +42,22 @@ const DetailCard = (props) => {
                     {props.data.label}
                 </p> */}
                         <p className="price-produk marginGroup">
-                            Rp {props.price}
+                            Rp {props.data.price}
                         </p>
                         <p className="name-produk marginGroup">
-                            {props.name}
+                            {props.data.name}
                         </p>
                         <p className="stock-produk labelGroup marginGroup"
                             style={{
                                 display: `${props.displayStock}`
                             }}
                         >
-                            Stock ({props.stock})
+                            Stock ({props.data.stock})
                 </p>
                     </div>
 
                     <p className="paragraph paragrapGroup">
-                        {props.deskripsi}
+                        {props.data.deskripsi}
                     </p>
 
                     {/* For Page Transaksi */}

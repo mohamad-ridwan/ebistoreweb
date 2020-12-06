@@ -49,26 +49,9 @@ class DetailProduk extends Component {
         })
     }
 
-    handleKeranjang = () => {
-        let id = this.props.match.params.id
-        Axios.post(`http://localhost:62542/v7/makaroni/postkeranjang/${id}`)
-            .then(result => {
-                let post = result.data
-                this.setState({
-                    postKeranjang: {
-                        id: post.data.id,
-                        label: post.data.label,
-                        name: post.data.name,
-                        price: post.data.price
-                    }
-                })
-                alert('masuk', result.data)
-                console.log('success', result.data)
-            })
-            .catch(err => {
-                alert('failed', err)
-                console.log(err)
-            })
+    handleKeranjang = (id) => {
+        this.props.history.push(id)
+        console.log(this.props)
     }
 
     // carousel react-slick
@@ -127,10 +110,8 @@ class DetailProduk extends Component {
                         return (
                             <>
                                 <DetailCard
-                                    name={e.name}
-                                    price={e.price}
-                                    stock={e.stock}
-                                    deskripsi={e.deskripsi}
+                                    key={e._id}
+                                    data={e}
                                     img={`http://localhost:6235/${e.image}`}
                                     // buy={this.handleTransaksi}
                                     toPageShopp={this.handleKeranjang}

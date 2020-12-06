@@ -28,11 +28,10 @@ export const loginUserAPI = (data) => (dispatch) => {
         dispatch({ type: 'CHANGE_LOADING', value: true })
         firebase.auth().signInWithEmailAndPassword(data.email, data.password)
             .then((res) => {
-                console.log('success: ', res)
                 const dataUser = {
                     email: res.user.email,
                     uid: res.user.uid,
-                    emailVerified: res.user.emailVerified
+                    phoneNumber: res.user.phoneNumber
                 }
                 dispatch({ type: 'CHANGE_LOADING', value: false })
                 dispatch({ type: 'CHANGE_ISLOGIN', value: true })

@@ -23,17 +23,19 @@ class Register extends Component {
     handleRegister = () => {
         const { email, password } = this.state
         const res = this.props.registerAPI({ email, password });
-        if (res === true) {
-            this.props.history.push('/login')
+        if (res) {
             this.setState({
                 email: '',
                 password: ''
             })
+            alert('berhasil register!')
+            this.props.history.push('/login')
         } else {
-            alert('harap masukkan email dengan benar!')
             this.props.history.push('/register')
         }
     }
+
+
 
     handleGoogle = () => {
         var provider = new firebase.auth.GoogleAuthProvider();
@@ -42,13 +44,14 @@ class Register extends Component {
             var token = result.credential.accessToken;
             // The signed-in user info.
             var user = result.user;
-            // ...
         })
+            .then(() => [
+                this.props.history.push('/')
+            ])
             .catch(function (error) {
                 console.log(error)
-                this.props.history.push('/', error)
+                this.props.history.push('/login')
             });
-        this.props.history.push('/beranda')
     }
 
     render() {
@@ -60,6 +63,7 @@ class Register extends Component {
                     goLogin={"flex"}
                     displayUser={"none"}
                     btnLogin={"none"}
+                    displayName={"name"}
                     email={"email"}
                     password={"password"}
                     onChangeEmail={this.handleChangeText}

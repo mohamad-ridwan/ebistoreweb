@@ -36,7 +36,7 @@ class Login extends Component {
                 email: '',
                 password: ''
             })
-            this.props.history.push('/beranda')
+            this.props.history.push('/')
         } else {
             alert('email atau password tidak terdaftar!!')
         }
@@ -51,10 +51,12 @@ class Login extends Component {
             var user = result.user;
             // ...
         })
+            .then(() => {
+                this.props.history.push('/')
+            })
             .catch(function (error) {
                 console.log(error)
             });
-        this.props.history.push('/beranda')
     }
 
     render() {

@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 import { useState } from 'react'
 import { useEffect } from 'react'
 
-const NavbarPageCard = ({ linkPage, titlePageNav }) => {
+const NavbarPageCard = ({ linkPage, titlePageNav, transparant, color, position }) => {
 
     // const [hide, setHide] = useState(false)
 
@@ -23,19 +23,26 @@ const NavbarPageCard = ({ linkPage, titlePageNav }) => {
     return (
         <>
             {/* Navbar */}
-            <div className="navbar-pageCard">
+            <div className="navbar-pageCard" style={{
+                position: `${position}`,
+                backgroundColor: `${transparant}`
+            }}>
                 {/* Row nav */}
                 <div className="row-nav-pageCard">
                     {/* Btn Back Page Nav */}
                     <Link to={linkPage} className="btn-back-nav-pageCard">
-                        <span class="material-icons">
-                        west
+                        <span class="material-icons" style={{
+                            color: `${color}`
+                        }}>
+                            west
                         </span>
                     </Link>
                     {/* END Btn Back Page Nav */}
 
                     {/* Title page nav */}
-                    <a href="#" className="title-page-nav-pageCard">
+                    <a href="#" className="title-page-nav-pageCard" style={{
+                        color: `${color}`
+                    }}>
                         {titlePageNav}
                     </a>
                     {/* END Title page nav */}

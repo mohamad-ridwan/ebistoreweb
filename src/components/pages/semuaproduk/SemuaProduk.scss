@@ -37,6 +37,11 @@
                 border: none;
                 outline: none;
             }
+
+            .active-menu{
+                display: flex;
+                color: $colorLimaBelas;
+            }
         }
     }
     // END Categori Nav

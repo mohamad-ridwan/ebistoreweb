@@ -21,7 +21,7 @@ const FormLogin = (props) => {
         <>
             <div className="wrapper-login">
                 <section className="bg-login">
-                    <Link to='/' className="goLogin"
+                    <Link to='/login' className="goLogin"
                         style={{
                             display: `${props.goLogin}`
                         }}
@@ -50,7 +50,10 @@ const FormLogin = (props) => {
                                 }}
                             >
                                 <i className="fas fa-user iconLeft"></i>
-                                <input type="text" className="txt-input" placeholder="Masukkan Username" />
+                                <input type="text" className="txt-input" placeholder="Masukkan Username" id={props.displayName}
+                                    onChange={props.onChangeUsername}
+                                    value={props.valueUsername}
+                                />
                                 <div className="garis-email">
 
                                 </div>

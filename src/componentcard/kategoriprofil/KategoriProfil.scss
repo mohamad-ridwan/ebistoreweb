@@ -1,0 +1,48 @@
+@import '../../util/variable/variable.scss';
+
+.link-kategori{
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    height: auto;
+    width: 100%;
+    text-align: start;
+    justify-content: start;
+    padding: 5px 0;
+    margin: 10px 0;
+    text-decoration: none;
+
+    // icon next
+    .next{
+        display: flex;
+        position: absolute;
+        top: 20px;
+        right: 0;
+        font-size: 12pt;
+        color: #ddd;
+    }
+    // end icon next
+
+    .title-kategori-profil{
+        display: flex;
+        font-size: 12pt;
+        color: $colorLima;
+        align-items: center;
+        
+        i{
+            display: flex;
+            width: 20px;
+            margin-right: 5px;
+        }
+    }
+
+    .deskripsi-kategori-profil{
+        display: flex;
+        font-size: 10pt;
+        color: #aaa;
+        margin-top: 10px;
+        margin-left: 25px;
+        padding-bottom: 5px;
+        border-bottom: 1px solid #ddd;
+    }
+}

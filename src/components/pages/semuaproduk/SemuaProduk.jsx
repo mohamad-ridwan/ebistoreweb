@@ -7,7 +7,7 @@ import { useState } from 'react'
 import { useEffect } from 'react'
 import Axios from 'axios'
 import Slider from 'react-slick'
-import { Link, withRouter } from 'react-router-dom'
+import { Link, NavLink, withRouter } from 'react-router-dom'
 import { Component } from 'react'
 
 class SemuaProduk extends Component {
@@ -47,7 +47,7 @@ class SemuaProduk extends Component {
             <>
                 <div className="wrapper-semua-produk">
                     <NavbarPageCard
-                        linkPage={'/'}
+                        linkPage={'/beranda'}
                         titlePageNav={'Semua'}
                     />
 
@@ -58,18 +58,18 @@ class SemuaProduk extends Component {
                     </p>
 
                         <Slider {...this.settings} className="slider-allP">
-                            <Link className="btn-kategori">
+                            <NavLink to="/semuaproduk/9" className="btn-kategori" activeClassName={'active-menu'}>
                                 Semua Harga
-                        </Link>
-                            <Link className="btn-kategori">
+                            </NavLink>
+                            <NavLink to="/semuaproduk/7" className="btn-kategori" activeClassName={'active-menu'}>
                                 Serba 5rb
-                        </Link>
-                            <Link className="btn-kategori">
+                            </NavLink>
+                            <NavLink to="/semuaproduk/3" className="btn-kategori" activeClassName={'active-menu'}>
                                 Serba 10rb
-                        </Link>
-                            <Link className="btn-kategori">
+                            </NavLink>
+                            <NavLink to="/semuaproduk/1" className="btn-kategori" activeClassName={'active-menu'}>
                                 Serba 15rb
-                        </Link>
+                            </NavLink>
                         </Slider>
                     </div>
                     {/* END Categori Navbar */}

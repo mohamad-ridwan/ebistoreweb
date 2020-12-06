@@ -15,6 +15,7 @@ import bgMakaroni from '../../../img/bgmakaroni.jpg'
 import avatar from '../../../img/avatarnew.jpg'
 import Navbar from '../../navbar/Navbar'
 import firebase from 'firebase/app';
+import newProfil from '../../../img/newprofil.png'
 
 const PageBeranda = () => {
 
@@ -103,9 +104,10 @@ const PageBeranda = () => {
 
     // Get user login
     const [getUser, setGetUser] = useState({
+        email: '',
         name: '',
         photo: '',
-        hi: ''
+        hi: '',
     })
     // END get user login
 
@@ -113,17 +115,25 @@ const PageBeranda = () => {
     const getUserFromFirebase = () => {
         firebase.auth().onAuthStateChanged(function (user) {
             if (user) {
+                const emailUser = user.email
                 const nameUser = user.displayName
                 const photoUser = user.photoURL
                 const sayHi = 'Hi !'
 
                 setGetUser({
+                    email: emailUser,
                     hi: sayHi,
                     name: nameUser,
-                    photo: photoUser
+                    photo: photoUser || newProfil
                 })
             } else {
-                // 
+                histori.push('/login')
+                const photoDefault = newProfil
+                const nameDefault = 'Profil Saya'
+                setGetUser({
+                    photo: photoDefault,
+                    name: nameDefault
+                })
             }
         });
     }
@@ -146,7 +156,7 @@ const PageBeranda = () => {
                     <p className="title-home">
                         <i className="fas fa-home"></i>Beranda
                     </p>
-                    <Link to='/pagekeranjang' className="box-icon iconCart">
+                    <Link to='/pagekeranjang/1' className="box-icon iconCart">
                         <i className="fas fa-shopping-cart"></i>
                     </Link>
                     <Link className="box-icon"
@@ -158,18 +168,17 @@ const PageBeranda = () => {
 
                 {/* Profil */}
                 <section className="container-profil">
-                    <Link to='/detail-produk/1' className="name-profil">
+                    <div className="name-profil">
                         {getUser.hi}
                         <br />
-                        {getUser.name}
-                    </Link>
+                        {getUser.name || getUser.email}
+                    </div>
 
                     <Link
                         onClick={pushProfil}
                     >
                         <img src={getUser.photo} alt="" className="img-profil" />
                     </Link>
-
                 </section>
                 {/* END Profil */}
 
@@ -429,4 +438,4 @@ const PageBeranda = () => {
     )
 }
 
-export default PageBeranda
+export default withRouter(PageBeranda)

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 
 import '../navbar/Navbar.scss'
 import logMacaroni from '../../img/macaroni.svg'
-import avatarNew from '../../img/avatarnew.jpg'
+import avatarNew from '../../img/newprofil.png'
 import { Link, useHistory } from 'react-router-dom'
 import firebase from 'firebase/app';
 
@@ -52,21 +52,32 @@ const Navbar = () => {
     // For Get user login
     const [getUser, setGetUser] = useState({
         name: '',
-        photo: ''
+        photo: '',
+        email: ''
     })
 
     useEffect(() => {
         firebase.auth().onAuthStateChanged(function (user) {
             if (user) {
+                const emailUser = user.email
                 const nameUser = user.displayName
                 const photoUser = user.photoURL
 
                 setGetUser({
+                    email: emailUser,
                     name: nameUser,
-                    photo: photoUser
+                    photo: photoUser || avatarNew
                 })
             } else {
-                // No user is signed in.
+                // Data user default
+                const nameDefault = 'Profil Saya'
+                const photoDefault = avatarNew
+
+                // Change data untuk data default
+                setGetUser({
+                    name: nameDefault,
+                    photo: photoDefault
+                })
             }
         });
     }, [])
@@ -91,7 +102,7 @@ const Navbar = () => {
 
                             {/* Name Account User */}
                             <p className="name-act-user-navbar">
-                                {getUser.name}
+                                {getUser.name || getUser.email}
                             </p>
                             {/* END Name Account User */}
                         </div>

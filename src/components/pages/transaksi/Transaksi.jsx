@@ -107,7 +107,7 @@ class Transaksi extends Component {
             <>
                 <div className="wrapp-transaksi">
                     <NavbarPageCard
-                        linkPage={'/detailproduk'}
+                        linkPage={'/'}
                         titlePageNav={'Transaksi'}
                     />
                     {/* detail produk pesanan */}
