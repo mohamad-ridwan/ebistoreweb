@@ -1,0 +1,15 @@
+@import '../../util/variable/variable.scss';
+
+.btn-kategori{
+    display: flex;
+    font-size: 15pt;
+    color: #ddd;
+    text-decoration: none;
+    border: none;
+    outline: none;
+}
+
+.active-menu{
+    display: flex;
+    color: $colorLimaBelas;
+}

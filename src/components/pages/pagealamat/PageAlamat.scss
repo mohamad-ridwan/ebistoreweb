@@ -1,8 +1,23 @@
+@import '../../../util/variable/variable.scss';
+
 .wrapper-alamat{
     display: flex;
     flex-direction: column;
-    height: auto;
+    height: 100vh;
     width: 100%;
-    padding-bottom: 65px;
-    padding-top: 70px;
+    justify-content: center;
+    background-color: $colorLimaBelas;
+
+    .box-orange{
+        display: flex;
+        flex-direction: column;
+        height: auto;
+        width: auto;
+        margin: 0 20px;
+        background-color: #fff;
+        border-radius: 20px;
+        padding: 20px 10px 10px 10px;
+        box-shadow: 0 3px 9px -1px rgba(0,0,0,0.2);
+        overflow: hidden;
+    }
 }

@@ -16,10 +16,10 @@
     .next{
         display: flex;
         position: absolute;
-        top: 20px;
+        top: 7px;
         right: 0;
         font-size: 12pt;
-        color: #ddd;
+        color: #555;
     }
     // end icon next
 
@@ -44,5 +44,6 @@
         margin-left: 25px;
         padding-bottom: 5px;
         border-bottom: 1px solid #ddd;
+        overflow: hidden;
     }
 }

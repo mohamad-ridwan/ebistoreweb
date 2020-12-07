@@ -32,6 +32,7 @@ class Register extends Component {
             this.props.history.push('/login')
         } else {
             this.props.history.push('/register')
+            alert('harap masukkan email dan password dengan benar')
         }
     }
 

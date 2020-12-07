@@ -9,9 +9,10 @@ import { useState } from 'react'
 import Axios from 'axios'
 import { useEffect } from 'react'
 import { connect } from 'react-redux'
-import { actionUserName } from '../../../config/redux/action'
+import { actionUserName, loginGoogle } from '../../../config/redux/action'
 import { loginUserAPI } from '../../../config/redux/action'
 import firebase from 'firebase/app';
+import Spinner from '../../../componentcard/spinner/Spinner'
 
 class Login extends Component {
 

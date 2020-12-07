@@ -16,6 +16,7 @@ import avatar from '../../../img/avatarnew.jpg'
 import Navbar from '../../navbar/Navbar'
 import firebase from 'firebase/app';
 import newProfil from '../../../img/newprofil.png'
+import Spinner from '../../../componentcard/spinner/Spinner'
 
 const PageBeranda = () => {
 

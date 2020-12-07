@@ -1,0 +1,38 @@
+.wrapper-spinner{
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0,0.8);
+    justify-content: center;
+    align-items: center;
+    z-index: 9999999999;
+    overflow-y: hidden;
+
+    .circle-loader{
+        display: flex;
+        height: 50px;
+        width: 50px;
+        border-radius: 500px;
+        border: 3px solid rgba(255, 255, 255, 0.568);
+        border-top-color: #fff;
+        animation: 1s spin infinite ease-in-out;
+    }
+
+    .title-loader{
+        display: flex;
+        font-size: 12pt;
+        color: #fff;
+        font-weight: bold;
+        margin-top: 30px;
+    }
+}
+
+@keyframes spin{
+    to{
+        transform: rotate(360deg);
+    }
+}

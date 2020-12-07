@@ -28,6 +28,8 @@ const allProductRoutes = require('./src/routes/allproduct')
 const keranjangRoutes = require('./src/routes/keranjang')
 // For Register
 const registerRoutes = require('./src/routes/register')
+// For Menu
+const menuRoutes = require('./src/routes/menu')
 // For API web fetchAPI
 const blogRoutes = require('./src/routes/blog');
 
@@ -81,6 +83,8 @@ server.use('/v7/makaroni', keranjangRoutes)
 server.use('/v8/makaroni', allProductRoutes)
 // For Register
 server.use('/v9/register', registerRoutes)
+// For Menu
+server.use('/v10/menu', menuRoutes)
 // For Endpoint web fetchAPI
 server.use('/v9/blog', blogRoutes);
 

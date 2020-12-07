@@ -9,6 +9,7 @@ import Axios from 'axios'
 import Slider from 'react-slick'
 import { Link, NavLink, withRouter } from 'react-router-dom'
 import { Component } from 'react'
+import Menu from '../../../componentcard/menu/Menu'
 
 class SemuaProduk extends Component {
 
@@ -19,7 +20,8 @@ class SemuaProduk extends Component {
     }
 
     state = {
-        data: []
+        data: [],
+        menu: []
     }
 
     handleDetail = (_id) => {
@@ -28,12 +30,25 @@ class SemuaProduk extends Component {
 
     componentDidMount() {
         const id = this.props.match.params.id
+
         Axios.get(`http://localhost:6235/v8/makaroni/getall?page=${id}`)
             .then(res => {
                 const respon = res.data
 
                 this.setState({
                     data: respon.data
+                })
+            })
+            .catch(err => {
+                console.log(err)
+            })
+
+        Axios.get('http://localhost:6235/v10/menu/getmenu')
+            .then(res => {
+                const respon = res.data
+                console.log(res.data)
+                this.setState({
+                    menu: respon.data
                 })
             })
             .catch(err => {
@@ -58,17 +73,21 @@ class SemuaProduk extends Component {
                     </p>
 
                         <Slider {...this.settings} className="slider-allP">
-                            <NavLink to="/semuaproduk/9" className="btn-kategori" activeClassName={'active-menu'}>
-                                Semua Harga
-                            </NavLink>
-                            <NavLink to="/semuaproduk/7" className="btn-kategori" activeClassName={'active-menu'}>
-                                Serba 5rb
-                            </NavLink>
-                            <NavLink to="/semuaproduk/3" className="btn-kategori" activeClassName={'active-menu'}>
-                                Serba 10rb
-                            </NavLink>
-                            <NavLink to="/semuaproduk/1" className="btn-kategori" activeClassName={'active-menu'}>
-                                Serba 15rb
+                            {this.state.menu.map(e => {
+                                return (
+                                    <>
+                                        <Menu
+                                            key={e._id}
+                                            linkPage={e.linkPage}
+                                            nameMenu={e.nameMenu}
+                                        />
+                                    </>
+                                )
+                            })}
+
+                            <NavLink
+                                to='' className="btn-kategori" activeClassName={'active-menu'}>
+                                {'goblog'}
                             </NavLink>
                         </Slider>
                     </div>

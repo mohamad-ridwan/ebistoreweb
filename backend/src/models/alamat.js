@@ -3,15 +3,7 @@ const { model } = require('./products');
 const Schema = mongoose.Schema;
 
 const PostAlamat = new Schema({
-    jalan: {
-        type: String,
-        required: true
-    },
-    desa: {
-        type: String,
-        required: true
-    },
-    kecamatan: {
+    alamat: {
         type: String,
         required: true
     },
@@ -19,18 +11,14 @@ const PostAlamat = new Schema({
         type: String,
         required: true
     },
-    provinsi:{ 
-        type: String,
-        required: true
-    },
     kodePos: {
         type: String,
         required: true
     },
-    author: {
-        type: Object,
+    namaPenerima: {
+        type: String,
         required: true
-    }
+    },
 }, {
     timestamps: true
 })

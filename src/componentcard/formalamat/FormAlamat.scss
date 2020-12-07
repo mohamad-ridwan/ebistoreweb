@@ -7,23 +7,27 @@
     padding: 0px 10px;
     justify-content: start;
     text-align: start;
+    overflow: hidden;
 
     .labelGroup{
         display: flex;
-        font-size: 12pt;
+        font-size: 10pt;
         font-weight: 500;
+        color: #aaa;
+        overflow: hidden;
     }
 
     .inputGroup{
         display: flex;
-        height: 50px;
+        height: 30px;
         width: 100%;
-        border-radius: 8px;
+        font-size: 10pt;
+        color: #555;
         border: none;
         outline: none;
-        padding: 0 10px;
         margin: 10px 0;
-        box-shadow: 0 1px 4px -1px rgba(0,0,0,0.1);
+        border-bottom: 1px solid #555;
+        overflow: hidden;
     }
 }
 

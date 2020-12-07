@@ -10,6 +10,7 @@ import './PageProfil.scss'
 import avatar from '../../../img/newprofil.png'
 import KategoriProfil from '../../../componentcard/kategoriprofil/KategoriProfil'
 import firebase from 'firebase/app';
+import Spinner from '../../../componentcard/spinner/Spinner'
 
 const PageProfil = () => {
 
@@ -23,7 +24,7 @@ const PageProfil = () => {
     })
 
     const getAlamat = () => {
-        Axios.get('http://localhost:62542/v5/dataalamat/getalamat')
+        Axios.get('http://localhost:6235/v5/dataalamat/getalamat')
             .then(result => {
                 const response = result.data
 
@@ -86,13 +87,15 @@ const PageProfil = () => {
     const history = useHistory()
 
     const handleLogOut = () => {
-        firebase.auth().signOut().then(function () {
-            alert('Berhasil Log Out')
-            history.push('/login')
-        })
-            .catch(function (error) {
-                console.log(error)
-            });
+        setTimeout(() => {
+            firebase.auth().signOut().then(function () {
+                alert('Berhasil Log Out')
+                history.push('/login')
+            })
+                .catch(function (error) {
+                    console.log(error)
+                });
+        }, 1)
     }
 
     useEffect(() => {
@@ -102,6 +105,7 @@ const PageProfil = () => {
 
     return (
         <>
+
             <div className="wrapp-profil">
                 <NavbarPageCard
                     linkPage={'/'}
@@ -124,13 +128,32 @@ const PageProfil = () => {
                     {/* end box orange */}
 
                     <div className="box-kategori">
-                        <KategoriProfil
-                            pageKtg={'/pagealamat'}
-                            linkKategori={'link-kategori'}
-                            icon={'fas fa-home'}
-                            title={'Alamat'}
-                            deskripsi={"Jl. Sunan Muria 5 aklwldwkkwdwkk"}
-                        />
+                        {alamat && alamat.length > 0
+                            ? alamat.map(e => {
+                                return (
+                                    <>
+                                        <KategoriProfil
+                                            pageKtg={'/pagealamat'}
+                                            linkKategori={'link-kategori'}
+                                            icon={'fas fa-home'}
+                                            title={'Alamat'}
+                                            alamat={e.alamat}
+                                            kota={e.kota}
+                                            kodePos={e.kodePos}
+                                            namaPenerima={e.namaPenerima}
+                                        />
+                                    </>
+                                )
+                            }) : (
+                                <KategoriProfil
+                                    pageKtg={'/pagealamat'}
+                                    linkKategori={'link-kategori'}
+                                    icon={'fas fa-home'}
+                                    title={'Alamat'}
+                                    deskripsi={"Kamu belum memiliki alamat yang tercantum"}
+                                />
+                            )}
+
                         <KategoriProfil
                             linkKategori={'link-kategori'}
                             icon={'fas fa-envelope'}

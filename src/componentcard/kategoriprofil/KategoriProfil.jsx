@@ -7,7 +7,11 @@ const KategoriProfil = ({
     linkKategori,
     icon,
     title,
-    deskripsi
+    deskripsi,
+    alamat,
+    kota,
+    kodePos,
+    namaPenerima
 }) => {
     return (
         <>
@@ -17,6 +21,10 @@ const KategoriProfil = ({
                 </p>
                 <p className="deskripsi-kategori-profil">
                     {deskripsi}
+                    {alamat}
+                    {kota}
+                    {kodePos}
+                    {namaPenerima}
                 </p>
                 <i className="fas fa-angle-right next"></i>
             </Link>
