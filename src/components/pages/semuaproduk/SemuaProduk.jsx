@@ -10,6 +10,8 @@ import Slider from 'react-slick'
 import { Link, NavLink, withRouter } from 'react-router-dom'
 import { Component } from 'react'
 import Menu from '../../../componentcard/menu/Menu'
+import { getAllDataApi } from '../../../config/redux/action'
+import { connect } from 'react-redux'
 
 class SemuaProduk extends Component {
 
@@ -46,7 +48,6 @@ class SemuaProduk extends Component {
         Axios.get('http://localhost:6235/v10/menu/getmenu')
             .then(res => {
                 const respon = res.data
-                console.log(res.data)
                 this.setState({
                     menu: respon.data
                 })
@@ -54,6 +55,8 @@ class SemuaProduk extends Component {
             .catch(err => {
                 console.log(err)
             })
+
+        this.props.getApi()
     }
 
     render() {
@@ -78,7 +81,8 @@ class SemuaProduk extends Component {
                                     <>
                                         <Menu
                                             key={e._id}
-                                            linkPage={e.linkPage}
+                                            // linkPage={e.linkPage}
+                                            link={e.linkPage}
                                             nameMenu={e.nameMenu}
                                         />
                                     </>
@@ -124,4 +128,10 @@ class SemuaProduk extends Component {
         )
     }
 }
-export default withRouter(SemuaProduk)
+
+const reduxDispatch = () => ({
+    getApi: () => getAllDataApi()
+})
+
+
+export default connect(reduxDispatch)(withRouter(SemuaProduk))

@@ -29,6 +29,8 @@ import Login from './components/pages/login/Login';
 import BtnNotifPromo from './components/btnnotifpromo/BtnNotifPromo';
 import { useEffect } from 'react';
 import firebase from 'firebase/app';
+import NamaProfil from './components/pages/namaprofil/NamaProfil';
+import NomerProfil from './components/pages/nomerprofil/NomerProfil';
 function App() {
 
   // Create Loading Page Home
@@ -72,6 +74,18 @@ function App() {
             <Router>
               <WindowScroll>
                 <Switch>
+                  {/* Nama Profil */}
+                  <Route path='/nomerprofil'>
+                    <NomerProfil />
+                  </Route>
+                  {/* END Nama Profil */}
+
+                  {/* Nama Profil */}
+                  <Route path='/namaprofil'>
+                    <NamaProfil />
+                  </Route>
+                  {/* END Nama Profil */}
+
                   {/* Transaksi */}
                   <Route path='/transaksi/:id'>
                     <Transaksi />

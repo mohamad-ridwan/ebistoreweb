@@ -46,12 +46,12 @@ class Register extends Component {
             // The signed-in user info.
             var user = result.user;
         })
-            .then(() => [
+            .then(() => {
                 this.props.history.push('/')
-            ])
+            })
             .catch(function (error) {
                 console.log(error)
-                this.props.history.push('/login')
+                alert('Terjadi Kesalahan' + ' ' + '(Error: 404)', error)
             });
     }
 

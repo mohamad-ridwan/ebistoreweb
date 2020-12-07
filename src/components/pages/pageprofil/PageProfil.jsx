@@ -23,6 +23,8 @@ const PageProfil = () => {
         numberPhone: ''
     })
 
+    const [view, setView] = useState(false)
+
     const getAlamat = () => {
         Axios.get('http://localhost:6235/v5/dataalamat/getalamat')
             .then(result => {
@@ -57,18 +59,19 @@ const PageProfil = () => {
                 const emailUser = user.email
                 const photoUser = user.photoURL
                 const numberUser = user.phoneNumber
+                const nameUserDefault = 'User'
 
                 // Change Data User yg masuk
                 setGetUser({
                     sayHi: sayHi,
-                    name: nameUser,
+                    name: nameUser || nameUserDefault,
                     email: emailUser,
                     photo: photoUser || avatar,
                     numberPhone: numberUser
                 })
             } else {
                 // Data Default Jika User tidak login
-                const nameDefault = 'Profil Saya'
+                const nameDefault = 'User'
                 const emailDefault = 'Kamu belum memiliki Email yang tercantum'
                 const photoDefault = avatar
                 const numberPhoneDefault = 'Kamu belum memiliki nomer hp yang tercantum'
@@ -94,8 +97,9 @@ const PageProfil = () => {
             })
                 .catch(function (error) {
                     console.log(error)
+                    alert('gagal Log Out' + ' ' + 'Error: 404')
                 });
-        }, 1)
+        }, 1000)
     }
 
     useEffect(() => {
@@ -114,16 +118,39 @@ const PageProfil = () => {
                     transparant={"transparant"}
                     color={"#fff"}
                 />
+                {/* Img Modals */}
+                <div className="box-img-modal"
+                    style={{
+                        display: view ? 'flex' : 'none'
+                    }}
+                    onClick={() => {
+                        setView(!view)
+                    }}
+                >
+                    <div className="box-circle-img">
+                        <i className="fas fa-camera"
+                            onClick={() => {
+                                alert('oke')
+                            }}
+                        ></i>
+                        <img src={getUser.photo} alt="" className="img-modal" />
+                    </div>
+                </div>
+                {/* END Img Modals */}
                 <div className="box-white">
                     {/* Box orange */}
                     <div className="box-orange">
                         <p className="name-profil">
                             {getUser.sayHi}
                             <br />
-                            {getUser.name || getUser.email}
+                            {getUser.name}
                         </p>
 
-                        <img src={getUser.photo} alt="" className="img-profil" />
+                        <img src={getUser.photo} alt="" className="img-profil"
+                            onClick={() => {
+                                setView(!view)
+                            }}
+                        />
                     </div>
                     {/* end box orange */}
 
@@ -155,12 +182,20 @@ const PageProfil = () => {
                             )}
 
                         <KategoriProfil
+                            pageKtg={'/namaprofil'}
+                            linkKategori={'link-kategori'}
+                            icon={'fas fa-user-tie'}
+                            title={'Nama'}
+                            deskripsi={getUser.name}
+                        />
+                        <KategoriProfil
                             linkKategori={'link-kategori'}
                             icon={'fas fa-envelope'}
                             title={'Email'}
                             deskripsi={getUser.email}
                         />
                         <KategoriProfil
+                            pageKtg={'/nomerprofil'}
                             linkKategori={'link-kategori'}
                             icon={'fas fa-mobile'}
                             title={'No Hp.'}

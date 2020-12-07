@@ -9,7 +9,7 @@ import { useState } from 'react'
 import Axios from 'axios'
 import { useEffect } from 'react'
 import { connect } from 'react-redux'
-import { actionUserName, loginGoogle } from '../../../config/redux/action'
+import { actionUserName, handleGoogle, loginGoogle } from '../../../config/redux/action'
 import { loginUserAPI } from '../../../config/redux/action'
 import firebase from 'firebase/app';
 import Spinner from '../../../componentcard/spinner/Spinner'
@@ -57,6 +57,7 @@ class Login extends Component {
             })
             .catch(function (error) {
                 console.log(error)
+                alert('Terjadi Kesalahan' + ' ' + '(Error: 404)', error)
             });
     }
 

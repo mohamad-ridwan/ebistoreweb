@@ -62,10 +62,11 @@ const Navbar = () => {
                 const emailUser = user.email
                 const nameUser = user.displayName
                 const photoUser = user.photoURL
+                const nameDefault = 'User'
 
                 setGetUser({
                     email: emailUser,
-                    name: nameUser,
+                    name: nameUser || nameDefault,
                     photo: photoUser || avatarNew
                 })
             } else {
@@ -102,7 +103,7 @@ const Navbar = () => {
 
                             {/* Name Account User */}
                             <p className="name-act-user-navbar">
-                                {getUser.name || getUser.email}
+                                {getUser.name}
                             </p>
                             {/* END Name Account User */}
                         </div>

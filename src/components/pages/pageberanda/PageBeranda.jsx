@@ -17,6 +17,8 @@ import Navbar from '../../navbar/Navbar'
 import firebase from 'firebase/app';
 import newProfil from '../../../img/newprofil.png'
 import Spinner from '../../../componentcard/spinner/Spinner'
+import { connect } from 'react-redux'
+import { getAllDataApi } from '../../../config/redux/action'
 
 const PageBeranda = () => {
 
@@ -117,6 +119,7 @@ const PageBeranda = () => {
         firebase.auth().onAuthStateChanged(function (user) {
             if (user) {
                 const emailUser = user.email
+                const nameDefault = 'User'
                 const nameUser = user.displayName
                 const photoUser = user.photoURL
                 const sayHi = 'Hi !'
@@ -124,13 +127,13 @@ const PageBeranda = () => {
                 setGetUser({
                     email: emailUser,
                     hi: sayHi,
-                    name: nameUser,
+                    name: nameUser || nameDefault,
                     photo: photoUser || newProfil
                 })
             } else {
                 histori.push('/login')
                 const photoDefault = newProfil
-                const nameDefault = 'Profil Saya'
+                const nameDefault = 'User'
                 setGetUser({
                     photo: photoDefault,
                     name: nameDefault
@@ -172,7 +175,7 @@ const PageBeranda = () => {
                     <div className="name-profil">
                         {getUser.hi}
                         <br />
-                        {getUser.name || getUser.email}
+                        {getUser.name}
                     </div>
 
                     <Link
@@ -439,4 +442,4 @@ const PageBeranda = () => {
     )
 }
 
-export default withRouter(PageBeranda)
+export default (withRouter(PageBeranda))

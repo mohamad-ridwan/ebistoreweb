@@ -1,0 +1,38 @@
+@import '../../../util/variable/variable.scss';
+
+.wrapper-namaProfil{
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    width: 100%;
+    background-color: $colorLimaBelas;
+
+    .box-input-nama{
+        display: flex;
+        flex-direction: column;
+        height: auto;
+        width: 100%;
+        padding: 0 50px;
+        margin-top: 150px;
+        text-align: center;
+        align-items: center;
+
+        .name{
+            display: flex;
+            font-size: 15pt;
+            color: #fff;
+        }
+
+        .input-nama{
+            display: flex;
+            height: 40px;
+            width: 100%;
+            border: none;
+            outline: none;
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 20px;
+            box-shadow: 0 3px 9px -1px rgba(0,0,0,0.2);
+        }
+    }
+}

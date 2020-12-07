@@ -1,3 +1,4 @@
+import Axios from 'axios';
 import firebase from '../../firebase';
 
 export const actionUserName = () => (dispatch) => {
@@ -47,4 +48,14 @@ export const loginUserAPI = (data) => (dispatch) => {
                 reject(false)
             })
     })
+}
+
+export const getAllDataApi = () => {
+    Axios.get('http://localhost:6235/v8/makaroni/getall/')
+        .then(res => {
+            console.log(res)
+        })
+        .catch(err => {
+            console.log(err)
+        })
 }
