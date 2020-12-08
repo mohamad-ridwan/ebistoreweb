@@ -26,7 +26,7 @@ const KategoriProfil = ({
                     {kodePos}
                     {namaPenerima}
                 </p>
-                <i className="fas fa-angle-right next"></i>
+                {/* <i className="fas fa-angle-right next"></i> */}
             </Link>
         </>
     )

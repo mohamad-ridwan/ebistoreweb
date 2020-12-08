@@ -18,58 +18,58 @@ import firebase from 'firebase/app';
 import newProfil from '../../../img/newprofil.png'
 import Spinner from '../../../componentcard/spinner/Spinner'
 import { connect } from 'react-redux'
-import { getAllDataApi } from '../../../config/redux/action'
+import { RootContext } from '../../../App'
+import { ApiSemuaHargaContext } from '../../../config/context/ApiSemuaHargaContext'
+import { ApiSerba5rbContext } from '../../../config/context/ApiSerba5rbContext'
+import { ApiSerba10rbContext } from '../../../config/context/ApiSerba10rbContext'
+import { ApiSerba15rbContext } from '../../../config/context/ApiSerba15rbContext'
+import { GetUserLogin } from '../../../config/context/GetUserLogin.jsx'
 
 const PageBeranda = () => {
 
-    const [getSemuaHarga, setGetSemuaHarga] = useState([])
-    const [getSerba5rb, setGetSerba5rb] = useState([])
-    const [getSerba10rb, setGetSerba10rb] = useState([])
-    const [getSerba15rb, setGetSerba15rb] = useState([])
+    // For Get User Login
+    const [getUser, setGetUser] = useContext(GetUserLogin)
+    // END For Get User Loign
+    // For Get all api produk
+    const [getSemuaHarga, setGetSemuaHarga] = useContext(ApiSemuaHargaContext)
+    const [getSerba5rb, setGetSerba5rb] = useContext(ApiSerba5rbContext)
+    const [getSerba10rb, setGetSerba10rb] = useContext(ApiSerba10rbContext)
+    const [getSerba15rb, setGetSerba15rb] = useContext(ApiSerba15rbContext)
+    // END For Get all api produk
 
-    const semuaHarga = () => {
-        Axios.get('http://localhost:6235/v8/makaroni/getall?page=7')
-            .then(res => {
-                const respon = res.data
+    const getUserLogin = () => {
+        firebase.auth().onAuthStateChanged(function (user) {
+            if (user) {
+                const emailUser = user.email
+                const nameDefault = 'User'
+                const nameUser = user.displayName
+                const photoUser = user.photoURL
+                const sayHi = 'Hi !'
+                const numberPhone = user.phoneNumber
+                const numberPhoneDefault = 'Kamu belum memiliki nomer hp yang tercantum'
 
-                setGetSemuaHarga(respon.data)
-            })
-            .catch(err => {
-                console.log(err)
-            })
-    }
+                setGetUser({
+                    email: emailUser,
+                    hi: sayHi,
+                    name: nameUser || emailUser,
+                    photo: photoUser || newProfil,
+                    numberPhone: numberPhone || numberPhoneDefault
+                })
 
-    const serba5rb = () => {
-        Axios.get('http://localhost:6235/v8/makaroni/getall?page=5')
-            .then(res => {
-                const respon = res.data
-                setGetSerba5rb(respon.data)
-            })
-            .catch(err => {
-                console.log(err)
-            })
-    }
-
-    const serba10rb = () => {
-        Axios.get('http://localhost:6235/v8/makaroni/getall?page=3')
-            .then(res => {
-                const respon = res.data
-                setGetSerba10rb(respon.data)
-            })
-            .catch(err => {
-                console.log(err)
-            })
-    }
-
-    const serba15rb = () => {
-        Axios.get('http://localhost:6235/v8/makaroni/getall?page=1')
-            .then(res => {
-                const respon = res.data
-                setGetSerba15rb(respon.data)
-            })
-            .catch(err => {
-                console.log(err)
-            })
+            } else {
+                histori.push('/login')
+                const photoDefault = newProfil
+                const nameDefault = 'User'
+                const emailDefault = 'Kamu belum memiliki Email yang tercantum'
+                const numberPhoneDefault = 'Kamu belum memiliki nomer hp yang tercantum'
+                setGetUser({
+                    photo: photoDefault,
+                    name: nameDefault,
+                    email: emailDefault,
+                    numberPhone: numberPhoneDefault
+                })
+            }
+        })
     }
 
     const histori = useHistory()
@@ -105,52 +105,9 @@ const PageBeranda = () => {
         speed: 600
     }
 
-    // Get user login
-    const [getUser, setGetUser] = useState({
-        email: '',
-        name: '',
-        photo: '',
-        hi: '',
-    })
-    // END get user login
-
-    // Get user login
-    const getUserFromFirebase = () => {
-        firebase.auth().onAuthStateChanged(function (user) {
-            if (user) {
-                const emailUser = user.email
-                const nameDefault = 'User'
-                const nameUser = user.displayName
-                const photoUser = user.photoURL
-                const sayHi = 'Hi !'
-
-                setGetUser({
-                    email: emailUser,
-                    hi: sayHi,
-                    name: nameUser || nameDefault,
-                    photo: photoUser || newProfil
-                })
-            } else {
-                histori.push('/login')
-                const photoDefault = newProfil
-                const nameDefault = 'User'
-                setGetUser({
-                    photo: photoDefault,
-                    name: nameDefault
-                })
-            }
-        });
-    }
-    // Get user login
-
     useEffect(() => {
-        semuaHarga()
-        serba5rb()
-        serba10rb()
-        serba15rb()
-        getUserFromFirebase();
+        getUserLogin()
     }, [])
-
 
     return (
         <>
@@ -239,18 +196,6 @@ const PageBeranda = () => {
                                     <div className="oke">oke</div>
                                 )}
                         </Slider>
-
-                        {/* <BtnCard
-                        heightBtn={'45px'}
-                        widthBtn={'150px'}
-                        btnName={'Lihat Semua'}
-                        marginBtn={'5px auto'}
-                        link={'/semuaproduk'}
-                        bdrRadius={"100px"}
-                        bgColor={"#ffa835"}
-                        colorP={"#fff6eb"}
-                        bxShadow={"0 3px 9px -1px rgba(0,0,0,0.2)"}
-                        /> */}
                     </div>
                     {/* END Section Semua Harga */}
                 </section>
@@ -292,18 +237,6 @@ const PageBeranda = () => {
                                     <div className="oke">failed</div>
                                 )}
                         </Slider>
-
-                        {/* <BtnCard
-                        heightBtn={'45px'}
-                        widthBtn={'150px'}
-                        btnName={'Lihat Semua'}
-                        marginBtn={'5px auto'}
-                        link={'/detail-produk/1'}
-                        bdrRadius={"100px"}
-                        bgColor={"#ffa835"}
-                        colorP={"#fff6eb"}
-                        bxShadow={"0 3px 9px -1px rgba(0,0,0,0.2)"}
-                        /> */}
                     </div>
                     {/* END Section Serba 5rb */}
 
@@ -348,18 +281,6 @@ const PageBeranda = () => {
                                     <div className="oke">failed</div>
                                 )}
                         </Slider>
-
-                        {/* <BtnCard
-                        heightBtn={'45px'}
-                        widthBtn={'150px'}
-                        btnName={'Lihat Semua'}
-                        marginBtn={'5px auto'}
-                        link={'/detail-produk/1'}
-                        bdrRadius={"100px"}
-                        bgColor={"#ffa835"}
-                        colorP={"#fff6eb"}
-                        bxShadow={"0 3px 9px -1px rgba(0,0,0,0.2)"}
-                        /> */}
                     </div>
                     {/* END Section Serba 10rb */}
                 </section>
@@ -401,18 +322,6 @@ const PageBeranda = () => {
                                     <div className="oke">failed</div>
                                 )}
                         </Slider>
-
-                        {/* <BtnCard
-                        heightBtn={'45px'}
-                        widthBtn={'150px'}
-                        btnName={'Lihat Semua'}
-                        marginBtn={'5px auto'}
-                        link={'/detail-produk/1'}
-                        bdrRadius={"100px"}
-                        bgColor={"#ffa835"}
-                        colorP={"#fff6eb"}
-                        bxShadow={"0 3px 9px -1px rgba(0,0,0,0.2)"}
-                        /> */}
                     </div>
                     {/* END Section Serba 15rb */}
                 </div>

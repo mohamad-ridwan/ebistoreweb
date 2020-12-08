@@ -1,17 +1,21 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App.jsx';
 import * as serviceWorker from './serviceWorker';
 import firebase from './config/firebase';
-
-
-// console.log(firebase)
+import { Provider } from 'react-redux';
+import { store } from './config/redux';
+import ContextWrapper from './config/context/ContextWrapper.jsx';
 
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+  <ContextWrapper>
+    <Provider store={store}>
+      <React.StrictMode>
+        <App />
+      </React.StrictMode>
+    </Provider>
+  </ContextWrapper>,
   document.getElementById('root')
 );
 

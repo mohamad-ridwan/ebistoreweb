@@ -27,12 +27,12 @@ class Login extends Component {
         })
     }
 
-    handleLogin = async () => {
+    handleLogin = async (e) => {
+        e.preventDefault()
         const { email, password } = this.state
         const res = await this.props.loginAPI({ email, password })
             .catch(err => err)
         if (res === true) {
-            console.log('login success')
             this.setState({
                 email: '',
                 password: ''

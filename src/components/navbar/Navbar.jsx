@@ -66,7 +66,7 @@ const Navbar = () => {
 
                 setGetUser({
                     email: emailUser,
-                    name: nameUser || nameDefault,
+                    name: nameUser || emailUser,
                     photo: photoUser || avatarNew
                 })
             } else {

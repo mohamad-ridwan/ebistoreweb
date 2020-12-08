@@ -7,22 +7,17 @@ import Alamat from '../../../componentcard/alamat/Alamat'
 import BtnCard from '../../../componentcard/btncard/BtnCard'
 import NavbarPageCard from '../../../componentcard/navbarpagecard/NavbarPageCard'
 import './PageProfil.scss'
-import avatar from '../../../img/newprofil.png'
+import newProfil from '../../../img/newprofil.png'
 import KategoriProfil from '../../../componentcard/kategoriprofil/KategoriProfil'
 import firebase from 'firebase/app';
 import Spinner from '../../../componentcard/spinner/Spinner'
+import { useContext } from 'react'
+import { GetUserLogin } from '../../../config/context/GetUserLogin.jsx'
 
 const PageProfil = () => {
 
     const [alamat, setAlamat] = useState([])
-    const [getUser, setGetUser] = useState({
-        sayHi: '',
-        name: '',
-        email: '',
-        photo: '',
-        numberPhone: ''
-    })
-
+    const [getUser, setGetUser] = useContext(GetUserLogin)
     const [view, setView] = useState(false)
 
     const getAlamat = () => {
@@ -51,60 +46,61 @@ const PageProfil = () => {
             })
     }
 
-    const getUserLogin = () => {
-        firebase.auth().onAuthStateChanged((user) => {
-            if (user) {
-                const sayHi = 'Hi !'
-                const nameUser = user.displayName
-                const emailUser = user.email
-                const photoUser = user.photoURL
-                const numberUser = user.phoneNumber
-                const nameUserDefault = 'User'
-
-                // Change Data User yg masuk
-                setGetUser({
-                    sayHi: sayHi,
-                    name: nameUser || nameUserDefault,
-                    email: emailUser,
-                    photo: photoUser || avatar,
-                    numberPhone: numberUser
-                })
-            } else {
-                // Data Default Jika User tidak login
-                const nameDefault = 'User'
-                const emailDefault = 'Kamu belum memiliki Email yang tercantum'
-                const photoDefault = avatar
-                const numberPhoneDefault = 'Kamu belum memiliki nomer hp yang tercantum'
-
-                // Change Data Untuk data default
-                setGetUser({
-                    name: nameDefault,
-                    email: emailDefault,
-                    photo: photoDefault,
-                    numberPhone: numberPhoneDefault
-                })
-            }
-        });
-    }
 
     const history = useHistory()
 
     const handleLogOut = () => {
-        setTimeout(() => {
+        const alert = window.confirm('Log Out?')
+        if (alert === true) {
             firebase.auth().signOut().then(function () {
-                alert('Berhasil Log Out')
+                // alert('Berhasil Log Out')
                 history.push('/login')
             })
                 .catch(function (error) {
                     console.log(error)
-                    alert('gagal Log Out' + ' ' + 'Error: 404')
+                    // alert('gagal Log Out' + ' ' + 'Error: 404', error)
                 });
-        }, 1000)
+        }
+    }
+
+    const getUserLogin = () => {
+        firebase.auth().onAuthStateChanged(function (user) {
+            if (user) {
+                const emailUser = user.email
+                const nameDefault = 'User'
+                const nameUser = user.displayName
+                const photoUser = user.photoURL
+                const sayHi = 'Hi !'
+                const numberPhone = user.phoneNumber
+                const numberPhoneDefault = 'Kamu belum memiliki nomer hp yang tercantum'
+
+                setGetUser({
+                    email: emailUser,
+                    hi: sayHi,
+                    name: nameUser || emailUser,
+                    photo: photoUser || newProfil,
+                    numberPhone: numberPhone || numberPhoneDefault
+                })
+
+            } else {
+                history.push('/login')
+                const photoDefault = newProfil
+                const nameDefault = 'User'
+                const emailDefault = 'Kamu belum memiliki Email yang tercantum'
+                const numberPhoneDefault = 'Kamu belum memiliki nomer hp yang tercantum'
+                setGetUser({
+                    photo: photoDefault,
+                    name: nameDefault,
+                    email: emailDefault,
+                    numberPhone: numberPhoneDefault
+                })
+            }
+        })
     }
 
     useEffect(() => {
+        getUserLogin()
         getAlamat();
-        getUserLogin();
     }, [])
 
     return (
@@ -141,7 +137,7 @@ const PageProfil = () => {
                     {/* Box orange */}
                     <div className="box-orange">
                         <p className="name-profil">
-                            {getUser.sayHi}
+                            {getUser.hi}
                             <br />
                             {getUser.name}
                         </p>

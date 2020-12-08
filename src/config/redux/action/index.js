@@ -11,8 +11,7 @@ export const registerUserAPI = (data) => (dispatch) => {
     dispatch({ type: 'CHANGE_LOADING', value: true })
     return (
         firebase.auth().createUserWithEmailAndPassword(data.email, data.password)
-            .then((res) => {
-                console.log('success: ', res)
+            .then(() => {
                 dispatch({ type: 'CHANGE_LOADING', value: false })
             })
             .catch((error) => {

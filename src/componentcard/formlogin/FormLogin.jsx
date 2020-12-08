@@ -43,7 +43,7 @@ const FormLogin = (props) => {
                         </div>
 
 
-                        <form onSubmit={props.onSubmit} className="form-login">
+                        <form className="form-login">
                             <div className="box-input email"
                                 style={{
                                     display: `${props.displayUser}`
@@ -68,7 +68,7 @@ const FormLogin = (props) => {
 
                                 </div>
                             </div>
-                            <div className="box-input">
+                            <form onSubmit={props.onSubmit} className="box-input">
                                 <i className="fas fa-key iconLeft"></i>
                                 <input type={show ? 'text' : 'password'} id={props.password} className="txt-input" placeholder="Masukkan Password"
                                     onChange={props.onChangePassword}
@@ -80,7 +80,7 @@ const FormLogin = (props) => {
                                         setShow(!show)
                                     }}
                                 ></i>
-                            </div>
+                            </form>
                         </form>
                     </div>
                 </section>

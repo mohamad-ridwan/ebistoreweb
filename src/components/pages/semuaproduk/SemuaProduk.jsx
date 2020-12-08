@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import BoxCard from '../../../componentcard/bocxcard/BoxCard'
 import NavbarPageCard from '../../../componentcard/navbarpagecard/NavbarPageCard'
 import './SemuaProduk.scss'
@@ -12,6 +12,7 @@ import { Component } from 'react'
 import Menu from '../../../componentcard/menu/Menu'
 import { getAllDataApi } from '../../../config/redux/action'
 import { connect } from 'react-redux'
+import { GetUserLogin } from '../../../config/context/GetUserLogin'
 
 class SemuaProduk extends Component {
 
@@ -60,7 +61,6 @@ class SemuaProduk extends Component {
     }
 
     render() {
-
         return (
             <>
                 <div className="wrapper-semua-produk">
