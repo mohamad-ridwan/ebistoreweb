@@ -1,17 +1,17 @@
 {
   "files": {
-    "main.css": "/static/css/main.b7949bc9.chunk.css",
-    "main.js": "/static/js/main.5ebfeb55.chunk.js",
-    "main.js.map": "/static/js/main.5ebfeb55.chunk.js.map",
+    "main.css": "/static/css/main.fcd1ca9e.chunk.css",
+    "main.js": "/static/js/main.54fbfffb.chunk.js",
+    "main.js.map": "/static/js/main.54fbfffb.chunk.js.map",
     "runtime-main.js": "/static/js/runtime-main.63b3f9b6.js",
     "runtime-main.js.map": "/static/js/runtime-main.63b3f9b6.js.map",
-    "static/js/2.fe9b3d20.chunk.js": "/static/js/2.fe9b3d20.chunk.js",
-    "static/js/2.fe9b3d20.chunk.js.map": "/static/js/2.fe9b3d20.chunk.js.map",
+    "static/js/2.e665bf63.chunk.js": "/static/js/2.e665bf63.chunk.js",
+    "static/js/2.e665bf63.chunk.js.map": "/static/js/2.e665bf63.chunk.js.map",
     "index.html": "/index.html",
-    "precache-manifest.8c556a4dc8a71d83f4a685af506739b6.js": "/precache-manifest.8c556a4dc8a71d83f4a685af506739b6.js",
+    "precache-manifest.2d30ebc81fc06f678ee356b77fad4e35.js": "/precache-manifest.2d30ebc81fc06f678ee356b77fad4e35.js",
     "service-worker.js": "/service-worker.js",
-    "static/css/main.b7949bc9.chunk.css.map": "/static/css/main.b7949bc9.chunk.css.map",
-    "static/js/2.fe9b3d20.chunk.js.LICENSE.txt": "/static/js/2.fe9b3d20.chunk.js.LICENSE.txt",
+    "static/css/main.fcd1ca9e.chunk.css.map": "/static/css/main.fcd1ca9e.chunk.css.map",
+    "static/js/2.e665bf63.chunk.js.LICENSE.txt": "/static/js/2.e665bf63.chunk.js.LICENSE.txt",
     "static/media/avatarnew.jpg": "/static/media/avatarnew.ae4fc4e8.jpg",
     "static/media/bgmakaroni.jpg": "/static/media/bgmakaroni.aaad1cc9.jpg",
     "static/media/bgmakaroni2.jpg": "/static/media/bgmakaroni2.ceb6ada9.jpg",
@@ -20,7 +20,6 @@
     "static/media/google (1).png": "/static/media/google (1).35d57b78.png",
     "static/media/heart.svg": "/static/media/heart.86acfc45.svg",
     "static/media/indomaret.svg": "/static/media/indomaret.476407a5.svg",
-    "static/media/logo.svg": "/static/media/logo.ee7cd8ed.svg",
     "static/media/macaroni.svg": "/static/media/macaroni.e541ae08.svg",
     "static/media/picnic.svg": "/static/media/picnic.09859c6c.svg",
     "static/media/promo.jpg": "/static/media/promo.2dc5e86a.jpg",
@@ -29,8 +28,8 @@
   },
   "entrypoints": [
     "static/js/runtime-main.63b3f9b6.js",
-    "static/js/2.fe9b3d20.chunk.js",
-    "static/css/main.b7949bc9.chunk.css",
-    "static/js/main.5ebfeb55.chunk.js"
+    "static/js/2.e665bf63.chunk.js",
+    "static/css/main.fcd1ca9e.chunk.css",
+    "static/js/main.54fbfffb.chunk.js"
   ]
 }
