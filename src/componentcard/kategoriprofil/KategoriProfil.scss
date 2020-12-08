@@ -4,13 +4,14 @@
     display: flex;
     flex-direction: column;
     position: relative;
-    height: auto;
+    height: 10vh;
     width: 100%;
     text-align: start;
     justify-content: start;
     padding: 5px 0;
     margin: 5px 0;
     text-decoration: none;
+    overflow: hidden;
 
     // icon next
     .next{
@@ -28,6 +29,7 @@
         font-size: 12pt;
         color: $colorLima;
         align-items: center;
+        overflow: hidden;
         
         i{
             display: flex;
