@@ -6,6 +6,7 @@ import firebase from '../../../config/firebase';
 import { connect } from 'react-redux'
 import { registerUserAPI } from '../../../config/redux/action'
 import { withRouter } from 'react-router-dom';
+import Helmet from '../../../componentcard/helmet/Helmet';
 
 class Register extends Component {
 
@@ -20,23 +21,21 @@ class Register extends Component {
         })
     }
 
-    handleRegister = () => {
-        const { email, password } = this.state
-        const res = this.props.registerAPI({ email, password });
-        if (res) {
+    handleRegister = (e) => {
+        e.preventDefault()
+        const alertConfirm = window.confirm('Daftarkan Akun di Ebi Store?')
+        if (alertConfirm === true) {
+            const { email, password } = this.state
+            this.props.registerAPI({ email, password });
             this.setState({
                 email: '',
                 password: ''
             })
-            alert('berhasil register!')
             this.props.history.push('/login')
         } else {
             this.props.history.push('/register')
-            alert('harap masukkan email dan password dengan benar')
         }
     }
-
-
 
     handleGoogle = () => {
         var provider = new firebase.auth.GoogleAuthProvider();
@@ -58,9 +57,13 @@ class Register extends Component {
     render() {
         return (
             <>
+                <Helmet
+                    titleHelmet={'Sign UP | Ebi Store'}
+                    contentHelmet={'halaman Sign UP | Ebi Store'}
+                />
                 {/* Form Register */}
                 <FormLogin
-                    title={"Register"}
+                    title={"Sign UP"}
                     goLogin={"flex"}
                     displayUser={"none"}
                     btnLogin={"none"}

@@ -5,7 +5,9 @@ import { Component } from 'react'
 import { Link, withRouter } from 'react-router-dom'
 import BtnCard from '../../../componentcard/btncard/BtnCard'
 import FormAlamat from '../../../componentcard/formalamat/FormAlamat'
+import Helmet from '../../../componentcard/helmet/Helmet'
 import NavbarPageCard from '../../../componentcard/navbarpagecard/NavbarPageCard'
+import API from '../../../service'
 import './PageAlamat.scss'
 
 class PageAlamat extends Component {
@@ -31,28 +33,31 @@ class PageAlamat extends Component {
     }
 
     postAlamat = () => {
-        Axios.post('http://localhost:6235/v5/dataalamat/postalamat',
-            this.state.formAlamat)
-            .then(res => {
-                console.log(res)
-            })
-            .catch(err => {
-                console.log(err)
+        const data = this.state.formAlamat
+        API.APIPostAlamat(data)
+            .then((res) => {
+                alert('Alamat berhasil tersimpan di profil')
             })
     }
 
-    handleSubmit = () => {
-        alert('Alamat berhasil di simpan!!')
-        this.postAlamat()
-        // this.props.history.push('/pageprofil')
+    handleSubmit = (e) => {
+        e.preventDefault()
+        const alertConfirm = window.confirm('Data Alamat Sudah Benar?')
+        if (alertConfirm === true) {
+            this.postAlamat()
+        }
     }
 
     render() {
 
         return (
             <>
+                <Helmet
+                    titleHelmet={'Alamat | Ebi Store'}
+                    contentHelmet={'halaman form alamat | Ebi Store'}
+                />
                 <NavbarPageCard
-                    linkPage={'/pageprofil'}
+                    linkPage={'/profil'}
                     position={'absolute'}
                     titlePageNav={'Form Alamat'}
                     transparant={"transparant"}
@@ -84,6 +89,7 @@ class PageAlamat extends Component {
                             valueName={"namaPenerima"}
                             placeholder={"Masukkan Nama Penerima"}
                             handle={this.handleFormChange}
+                            submit={this.handleSubmit}
                         />
 
                         <Link style={{

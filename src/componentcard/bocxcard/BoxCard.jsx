@@ -1,8 +1,10 @@
 import React from 'react'
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import './BoxCard.scss'
 
 const BoxCard = (props) => {
+
     return (
         <>
             <Link className="wrapp-boxCard" style={{
@@ -13,7 +15,7 @@ const BoxCard = (props) => {
                 borderRadius: `${props.bdrRadius}`,
                 textDecoration: 'none',
                 outline: 'none',
-                boxShadow: `${props.bxShadow}`
+                boxShadow: `${props.bxShadow}`,
             }}
                 onClick={() => props.detail(props.data._id)}
             >

@@ -1,15 +1,11 @@
-import React, { useEffect } from 'react'
+import React, { useContext, useEffect } from 'react'
 import NavbarPageCard from '../../../componentcard/navbarpagecard/NavbarPageCard'
 import './DetailProduk.scss'
-import Slider from 'react-slick'
-import imgProduk from '../../../img/satu.jpeg'
-import BtnCard from '../../../componentcard/btncard/BtnCard'
 import { Link, matchPath, useHistory, useLocation, useParams, useRouteMatch, withRouter } from 'react-router-dom'
-import img from '../../../img/enambelas.jpg'
-import Axios from 'axios'
-import { useState } from 'react'
 import { Component } from 'react'
 import DetailCard from '../../../componentcard/detailcard/DetailCard'
+import Helmet from '../../../componentcard/helmet/Helmet'
+import API from '../../../service'
 
 class DetailProduk extends Component {
 
@@ -17,12 +13,10 @@ class DetailProduk extends Component {
         post: [
             {
                 _id: '',
-                label: '',
                 name: '',
                 price: '',
                 stock: '',
                 deskripsi: '',
-                komposisi: '',
                 image: '',
             }
         ],
@@ -32,22 +26,18 @@ class DetailProduk extends Component {
             name: '',
             price: ''
         },
-        order: 1
     }
 
-    handleMinus = () => {
-        if (this.state.order > 1) {
-            this.setState({
-                order: this.state.order - 1
-            })
-        }
-    }
-
-    handlePlus = () => {
-        this.setState({
-            order: this.state.order + 1
-        })
-    }
+    // addCart = (_id) => {
+    //     const { post, cart } = this.context;
+    //     const data = post.filter(data => {
+    //         return data._id === _id
+    //     })
+    //     this.setState({
+    //         cart: [...cart, ...data]
+    //     })
+    //     console.log('hasil data baru:', data)
+    // }
 
     handleKeranjang = (id) => {
         this.props.history.push(id)
@@ -63,35 +53,30 @@ class DetailProduk extends Component {
 
     // to transaksion
     handleTransaksi = (id) => {
-        this.props.history.push(`/transaksi/${id}`)
+        this.props.history.push(`/detail-produk/transaksi/${id}`)
     }
     // end to transaksion
 
     componentDidMount() {
         // dapatkan id dari id yang masuk
         const id = this.props.match.params.id
-        Axios.get(`http://localhost:6235/v8/makaroni/getall/${id}`)
+        API.APIDetailProduk(id)
             .then(result => {
-                let post = result.data
+                let respon = result.data
                 // Agar bisa mendapatkan data yg masuk
                 // Ganti data yg masuk dengan data yg baru
                 this.setState({
                     post: [
                         {
-                            _id: post.data._id,
-                            label: post.data.label,
-                            name: post.data.name,
-                            price: post.data.price,
-                            stock: post.data.stock,
-                            deskripsi: post.data.deskripsi,
-                            komposisi: post.data.komposisi,
-                            image: post.data.image
+                            _id: respon._id,
+                            name: respon.name,
+                            price: respon.price,
+                            stock: respon.stock,
+                            deskripsi: respon.deskripsi,
+                            image: respon.image
                         }
                     ]
                 })
-            })
-            .catch(err => {
-                console.log(err)
             })
     }
 
@@ -99,31 +84,35 @@ class DetailProduk extends Component {
 
         return (
             <>
+                {this.state.post.map((e) => {
+                    return (
+                        <Helmet
+                            titleHelmet={`Detail Produk | ${e.name} | Ebi Store`}
+                            contentHelmet={`halaman detail produk | ${e.name} | Ebi Store`}
+                        />
+                    )
+                })}
+
                 <div className="wrapp-detail-produk">
                     <NavbarPageCard
                         linkPage={'/'}
                         titlePageNav={'Detail Produk'}
                     />
 
-                    {/* Detail Card */}
-                    {this.state.post.map((e) => {
+                    {this.state.post.map(e => {
                         return (
-                            <>
-                                <DetailCard
-                                    key={e._id}
-                                    data={e}
-                                    img={`http://localhost:6235/${e.image}`}
-                                    // buy={this.handleTransaksi}
-                                    toPageShopp={this.handleKeranjang}
-                                    displayBoxAlamat={"none"}
-                                    minus={this.handleMinus}
-                                    plus={this.handlePlus}
-                                    valueInput={this.state.order}
-                                />
-                            </>
+                            <DetailCard
+                                key={e._id}
+                                data={e}
+                                img={`http://localhost:6235/${e.image}`}
+                                buy={this.handleTransaksi}
+                                toPageShopp={() => this.addCart(e._id)}
+                                displayBoxAlamat={"none"}
+                                valueInput={this.state.order}
+                                displayInputTotalOrder={'none'}
+                            />
                         )
                     })}
-                    {/* {/* END Detail Card */}
                 </div>
             </>
         )

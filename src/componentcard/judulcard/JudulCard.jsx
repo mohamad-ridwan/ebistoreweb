@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 
 import './JudulCard.scss'
 
-const JudulCard = ({ txtJudul, body, page, lihatSemua, totProduk }) => {
+const JudulCard = ({ txtJudul, body, page, lihatSemua, pagination }) => {
     return (
         <>
             <div className="wrapper-judulCard">
@@ -12,7 +12,7 @@ const JudulCard = ({ txtJudul, body, page, lihatSemua, totProduk }) => {
                 </p>
 
                 <p className="title-tot-produk">
-                    {totProduk}
+                    {pagination}
                 </p>
 
                 <Link to={page} className="txt-lihat-semua">

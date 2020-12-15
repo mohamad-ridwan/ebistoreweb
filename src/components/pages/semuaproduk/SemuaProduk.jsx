@@ -13,6 +13,7 @@ import Menu from '../../../componentcard/menu/Menu'
 import { getAllDataApi } from '../../../config/redux/action'
 import { connect } from 'react-redux'
 import { GetUserLogin } from '../../../config/context/GetUserLogin'
+import Helmet from '../../../componentcard/helmet/Helmet'
 
 class SemuaProduk extends Component {
 
@@ -24,28 +25,15 @@ class SemuaProduk extends Component {
 
     state = {
         data: [],
-        menu: []
+        menu: [],
     }
 
     handleDetail = (_id) => {
         this.props.history.push(`/detail-produk/${_id}`)
+        this.getAllProduk()
     }
 
-    componentDidMount() {
-        const id = this.props.match.params.id
-
-        Axios.get(`http://localhost:6235/v8/makaroni/getall?page=${id}`)
-            .then(res => {
-                const respon = res.data
-
-                this.setState({
-                    data: respon.data
-                })
-            })
-            .catch(err => {
-                console.log(err)
-            })
-
+    getAllProduk = () => {
         Axios.get('http://localhost:6235/v10/menu/getmenu')
             .then(res => {
                 const respon = res.data
@@ -56,16 +44,40 @@ class SemuaProduk extends Component {
             .catch(err => {
                 console.log(err)
             })
+    }
 
-        this.props.getApi()
+    componentDidMount() {
+        const id = this.props.match.params.id
+        Axios.get(`http://localhost:6235/v8/makaroni/getall?page=${id}`)
+            .then(res => {
+                const respon = res.data
+                this.setState({
+                    data: respon.data
+                })
+            })
+            .catch(err => {
+                console.log(err)
+            })
+
+        this.getAllProduk()
     }
 
     render() {
         return (
             <>
+                {this.state.data.map(e => {
+                    return (
+                        <Helmet
+                            key={e._id}
+                            titleHelmet={`Semua Produk | ${e.pathName} | Ebi Store`}
+                            contentHelmet={`halaman semua produk |  | Ebi Store`}
+                        />
+                    )
+                })}
+
                 <div className="wrapper-semua-produk">
                     <NavbarPageCard
-                        linkPage={'/beranda'}
+                        linkPage={'/'}
                         titlePageNav={'Semua'}
                     />
 
@@ -81,7 +93,6 @@ class SemuaProduk extends Component {
                                     <>
                                         <Menu
                                             key={e._id}
-                                            // linkPage={e.linkPage}
                                             link={e.linkPage}
                                             nameMenu={e.nameMenu}
                                         />
@@ -129,9 +140,5 @@ class SemuaProduk extends Component {
     }
 }
 
-const reduxDispatch = () => ({
-    getApi: () => getAllDataApi()
-})
 
-
-export default connect(reduxDispatch)(withRouter(SemuaProduk))
+export default (withRouter(SemuaProduk))

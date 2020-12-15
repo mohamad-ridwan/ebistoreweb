@@ -1,11 +1,11 @@
 import React from 'react'
 import { useEffect } from 'react'
 import { useState } from 'react'
-import { Helmet } from 'react-helmet'
 import BtnCard from '../../../componentcard/btncard/BtnCard'
 import NavbarPageCard from '../../../componentcard/navbarpagecard/NavbarPageCard'
 import './NamaProfil.scss'
 import firebase from 'firebase/app';
+import Helmet from '../../../componentcard/helmet/Helmet'
 // import Helmet from 'react-helmet'
 
 const NamaProfil = () => {
@@ -27,10 +27,6 @@ const NamaProfil = () => {
         setGetUser({
             data: newGetUser
         })
-
-    }
-
-    const handleSaveChangeName = () => {
 
     }
 
@@ -65,8 +61,12 @@ const NamaProfil = () => {
 
     return (
         <>
+            <Helmet
+                titleHelmet={'Nama Profil | Ebi Store'}
+                contentHelmet={'halaman rubah nama profil | Ebi Store'}
+            />
             <NavbarPageCard
-                linkPage={'/pageprofil'}
+                linkPage={'/profil'}
                 position={'absolute'}
                 titlePageNav={'Rubah Nama'}
                 transparant={"transparant"}
@@ -77,7 +77,7 @@ const NamaProfil = () => {
                     <label htmlFor="label" className="name">
                         {getUser.data.name || getUser.data.email}
                     </label>
-                    <input type="text" className="input-nama" autoFocus name="name" value={getUser.data.name}
+                    <input type="text" className="input-nama" autoFocus name="name" value={getUser.data.name || getUser.data.email}
                         onChange={handleChangeName}
                     />
 

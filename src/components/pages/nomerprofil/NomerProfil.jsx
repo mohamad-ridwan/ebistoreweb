@@ -4,77 +4,86 @@ import firebase from 'firebase/app';
 import NavbarPageCard from '../../../componentcard/navbarpagecard/NavbarPageCard';
 import BtnCard from '../../../componentcard/btncard/BtnCard';
 import { useHistory } from 'react-router-dom';
+import { useContext } from 'react';
+import { ChangeNumberPhone } from '../../../config/context/ChangeNumberPhone';
+import Axios from 'axios';
+import { GetNumberPhone } from '../../../config/context/GetNumberPhone';
+import Helmet from '../../../componentcard/helmet/Helmet';
 
 const NomerProfil = () => {
 
-    const [getUser, setGetUser] = useState({
-        data: {
-            name: '',
-            email: ''
-        }
-    })
+    const [getDataHp, setGetDataHp, handleUpdate, update, setUpdate] = useContext(GetNumberPhone)
+    const [getChangeTxt, setGetChangeTxt] = useContext(ChangeNumberPhone)
 
-    const history = useHistory()
-
-    const handleChangeName = (event) => {
-        // history.push('/pageprofil')
-        const newGetUser = { ...getUser.data }
+    const handleChangeNumberPhone = (event) => {
+        const newGetUser = { ...getChangeTxt.data }
         newGetUser[event.target.name] = event.target.value
-        // const nameNew = event.target.value
-        // const emailNew = event.target.value
-        console.log(newGetUser)
-        setGetUser({
+        setGetChangeTxt({
             data: newGetUser
         })
-
     }
 
-    useEffect(() => {
-        firebase.auth().onAuthStateChanged((user) => {
-            if (user) {
-                const nameUser = user.displayName
-                const emailUser = user.email
+    const putDataPhoneUser = () => {
+        const id = setGetDataHp._id
+        Axios.put(`http://localhost:6235/v11/nomerhpuser/putnomer/${id}`,
+            getChangeTxt.data
+        )
+            .then(res => {
+                console.log('perubahan berhasil tersimpan!', res)
+            })
+            .catch(err => {
+                alert('update failed')
+                console.log('update failed', err)
+            })
+    }
 
-                // Change Data User yg masuk
-                setGetUser({
-                    data: {
-                        name: nameUser,
-                        email: emailUser,
-                    }
-                })
-            } else {
-                // Data Default Jika User tidak login
-                const nameDefault = 'Profil Saya'
-                const emailDefault = 'Kamu belum memiliki Email yang tercantum'
+    const histori = useHistory()
 
-                // Change Data Untuk data default
-                setGetUser({
-                    data: {
-                        name: nameDefault,
-                        email: emailDefault,
-                    }
+    const handleSubmit = (event) => {
+        if (setUpdate) {
+            window.confirm('Simpan Perubahan?')
+            putDataPhoneUser()
+        } else {
+            event.preventDefault()
+            Axios.post('http://localhost:6235/v11/nomerhpuser/nomer',
+                getChangeTxt.data
+            )
+                .then(res => {
+                    console.log(res)
+                    alert('nomer berhasil tersimpan di profil!')
+                    histori.push('/pageprofil')
                 })
-            }
-        });
-    }, [])
+                .catch(err => {
+                    console.log(err)
+                    alert('Terjadi Kesalahan (error code : 404)')
+                })
+        }
+    }
 
     return (
         <>
+            <Helmet
+                titleHelmet={'Nomer Telepon | Ebi Store'}
+                contentHelmet={'halaman rubah nomer telepon profile | Ebi Store'}
+            />
             <NavbarPageCard
-                linkPage={'/pageprofil'}
+                linkPage={'/profil'}
                 position={'absolute'}
-                titlePageNav={'Rubah Nomer Telpon'}
+                titlePageNav={'Nomer Telepon'}
                 transparant={"transparant"}
                 color={"#fff"}
             />
             <div className="wrapper-namaProfil">
                 <div className="box-input-nama">
                     <label htmlFor="label" className="name">
-                        {getUser.data.name || getUser.data.email}
+                        {getChangeTxt.data.phoneUser}
                     </label>
-                    <input type="text" className="input-nama" autoFocus name="name" value={getUser.data.name}
-                        onChange={handleChangeName}
-                    />
+
+                    <form onSubmit={handleSubmit}>
+                        <input onSubmit={handleSubmit} type="number" className="input-nama" autoFocus name="phoneUser" value={getChangeTxt.data.phoneUser}
+                            onChange={handleChangeNumberPhone}
+                        />
+                    </form>
 
                     <BtnCard
                         heightBtn={'45px'}
@@ -86,7 +95,7 @@ const NomerProfil = () => {
                         colorP={"#ffa835"}
                         fontWeight={"bold"}
                         bxShadow={"0 3px 9px -1px rgba(0,0,0,0.2)"}
-                        goTo={handleChangeName}
+                        goTo={handleSubmit}
                     />
                 </div>
             </div>

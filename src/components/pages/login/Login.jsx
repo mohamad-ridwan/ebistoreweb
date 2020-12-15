@@ -13,6 +13,7 @@ import { actionUserName, handleGoogle, loginGoogle } from '../../../config/redux
 import { loginUserAPI } from '../../../config/redux/action'
 import firebase from 'firebase/app';
 import Spinner from '../../../componentcard/spinner/Spinner'
+import Helmet from '../../../componentcard/helmet/Helmet'
 
 class Login extends Component {
 
@@ -64,7 +65,10 @@ class Login extends Component {
     render() {
         return (
             <>
-                {/* {this.props.userName} */}
+                <Helmet
+                    titleHelmet={'Login | Ebi Store'}
+                    contentHelmet={'halaman login | Ebi Store'}
+                />
                 <FormLogin
                     title={"Login"}
                     displayUser={"none"}

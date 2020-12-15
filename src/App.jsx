@@ -1,160 +1,148 @@
-import React, { useState } from 'react';
-import { BrowserRouter as Router, Switch, Route, withRouter, useHistory } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { BrowserRouter as Router, Switch, Route, withRouter, useHistory, HashRouter } from 'react-router-dom';
 import './App.css';
 import Media from 'react-media';
 import WindowScroll from './componentcard/windowscroll/WindowScroll';
 import Transaksi from './components/pages/transaksi/Transaksi';
-import HelmetTransaksi from './components/pages/transaksi/helmettransaksi/HelmetTransaksi';
 import DetailProduk from './components/pages/detailproduk/DetailProduk';
-import HelmetDetailProduk from './components/pages/detailproduk/helmetdetailproduk/HelmetDetailProduk';
 import SemuaProduk from './components/pages/semuaproduk/SemuaProduk';
-import HelmetSemuaProduk from './components/pages/semuaproduk/helmetsemuaproduk/HelmetSemuaProduk';
 import PageAlamat from './components/pages/pagealamat/PageAlamat';
-import HelmetPageAlamat from './components/pages/pagealamat/helmetpagealamat/HelmetPageAlamat';
 import PageProfil from './components/pages/pageprofil/PageProfil';
-import HelmetPageProfil from './components/pages/pageprofil/helmetpageprofil/HelmetPageProfil';
 import PageNotifikasi from './components/pages/pagenotifikasi/PageNotifikasi';
-import HelmetPageNotifikasi from './components/pages/pagenotifikasi/helmetpagenotifikasi/HelmetPageNotifikasi';
 import PageFavorit from './components/pages/pagefavorit/PageFavorit';
-import HelmetPageFavorit from './components/pages/pagefavorit/helmetpagefavorit/HelmetPageFavorit';
 import PageKeranjang from './components/pages/pagekeranjang/PageKeranjang';
-import HelmetPageKeranjang from './components/pages/pagekeranjang/helmetpagekeranjang/HelmetPageKeranjang';
 import Register from './components/pages/register/Register';
 import PageBeranda from './components/pages/pageberanda/PageBeranda';
-import HelmetPageBeranda from './components/pages/pageberanda/helmetpageberanda/HelmetPageBeranda';
 import Login from './components/pages/login/Login';
 import BtnNotifPromo from './components/btnnotifpromo/BtnNotifPromo';
 import NamaProfil from './components/pages/namaprofil/NamaProfil';
 import NomerProfil from './components/pages/nomerprofil/NomerProfil';
-
+import Email from './components/pages/email/Email';
+import firebase from 'firebase/app';
+import { createBrowserHistory } from 'history';
+import { store } from './config/redux';
+import ContextWrapper from './config/context/ContextWrapper';
+import { Provider } from 'react-redux';
+import PushToCartProvider from './config/context/PushToCart';
 function App() {
 
+  const history = createBrowserHistory();
 
   return (
-    <div className="App" id="app">
-      {/* Max-width 400px */}
-      <Media query="(max-width: 450px)" render={() => (
-        <>
-          <Router>
+    <ContextWrapper>
+      <Provider store={store}>
+        <div className="App" id="app">
+          {/* Max-width 400px */}
+          <Media query="(max-width: 450px)" render={() => (
+            <>
+              <Router history={history}>
 
-            <WindowScroll>
-              <Switch>
+                <WindowScroll>
+                  <Switch>
 
-                {/* Nama Profil */}
-                <Route path='/nomerprofil'>
-                  <NomerProfil />
-                </Route>
-                {/* END Nama Profil */}
+                    {/* Email */}
+                    <Route path='/profil/email'>
+                      <Email />
+                    </Route>
+                    {/* END Email */}
 
-                {/* Nama Profil */}
-                <Route path='/namaprofil'>
-                  <NamaProfil />
-                </Route>
-                {/* END Nama Profil */}
+                    {/* Nama Profil */}
+                    <Route path='/profil/nomer-profil'>
+                      <NomerProfil />
+                    </Route>
+                    {/* END Nama Profil */}
 
-                {/* Transaksi */}
-                <Route path='/transaksi/:id'>
-                  <Transaksi />
+                    {/* Nama Profil */}
+                    <Route path='/profil/nama-profil'>
+                      <NamaProfil />
+                    </Route>
+                    {/* END Nama Profil */}
 
-                  <HelmetTransaksi />
-                </Route>
-                {/* end Transaksi */}
+                    {/* Transaksi */}
+                    <Route path='/detail-produk/transaksi/:id'>
+                      <Transaksi />
+                    </Route>
+                    {/* end Transaksi */}
 
-                {/* detail produk */}
-                <Route path='/detail-produk/:id'>
-                  <DetailProduk />
+                    {/* detail produk */}
+                    <Route path='/detail-produk/:id'>
+                      <DetailProduk />
+                    </Route>
+                    {/* end detail produk */}
 
-                  <HelmetDetailProduk />
-                </Route>
-                {/* end detail produk */}
+                    {/* page semua produk */}
+                    <Route path='/semua-produk/:id'>
+                      <SemuaProduk />
+                    </Route>
+                    {/* end page semua produk */}
 
-                {/* page semua produk */}
-                <Route path='/semuaproduk/:id'>
-                  <SemuaProduk />
+                    {/* page alamat*/}
+                    <Route path='/profil/alamat'>
+                      <PageAlamat />
+                    </Route>
+                    {/* end page alamat */}
 
-                  <HelmetSemuaProduk />
-                </Route>
-                {/* end page semua produk */}
+                    {/* Page Profil */}
+                    <Route path='/profil'>
+                      <PageProfil />
+                    </Route>
+                    {/* END Page Profil */}
 
-                {/* page alamat*/}
-                <Route path='/pagealamat'>
-                  <PageAlamat />
+                    {/* For Page Notifikasi */}
+                    <Route path='/notifikasi'>
+                      <PageNotifikasi />
+                    </Route>
+                    {/* END For Page Notifikasi */}
 
-                  <HelmetPageAlamat />
-                </Route>
-                {/* end page alamat */}
+                    {/* For Page Favorit */}
+                    <Route path='/favorit'>
+                      <PageFavorit />
+                    </Route>
+                    {/* END For Page Favorit */}
 
-                {/* Page Profil */}
-                <Route path='/pageprofil'>
-                  <PageProfil />
+                    {/* For Page Keranjang */}
+                    <Route path='/keranjang/:id'>
+                      <PageKeranjang />
+                    </Route>
+                    {/* END For Page Keranjang */}
 
-                  <HelmetPageProfil />
-                </Route>
-                {/* END Page Profil */}
+                    {/* For Register */}
+                    <Route path='/register'>
+                      <Register />
+                    </Route>
+                    {/* END For Register */}
 
-                {/* For Page Notifikasi */}
-                <Route path='/pagenotifikasi'>
-                  <PageNotifikasi />
+                    {/* For Login */}
+                    <Route path='/login'>
+                      <Login />
+                    </Route>
+                    {/* END For Login */}
 
-                  <HelmetPageNotifikasi />
-                </Route>
-                {/* END For Page Notifikasi */}
+                    {/* For Home */}
+                    <Route path='/'>
+                      {/* Navbar */}
+                      {/* <Navbar /> */}
+                      {/* END Navbar */}
 
-                {/* For Page Favorit */}
-                <Route path='/pagefavorit'>
-                  <PageFavorit />
+                      {/* Page Beranda */}
+                      <PageBeranda />
+                      {/* END Page Beranda */}
 
-                  <HelmetPageFavorit />
-                </Route>
-                {/* END For Page Favorit */}
+                      <BtnNotifPromo />
+                    </Route>
+                    {/* END For Home */}
 
-                {/* For Page Keranjang */}
-                <Route path='/pagekeranjang/:id'>
-                  <PageKeranjang />
+                  </Switch>
+                </WindowScroll>
+                {/* <NavBottom /> */}
 
-                  <HelmetPageKeranjang />
-                </Route>
-                {/* END For Page Keranjang */}
-
-                {/* For Register */}
-                <Route path='/register'>
-                  <Register />
-                </Route>
-                {/* END For Register */}
-
-                {/* For Login */}
-                <Route path='/login'>
-                  <Login />
-                </Route>
-                {/* END For Login */}
-
-                {/* For Home */}
-                <Route path='/'>
-                  {/* Navbar */}
-                  {/* <Navbar /> */}
-                  {/* END Navbar */}
-
-                  {/* Page Beranda */}
-                  <PageBeranda />
-                  {/* END Page Beranda */}
-
-                  <BtnNotifPromo />
-
-                  {/* Helmet Page Beranda */}
-                  <HelmetPageBeranda />
-                  {/* END Helmet Page Beranda */}
-                </Route>
-                {/* END For Home */}
-
-              </Switch>
-            </WindowScroll>
-            {/* <NavBottom /> */}
-
-          </Router>
-        </>
-      )} />
-      {/* END Max-width 400px */}
-    </div>
+              </Router>
+            </>
+          )} />
+          {/* END Max-width 400px */}
+        </div>
+      </Provider>
+    </ContextWrapper>
   );
 }
 

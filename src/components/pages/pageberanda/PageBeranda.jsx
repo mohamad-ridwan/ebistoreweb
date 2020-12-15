@@ -4,38 +4,48 @@ import { useEffect } from 'react'
 import { useState } from 'react'
 import Slider from 'react-slick'
 import BoxCard from '../../../componentcard/bocxcard/BoxCard'
-import BtnCard from '../../../componentcard/btncard/BtnCard'
 import JudulCard from '../../../componentcard/judulcard/JudulCard'
-import img from '../../../img/enambelas.jpg'
 import imgNew from '../../../img/delapanbelas.jpg'
 import imgPromo from '../../../img/promo.jpg'
 import './PageBeranda.scss'
 import { Link, matchPath, useHistory, useLocation, useParams, useRouteMatch, withRouter } from 'react-router-dom'
-import bgMakaroni from '../../../img/bgmakaroni.jpg'
-import avatar from '../../../img/avatarnew.jpg'
 import Navbar from '../../navbar/Navbar'
 import firebase from 'firebase/app';
 import newProfil from '../../../img/newprofil.png'
-import Spinner from '../../../componentcard/spinner/Spinner'
-import { connect } from 'react-redux'
-import { RootContext } from '../../../App'
-import { ApiSemuaHargaContext } from '../../../config/context/ApiSemuaHargaContext'
-import { ApiSerba5rbContext } from '../../../config/context/ApiSerba5rbContext'
-import { ApiSerba10rbContext } from '../../../config/context/ApiSerba10rbContext'
-import { ApiSerba15rbContext } from '../../../config/context/ApiSerba15rbContext'
 import { GetUserLogin } from '../../../config/context/GetUserLogin.jsx'
+import Helmet from '../../../componentcard/helmet/Helmet'
+import API from '../../../service'
 
 const PageBeranda = () => {
 
-    // For Get User Login
     const [getUser, setGetUser] = useContext(GetUserLogin)
-    // END For Get User Loign
-    // For Get all api produk
-    const [getSemuaHarga, setGetSemuaHarga] = useContext(ApiSemuaHargaContext)
-    const [getSerba5rb, setGetSerba5rb] = useContext(ApiSerba5rbContext)
-    const [getSerba10rb, setGetSerba10rb] = useContext(ApiSerba10rbContext)
-    const [getSerba15rb, setGetSerba15rb] = useContext(ApiSerba15rbContext)
-    // END For Get all api produk
+    const [getSemuaHarga, setGetSemuaHarga] = useState([])
+    const [getSerba5rb, setGetSerba5rb] = useState([])
+    const [getSerba10rb, setGetSerba10rb] = useState([])
+    const [getSerba15rb, setGetSerba15rb] = useState([])
+
+    const getDataAPI = () => {
+        API.APISemuaHarga()
+            .then(res => {
+                const respon = res.data
+                setGetSemuaHarga(respon)
+            })
+        API.APISerba5rb()
+            .then(res => {
+                const respon = res.data
+                setGetSerba5rb(respon)
+            })
+        API.APISerba10rb()
+            .then(res => {
+                const respon = res.data
+                setGetSerba10rb(respon)
+            })
+        API.APISerba15rb()
+            .then(res => {
+                const respon = res.data
+                setGetSerba15rb(respon)
+            })
+    }
 
     const getUserLogin = () => {
         firebase.auth().onAuthStateChanged(function (user) {
@@ -75,11 +85,11 @@ const PageBeranda = () => {
     const histori = useHistory()
 
     const pushNotifikasi = () => {
-        histori.push('/pagenotifikasi')
+        histori.push('/notifikasi')
     }
 
     const pushProfil = () => {
-        histori.push('/pageprofil')
+        histori.push('/profil')
     }
 
     const params = useHistory()
@@ -107,17 +117,22 @@ const PageBeranda = () => {
 
     useEffect(() => {
         getUserLogin()
+        getDataAPI()
     }, [])
 
     return (
         <>
+            <Helmet
+                titleHelmet={'Ebi Store'}
+                contentHelmet={'halaman beranda | Ebi Store'}
+            />
             <Navbar />
             <div className="wrapper-pageBeranda">
                 <section className="section1-pageBeranda">
                     <p className="title-home">
                         <i className="fas fa-home"></i>Beranda
                     </p>
-                    <Link to='/pagekeranjang/1' className="box-icon iconCart">
+                    <Link to='/keranjang/1' className="box-icon iconCart">
                         <i className="fas fa-shopping-cart"></i>
                     </Link>
                     <Link className="box-icon"
@@ -145,12 +160,11 @@ const PageBeranda = () => {
 
                 <JudulCard
                     txtJudul={"New"}
-                    page={'/semuaproduk/9'}
-                    totProduk={"• 10 Makaroni"}
+                    page={'/semua-produk/9'}
+                    pagination={`• 10 Makaroni`}
                 />
                 {/* Container New produk */}
                 <section className="container-new-produk">
-
                     <Slider {...settings2} className="boxSlide">
                         <img src={imgNew} alt="" className="img-new-produk" />
                         <img src={imgNew} alt="" className="img-new-produk" />
@@ -165,7 +179,7 @@ const PageBeranda = () => {
                     {/* Judul */}
                     <JudulCard
                         txtJudul={"Semua Harga"}
-                        page={'/semuaproduk/9'}
+                        page={'/semua-produk/1'}
                     />
                     {/* END Judul */}
 
@@ -206,7 +220,7 @@ const PageBeranda = () => {
                     {/* Judul */}
                     <JudulCard
                         txtJudul="Serba 5rb"
-                        page={'/semuaproduk/7'}
+                        page={'/semua-produk/2'}
                     />
                     {/* END Judul */}
 
@@ -250,7 +264,7 @@ const PageBeranda = () => {
                     {/* Judul */}
                     <JudulCard
                         txtJudul="Serba 10rb"
-                        page={'/semuaproduk/3'}
+                        page={'/semua-produk/3'}
                     />
                     {/* END Judul */}
 
@@ -291,7 +305,7 @@ const PageBeranda = () => {
                     {/* Judul */}
                     <JudulCard
                         txtJudul="Serba 15rb"
-                        page={'/semuaproduk/1'}
+                        page={'/semua-produk/4'}
                     />
                     {/* END Judul */}
 

@@ -13,17 +13,6 @@
     text-decoration: none;
     overflow: hidden;
 
-    // icon next
-    .next{
-        display: flex;
-        position: absolute;
-        top: 7px;
-        right: 0;
-        font-size: 12pt;
-        color: #555;
-    }
-    // end icon next
-
     .title-kategori-profil{
         display: flex;
         font-size: 12pt;
@@ -38,15 +27,38 @@
         }
     }
 
-    .deskripsi-kategori-profil{
+    .box-deskripsi-ktg{
         display: flex;
-        font-size: 10pt;
-        color: #aaa;
+        height: auto;
+        width: 100%;
         margin-top: 10px;
         margin-left: 25px;
-        padding-bottom: 5px;
+        padding-right: 20px;
         border-bottom: 1px solid #ddd;
-        white-space: nowrap;
-        text-overflow: ellipsis;
-    }
+        padding-bottom: 5px;
+        justify-content: space-between;
+        overflow: hidden;
+
+        .deskripsi-kategori-profil{
+            display: flex;
+            width: 100%;
+            font-size: 10pt;
+            color: #aaa;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            overflow: hidden;
+        }
+
+        // icon next
+        .next{
+            display: flex;
+            height: auto;
+            width: auto;
+            font-size: 15pt;
+            color: #ddd;
+            overflow: hidden;
+            padding-left: 10px;
+        }
+        // end icon next
+    }   
 }

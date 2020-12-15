@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 import { useState } from 'react'
 import { useEffect } from 'react'
 
-const NavbarPageCard = ({ linkPage, titlePageNav, transparant, color, position }) => {
+const NavbarPageCard = ({ linkPage, titlePageNav, transparant, color, position, backPage }) => {
 
     // const [hide, setHide] = useState(false)
 
@@ -33,7 +33,9 @@ const NavbarPageCard = ({ linkPage, titlePageNav, transparant, color, position }
                     <Link to={linkPage} className="btn-back-nav-pageCard">
                         <span class="material-icons" style={{
                             color: `${color}`
-                        }}>
+                        }}
+                            onClick={backPage}
+                        >
                             west
                         </span>
                     </Link>

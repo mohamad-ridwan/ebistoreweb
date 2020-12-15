@@ -12,7 +12,7 @@
         flex-direction: column;
         height: auto;
         width: 100%;
-        padding: 0 50px;
+        padding: 0 40px;
         margin-top: 150px;
         text-align: center;
         align-items: center;
@@ -23,16 +23,23 @@
             color: #fff;
         }
 
-        .input-nama{
+        form{
             display: flex;
             height: 40px;
             width: 100%;
-            border: none;
-            outline: none;
             border-radius: 10px;
-            padding: 20px;
             margin-top: 20px;
             box-shadow: 0 3px 9px -1px rgba(0,0,0,0.2);
+            overflow: hidden;
+            
+            .input-nama{
+                display: flex;
+                height: 100%;
+                width: 100%;
+                border: none;
+                outline: none;
+                padding: 20px; 
+            }
         }
     }
 }

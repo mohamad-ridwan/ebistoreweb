@@ -11,22 +11,29 @@ const KategoriProfil = ({
     alamat,
     kota,
     kodePos,
-    namaPenerima
+    namaPenerima,
+    onClick
 }) => {
     return (
         <>
-            <Link to={pageKtg} className={linkKategori}>
+            <Link to={pageKtg} className={linkKategori}
+                onClick={onClick}
+            >
                 <p className="title-kategori-profil">
                     <i className={icon}></i> {title}
                 </p>
-                <p className="deskripsi-kategori-profil">
-                    {deskripsi}
-                    {alamat}
-                    {kota}
-                    {kodePos}
-                    {namaPenerima}
-                </p>
-                {/* <i className="fas fa-angle-right next"></i> */}
+                <div className="box-deskripsi-ktg">
+                    <p className="deskripsi-kategori-profil">
+                        {deskripsi}
+                        {alamat}
+                        {kota}
+                        {kodePos}
+                        {namaPenerima}
+                    </p>
+                    <span class="material-icons next">
+                        navigate_next
+                    </span>
+                </div>
             </Link>
         </>
     )

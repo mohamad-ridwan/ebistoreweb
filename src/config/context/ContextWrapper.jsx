@@ -1,23 +1,31 @@
 import React from 'react'
-import ApiSemuaHargaProvider from './ApiSemuaHargaContext'
-import ApiSerba10rbProvider from './ApiSerba10rbContext'
-import ApiSerba15rbProvider from './ApiSerba15rbContext'
-import ApiSerba5rbProvider from './ApiSerba5rbContext'
+import { withRouter } from 'react-router-dom'
+import ApiMenuProvider from './ApiMenu'
+import ApiSemuaProdukProvider from './ApiSemuaProduk'
+import ChangeNumberPhoneProvider from './ChangeNumberPhone'
+import GetNumberPhoneProvider from './GetNumberPhone'
 import GetUserLoginProvider from './GetUserLogin.jsx'
+import HelmetProvider from './Helmet'
+import PushToCartProvider from './PushToCart'
+
 
 const ContextWrapper = ({ children }) => {
     return (
-        <GetUserLoginProvider>
-            <ApiSerba15rbProvider>
-                <ApiSerba10rbProvider>
-                    <ApiSerba5rbProvider>
-                        <ApiSemuaHargaProvider>
-                            {children}
-                        </ApiSemuaHargaProvider>
-                    </ApiSerba5rbProvider>
-                </ApiSerba10rbProvider>
-            </ApiSerba15rbProvider>
-        </GetUserLoginProvider>
+        <PushToCartProvider>
+            <HelmetProvider>
+                <GetNumberPhoneProvider>
+                    <ChangeNumberPhoneProvider>
+                        <ApiMenuProvider>
+                            <ApiSemuaProdukProvider>
+                                <GetUserLoginProvider>
+                                    {children}
+                                </GetUserLoginProvider>
+                            </ApiSemuaProdukProvider>
+                        </ApiMenuProvider>
+                    </ChangeNumberPhoneProvider>
+                </GetNumberPhoneProvider>
+            </HelmetProvider>
+        </PushToCartProvider>
     )
 }
 

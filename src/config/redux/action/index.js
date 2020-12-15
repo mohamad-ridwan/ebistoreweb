@@ -1,4 +1,5 @@
 import Axios from 'axios';
+import { useState } from 'react';
 import firebase from '../../firebase';
 
 export const actionUserName = () => (dispatch) => {
@@ -13,12 +14,14 @@ export const registerUserAPI = (data) => (dispatch) => {
         firebase.auth().createUserWithEmailAndPassword(data.email, data.password)
             .then(() => {
                 dispatch({ type: 'CHANGE_LOADING', value: false })
+                alert('Berhasil Register')
             })
             .catch((error) => {
                 var errorCode = error.code;
                 var errorMessage = error.message;
                 console.log(errorCode, errorMessage)
                 dispatch({ type: 'CHANGE_LOADING', value: false })
+                alert('Masukkan Email Dengan Benar!')
             })
     )
 }
@@ -49,10 +52,10 @@ export const loginUserAPI = (data) => (dispatch) => {
     })
 }
 
-export const getAllDataApi = () => {
-    Axios.get('http://localhost:6235/v8/makaroni/getall/')
+export const getAllDataApi = (id) => {
+    Axios.get(`http://localhost:6235/v8/makaroni/getall?page=${id}`)
         .then(res => {
-            console.log(res)
+
         })
         .catch(err => {
             console.log(err)

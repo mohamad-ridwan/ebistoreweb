@@ -9,12 +9,6 @@ import { useState } from 'react'
 
 const FormLogin = (props) => {
 
-    // const histori = useHistory();
-
-    // const handleHome = ()=>{
-    //     histori.push('/beranda')
-    // }
-
     let [show, setShow] = useState(false)
 
     return (
@@ -43,7 +37,7 @@ const FormLogin = (props) => {
                         </div>
 
 
-                        <form className="form-login">
+                        <div className="form-login">
                             <div className="box-input email"
                                 style={{
                                     display: `${props.displayUser}`
@@ -68,20 +62,23 @@ const FormLogin = (props) => {
 
                                 </div>
                             </div>
-                            <form onSubmit={props.onSubmit} className="box-input">
+                            <form onSubmit={props.onSubmit} className="box-input password">
                                 <i className="fas fa-key iconLeft"></i>
                                 <input type={show ? 'text' : 'password'} id={props.password} className="txt-input" placeholder="Masukkan Password"
                                     onChange={props.onChangePassword}
                                     value={props.valuePassword}
-                                    onSubmit={props.onSubmit}
                                 />
-                                <i className={show ? 'fas fa-eye-slash eye' : 'fas fa-eye eye'}
+                                <i className={'fas fa-eye eye'}
+                                    style={{
+                                        color: show ? '#ffa835' : '#ccc',
+                                        transition: '0.3s ease'
+                                    }}
                                     onClick={() => {
                                         setShow(!show)
                                     }}
                                 ></i>
                             </form>
-                        </form>
+                        </div>
                     </div>
                 </section>
 

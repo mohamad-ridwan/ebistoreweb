@@ -13,9 +13,14 @@ import firebase from 'firebase/app';
 import Spinner from '../../../componentcard/spinner/Spinner'
 import { useContext } from 'react'
 import { GetUserLogin } from '../../../config/context/GetUserLogin.jsx'
+import { ChangeNumberPhone } from '../../../config/context/ChangeNumberPhone'
+import { GetNumberPhone } from '../../../config/context/GetNumberPhone'
+import Helmet from '../../../componentcard/helmet/Helmet'
 
 const PageProfil = () => {
 
+    const [getChangeTxt, setGetChangeTxt] = useContext(ChangeNumberPhone)
+    const [getDataHp, setGetDataHp, handleUpdate] = useContext(GetNumberPhone)
     const [alamat, setAlamat] = useState([])
     const [getUser, setGetUser] = useContext(GetUserLogin)
     const [view, setView] = useState(false)
@@ -71,15 +76,12 @@ const PageProfil = () => {
                 const nameUser = user.displayName
                 const photoUser = user.photoURL
                 const sayHi = 'Hi !'
-                const numberPhone = user.phoneNumber
-                const numberPhoneDefault = 'Kamu belum memiliki nomer hp yang tercantum'
 
                 setGetUser({
                     email: emailUser,
                     hi: sayHi,
                     name: nameUser || emailUser,
                     photo: photoUser || newProfil,
-                    numberPhone: numberPhone || numberPhoneDefault
                 })
 
             } else {
@@ -87,12 +89,10 @@ const PageProfil = () => {
                 const photoDefault = newProfil
                 const nameDefault = 'User'
                 const emailDefault = 'Kamu belum memiliki Email yang tercantum'
-                const numberPhoneDefault = 'Kamu belum memiliki nomer hp yang tercantum'
                 setGetUser({
                     photo: photoDefault,
                     name: nameDefault,
                     email: emailDefault,
-                    numberPhone: numberPhoneDefault
                 })
             }
         })
@@ -105,7 +105,10 @@ const PageProfil = () => {
 
     return (
         <>
-
+            <Helmet
+                titleHelmet={'Profil | Ebi Store'}
+                contentHelmet={'halaman profil | Ebi Strore'}
+            />
             <div className="wrapp-profil">
                 <NavbarPageCard
                     linkPage={'/'}
@@ -133,7 +136,7 @@ const PageProfil = () => {
                     </div>
                 </div>
                 {/* END Img Modals */}
-                <div className="box-white">
+                <div className="box-white-profile">
                     {/* Box orange */}
                     <div className="box-orange">
                         <p className="name-profil">
@@ -151,12 +154,64 @@ const PageProfil = () => {
                     {/* end box orange */}
 
                     <div className="box-kategori">
+                        <KategoriProfil
+                            pageKtg={'/profil/nama-profil'}
+                            linkKategori={'link-kategori'}
+                            icon={'fas fa-user-tie'}
+                            title={'Nama'}
+                            deskripsi={getUser.name}
+                        />
+
+                        <KategoriProfil
+                            pageKtg={'/profil/email'}
+                            linkKategori={'link-kategori'}
+                            icon={'fas fa-envelope'}
+                            title={'Email'}
+                            deskripsi={getUser.email}
+                        />
+
+                        {/* {getDataHp && (
+                            <KategoriProfil
+                                // onClick={() => handleUpdate(e.phoneUser)}
+                                // key={e._id}
+                                pageKtg={'/nomerprofil'}
+                                linkKategori={'link-kategori'}
+                                icon={'fas fa-mobile'}
+                                title={'No Hp.'}
+                                deskripsi={getDataHp.data.phoneUser || 'Kamu belum memiliki nomer hp yang tercantum'}
+                            />
+                        )} */}
+
+                        {getDataHp && getDataHp.length > 0
+                            ? getDataHp.map(e => {
+                                return (
+                                    <KategoriProfil
+                                        onClick={() => handleUpdate(e._id)}
+                                        key={e._id}
+                                        pageKtg={'/profil/nomer-profil'}
+                                        linkKategori={'link-kategori'}
+                                        icon={'fas fa-mobile'}
+                                        title={'No Hp.'}
+                                        deskripsi={e.phoneUser || 'Kamu belum memiliki nomer hp yang tercantum'}
+                                    />
+                                )
+                            }) : (
+                                <KategoriProfil
+                                    onClick={() => handleUpdate()}
+                                    pageKtg={'/profil/nomer-profil'}
+                                    linkKategori={'link-kategori'}
+                                    icon={'fas fa-mobile'}
+                                    title={'No Hp.'}
+                                    deskripsi={'Kamu belum memiliki nomer hp yang tercantum'}
+                                />
+                            )}
+
                         {alamat && alamat.length > 0
                             ? alamat.map(e => {
                                 return (
                                     <>
                                         <KategoriProfil
-                                            pageKtg={'/pagealamat'}
+                                            pageKtg={'/profil/alamat'}
                                             linkKategori={'link-kategori'}
                                             icon={'fas fa-home'}
                                             title={'Alamat'}
@@ -169,7 +224,7 @@ const PageProfil = () => {
                                 )
                             }) : (
                                 <KategoriProfil
-                                    pageKtg={'/pagealamat'}
+                                    pageKtg={'/profil/alamat'}
                                     linkKategori={'link-kategori'}
                                     icon={'fas fa-home'}
                                     title={'Alamat'}
@@ -177,26 +232,6 @@ const PageProfil = () => {
                                 />
                             )}
 
-                        <KategoriProfil
-                            pageKtg={'/namaprofil'}
-                            linkKategori={'link-kategori'}
-                            icon={'fas fa-user-tie'}
-                            title={'Nama'}
-                            deskripsi={getUser.name}
-                        />
-                        <KategoriProfil
-                            linkKategori={'link-kategori'}
-                            icon={'fas fa-envelope'}
-                            title={'Email'}
-                            deskripsi={getUser.email}
-                        />
-                        <KategoriProfil
-                            pageKtg={'/nomerprofil'}
-                            linkKategori={'link-kategori'}
-                            icon={'fas fa-mobile'}
-                            title={'No Hp.'}
-                            deskripsi={getUser.numberPhone}
-                        />
                     </div>
                 </div>
 

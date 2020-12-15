@@ -27,13 +27,13 @@ const Navbar = () => {
 
     const pushNotifikasi = () => {
         histori.push({
-            pathname: '/pagenotifikasi'
+            pathname: '/notifikasi'
         })
     }
 
     const pushProfil = () => {
         histori.push({
-            pathname: '/pageprofil'
+            pathname: '/profil'
         })
     }
 
@@ -96,7 +96,7 @@ const Navbar = () => {
                         {/* Name Brand */}
                         <div className="nm-brand-navbar">
                             {/* Link Img Profile */}
-                            <Link to='/pageprofil' className="circ-img-profile-navbar">
+                            <Link to='/profil' className="circ-img-profile-navbar">
                                 <img src={getUser.photo} className="img-profile-navbar" alt="" />
                             </Link>
                             {/* END Link Img Profile */}
@@ -114,7 +114,7 @@ const Navbar = () => {
 
                 {/* Row2 */}
                 <div className="row2-navbar">
-                    <Link to='/pagekeranjang' className="box-icon iconCart">
+                    <Link to='/keranjang/1' className="box-icon iconCart">
                         <i className="fas fa-shopping-cart"></i>
                     </Link>
                     <Link className="box-icon"

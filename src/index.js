@@ -1,21 +1,19 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App.jsx';
 import * as serviceWorker from './serviceWorker';
-import firebase from './config/firebase';
 import { Provider } from 'react-redux';
 import { store } from './config/redux';
 import ContextWrapper from './config/context/ContextWrapper.jsx';
+import { BrowserRouter } from 'react-router-dom';
 
 ReactDOM.render(
-  <ContextWrapper>
-    <Provider store={store}>
-      <React.StrictMode>
-        <App />
-      </React.StrictMode>
-    </Provider>
-  </ContextWrapper>,
+  <BrowserRouter>
+    <React.StrictMode>
+      <App />
+    </React.StrictMode>
+  </BrowserRouter>,
   document.getElementById('root')
 );
 

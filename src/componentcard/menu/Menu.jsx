@@ -13,7 +13,6 @@ const Menu = ({ linkPage, nameMenu, clickToPage, link }) => {
     return (
         <>
             <NavLink
-                // onClick={goToPage}
                 to={link} className="btn-kategori" activeClassName={'active-menu'}>
                 {nameMenu}
             </NavLink>

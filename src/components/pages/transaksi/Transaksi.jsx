@@ -1,40 +1,44 @@
 import React from 'react'
 import NavbarPageCard from '../../../componentcard/navbarpagecard/NavbarPageCard'
 import './Transaksi.scss'
-import img from '../../../img/enambelas.jpg'
-import { useState } from 'react'
 import Axios from 'axios'
-import { useEffect } from 'react'
-import Alamat from '../../../componentcard/alamat/Alamat'
-import indo from '../../../img/indomaret.svg'
-import { Link } from 'react-router-dom'
-import BtnCard from '../../../componentcard/btncard/BtnCard'
 import { Component } from 'react'
 import { withRouter } from 'react-router-dom'
-import BoxWhite from '../../../componentcard/boxwhite/BoxWhite'
 import DetailCard from '../../../componentcard/detailcard/DetailCard'
+import Helmet from '../../../componentcard/helmet/Helmet'
+import API from '../../../service'
 
 class Transaksi extends Component {
 
     state = {
-        alamat: [],
+        alamat: {
+            _id: '',
+            alamat: '',
+            kota: '',
+            kodePos: '',
+            namaPenerima: ''
+        },
         // Jika ingin melakukan mapping data
         // maka di perlukan array custom untuk menSupport mapping
-        produk: {
-            _id: '',
-            label: '',
-            name: '',
-            price: '',
-            image: ''
-        },
-        totalBeli: 1
+        produk: [
+            {
+                _id: '',
+                label: '',
+                name: '',
+                price: '',
+                image: ''
+            }
+        ],
+        totalBeli: 1,
+        totalPrice: 1
     }
 
     handlePlus = () => {
         // update value state total beli ke value yg di tambahkan
         this.setState({
             // call propertynya
-            totalBeli: this.state.totalBeli + 1
+            totalBeli: this.state.totalBeli + 1,
+            price: this.state.price * 2
         })
     }
 
@@ -44,40 +48,51 @@ class Transaksi extends Component {
         if (this.state.totalBeli > 1) {
             // Jalankan value lebih besar dr 0
             this.setState({
-                totalBeli: this.state.totalBeli - 1
+                totalBeli: this.state.totalBeli - 1,
+                price: this.state.price * 2
             })
         }
+    }
+
+    handleBackToPageDetailProduk = () => {
+        const id = this.props.match.params.id
+        this.props.history.push(`/detail-produk/${id}`)
     }
 
     // Data Produk
     produkAPI = () => {
         let id = this.props.match.params.id
-        Axios.get(`http://localhost:62542/v8/makaroni/getall/${id}`)
+        API.APIDetailProduk(id)
             .then(result => {
                 let post = result.data
-                console.log(result.data)
                 this.setState({
-                    produk: {
-                        _id: post.data._id,
-                        label: post.data.label,
-                        name: post.data.name,
-                        price: post.data.price,
-                        image: post.data.image
-                    }
+                    produk: [
+                        {
+                            _id: post._id,
+                            label: post.label,
+                            name: post.name,
+                            price: post.price,
+                            image: post.image
+                        }
+                    ]
                 })
-            })
-            .catch(err => {
-                console.log('failed in get produk', err)
             })
     }
     // end data produk
 
     // Alamat
     alamatAPI = () => {
-        Axios.get('http://localhost:62542/v5/dataalamat/getalamat')
+        Axios.get('http://localhost:6235/v5/dataalamat/getalamat')
             .then(result => {
+                const respon = result.data
                 this.setState({
-                    alamat: result.data.dataAlamat
+                    alamat: {
+                        _id: respon._id,
+                        alamat: respon.alamat,
+                        kota: respon.kota,
+                        kodePos: respon.kodePos,
+                        namaPenerima: respon.namaPenerima
+                    }
                 })
             })
             .catch(err => {
@@ -86,44 +101,49 @@ class Transaksi extends Component {
     }
     // END Alamat
 
-    // hitung total
-    hitungTotal = () => {
-        const hargaMakaroni = parseInt(2000)
-        const hargaKurir = parseInt(5000)
-
-        const total = hargaKurir + hargaMakaroni
-        console.log('hasil :', total.toString());
-    }
-    // end hitung total
-
     componentDidMount() {
         this.alamatAPI();
         this.produkAPI();
-        this.hitungTotal.toString()
     }
 
     render() {
         return (
             <>
+                {this.state.produk.map(e => {
+                    return (
+                        <Helmet
+                            titleHelmet={`Transaksi | ${e.name} | Ebi Store`}
+                            contentHelmet={`halaman transaksi | ${e.name} | Ebi Store`}
+                        />
+                    )
+                })}
+
                 <div className="wrapp-transaksi">
                     <NavbarPageCard
-                        linkPage={'/'}
+                        backPage={this.handleBackToPageDetailProduk}
                         titlePageNav={'Transaksi'}
                     />
                     {/* detail produk pesanan */}
 
-                    <DetailCard
-                        name={"Makaroni Original"}
-                        price={"5.000"}
-                        displayStock={"none"}
-                        deskripsi={"Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat dolores id eveniet commodi, quas aspernatur facere necessitatibus dolor soluta provident."}
-                        img={img}
-                        displayCart={"none"}
-                        displayBtn={"none"}
-                        minus={this.handleMinus}
-                        plus={this.handlePlus}
-                        valueInput={this.state.totalBeli}
-                    />
+                    {this.state.produk.map(e => {
+                        return (
+                            <DetailCard
+                                data={e}
+                                totalPrice={e.price}
+                                displayStock={"none"}
+                                img={`http://localhost:6235/${e.image}`}
+                                displayCart={"none"}
+                                displayBtn={"none"}
+                                minus={this.handleMinus}
+                                plus={this.handlePlus}
+                                valueInput={this.state.totalBeli}
+                                alamat={this.state.alamat.alamat}
+                                kota={this.state.alamat.kota}
+                                kodePos={this.state.alamat.kodePos}
+                                namaPenerima={this.state.alamat.namaPenerima}
+                            />
+                        )
+                    })}
                 </div>
             </>
         )

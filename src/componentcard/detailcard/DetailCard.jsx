@@ -26,7 +26,7 @@ const DetailCard = (props) => {
                     display: `${props.displayCart}`
                 }}>
                     <i className="fas fa-shopping-cart cart" id="iconGroup"
-                        onClick={() => props.toPageShopp(props.data._id)}
+                        onClick={props.toPageShopp}
                     ></i>
                 </div>
 
@@ -61,7 +61,9 @@ const DetailCard = (props) => {
                     </p>
 
                     {/* For Page Transaksi */}
-                    <div className="box-input-total">
+                    <div className="box-input-total" style={{
+                        display: `${props.displayInputTotalOrder}`
+                    }}>
                         <button className="btn-minus btnGroup"
                             onClick={props.minus}
                         >
@@ -86,7 +88,13 @@ const DetailCard = (props) => {
                             </p>
 
                             <p className="txt-alamat">
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Est, fugit.
+                                {props.alamat}
+                                <br />
+                                {props.kota}
+                                <br />
+                                {props.kodePos}
+                                <br />
+                                {props.namaPenerima}
                             </p>
 
                             <p className="pengiriman fontGroup">
@@ -117,7 +125,7 @@ const DetailCard = (props) => {
                                 <p className="total-belanja">
                                     Total bayar
                                     <br />
-                                    Rp7.000
+                                    {props.totalPrice}
                                 </p>
 
                                 <BtnCard
@@ -149,9 +157,9 @@ const DetailCard = (props) => {
                         bgColor={"#ffa835"}
                         colorP={"#fff6eb"}
                         fontWeight={"bold"}
-                        bxShadow={"0 3px 9px -1px rgba(0,0,0,0.2)"}
-                        link={"/transaksi/1"}
-                    // goTo={() => props.buy(props.data._id)}
+                        bxShadow={"0px 5px 15px -5px #ffa835"}
+                        // link={"/transaksi/1"}
+                        goTo={() => props.buy(props.data._id)}
                     />
                 </div>
                 {/* end deskripsi produk */}
