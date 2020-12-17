@@ -6,6 +6,8 @@ import { Component } from 'react'
 import DetailCard from '../../../componentcard/detailcard/DetailCard'
 import Helmet from '../../../componentcard/helmet/Helmet'
 import API from '../../../service'
+import Spinner from '../../../componentcard/spinner/Spinner'
+import Axios from 'axios'
 
 class DetailProduk extends Component {
 
@@ -26,6 +28,16 @@ class DetailProduk extends Component {
             name: '',
             price: ''
         },
+        getDataForLoading: []
+    }
+
+    getAPIForLoading = () => {
+        API.APISerba5rb()
+            .then((result) => {
+                this.setState({
+                    getDataForLoading: result.data
+                })
+            })
     }
 
     // addCart = (_id) => {
@@ -78,42 +90,51 @@ class DetailProduk extends Component {
                     ]
                 })
             })
+        this.getAPIForLoading()
     }
 
     render() {
 
         return (
             <>
-                {this.state.post.map((e) => {
-                    return (
-                        <Helmet
-                            titleHelmet={`Detail Produk | ${e.name} | Ebi Store`}
-                            contentHelmet={`halaman detail produk | ${e.name} | Ebi Store`}
-                        />
-                    )
-                })}
+                {this.state.getDataForLoading.length > 0 ? (
+                    <>
+                        {this.state.post.map((e) => {
+                            return (
+                                <Helmet
+                                    titleHelmet={`Detail Produk | ${e.name} | Ebi Store`}
+                                    contentHelmet={`halaman detail produk | ${e.name} | Ebi Store`}
+                                />
+                            )
+                        })}
 
-                <div className="wrapp-detail-produk">
-                    <NavbarPageCard
-                        linkPage={'/'}
-                        titlePageNav={'Detail Produk'}
-                    />
-
-                    {this.state.post.map(e => {
-                        return (
-                            <DetailCard
-                                key={e._id}
-                                data={e}
-                                img={`http://localhost:6235/${e.image}`}
-                                buy={this.handleTransaksi}
-                                toPageShopp={() => this.addCart(e._id)}
-                                displayBoxAlamat={"none"}
-                                valueInput={this.state.order}
-                                displayInputTotalOrder={'none'}
+                        <div className="wrapp-detail-produk">
+                            <NavbarPageCard
+                                linkPage={'/'}
+                                titlePageNav={'Detail Produk'}
                             />
-                        )
-                    })}
-                </div>
+
+                            {this.state.post.map(e => {
+                                return (
+                                    <DetailCard
+                                        key={e._id}
+                                        data={e}
+                                        img={`http://localhost:6235/${e.image}`}
+                                        buy={this.handleTransaksi}
+                                        toPageShopp={() => this.addCart(e._id)}
+                                        displayBoxAlamat={"none"}
+                                        valueInput={this.state.order}
+                                        displayInputTotalOrder={'none'}
+                                    />
+                                )
+                            })}
+                        </div>
+                    </>
+                ) : (
+                        <Spinner
+                            bgColorLoading={'#ffa835'}
+                        />
+                    )}
             </>
         )
     }

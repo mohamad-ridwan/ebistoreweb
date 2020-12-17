@@ -14,7 +14,8 @@ const GetUserLoginProvider = ({ children }) => {
         name: '',
         photo: '',
         hi: '',
-        numberPhone: ''
+        numberPhone: '',
+        imageUpload: []
     })
     // END get user login
 

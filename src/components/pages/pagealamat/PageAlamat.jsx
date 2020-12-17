@@ -1,123 +1,162 @@
 import Axios from 'axios'
 import { action, createStore } from 'easy-peasy'
-import React from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Component } from 'react'
-import { Link, withRouter } from 'react-router-dom'
+import { Link, useHistory, withRouter } from 'react-router-dom'
 import BtnCard from '../../../componentcard/btncard/BtnCard'
 import FormAlamat from '../../../componentcard/formalamat/FormAlamat'
 import Helmet from '../../../componentcard/helmet/Helmet'
 import NavbarPageCard from '../../../componentcard/navbarpagecard/NavbarPageCard'
+import Spinner from '../../../componentcard/spinner/Spinner'
 import API from '../../../service'
+import firebase from 'firebase/app';
 import './PageAlamat.scss'
+import { GetUserLogin } from '../../../config/context/GetUserLogin'
+import { DbFirebaseContext } from '../../../config/context/DbFirebase'
 
-class PageAlamat extends Component {
+const PageAlamat = () => {
 
-    state = {
-        formAlamat: {
-            id: 1,
-            alamat: '',
-            kota: '',
-            kodePos: '',
-            namaPenerima: ''
+    const [dataUser, setDataUser, addDataFirebase] = useContext(DbFirebaseContext)
+    const [getUser, setGetUser] = useContext(GetUserLogin)
+    const [alamat, setAlamat] = useState([])
+    const [dataAlamat, setDataAlamat] = useState({
+        alamat: '',
+        kota: '',
+        kodePos: '',
+        namaPenerima: ''
+    })
+
+    const handleChange = (e) => {
+        const newDataAlamat = { ...dataAlamat }
+        newDataAlamat[e.target.name] = e.target.value
+        setDataAlamat(newDataAlamat)
+    }
+
+    const handleSubmit = () => {
+        const { alamat, kota, kodePos, namaPenerima } = dataAlamat
+        const data = {
+            alamat: alamat,
+            kota: kota,
+            kodePos: kodePos,
+            namaPenerima: namaPenerima,
+            date: new Date().getTime(),
+            userId: dataUser.uid
         }
+        addDataFirebase(data)
+        console.log('hasil:', data)
     }
 
-    handleFormChange = (event) => {
-        const formAlamatNew = { ...this.state.formAlamat };
-        const timestamp = new Date().getTime()
-        formAlamatNew['id'] = timestamp
-        formAlamatNew[event.target.name] = event.target.value
-        this.setState({
-            formAlamat: formAlamatNew
-        })
+    const history = useHistory()
+
+    const toProfil = (user) => {
+        history.push(`/profil/${user}`)
     }
 
-    postAlamat = () => {
-        const data = this.state.formAlamat
-        API.APIPostAlamat(data)
-            .then((res) => {
-                alert('Alamat berhasil tersimpan di profil')
+    const getAPIForLoading = () => {
+        API.APISerba5rb()
+            .then((result) => {
+                setAlamat(result.data)
             })
     }
 
-    handleSubmit = (e) => {
-        e.preventDefault()
-        const alertConfirm = window.confirm('Data Alamat Sudah Benar?')
-        if (alertConfirm === true) {
-            this.postAlamat()
-        }
+    const getFirebase = () => {
+        firebase.auth().onAuthStateChanged(function (user) {
+            if (user) {
+                const nameUser = user.displayName
+                const emailUser = user.email
+
+                // setGetUser({
+                //     name: nameUser,
+                //     email: emailUser
+                // })
+            } else {
+                // No user is signed in.
+            }
+        });
     }
 
-    render() {
+    useEffect(() => {
+        getAPIForLoading();
+        getFirebase();
+    }, [])
 
-        return (
-            <>
-                <Helmet
-                    titleHelmet={'Alamat | Ebi Store'}
-                    contentHelmet={'halaman form alamat | Ebi Store'}
-                />
-                <NavbarPageCard
-                    linkPage={'/profil'}
-                    position={'absolute'}
-                    titlePageNav={'Form Alamat'}
-                    transparant={"transparant"}
-                    color={"#fff"}
-                />
-                <div className="wrapper-alamat">
-                    <div className="box-orange">
-                        <FormAlamat
-                            title={"Alamat"}
-                            valueName={"alamat"}
-                            placeholder={"Masukkan Nama Jalan Rumah / Blok / No / RT/RW"}
-                            fungsiAutoFocus={'autoFocus'}
-                            handle={this.handleFormChange}
-                        />
-                        <FormAlamat
-                            title={"Kota atau Kecamatan"}
-                            valueName={"kota"}
-                            placeholder={"Masukkan Kota / Kecamatan"}
-                            handle={this.handleFormChange}
-                        />
-                        <FormAlamat
-                            title={"Kode Pos"}
-                            valueName={"kodePos"}
-                            placeholder={"Masukkan Kode Pos"}
-                            handle={this.handleFormChange}
-                        />
-                        <FormAlamat
-                            title={"Nama Penerima"}
-                            valueName={"namaPenerima"}
-                            placeholder={"Masukkan Nama Penerima"}
-                            handle={this.handleFormChange}
-                            submit={this.handleSubmit}
-                        />
-
-                        <Link style={{
-                            textDecoration: 'none',
-                            overflow: 'hidden'
-                        }}
-                            onClick={this.handleSubmit}
-                        >
-                            <BtnCard
-                                // display={props.displayBtnTransaksis}
-                                heightBtn={'40px'}
-                                widthBtn={'auto'}
-                                btnName={'Simpan Alamat'}
-                                marginBtn={'10px'}
-                                bdrRadius={"100px"}
-                                bgColor={"#ffa835"}
-                                colorP={"#fff"}
-                                fontWeight={"bold"}
-                                bxShadow={"0 3px 9px -1px rgba(0,0,0,0.2)"}
-                            // link={"/pageprofil"}
-                            // goTo={() => props.buy(props.data._id)}
+    return (
+        <>
+            {alamat && alamat.length > 0 ? (
+                <>
+                    <Helmet
+                        titleHelmet={`Alamat | ${getUser.name || getUser.email} | Ebi Store`}
+                        contentHelmet={`halaman form alamat | ${getUser.name || getUser.email} | Ebi Store`}
+                    />
+                    <NavbarPageCard
+                        backPage={() => toProfil(getUser.name || getUser.email)}
+                        position={'absolute'}
+                        titlePageNav={'Form Alamat'}
+                        transparant={"transparant"}
+                        color={"#fff"}
+                    />
+                    <div className="wrapper-alamat">
+                        <div className="box-orange">
+                            <FormAlamat
+                                title={"Alamat"}
+                                valueName={"alamat"}
+                                placeholder={"Masukkan Nama Jalan Rumah / Blok / No / RT/RW"}
+                                fungsiAutoFocus={'autoFocus'}
+                                handle={handleChange}
                             />
-                        </Link>
+                            <FormAlamat
+                                title={"Kota atau Kecamatan"}
+                                valueName={"kota"}
+                                placeholder={"Masukkan Kota / Kecamatan"}
+                                handle={handleChange}
+                            />
+                            <FormAlamat
+                                title={"Kode Pos"}
+                                valueName={"kodePos"}
+                                placeholder={"Masukkan Kode Pos"}
+                                handle={handleChange}
+                            />
+                            <FormAlamat
+                                title={"Nama Penerima"}
+                                valueName={"namaPenerima"}
+                                placeholder={"Masukkan Nama Penerima"}
+                                handle={handleChange}
+                                submit={handleSubmit}
+                            />
+
+                            <Link style={{
+                                textDecoration: 'none',
+                                overflow: 'hidden'
+                            }}
+                                onClick={handleSubmit}
+                            >
+                                <BtnCard
+                                    // display={props.displayBtnTransaksis}
+                                    heightBtn={'40px'}
+                                    widthBtn={'auto'}
+                                    btnName={'Simpan Alamat'}
+                                    marginBtn={'10px'}
+                                    bdrRadius={"100px"}
+                                    bgColor={"#ffa835"}
+                                    colorP={"#fff"}
+                                    fontWeight={"bold"}
+                                    bxShadow={"0 3px 9px -1px rgba(0,0,0,0.2)"}
+                                // link={"/pageprofil"}
+                                // goTo={() => props.buy(props.data._id)}
+                                />
+                            </Link>
+                        </div>
                     </div>
-                </div>
-            </>
-        )
-    }
+                </>
+            ) : (
+                    <Spinner
+                        bgColorLoading={'#ffa835'}
+                    />
+                )}
+
+        </>
+    )
 }
+
 
 export default withRouter(PageAlamat)

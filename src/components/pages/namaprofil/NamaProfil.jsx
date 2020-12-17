@@ -6,6 +6,7 @@ import NavbarPageCard from '../../../componentcard/navbarpagecard/NavbarPageCard
 import './NamaProfil.scss'
 import firebase from 'firebase/app';
 import Helmet from '../../../componentcard/helmet/Helmet'
+import { useHistory } from 'react-router'
 // import Helmet from 'react-helmet'
 
 const NamaProfil = () => {
@@ -28,6 +29,12 @@ const NamaProfil = () => {
             data: newGetUser
         })
 
+    }
+
+    const history = useHistory()
+
+    const toProfil = (user) => {
+        history.push(`/profil/${user}`)
     }
 
     useEffect(() => {
@@ -62,11 +69,11 @@ const NamaProfil = () => {
     return (
         <>
             <Helmet
-                titleHelmet={'Nama Profil | Ebi Store'}
-                contentHelmet={'halaman rubah nama profil | Ebi Store'}
+                titleHelmet={`Nama Profil | ${getUser.data.name || getUser.data.email} | Ebi Store`}
+                contentHelmet={`halaman rubah nama profil | ${getUser.data.name || getUser.data.email} | Ebi Store`}
             />
             <NavbarPageCard
-                linkPage={'/profil'}
+                backPage={() => toProfil(getUser.data.name || getUser.data.email)}
                 position={'absolute'}
                 titlePageNav={'Rubah Nama'}
                 transparant={"transparant"}

@@ -15,6 +15,7 @@ import newProfil from '../../../img/newprofil.png'
 import { GetUserLogin } from '../../../config/context/GetUserLogin.jsx'
 import Helmet from '../../../componentcard/helmet/Helmet'
 import API from '../../../service'
+import Spinner from '../../../componentcard/spinner/Spinner'
 
 const PageBeranda = () => {
 
@@ -23,6 +24,10 @@ const PageBeranda = () => {
     const [getSerba5rb, setGetSerba5rb] = useState([])
     const [getSerba10rb, setGetSerba10rb] = useState([])
     const [getSerba15rb, setGetSerba15rb] = useState([])
+    const [getMenuSemuaHarga, setGetMenuSemuaHarga] = useState()
+    const [getMenuSerba5rb, setGetMenuSerba5rb] = useState([])
+    const [getMenuSerba10rb, setGetMenuSerba10rb] = useState([])
+    const [getMenuSerba15rb, setGetMenuSerba15rb] = useState([])
 
     const getDataAPI = () => {
         API.APISemuaHarga()
@@ -44,6 +49,26 @@ const PageBeranda = () => {
             .then(res => {
                 const respon = res.data
                 setGetSerba15rb(respon)
+            })
+        API.APIMenuSemuaHarga()
+            .then(res => {
+                const respon = res.data
+                setGetMenuSemuaHarga(respon)
+            })
+        API.APIMenuSerba5rb()
+            .then(res => {
+                const respon = res.data
+                setGetMenuSerba5rb(respon)
+            })
+        API.APIMenuSerba10rb()
+            .then(res => {
+                const respon = res.data
+                setGetMenuSerba10rb(respon)
+            })
+        API.APIMenuSerba15rb()
+            .then(res => {
+                const respon = res.data
+                setGetMenuSerba15rb(respon)
             })
     }
 
@@ -88,14 +113,18 @@ const PageBeranda = () => {
         histori.push('/notifikasi')
     }
 
-    const pushProfil = () => {
-        histori.push('/profil')
+    const pushProfil = (user) => {
+        histori.push(`/profil/${user}`)
     }
 
     const params = useHistory()
 
     const handleDetail = (_id) => {
         params.push(`/detail-produk/${_id}`)
+    }
+
+    const toDbFirebase = () => {
+        histori.push('/db-firebase')
     }
 
     // carousel react-slick
@@ -122,245 +151,263 @@ const PageBeranda = () => {
 
     return (
         <>
-            <Helmet
-                titleHelmet={'Ebi Store'}
-                contentHelmet={'halaman beranda | Ebi Store'}
-            />
-            <Navbar />
-            <div className="wrapper-pageBeranda">
-                <section className="section1-pageBeranda">
-                    <p className="title-home">
-                        <i className="fas fa-home"></i>Beranda
-                    </p>
-                    <Link to='/keranjang/1' className="box-icon iconCart">
-                        <i className="fas fa-shopping-cart"></i>
-                    </Link>
-                    <Link className="box-icon"
-                        onClick={pushNotifikasi}
-                    >
-                        <i class="far fa-bell"></i>
-                    </Link>
-                </section>
+            {getSerba5rb && getSerba5rb.length > 0 ? (
+                <>
+                    <Helmet
+                        titleHelmet={'Ebi Store'}
+                        contentHelmet={'halaman beranda | Ebi Store'}
+                    />
+                    <Navbar />
+                    <div className="wrapper-pageBeranda">
+                        <section className="section1-pageBeranda">
+                            <p className="title-home">
+                                <i className="fas fa-home"
+                                    onClick={() => toDbFirebase()}
+                                ></i>Beranda
+                </p>
+                            <Link to='/keranjang/1' className="box-icon iconCart">
+                                <i className="fas fa-shopping-cart"></i>
+                            </Link>
+                            <Link className="box-icon"
+                                onClick={pushNotifikasi}
+                            >
+                                <i class="far fa-bell"></i>
+                            </Link>
+                        </section>
 
-                {/* Profil */}
-                <section className="container-profil">
-                    <div className="name-profil">
-                        {getUser.hi}
+                        {/* Profil */}
+                        <section className="container-profil">
+                            <div className="name-profil">
+                                {getUser.hi}
+                                <br />
+                                {getUser.name}
+                            </div>
+
+                            <Link
+                                onClick={() => pushProfil(getUser.name || getUser.email)}
+                            >
+                                <img src={getUser.photo} alt="" className="img-profil" />
+                            </Link>
+                        </section>
+                        {/* END Profil */}
+
+                        <JudulCard
+                            txtJudul={"New"}
+                            page={'/semua-produk/9'}
+                            pagination={`• 10 Makaroni`}
+                        />
+                        {/* Container New produk */}
+                        <section className="container-new-produk">
+                            <Slider {...settings2} className="boxSlide">
+                                <img src={imgNew} alt="" className="img-new-produk" />
+                                <img src={imgNew} alt="" className="img-new-produk" />
+                                <img src={imgNew} alt="" className="img-new-produk" />
+                                <img src={imgNew} alt="" className="img-new-produk" />
+                            </Slider>
+                        </section>
+                        {/* END Container new produk */}
+
+                        {/* Section 2 */}
+                        <section className="section-2-pageBeranda" id="secGroup">
+                            {/* Judul */}
+                            {getMenuSemuaHarga && (
+                                <JudulCard
+                                    txtJudul={getMenuSemuaHarga.nameMenu}
+                                    page={'/semua-produk/1'}
+                                />
+                            )}
+                            {/* END Judul */}
+
+                            {/* Section Semua Harga */}
+                            <div className="box-group">
+                                <Slider {...settings} className="boxSlide">
+                                    {getSemuaHarga && getSemuaHarga.length > 0
+                                        ? getSemuaHarga.map(e => {
+                                            return (
+                                                <>
+                                                    <BoxCard
+                                                        key={e._id}
+                                                        flxDirectWrapp={"column"}
+                                                        heightWrapp={"auto"}
+                                                        widthWrapp={"calc(90%)"}
+                                                        displayNavBtn={"none"}
+                                                        data={e}
+                                                        image={`http://localhost:6235/${e.image}`}
+                                                        displayBtnBuy={"none"}
+                                                        mrginWrapp={"10px auto"}
+                                                        paddContent={"0px 10px 10px 10px"}
+                                                        mrgnStock={"5px 0 0px 0"}
+                                                        detail={handleDetail}
+                                                    />
+                                                </>
+                                            )
+                                        }) : (
+                                            <div className="oke">FAILED</div>
+                                        )}
+                                </Slider>
+                            </div>
+                            {/* END Section Semua Harga */}
+                        </section>
+                        {/* END Section 2 */}
+
+                        {/* Section 3 */}
+                        <section className="section-3-pageBeranda" id="secGroup">
+                            {/* Judul */}
+                            {getMenuSerba5rb && (
+                                <JudulCard
+                                    txtJudul={getMenuSerba5rb.nameMenu}
+                                    page={'/semua-produk/2'}
+                                />
+                            )}
+                            {/* END Judul */}
+
+                            {/* Section Serba 5rb */}
+                            <div className="box-group">
+                                <Slider {...settings} className="boxSlide">
+                                    {getSerba5rb && getSerba5rb.length > 0
+                                        ? getSerba5rb.map(e => {
+                                            return (
+                                                <>
+                                                    <BoxCard
+                                                        key={e._id}
+                                                        flxDirectWrapp={"column"}
+                                                        heightWrapp={"auto"}
+                                                        widthWrapp={"calc(90%)"}
+                                                        displayNavBtn={"none"}
+                                                        data={e}
+                                                        image={`http://localhost:6235/${e.image}`}
+                                                        displayBtnBuy={"none"}
+                                                        mrginWrapp={"10px auto"}
+                                                        paddContent={"0px 10px 10px 10px"}
+                                                        mrgnStock={"5px 0 0px 0"}
+                                                        detail={handleDetail}
+                                                    />
+                                                </>
+                                            )
+                                        }) : (
+                                            <div className="oke">FAILED</div>
+                                        )}
+                                </Slider>
+                            </div>
+                            {/* END Section Serba 5rb */}
+
+                            {/* Btn View */}
+                            {/* End Btn View */}
+                        </section>
+                        {/* END Section 3 */}
+
+                        {/* Section 4 */}
+                        <section className="section-4-pageBeranda" id="secGroup">
+                            {/* Judul */}
+                            {getMenuSerba10rb && (
+                                <JudulCard
+                                    txtJudul={getMenuSerba10rb.nameMenu}
+                                    page={'/semua-produk/3'}
+                                />
+                            )}
+                            {/* END Judul */}
+
+                            {/* Section Serba 10rb */}
+                            <div className="box-group">
+                                <Slider {...settings} className="boxSlide">
+                                    {getSerba10rb && getSerba10rb.length > 0
+                                        ? getSerba10rb.map(e => {
+                                            return (
+                                                <>
+                                                    <BoxCard
+                                                        key={e._id}
+                                                        flxDirectWrapp={"column"}
+                                                        heightWrapp={"auto"}
+                                                        widthWrapp={"calc(90%)"}
+                                                        displayNavBtn={"none"}
+                                                        data={e}
+                                                        image={`http://localhost:6235/${e.image}`}
+                                                        displayBtnBuy={"none"}
+                                                        mrginWrapp={"10px auto"}
+                                                        paddContent={"0px 10px 10px 10px"}
+                                                        mrgnStock={"5px 0 0px 0"}
+                                                        detail={handleDetail}
+                                                    />
+                                                </>
+                                            )
+                                        }) : (
+                                            <div className="oke">FAILED</div>
+                                        )}
+                                </Slider>
+                            </div>
+                            {/* END Section Serba 10rb */}
+                        </section>
+                        {/* END Section 4 */}
+
+                        {/* Section 5 */}
+                        <div className="section-5-pageBeranda" id="secGroup">
+                            {/* Judul */}
+                            {getMenuSerba15rb && (
+                                <JudulCard
+                                    txtJudul={getMenuSerba15rb.nameMenu}
+                                    page={'/semua-produk/4'}
+                                />
+                            )}
+                            {/* END Judul */}
+
+                            {/* Section Serba 15rb */}
+                            <div className="box-group">
+                                <Slider {...settings} className="boxSlide">
+                                    {getSerba15rb && getSerba15rb.length > 0
+                                        ? getSerba15rb.map(e => {
+                                            return (
+                                                <>
+                                                    <BoxCard
+                                                        key={e._id}
+                                                        flxDirectWrapp={"column"}
+                                                        heightWrapp={"auto"}
+                                                        widthWrapp={"calc(90%)"}
+                                                        displayNavBtn={"none"}
+                                                        data={e}
+                                                        image={`http://localhost:6235/${e.image}`}
+                                                        displayBtnBuy={"none"}
+                                                        mrginWrapp={"10px auto"}
+                                                        paddContent={"0px 10px 10px 10px"}
+                                                        mrgnStock={"5px 0 0px 0"}
+                                                        detail={handleDetail}
+                                                    />
+                                                </>
+                                            )
+                                        }) : (
+                                            <div className="oke">FAILED</div>
+                                        )}
+                                </Slider>
+                            </div>
+                            {/* END Section Serba 15rb */}
+                        </div>
+                        {/* END Section 5 */}
+
+                        {/* Section 6 */}
+                        <div className="section-6-pageBeranda" id="secGroup">
+                            {/* Judul */}
+                            <JudulCard txtJudul={"Promo Akhir Pekan"} />
+                            {/* END Judul */}
+
+                            {/* container promo akhir pekan */}
+                            <div className="container-promo">
+                                <img src={imgPromo} alt="" className="img-promo" />
+
+                                <p className="time-promo">
+                                    Berakhir Pada :
                         <br />
-                        {getUser.name}
+                        Jam: 08.00 Detik: 05
+                    </p>
+                            </div>
+                            {/* end container promo akhir pekan */}
+                        </div>
+                        {/* END Section 6 */}
                     </div>
-
-                    <Link
-                        onClick={pushProfil}
-                    >
-                        <img src={getUser.photo} alt="" className="img-profil" />
-                    </Link>
-                </section>
-                {/* END Profil */}
-
-                <JudulCard
-                    txtJudul={"New"}
-                    page={'/semua-produk/9'}
-                    pagination={`• 10 Makaroni`}
-                />
-                {/* Container New produk */}
-                <section className="container-new-produk">
-                    <Slider {...settings2} className="boxSlide">
-                        <img src={imgNew} alt="" className="img-new-produk" />
-                        <img src={imgNew} alt="" className="img-new-produk" />
-                        <img src={imgNew} alt="" className="img-new-produk" />
-                        <img src={imgNew} alt="" className="img-new-produk" />
-                    </Slider>
-                </section>
-                {/* END Container new produk */}
-
-                {/* Section 2 */}
-                <section className="section-2-pageBeranda" id="secGroup">
-                    {/* Judul */}
-                    <JudulCard
-                        txtJudul={"Semua Harga"}
-                        page={'/semua-produk/1'}
+                </>
+            ) : (
+                    <Spinner
+                        bgColorLoading={'#ffa835'}
                     />
-                    {/* END Judul */}
-
-                    {/* Section Semua Harga */}
-                    <div className="box-group">
-                        <Slider {...settings} className="boxSlide">
-                            {getSemuaHarga && getSemuaHarga.length > 0
-                                ? getSemuaHarga.map(e => {
-                                    return (
-                                        <>
-                                            <BoxCard
-                                                key={e._id}
-                                                flxDirectWrapp={"column"}
-                                                heightWrapp={"auto"}
-                                                widthWrapp={"calc(90%)"}
-                                                displayNavBtn={"none"}
-                                                data={e}
-                                                image={`http://localhost:6235/${e.image}`}
-                                                displayBtnBuy={"none"}
-                                                mrginWrapp={"10px auto"}
-                                                paddContent={"0px 10px 10px 10px"}
-                                                mrgnStock={"5px 0 0px 0"}
-                                                detail={handleDetail}
-                                            />
-                                        </>
-                                    )
-                                }) : (
-                                    <div className="oke">oke</div>
-                                )}
-                        </Slider>
-                    </div>
-                    {/* END Section Semua Harga */}
-                </section>
-                {/* END Section 2 */}
-
-                {/* Section 3 */}
-                <section className="section-3-pageBeranda" id="secGroup">
-                    {/* Judul */}
-                    <JudulCard
-                        txtJudul="Serba 5rb"
-                        page={'/semua-produk/2'}
-                    />
-                    {/* END Judul */}
-
-                    {/* Section Serba 5rb */}
-                    <div className="box-group">
-                        <Slider {...settings} className="boxSlide">
-                            {getSerba5rb && getSerba5rb.length > 0
-                                ? getSerba5rb.map(e => {
-                                    return (
-                                        <>
-                                            <BoxCard
-                                                key={e._id}
-                                                flxDirectWrapp={"column"}
-                                                heightWrapp={"auto"}
-                                                widthWrapp={"calc(90%)"}
-                                                displayNavBtn={"none"}
-                                                data={e}
-                                                image={`http://localhost:6235/${e.image}`}
-                                                displayBtnBuy={"none"}
-                                                mrginWrapp={"10px auto"}
-                                                paddContent={"0px 10px 10px 10px"}
-                                                mrgnStock={"5px 0 0px 0"}
-                                                detail={handleDetail}
-                                            />
-                                        </>
-                                    )
-                                }) : (
-                                    <div className="oke">failed</div>
-                                )}
-                        </Slider>
-                    </div>
-                    {/* END Section Serba 5rb */}
-
-                    {/* Btn View */}
-                    {/* End Btn View */}
-                </section>
-                {/* END Section 3 */}
-
-                {/* Section 4 */}
-                <section className="section-4-pageBeranda" id="secGroup">
-                    {/* Judul */}
-                    <JudulCard
-                        txtJudul="Serba 10rb"
-                        page={'/semua-produk/3'}
-                    />
-                    {/* END Judul */}
-
-                    {/* Section Serba 10rb */}
-                    <div className="box-group">
-                        <Slider {...settings} className="boxSlide">
-                            {getSerba10rb && getSerba10rb.length > 0
-                                ? getSerba10rb.map(e => {
-                                    return (
-                                        <>
-                                            <BoxCard
-                                                key={e._id}
-                                                flxDirectWrapp={"column"}
-                                                heightWrapp={"auto"}
-                                                widthWrapp={"calc(90%)"}
-                                                displayNavBtn={"none"}
-                                                data={e}
-                                                image={`http://localhost:6235/${e.image}`}
-                                                displayBtnBuy={"none"}
-                                                mrginWrapp={"10px auto"}
-                                                paddContent={"0px 10px 10px 10px"}
-                                                mrgnStock={"5px 0 0px 0"}
-                                                detail={handleDetail}
-                                            />
-                                        </>
-                                    )
-                                }) : (
-                                    <div className="oke">failed</div>
-                                )}
-                        </Slider>
-                    </div>
-                    {/* END Section Serba 10rb */}
-                </section>
-                {/* END Section 4 */}
-
-                {/* Section 5 */}
-                <div className="section-5-pageBeranda" id="secGroup">
-                    {/* Judul */}
-                    <JudulCard
-                        txtJudul="Serba 15rb"
-                        page={'/semua-produk/4'}
-                    />
-                    {/* END Judul */}
-
-                    {/* Section Serba 15rb */}
-                    <div className="box-group">
-                        <Slider {...settings} className="boxSlide">
-                            {getSerba15rb && getSerba15rb.length > 0
-                                ? getSerba15rb.map(e => {
-                                    return (
-                                        <>
-                                            <BoxCard
-                                                key={e._id}
-                                                flxDirectWrapp={"column"}
-                                                heightWrapp={"auto"}
-                                                widthWrapp={"calc(90%)"}
-                                                displayNavBtn={"none"}
-                                                data={e}
-                                                image={`http://localhost:6235/${e.image}`}
-                                                displayBtnBuy={"none"}
-                                                mrginWrapp={"10px auto"}
-                                                paddContent={"0px 10px 10px 10px"}
-                                                mrgnStock={"5px 0 0px 0"}
-                                                detail={handleDetail}
-                                            />
-                                        </>
-                                    )
-                                }) : (
-                                    <div className="oke">failed</div>
-                                )}
-                        </Slider>
-                    </div>
-                    {/* END Section Serba 15rb */}
-                </div>
-                {/* END Section 5 */}
-
-                {/* Section 6 */}
-                <div className="section-6-pageBeranda" id="secGroup">
-                    {/* Judul */}
-                    <JudulCard txtJudul={"Promo Akhir Pekan"} />
-                    {/* END Judul */}
-
-                    {/* container promo akhir pekan */}
-                    <div className="container-promo">
-                        <img src={imgPromo} alt="" className="img-promo" />
-
-                        <p className="time-promo">
-                            Berakhir Pada :
-                            <br />
-                            Jam: 08.00 Detik: 05
-                        </p>
-                    </div>
-                    {/* end container promo akhir pekan */}
-                </div>
-                {/* END Section 6 */}
-            </div>
+                )}
         </>
     )
 }

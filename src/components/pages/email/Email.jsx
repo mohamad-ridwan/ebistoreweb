@@ -11,10 +11,15 @@ import { useHistory } from 'react-router-dom'
 const Email = () => {
 
     const [userLogin, setUserLogin] = useState({
+        name: '',
         email: ''
     })
 
     const history = useHistory()
+
+    const toProfil = (user) => {
+        history.push(`/profil/${user}`)
+    }
 
     const warning = `Perhatian !
     Hapus Akun tidak dapat lagi untuk login di Ebi Store.
@@ -43,11 +48,13 @@ const Email = () => {
     useEffect(() => {
         firebase.auth().onAuthStateChanged(function (user) {
             if (user) {
+                const nameUser = user.displayName
                 const emailUser = user.email
 
                 // Change data Email User yg login
                 setUserLogin({
-                    email: emailUser
+                    email: emailUser,
+                    name: nameUser
                 })
             } else {
                 // No user is signed in.
@@ -58,11 +65,11 @@ const Email = () => {
     return (
         <>
             <Helmet
-                titleHelmet={'Email | Ebi Store'}
-                contentHelmet={'halaman email | Ebi Store'}
+                titleHelmet={`Email | ${userLogin.name || userLogin.email} | Ebi Store`}
+                contentHelmet={`halaman email | ${userLogin.name || userLogin.name} | Ebi Store`}
             />
             <NavbarPageCard
-                linkPage={'/profil'}
+                backPage={() => toProfil(userLogin.name || userLogin.email)}
                 position={'absolute'}
                 titlePageNav={'Email'}
                 transparant={"transparant"}

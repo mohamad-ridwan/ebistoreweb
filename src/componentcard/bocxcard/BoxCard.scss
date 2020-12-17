@@ -63,15 +63,18 @@
         }
 
         .name-produk{
-            display: flex;
+            display: -webkit-box;
             font-size: 10pt;
             width: 100%;
             margin: 0 10px;
             text-overflow: ellipsis;
             justify-content: center;
             text-align: center;
+            white-space: nowrap;
             padding-bottom: 5px;
             border-bottom: 1px solid #ccc;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
         }
 
         .stock{

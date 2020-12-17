@@ -1,6 +1,6 @@
 import Axios from 'axios';
 import { useState } from 'react';
-import firebase from '../../firebase';
+import firebase, { database } from '../../firebase';
 
 export const actionUserName = () => (dispatch) => {
     setTimeout(() => {
@@ -31,15 +31,17 @@ export const loginUserAPI = (data) => (dispatch) => {
         dispatch({ type: 'CHANGE_LOADING', value: true })
         firebase.auth().signInWithEmailAndPassword(data.email, data.password)
             .then((res) => {
+                console.log(res)
                 const dataUser = {
                     email: res.user.email,
                     uid: res.user.uid,
-                    phoneNumber: res.user.phoneNumber
+                    phoneNumber: res.user.phoneNumber,
+                    refreshToken: res.user.refreshToken
                 }
                 dispatch({ type: 'CHANGE_LOADING', value: false })
                 dispatch({ type: 'CHANGE_ISLOGIN', value: true })
                 dispatch({ type: 'CHANGE_USER', value: dataUser })
-                resolve(true)
+                resolve(dataUser)
             })
             .catch((error) => {
                 var errorCode = error.code;

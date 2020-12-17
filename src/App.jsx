@@ -24,6 +24,7 @@ import { store } from './config/redux';
 import ContextWrapper from './config/context/ContextWrapper';
 import { Provider } from 'react-redux';
 import PushToCartProvider from './config/context/PushToCart';
+import DbFirebase from './components/pages/dbFirebase/DbFirebase';
 function App() {
 
   const history = createBrowserHistory();
@@ -40,20 +41,24 @@ function App() {
                 <WindowScroll>
                   <Switch>
 
+                    <Route path='/db-firebase'>
+                      <DbFirebase />
+                    </Route>
+
                     {/* Email */}
-                    <Route path='/profil/email'>
+                    <Route path='/profil/:user/email'>
                       <Email />
                     </Route>
                     {/* END Email */}
 
                     {/* Nama Profil */}
-                    <Route path='/profil/nomer-profil'>
+                    <Route path='/profil/:user/nomer-profil'>
                       <NomerProfil />
                     </Route>
                     {/* END Nama Profil */}
 
                     {/* Nama Profil */}
-                    <Route path='/profil/nama-profil'>
+                    <Route path='/profil/:user/nama-profil'>
                       <NamaProfil />
                     </Route>
                     {/* END Nama Profil */}
@@ -77,13 +82,13 @@ function App() {
                     {/* end page semua produk */}
 
                     {/* page alamat*/}
-                    <Route path='/profil/alamat'>
+                    <Route path='/profil/:user/alamat'>
                       <PageAlamat />
                     </Route>
                     {/* end page alamat */}
 
                     {/* Page Profil */}
-                    <Route path='/profil'>
+                    <Route path='/profil/:user'>
                       <PageProfil />
                     </Route>
                     {/* END Page Profil */}

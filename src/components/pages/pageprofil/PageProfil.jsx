@@ -3,19 +3,19 @@ import { useStoreActions, useStoreState } from 'easy-peasy'
 import React, { useEffect } from 'react'
 import { useState } from 'react'
 import { Link, useHistory } from 'react-router-dom'
-import Alamat from '../../../componentcard/alamat/Alamat'
 import BtnCard from '../../../componentcard/btncard/BtnCard'
 import NavbarPageCard from '../../../componentcard/navbarpagecard/NavbarPageCard'
 import './PageProfil.scss'
 import newProfil from '../../../img/newprofil.png'
 import KategoriProfil from '../../../componentcard/kategoriprofil/KategoriProfil'
 import firebase from 'firebase/app';
-import Spinner from '../../../componentcard/spinner/Spinner'
 import { useContext } from 'react'
 import { GetUserLogin } from '../../../config/context/GetUserLogin.jsx'
 import { ChangeNumberPhone } from '../../../config/context/ChangeNumberPhone'
 import { GetNumberPhone } from '../../../config/context/GetNumberPhone'
 import Helmet from '../../../componentcard/helmet/Helmet'
+import Spinner from '../../../componentcard/spinner/Spinner'
+import ReactImageUploading from 'react-images-uploading'
 
 const PageProfil = () => {
 
@@ -56,7 +56,7 @@ const PageProfil = () => {
 
     const handleLogOut = () => {
         const alert = window.confirm('Log Out?')
-        if (alert === true) {
+        if (alert) {
             firebase.auth().signOut().then(function () {
                 // alert('Berhasil Log Out')
                 history.push('/login')
@@ -98,6 +98,25 @@ const PageProfil = () => {
         })
     }
 
+    const handleChangeImage = (imageList) => {
+        setGetUser({
+            imageUpload: imageList
+        })
+    }
+
+    const toPageNamaProfil = (user) => {
+        history.push(`/profil/${user}/nama-profil`)
+    }
+    const toPageEmail = (user) => {
+        history.push(`/profil/${user}/email`)
+    }
+    const toPageNomerProfil = (user) => {
+        history.push(`/profil/${user}/nomer-profil`)
+    }
+    const toPageAlamat = (user) => {
+        history.push(`/profil/${user}/alamat`)
+    }
+
     useEffect(() => {
         getUserLogin()
         getAlamat();
@@ -105,72 +124,88 @@ const PageProfil = () => {
 
     return (
         <>
-            <Helmet
-                titleHelmet={'Profil | Ebi Store'}
-                contentHelmet={'halaman profil | Ebi Strore'}
-            />
-            <div className="wrapp-profil">
-                <NavbarPageCard
-                    linkPage={'/'}
-                    position={'absolute'}
-                    titlePageNav={'Profil Kamu'}
-                    transparant={"transparant"}
-                    color={"#fff"}
-                />
-                {/* Img Modals */}
-                <div className="box-img-modal"
-                    style={{
-                        display: view ? 'flex' : 'none'
-                    }}
-                    onClick={() => {
-                        setView(!view)
-                    }}
-                >
-                    <div className="box-circle-img">
-                        <i className="fas fa-camera"
-                            onClick={() => {
-                                alert('oke')
+            {alamat && alamat.length > 0 ? (
+                <>
+                    <Helmet
+                        titleHelmet={`Profil | ${getUser.name || getUser.email} | Ebi Store`}
+                        contentHelmet={`halaman profil |${getUser.name || getUser.email} | Ebi Strore`}
+                    />
+                    <div className="wrapp-profil">
+                        <NavbarPageCard
+                            linkPage={'/'}
+                            position={'absolute'}
+                            titlePageNav={'Profil Kamu'}
+                            transparant={"transparant"}
+                            color={"#fff"}
+                        />
+                        {/* Img Modals */}
+                        <div className="box-img-modal"
+                            style={{
+                                display: view ? 'flex' : 'none'
                             }}
-                        ></i>
-                        <img src={getUser.photo} alt="" className="img-modal" />
-                    </div>
-                </div>
-                {/* END Img Modals */}
-                <div className="box-white-profile">
-                    {/* Box orange */}
-                    <div className="box-orange">
-                        <p className="name-profil">
-                            {getUser.hi}
-                            <br />
-                            {getUser.name}
-                        </p>
+                        >
+                            <i className="fas fa-times btnClose"
+                                onClick={() => {
+                                    setView(!view)
+                                }}
+                            ></i>
+                            <div className="box-circle-img">
+                                <i className="fas fa-camera"
+                                    onClick={handleChangeImage}
+                                ></i>
+                                <img src={getUser.photo} alt="" className="img-modal"
+                                />
+                            </div>
+                        </div>
+                        {/* END Img Modals */}
+                        <div className="box-white-profile">
+                            {/* Box orange */}
+                            <div className="box-orange">
+                                <p className="name-profil">
+                                    {getUser.hi}
+                                    <br />
+                                    {getUser.name}
+                                </p>
+                                <ReactImageUploading
+                                    multiple
+                                    value={getUser.imageUpload}
+                                    onChange={handleChangeImage}
+                                    dataURLKey="data_url"
+                                >
+                                    {({
+                                        imageList,
+                                        onImageUpload
+                                    }) => (
+                                        <>
+                                            {imageList.map((image, index) => (
+                                                <img src={getUser.photo} alt="" className="img-profil" />
+                                            ))}
 
-                        <img src={getUser.photo} alt="" className="img-profil"
-                            onClick={() => {
-                                setView(!view)
-                            }}
-                        />
-                    </div>
-                    {/* end box orange */}
+                                        </>
+                                    )}
+                                </ReactImageUploading>
 
-                    <div className="box-kategori">
-                        <KategoriProfil
-                            pageKtg={'/profil/nama-profil'}
-                            linkKategori={'link-kategori'}
-                            icon={'fas fa-user-tie'}
-                            title={'Nama'}
-                            deskripsi={getUser.name}
-                        />
+                            </div>
+                            {/* end box orange */}
 
-                        <KategoriProfil
-                            pageKtg={'/profil/email'}
-                            linkKategori={'link-kategori'}
-                            icon={'fas fa-envelope'}
-                            title={'Email'}
-                            deskripsi={getUser.email}
-                        />
+                            <div className="box-kategori">
+                                <KategoriProfil
+                                    onClick={() => toPageNamaProfil(getUser.name || getUser.email)}
+                                    linkKategori={'link-kategori'}
+                                    icon={'fas fa-user-tie'}
+                                    title={'Nama'}
+                                    deskripsi={getUser.name}
+                                />
 
-                        {/* {getDataHp && (
+                                <KategoriProfil
+                                    onClick={() => toPageEmail(getUser.name || getUser.email)}
+                                    linkKategori={'link-kategori'}
+                                    icon={'fas fa-envelope'}
+                                    title={'Email'}
+                                    deskripsi={getUser.email}
+                                />
+
+                                {/* {getDataHp && (
                             <KategoriProfil
                                 // onClick={() => handleUpdate(e.phoneUser)}
                                 // key={e._id}
@@ -182,74 +217,79 @@ const PageProfil = () => {
                             />
                         )} */}
 
-                        {getDataHp && getDataHp.length > 0
-                            ? getDataHp.map(e => {
-                                return (
-                                    <KategoriProfil
-                                        onClick={() => handleUpdate(e._id)}
-                                        key={e._id}
-                                        pageKtg={'/profil/nomer-profil'}
-                                        linkKategori={'link-kategori'}
-                                        icon={'fas fa-mobile'}
-                                        title={'No Hp.'}
-                                        deskripsi={e.phoneUser || 'Kamu belum memiliki nomer hp yang tercantum'}
-                                    />
-                                )
-                            }) : (
-                                <KategoriProfil
-                                    onClick={() => handleUpdate()}
-                                    pageKtg={'/profil/nomer-profil'}
-                                    linkKategori={'link-kategori'}
-                                    icon={'fas fa-mobile'}
-                                    title={'No Hp.'}
-                                    deskripsi={'Kamu belum memiliki nomer hp yang tercantum'}
-                                />
-                            )}
-
-                        {alamat && alamat.length > 0
-                            ? alamat.map(e => {
-                                return (
-                                    <>
+                                {getDataHp && getDataHp.length > 0
+                                    ? getDataHp.map(e => {
+                                        return (
+                                            <KategoriProfil
+                                                onClick={() => toPageNomerProfil(getUser.name || getUser.email)}
+                                                key={e._id}
+                                                linkKategori={'link-kategori'}
+                                                icon={'fas fa-mobile'}
+                                                title={'No Hp.'}
+                                                deskripsi={e.phoneUser || 'Kamu belum memiliki nomer hp yang tercantum'}
+                                            />
+                                        )
+                                    }) : (
                                         <KategoriProfil
-                                            pageKtg={'/profil/alamat'}
+                                            onClick={() => toPageNomerProfil(getUser.name || getUser.email)}
+                                            linkKategori={'link-kategori'}
+                                            icon={'fas fa-mobile'}
+                                            title={'No Hp.'}
+                                            deskripsi={'Kamu belum memiliki nomer hp yang tercantum'}
+                                        />
+                                    )}
+
+                                {alamat && alamat.length > 0
+                                    ? alamat.map(e => {
+                                        return (
+                                            <>
+                                                <KategoriProfil
+                                                    onClick={() => toPageAlamat(getUser.name || getUser.email)}
+                                                    linkKategori={'link-kategori'}
+                                                    icon={'fas fa-home'}
+                                                    title={'Alamat'}
+                                                    alamat={e.alamat}
+                                                    kota={e.kota}
+                                                    kodePos={e.kodePos}
+                                                    namaPenerima={e.namaPenerima}
+                                                />
+                                            </>
+                                        )
+                                    }) : (
+                                        <KategoriProfil
+                                            onClick={() => toPageAlamat(getUser.name || getUser.email)}
                                             linkKategori={'link-kategori'}
                                             icon={'fas fa-home'}
                                             title={'Alamat'}
-                                            alamat={e.alamat}
-                                            kota={e.kota}
-                                            kodePos={e.kodePos}
-                                            namaPenerima={e.namaPenerima}
+                                            deskripsi={"Kamu belum memiliki alamat yang tercantum"}
                                         />
-                                    </>
-                                )
-                            }) : (
-                                <KategoriProfil
-                                    pageKtg={'/profil/alamat'}
-                                    linkKategori={'link-kategori'}
-                                    icon={'fas fa-home'}
-                                    title={'Alamat'}
-                                    deskripsi={"Kamu belum memiliki alamat yang tercantum"}
-                                />
-                            )}
+                                    )}
+
+                            </div>
+                        </div>
+
+                        <BtnCard
+                            heightBtn={'45px'}
+                            widthBtn={'auto'}
+                            btnName={'Log Out'}
+                            marginBtn={'10px 20px 20px 20px'}
+                            bdrRadius={"100px"}
+                            bgColor={"#ffa835"}
+                            colorP={"#fff6eb"}
+                            fontWeight={"bold"}
+                            bxShadow={"0px 5px 15px -5px #ffa835"}
+                            goTo={handleLogOut}
+                        />
+
 
                     </div>
-                </div>
+                </>
+            ) : (
+                    <Spinner
+                        bgColorLoading={'#ffa835'}
+                    />
+                )}
 
-                <BtnCard
-                    heightBtn={'45px'}
-                    widthBtn={'auto'}
-                    btnName={'Log Out'}
-                    marginBtn={'10px 20px 20px 20px'}
-                    bdrRadius={"100px"}
-                    bgColor={"#ffa835"}
-                    colorP={"#fff6eb"}
-                    fontWeight={"bold"}
-                    bxShadow={"0px 5px 15px -5px #ffa835"}
-                    goTo={handleLogOut}
-                />
-
-
-            </div>
         </>
     )
 }

@@ -7,6 +7,7 @@ import { withRouter } from 'react-router-dom'
 import DetailCard from '../../../componentcard/detailcard/DetailCard'
 import Helmet from '../../../componentcard/helmet/Helmet'
 import API from '../../../service'
+import Spinner from '../../../componentcard/spinner/Spinner'
 
 class Transaksi extends Component {
 
@@ -30,7 +31,17 @@ class Transaksi extends Component {
             }
         ],
         totalBeli: 1,
-        totalPrice: 1
+        totalPrice: 1,
+        getDataForLoading: []
+    }
+
+    getAPIForLoading = () => {
+        API.APISerba5rb()
+            .then((result) => {
+                this.setState({
+                    getDataForLoading: result.data
+                })
+            })
     }
 
     handlePlus = () => {
@@ -104,47 +115,57 @@ class Transaksi extends Component {
     componentDidMount() {
         this.alamatAPI();
         this.produkAPI();
+        this.getAPIForLoading();
     }
 
     render() {
         return (
             <>
-                {this.state.produk.map(e => {
-                    return (
-                        <Helmet
-                            titleHelmet={`Transaksi | ${e.name} | Ebi Store`}
-                            contentHelmet={`halaman transaksi | ${e.name} | Ebi Store`}
-                        />
-                    )
-                })}
+                {this.state.getDataForLoading.length > 0 ? (
+                    <>
+                        {this.state.produk.map(e => {
+                            return (
+                                <Helmet
+                                    titleHelmet={`Transaksi | ${e.name} | Ebi Store`}
+                                    contentHelmet={`halaman transaksi | ${e.name} | Ebi Store`}
+                                />
+                            )
+                        })}
 
-                <div className="wrapp-transaksi">
-                    <NavbarPageCard
-                        backPage={this.handleBackToPageDetailProduk}
-                        titlePageNav={'Transaksi'}
-                    />
-                    {/* detail produk pesanan */}
-
-                    {this.state.produk.map(e => {
-                        return (
-                            <DetailCard
-                                data={e}
-                                totalPrice={e.price}
-                                displayStock={"none"}
-                                img={`http://localhost:6235/${e.image}`}
-                                displayCart={"none"}
-                                displayBtn={"none"}
-                                minus={this.handleMinus}
-                                plus={this.handlePlus}
-                                valueInput={this.state.totalBeli}
-                                alamat={this.state.alamat.alamat}
-                                kota={this.state.alamat.kota}
-                                kodePos={this.state.alamat.kodePos}
-                                namaPenerima={this.state.alamat.namaPenerima}
+                        <div className="wrapp-transaksi">
+                            <NavbarPageCard
+                                backPage={this.handleBackToPageDetailProduk}
+                                titlePageNav={'Transaksi'}
                             />
-                        )
-                    })}
-                </div>
+                            {/* detail produk pesanan */}
+
+                            {this.state.produk.map(e => {
+                                return (
+                                    <DetailCard
+                                        data={e}
+                                        totalPrice={e.price}
+                                        displayStock={"none"}
+                                        img={`http://localhost:6235/${e.image}`}
+                                        displayCart={"none"}
+                                        displayBtn={"none"}
+                                        minus={this.handleMinus}
+                                        plus={this.handlePlus}
+                                        valueInput={this.state.totalBeli}
+                                        alamat={this.state.alamat.alamat}
+                                        kota={this.state.alamat.kota}
+                                        kodePos={this.state.alamat.kodePos}
+                                        namaPenerima={this.state.alamat.namaPenerima}
+                                    />
+                                )
+                            })}
+                        </div>
+                    </>
+                ) : (
+                        <Spinner
+                            bgColorLoading={'#ffa835'}
+                        />
+                    )}
+
             </>
         )
     }

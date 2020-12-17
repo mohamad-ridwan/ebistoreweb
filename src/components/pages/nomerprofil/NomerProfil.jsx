@@ -9,11 +9,24 @@ import { ChangeNumberPhone } from '../../../config/context/ChangeNumberPhone';
 import Axios from 'axios';
 import { GetNumberPhone } from '../../../config/context/GetNumberPhone';
 import Helmet from '../../../componentcard/helmet/Helmet';
+import { GetUserLogin } from '../../../config/context/GetUserLogin';
+import API from '../../../service';
+import Spinner from '../../../componentcard/spinner/Spinner';
 
 const NomerProfil = () => {
 
     const [getDataHp, setGetDataHp, handleUpdate, update, setUpdate] = useContext(GetNumberPhone)
     const [getChangeTxt, setGetChangeTxt] = useContext(ChangeNumberPhone)
+    const [getUser, setGetUser] = useContext(GetUserLogin)
+
+    const [getDataForLoading, setGetDataForLoading] = useState([])
+
+    const getDataAPI = () => {
+        API.APISerba5rb()
+            .then((res) => {
+                setGetDataForLoading(res.data)
+            })
+    }
 
     const handleChangeNumberPhone = (event) => {
         const newGetUser = { ...getChangeTxt.data }
@@ -39,6 +52,10 @@ const NomerProfil = () => {
 
     const histori = useHistory()
 
+    const toProfil = (user) => {
+        histori.push(`/profil/${user}`)
+    }
+
     const handleSubmit = (event) => {
         if (setUpdate) {
             window.confirm('Simpan Perubahan?')
@@ -60,45 +77,71 @@ const NomerProfil = () => {
         }
     }
 
+    useEffect(() => {
+        getDataAPI()
+        firebase.auth().onAuthStateChanged(function (user) {
+            if (user) {
+                const nameUser = user.displayName
+                const emailUser = user.email
+
+                setGetUser({
+                    name: nameUser,
+                    email: emailUser
+                })
+            } else {
+                // No user is signed in.
+            }
+        });
+    }, [])
+
     return (
         <>
-            <Helmet
-                titleHelmet={'Nomer Telepon | Ebi Store'}
-                contentHelmet={'halaman rubah nomer telepon profile | Ebi Store'}
-            />
-            <NavbarPageCard
-                linkPage={'/profil'}
-                position={'absolute'}
-                titlePageNav={'Nomer Telepon'}
-                transparant={"transparant"}
-                color={"#fff"}
-            />
-            <div className="wrapper-namaProfil">
-                <div className="box-input-nama">
-                    <label htmlFor="label" className="name">
-                        {getChangeTxt.data.phoneUser}
-                    </label>
-
-                    <form onSubmit={handleSubmit}>
-                        <input onSubmit={handleSubmit} type="number" className="input-nama" autoFocus name="phoneUser" value={getChangeTxt.data.phoneUser}
-                            onChange={handleChangeNumberPhone}
-                        />
-                    </form>
-
-                    <BtnCard
-                        heightBtn={'45px'}
-                        widthBtn={'100%'}
-                        btnName={'Simpan Nomer Telpon'}
-                        marginBtn={'20px 0px 20px 0px'}
-                        bdrRadius={"100px"}
-                        bgColor={"#fff"}
-                        colorP={"#ffa835"}
-                        fontWeight={"bold"}
-                        bxShadow={"0 3px 9px -1px rgba(0,0,0,0.2)"}
-                        goTo={handleSubmit}
+            {getDataForLoading && getDataForLoading.length > 0 ? (
+                <>
+                    <Helmet
+                        titleHelmet={`Nomer Telepon | ${getUser.name || getUser.name} | Ebi Store`}
+                        contentHelmet={`halaman rubah nomer telepon profile | ${getUser.name || getUser.email} | Ebi Store`}
                     />
-                </div>
-            </div>
+                    <NavbarPageCard
+                        backPage={() => toProfil(getUser.name || getUser.email)}
+                        position={'absolute'}
+                        titlePageNav={'Nomer Telepon'}
+                        transparant={"transparant"}
+                        color={"#fff"}
+                    />
+                    <div className="wrapper-namaProfil">
+                        <div className="box-input-nama">
+                            <label htmlFor="label" className="name">
+                                {getChangeTxt.data.phoneUser}
+                            </label>
+
+                            <form onSubmit={handleSubmit}>
+                                <input onSubmit={handleSubmit} type="number" className="input-nama" autoFocus name="phoneUser" value={getChangeTxt.data.phoneUser}
+                                    onChange={handleChangeNumberPhone}
+                                />
+                            </form>
+
+                            <BtnCard
+                                heightBtn={'45px'}
+                                widthBtn={'100%'}
+                                btnName={'Simpan Nomer Telpon'}
+                                marginBtn={'20px 0px 20px 0px'}
+                                bdrRadius={"100px"}
+                                bgColor={"#fff"}
+                                colorP={"#ffa835"}
+                                fontWeight={"bold"}
+                                bxShadow={"0 3px 9px -1px rgba(0,0,0,0.2)"}
+                                goTo={handleSubmit}
+                            />
+                        </div>
+                    </div>
+                </>
+            ) : (
+                    <Spinner
+                        bgColorLoading={'#ffa835'}
+                    />
+                )}
+
         </>
     )
 }

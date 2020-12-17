@@ -15,6 +15,8 @@
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-helmet": "^6.1.0",
+    "react-images-upload": "^1.2.8",
+    "react-images-uploading": "^3.1.2",
     "react-img-carousel": "^1.7.0",
     "react-media": "^1.10.0",
     "react-redux": "^7.2.2",

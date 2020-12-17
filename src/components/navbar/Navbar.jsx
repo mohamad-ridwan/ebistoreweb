@@ -31,9 +31,9 @@ const Navbar = () => {
         })
     }
 
-    const pushProfil = () => {
+    const pushProfil = (user) => {
         histori.push({
-            pathname: '/profil'
+            pathname: `/profil/${user}`
         })
     }
 
@@ -96,7 +96,9 @@ const Navbar = () => {
                         {/* Name Brand */}
                         <div className="nm-brand-navbar">
                             {/* Link Img Profile */}
-                            <Link to='/profil' className="circ-img-profile-navbar">
+                            <Link className="circ-img-profile-navbar"
+                                onClick={() => pushProfil(getUser.name || getUser.email)}
+                            >
                                 <img src={getUser.photo} className="img-profile-navbar" alt="" />
                             </Link>
                             {/* END Link Img Profile */}
