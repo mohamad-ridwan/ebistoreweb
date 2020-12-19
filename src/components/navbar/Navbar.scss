@@ -47,12 +47,17 @@
 
                 // Name Account User
                 .name-act-user-navbar{
-                    display: flex;
+                    display: -webkit-box;
                     font-size: 10pt;
                     font-family: $fontFamilyJudul;
                     font-weight: $fontWeightJudul;
                     margin: 0 0px 0 5px;
                     text-align: start;
+                    overflow: hidden;
+                    white-space: nowrap;
+                    text-overflow: ellipsis;
+                    -webkit-line-clamp: 3;
+                    -webkit-box-orient: vertical;
                 }
                 // END Name Account User
             }

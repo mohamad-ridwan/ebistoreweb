@@ -16,14 +16,18 @@ import { GetNumberPhone } from '../../../config/context/GetNumberPhone'
 import Helmet from '../../../componentcard/helmet/Helmet'
 import Spinner from '../../../componentcard/spinner/Spinner'
 import ReactImageUploading from 'react-images-uploading'
+import { GetAPIFirebaseContext } from '../../../config/context/GetAPIFirebase'
+import { GetNomerUserContext } from '../../../config/context/nomerhp/GetNomerUser'
+import API from '../../../service'
+import { GetNamaUserContext } from '../../../config/context/namauser/GetNamaUser'
 
 const PageProfil = () => {
-
-    const [getChangeTxt, setGetChangeTxt] = useContext(ChangeNumberPhone)
-    const [getDataHp, setGetDataHp, handleUpdate] = useContext(GetNumberPhone)
+    const [dataNama] = useContext(GetNamaUserContext)
+    const [dataNomer, setDataNomer] = useContext(GetNomerUserContext)
     const [alamat, setAlamat] = useState([])
     const [getUser, setGetUser] = useContext(GetUserLogin)
     const [view, setView] = useState(false)
+    let [notes, setNotes, dataUser] = useContext(GetAPIFirebaseContext)
 
     const getAlamat = () => {
         Axios.get('http://localhost:6235/v5/dataalamat/getalamat')
@@ -36,21 +40,6 @@ const PageProfil = () => {
                 console.log('error', err)
             })
     }
-
-    const handleRemove = (data) => {
-        Axios.delete(`http://localhost:62542/v5/dataalamat/postalamat/${data}`)
-            .then(result => {
-                const res = result.data
-                setAlamat(res)
-
-                getAlamat()
-                alert('Data Berhasil Di Delete!')
-            })
-            .catch(err => {
-                console.log('error', err)
-            })
-    }
-
 
     const history = useHistory()
 
@@ -71,6 +60,7 @@ const PageProfil = () => {
     const getUserLogin = () => {
         firebase.auth().onAuthStateChanged(function (user) {
             if (user) {
+                const userId = user.uid
                 const emailUser = user.email
                 const nameDefault = 'User'
                 const nameUser = user.displayName
@@ -78,6 +68,7 @@ const PageProfil = () => {
                 const sayHi = 'Hi !'
 
                 setGetUser({
+                    uid: userId,
                     email: emailUser,
                     hi: sayHi,
                     name: nameUser || emailUser,
@@ -124,12 +115,24 @@ const PageProfil = () => {
 
     return (
         <>
-            {alamat && alamat.length > 0 ? (
+            {dataNomer.data && dataNomer.data.length > 0 ? (
                 <>
-                    <Helmet
-                        titleHelmet={`Profil | ${getUser.name || getUser.email} | Ebi Store`}
-                        contentHelmet={`halaman profil |${getUser.name || getUser.email} | Ebi Strore`}
-                    />
+                    {dataNama.data && dataNama.data.length > 0 ?
+                        dataNama.data.map(e => {
+                            return (
+                                <Helmet
+                                    key={e.id}
+                                    titleHelmet={`Profil | ${e.data.username} | Ebi Store`}
+                                    contentHelmet={`halaman profil |${e.data.username} | Ebi Strore`}
+                                />
+                            )
+                        }) : (
+                            <Helmet
+                                titleHelmet={`Profil | ${getUser.name || getUser.email} | Ebi Store`}
+                                contentHelmet={`halaman profil |${getUser.name || getUser.email} | Ebi Strore`}
+                            />
+                        )}
+
                     <div className="wrapp-profil">
                         <NavbarPageCard
                             linkPage={'/'}
@@ -161,11 +164,23 @@ const PageProfil = () => {
                         <div className="box-white-profile">
                             {/* Box orange */}
                             <div className="box-orange">
-                                <p className="name-profil">
-                                    {getUser.hi}
-                                    <br />
-                                    {getUser.name}
-                                </p>
+                                {dataNama.data && dataNama.data.length > 0 ?
+                                    dataNama.data.map(e => {
+                                        return (
+                                            <p className="name-profil">
+                                                {'Hi !'}
+                                                <br />
+                                                {e.data.username}
+                                            </p>
+                                        )
+                                    }) : (
+                                        <p className="name-profil">
+                                            {'Hi !'}
+                                            <br />
+                                            {getUser.name || getUser.email}
+                                        </p>
+                                    )}
+
                                 <ReactImageUploading
                                     multiple
                                     value={getUser.imageUpload}
@@ -189,13 +204,27 @@ const PageProfil = () => {
                             {/* end box orange */}
 
                             <div className="box-kategori">
-                                <KategoriProfil
-                                    onClick={() => toPageNamaProfil(getUser.name || getUser.email)}
-                                    linkKategori={'link-kategori'}
-                                    icon={'fas fa-user-tie'}
-                                    title={'Nama'}
-                                    deskripsi={getUser.name}
-                                />
+                                {dataNama.data && dataNama.data.length > 0 ?
+                                    dataNama.data.map(e => {
+                                        return (
+                                            <KategoriProfil
+                                                key={e.id}
+                                                onClick={() => toPageNamaProfil(e.data.username)}
+                                                linkKategori={'link-kategori'}
+                                                icon={'fas fa-user-tie'}
+                                                title={'Nama'}
+                                                deskripsi={e.data.username}
+                                            />
+                                        )
+                                    }) : (
+                                        <KategoriProfil
+                                            onClick={() => toPageNamaProfil(getUser.name || getUser.email)}
+                                            linkKategori={'link-kategori'}
+                                            icon={'fas fa-user-tie'}
+                                            title={'Nama'}
+                                            deskripsi={getUser.name}
+                                        />
+                                    )}
 
                                 <KategoriProfil
                                     onClick={() => toPageEmail(getUser.name || getUser.email)}
@@ -205,28 +234,16 @@ const PageProfil = () => {
                                     deskripsi={getUser.email}
                                 />
 
-                                {/* {getDataHp && (
-                            <KategoriProfil
-                                // onClick={() => handleUpdate(e.phoneUser)}
-                                // key={e._id}
-                                pageKtg={'/nomerprofil'}
-                                linkKategori={'link-kategori'}
-                                icon={'fas fa-mobile'}
-                                title={'No Hp.'}
-                                deskripsi={getDataHp.data.phoneUser || 'Kamu belum memiliki nomer hp yang tercantum'}
-                            />
-                        )} */}
-
-                                {getDataHp && getDataHp.length > 0
-                                    ? getDataHp.map(e => {
+                                {dataNomer.data && dataNomer.data.length > 0
+                                    ? dataNomer.data.map(e => {
                                         return (
                                             <KategoriProfil
-                                                onClick={() => toPageNomerProfil(getUser.name || getUser.email)}
-                                                key={e._id}
+                                                onClick={() => toPageNomerProfil()}
+                                                key={e.id}
                                                 linkKategori={'link-kategori'}
                                                 icon={'fas fa-mobile'}
                                                 title={'No Hp.'}
-                                                deskripsi={e.phoneUser || 'Kamu belum memiliki nomer hp yang tercantum'}
+                                                deskripsi={e.data.phoneUser.phoneUser}
                                             />
                                         )
                                     }) : (
@@ -239,19 +256,20 @@ const PageProfil = () => {
                                         />
                                     )}
 
-                                {alamat && alamat.length > 0
-                                    ? alamat.map(e => {
+                                {notes.newData && notes.newData.length > 0 ?
+                                    notes.newData.map(e => {
                                         return (
                                             <>
                                                 <KategoriProfil
+                                                    key={e.id}
                                                     onClick={() => toPageAlamat(getUser.name || getUser.email)}
                                                     linkKategori={'link-kategori'}
                                                     icon={'fas fa-home'}
                                                     title={'Alamat'}
-                                                    alamat={e.alamat}
-                                                    kota={e.kota}
-                                                    kodePos={e.kodePos}
-                                                    namaPenerima={e.namaPenerima}
+                                                    alamat={e.data.alamat}
+                                                    kota={e.data.kota}
+                                                    kodePos={e.data.kodePos}
+                                                    namaPenerima={e.data.namaPenerima}
                                                 />
                                             </>
                                         )
@@ -264,7 +282,6 @@ const PageProfil = () => {
                                             deskripsi={"Kamu belum memiliki alamat yang tercantum"}
                                         />
                                     )}
-
                             </div>
                         </div>
 

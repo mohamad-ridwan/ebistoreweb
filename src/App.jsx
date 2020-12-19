@@ -24,7 +24,6 @@ import { store } from './config/redux';
 import ContextWrapper from './config/context/ContextWrapper';
 import { Provider } from 'react-redux';
 import PushToCartProvider from './config/context/PushToCart';
-import DbFirebase from './components/pages/dbFirebase/DbFirebase';
 function App() {
 
   const history = createBrowserHistory();
@@ -40,10 +39,6 @@ function App() {
 
                 <WindowScroll>
                   <Switch>
-
-                    <Route path='/db-firebase'>
-                      <DbFirebase />
-                    </Route>
 
                     {/* Email */}
                     <Route path='/profil/:user/email'>

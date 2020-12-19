@@ -10,6 +10,7 @@ const GetUserLoginProvider = ({ children }) => {
 
     // Get user login
     const [getUser, setGetUser] = useState({
+        uid: '',
         email: '',
         name: '',
         photo: '',
@@ -22,40 +23,45 @@ const GetUserLoginProvider = ({ children }) => {
     // console.log('hs', histori)
     const history = useHistory()
 
-    // useEffect(() => {
-    //     firebase.auth().onAuthStateChanged(function (user) {
-    //         if (user) {
-    //             const emailUser = user.email
-    //             const nameDefault = 'User'
-    //             const nameUser = user.displayName
-    //             const photoUser = user.photoURL
-    //             const sayHi = 'Hi !'
-    //             const numberPhone = user.phoneNumber
-    //             const numberPhoneDefault = 'Kamu belum memiliki nomer hp yang tercantum'
+    const getUserWithLocalStorage = () => {
+        JSON.parse(localStorage.getItem('userData'))
+    }
 
-    //             setGetUser({
-    //                 email: emailUser,
-    //                 hi: sayHi,
-    //                 name: nameUser || nameDefault,
-    //                 photo: photoUser || newProfil,
-    //                 numberPhone: numberPhone || numberPhoneDefault
-    //             })
+    useEffect(() => {
+        getUserWithLocalStorage();
+        firebase.auth().onAuthStateChanged(function (user) {
+            if (user) {
+                const userId = user.uid
+                const emailUser = user.email
+                const nameUser = user.displayName
+                const photoUser = user.photoURL
+                const sayHi = 'Hi !'
+                const numberPhone = user.phoneNumber
+                const numberPhoneDefault = 'Kamu belum memiliki nomer hp yang tercantum'
 
-    //         } else {
-    //             history.push('/login')
-    //             const photoDefault = newProfil
-    //             const nameDefault = 'User'
-    //             const emailDefault = 'Kamu belum memiliki Email yang tercantum'
-    //             const numberPhoneDefault = 'Kamu belum memiliki nomer hp yang tercantum'
-    //             setGetUser({
-    //                 photo: photoDefault,
-    //                 name: nameDefault,
-    //                 email: emailDefault,
-    //                 numberPhone: numberPhoneDefault
-    //             })
-    //         }
-    //     })
-    // }, [])
+                setGetUser({
+                    uid: userId,
+                    email: emailUser,
+                    hi: sayHi,
+                    name: nameUser || emailUser,
+                    photo: photoUser || newProfil,
+                    numberPhone: numberPhone || numberPhoneDefault
+                })
+            } else {
+                history.push('/login')
+                const photoDefault = newProfil
+                const nameDefault = 'User'
+                const emailDefault = 'Kamu belum memiliki Email yang tercantum'
+                const numberPhoneDefault = 'Kamu belum memiliki nomer hp yang tercantum'
+                setGetUser({
+                    photo: photoDefault,
+                    name: nameDefault,
+                    email: emailDefault,
+                    numberPhone: numberPhoneDefault
+                })
+            }
+        })
+    }, [])
 
     return (
         <GetUserLogin.Provider value={[getUser, setGetUser]}>

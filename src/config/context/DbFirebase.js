@@ -6,12 +6,13 @@ export const DbFirebaseContext = createContext()
 const DbFirebaseProvider = ({ children }) => {
 
     const [dataUser, setDataUser] = useState({
-        uid: ''
+        uid: '',
     })
 
+    // POST
     const addDataFirebase = (data) => {
         alert('berhasil Cuk')
-        database.ref('notes/' + data.userId).set({
+        database.ref('alamatuser/' + data.userId).set({
             alamat: data.alamat,
             kota: data.kota,
             kodePos: data.kodePos,

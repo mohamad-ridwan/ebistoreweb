@@ -13,9 +13,11 @@ import firebase from 'firebase/app';
 import './PageAlamat.scss'
 import { GetUserLogin } from '../../../config/context/GetUserLogin'
 import { DbFirebaseContext } from '../../../config/context/DbFirebase'
+import { GetNamaUserContext } from '../../../config/context/namauser/GetNamaUser'
 
 const PageAlamat = () => {
 
+    const [dataNama] = useContext(GetNamaUserContext)
     const [dataUser, setDataUser, addDataFirebase] = useContext(DbFirebaseContext)
     const [getUser, setGetUser] = useContext(GetUserLogin)
     const [alamat, setAlamat] = useState([])
@@ -34,16 +36,16 @@ const PageAlamat = () => {
 
     const handleSubmit = () => {
         const { alamat, kota, kodePos, namaPenerima } = dataAlamat
+        const userData = JSON.parse(localStorage.getItem('userData'))
         const data = {
             alamat: alamat,
             kota: kota,
             kodePos: kodePos,
             namaPenerima: namaPenerima,
             date: new Date().getTime(),
-            userId: dataUser.uid
+            userId: userData.uid
         }
         addDataFirebase(data)
-        console.log('hasil:', data)
     }
 
     const history = useHistory()
@@ -84,10 +86,22 @@ const PageAlamat = () => {
         <>
             {alamat && alamat.length > 0 ? (
                 <>
-                    <Helmet
-                        titleHelmet={`Alamat | ${getUser.name || getUser.email} | Ebi Store`}
-                        contentHelmet={`halaman form alamat | ${getUser.name || getUser.email} | Ebi Store`}
-                    />
+                    {dataNama.data && dataNama.data.length > 0 ?
+                        dataNama.data.map(e => {
+                            return (
+                                <Helmet
+                                    key={e.id}
+                                    titleHelmet={`Alamat | ${e.data.username} | Ebi Store`}
+                                    contentHelmet={`halaman form alamat | ${e.data.username} | Ebi Store`}
+                                />
+                            )
+                        }) : (
+                            <Helmet
+                                titleHelmet={`Alamat | ${getUser.name || getUser.email} | Ebi Store`}
+                                contentHelmet={`halaman form alamat | ${getUser.name || getUser.email} | Ebi Store`}
+                            />
+                        )}
+
                     <NavbarPageCard
                         backPage={() => toProfil(getUser.name || getUser.email)}
                         position={'absolute'}

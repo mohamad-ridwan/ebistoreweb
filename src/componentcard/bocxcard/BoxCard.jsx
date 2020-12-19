@@ -17,7 +17,7 @@ const BoxCard = (props) => {
                 outline: 'none',
                 boxShadow: `${props.bxShadow}`,
             }}
-                onClick={() => props.detail(props.data._id)}
+                onClick={props.detail}
             >
                 {/* Nav Button */}
                 <div className="nav-btn-produk" style={{
@@ -44,14 +44,14 @@ const BoxCard = (props) => {
                     <p className="harga-produk priceGroup" style={{
                         margin: `${props.mrgnStock}`,
                     }}>
-                        Rp {props.data.price}
+                        Rp {props.price}
                     </p>
 
                     <p className="name-produk nameGroup" style={{
                         fontSize: `${props.fontNama}`,
                         margin: `${props.mrgnStock}`,
                     }}>
-                        {props.data.name}
+                        {props.name}
                     </p>
                     <p className="txt-harga-normal nameGroup">
                         {props.txtHargaNormal}
@@ -63,7 +63,7 @@ const BoxCard = (props) => {
                         fontSize: `${props.fontStock}`,
                         margin: `${props.mrgnStock}`,
                     }}>
-                        Stock ({props.data.stock})
+                        Stock ({props.stock})
                 </p>
 
                     {/* box buy */}

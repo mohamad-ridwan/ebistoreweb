@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { useEffect } from 'react'
 import { useState } from 'react'
 import BtnCard from '../../../componentcard/btncard/BtnCard'
@@ -7,28 +7,37 @@ import './NamaProfil.scss'
 import firebase from 'firebase/app';
 import Helmet from '../../../componentcard/helmet/Helmet'
 import { useHistory } from 'react-router'
+import { GetUserLogin } from '../../../config/context/GetUserLogin'
+import { PostNamaUserContext } from '../../../config/context/namauser/PostNamaUser'
+import { GetNamaUserContext } from '../../../config/context/namauser/GetNamaUser'
 // import Helmet from 'react-helmet'
 
 const NamaProfil = () => {
 
-    const [getUser, setGetUser] = useState({
-        data: {
-            name: '',
-            email: ''
-        }
+    const [dataNama] = useContext(GetNamaUserContext)
+    const [getUser, setGetUser] = useContext(GetUserLogin)
+    const [PostNamaUser] = useContext(PostNamaUserContext)
+    const [changeNama, setChangeNama] = useState({
+        username: ''
     })
 
-    const handleChangeName = (event) => {
-        // history.push('/pageprofil')
-        const newGetUser = { ...getUser.data }
-        newGetUser[event.target.name] = event.target.value
-        // const nameNew = event.target.value
-        // const emailNew = event.target.value
-        console.log(newGetUser)
-        setGetUser({
-            data: newGetUser
+    const handleChangeName = (e) => {
+        const newChangeName = e.target.value
+        setChangeNama({
+            username: newChangeName
         })
+    }
 
+    const handleSubmit = () => {
+        const username = changeNama.username
+        const data = {
+            username: username,
+            date: new Date().getTime(),
+            uid: getUser.uid
+        }
+        PostNamaUser(data)
+        console.log(data)
+        console.log(changeNama)
     }
 
     const history = useHistory()
@@ -68,12 +77,24 @@ const NamaProfil = () => {
 
     return (
         <>
-            <Helmet
-                titleHelmet={`Nama Profil | ${getUser.data.name || getUser.data.email} | Ebi Store`}
-                contentHelmet={`halaman rubah nama profil | ${getUser.data.name || getUser.data.email} | Ebi Store`}
-            />
+            {dataNama.data && dataNama.data.length > 0 ?
+                dataNama.data.map(e => {
+                    return (
+                        <Helmet
+                            key={e.id}
+                            titleHelmet={`Nama Profil | ${e.data.username} | Ebi Store`}
+                            contentHelmet={`halaman rubah nama profil | ${e.data.username} | Ebi Store`}
+                        />
+                    )
+                }) : (
+                    <Helmet
+                        titleHelmet={`Nama Profil | ${getUser.name || getUser.email} | Ebi Store`}
+                        contentHelmet={`halaman rubah nama profil | ${getUser.name || getUser.email} | Ebi Store`}
+                    />
+                )}
+
             <NavbarPageCard
-                backPage={() => toProfil(getUser.data.name || getUser.data.email)}
+                backPage={() => toProfil(getUser.name || getUser.email)}
                 position={'absolute'}
                 titlePageNav={'Rubah Nama'}
                 transparant={"transparant"}
@@ -82,11 +103,13 @@ const NamaProfil = () => {
             <div className="wrapper-namaProfil">
                 <div className="box-input-nama">
                     <label htmlFor="label" className="name">
-                        {getUser.data.name || getUser.data.email}
+                        {changeNama.username}
                     </label>
-                    <input type="text" className="input-nama" autoFocus name="name" value={getUser.data.name || getUser.data.email}
-                        onChange={handleChangeName}
-                    />
+                    <form onSubmit={handleSubmit}>
+                        <input type="text" className="input-nama" autoFocus name="username"
+                            onChange={handleChangeName}
+                        />
+                    </form>
 
                     <BtnCard
                         heightBtn={'45px'}
@@ -98,7 +121,7 @@ const NamaProfil = () => {
                         colorP={"#ffa835"}
                         fontWeight={"bold"}
                         bxShadow={"0 3px 9px -1px rgba(0,0,0,0.2)"}
-                        goTo={handleChangeName}
+                        goTo={handleSubmit}
                     />
                 </div>
             </div>

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { useState } from 'react'
 import { useEffect } from 'react'
 import BtnCard from '../../../componentcard/btncard/BtnCard'
@@ -7,9 +7,11 @@ import NavbarPageCard from '../../../componentcard/navbarpagecard/NavbarPageCard
 import firebase from 'firebase/app';
 import './Email.scss'
 import { useHistory } from 'react-router-dom'
+import { GetNamaUserContext } from '../../../config/context/namauser/GetNamaUser'
 
 const Email = () => {
 
+    const [dataNama] = useContext(GetNamaUserContext)
     const [userLogin, setUserLogin] = useState({
         name: '',
         email: ''
@@ -64,10 +66,22 @@ const Email = () => {
 
     return (
         <>
-            <Helmet
-                titleHelmet={`Email | ${userLogin.name || userLogin.email} | Ebi Store`}
-                contentHelmet={`halaman email | ${userLogin.name || userLogin.name} | Ebi Store`}
-            />
+            {dataNama.data && dataNama.data.length > 0 ?
+                dataNama.data.map(e => {
+                    return (
+                        <Helmet
+                            key={e.id}
+                            titleHelmet={`Email | ${e.data.username} | Ebi Store`}
+                            contentHelmet={`halaman email | ${e.data.username} | Ebi Store`}
+                        />
+                    )
+                }) : (
+                    <Helmet
+                        titleHelmet={`Email | ${userLogin.name || userLogin.email} | Ebi Store`}
+                        contentHelmet={`halaman email | ${userLogin.name || userLogin.name} | Ebi Store`}
+                    />
+                )}
+
             <NavbarPageCard
                 backPage={() => toProfil(userLogin.name || userLogin.email)}
                 position={'absolute'}

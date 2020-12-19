@@ -7,6 +7,7 @@ import BoxCard from '../../../componentcard/bocxcard/BoxCard'
 import JudulCard from '../../../componentcard/judulcard/JudulCard'
 import imgNew from '../../../img/delapanbelas.jpg'
 import imgPromo from '../../../img/promo.jpg'
+import img from '../../../img/enambelas.jpg'
 import './PageBeranda.scss'
 import { Link, matchPath, useHistory, useLocation, useParams, useRouteMatch, withRouter } from 'react-router-dom'
 import Navbar from '../../navbar/Navbar'
@@ -16,9 +17,11 @@ import { GetUserLogin } from '../../../config/context/GetUserLogin.jsx'
 import Helmet from '../../../componentcard/helmet/Helmet'
 import API from '../../../service'
 import Spinner from '../../../componentcard/spinner/Spinner'
+import { GetNamaUserContext } from '../../../config/context/namauser/GetNamaUser'
 
 const PageBeranda = () => {
 
+    const [dataNama] = useContext(GetNamaUserContext)
     const [getUser, setGetUser] = useContext(GetUserLogin)
     const [getSemuaHarga, setGetSemuaHarga] = useState([])
     const [getSerba5rb, setGetSerba5rb] = useState([])
@@ -30,45 +33,37 @@ const PageBeranda = () => {
     const [getMenuSerba15rb, setGetMenuSerba15rb] = useState([])
 
     const getDataAPI = () => {
-        API.APISemuaHarga()
-            .then(res => {
-                const respon = res.data
-                setGetSemuaHarga(respon)
+        API.APIFirebaseSemuaHarga()
+            .then((result) => {
+                setGetSemuaHarga(result)
             })
-        API.APISerba5rb()
-            .then(res => {
-                const respon = res.data
-                setGetSerba5rb(respon)
+        API.APIFirebaseLimaRibu()
+            .then((result) => {
+                setGetSerba5rb(result)
             })
-        API.APISerba10rb()
-            .then(res => {
-                const respon = res.data
-                setGetSerba10rb(respon)
+        API.APIFirebaseSepuluhRibu()
+            .then((result) => {
+                setGetSerba10rb(result)
             })
-        API.APISerba15rb()
-            .then(res => {
-                const respon = res.data
-                setGetSerba15rb(respon)
+        API.APIFirebaseLimaBelasRibu()
+            .then((result) => {
+                setGetSerba15rb(result)
             })
-        API.APIMenuSemuaHarga()
+        API.APIFirebaseMenuSemuaHarga()
             .then(res => {
-                const respon = res.data
-                setGetMenuSemuaHarga(respon)
+                setGetMenuSemuaHarga(res)
             })
-        API.APIMenuSerba5rb()
+        API.APIFirebaseMenuLimaRibu()
             .then(res => {
-                const respon = res.data
-                setGetMenuSerba5rb(respon)
+                setGetMenuSerba5rb(res)
             })
-        API.APIMenuSerba10rb()
+        API.APIFirebaseMenuSepuluhRibu()
             .then(res => {
-                const respon = res.data
-                setGetMenuSerba10rb(respon)
+                setGetMenuSerba10rb(res)
             })
-        API.APIMenuSerba15rb()
+        API.APIFirebaseMenuLimaBelasRibu()
             .then(res => {
-                const respon = res.data
-                setGetMenuSerba15rb(respon)
+                setGetMenuSerba15rb(res)
             })
     }
 
@@ -119,12 +114,8 @@ const PageBeranda = () => {
 
     const params = useHistory()
 
-    const handleDetail = (_id) => {
-        params.push(`/detail-produk/${_id}`)
-    }
-
-    const toDbFirebase = () => {
-        histori.push('/db-firebase')
+    const handleDetail = (id) => {
+        params.push(`/detail-produk/${id}`)
     }
 
     // carousel react-slick
@@ -162,9 +153,8 @@ const PageBeranda = () => {
                         <section className="section1-pageBeranda">
                             <p className="title-home">
                                 <i className="fas fa-home"
-                                    onClick={() => toDbFirebase()}
                                 ></i>Beranda
-                </p>
+                            </p>
                             <Link to='/keranjang/1' className="box-icon iconCart">
                                 <i className="fas fa-shopping-cart"></i>
                             </Link>
@@ -177,11 +167,22 @@ const PageBeranda = () => {
 
                         {/* Profil */}
                         <section className="container-profil">
-                            <div className="name-profil">
-                                {getUser.hi}
-                                <br />
-                                {getUser.name}
-                            </div>
+                            {dataNama.data && dataNama.data.length > 0 ? dataNama.data.map(e => {
+                                return (
+                                    <p className="name-profil">
+                                        {'Hi !'}
+                                        <br />
+                                        {e.data.username}
+                                    </p>
+                                )
+                            }) : (
+                                    <p className="name-profil">
+                                        {getUser.hi}
+                                        <br />
+                                        {getUser.name || getUser.email}
+                                    </p>
+                                )}
+
 
                             <Link
                                 onClick={() => pushProfil(getUser.name || getUser.email)}
@@ -212,7 +213,7 @@ const PageBeranda = () => {
                             {/* Judul */}
                             {getMenuSemuaHarga && (
                                 <JudulCard
-                                    txtJudul={getMenuSemuaHarga.nameMenu}
+                                    txtJudul={getMenuSemuaHarga.name}
                                     page={'/semua-produk/1'}
                                 />
                             )}
@@ -226,18 +227,20 @@ const PageBeranda = () => {
                                             return (
                                                 <>
                                                     <BoxCard
-                                                        key={e._id}
+                                                        key={e.id}
                                                         flxDirectWrapp={"column"}
                                                         heightWrapp={"auto"}
                                                         widthWrapp={"calc(90%)"}
                                                         displayNavBtn={"none"}
-                                                        data={e}
-                                                        image={`http://localhost:6235/${e.image}`}
+                                                        name={e.name}
+                                                        price={e.price}
+                                                        stock={e.stock}
+                                                        image={img}
                                                         displayBtnBuy={"none"}
                                                         mrginWrapp={"10px auto"}
                                                         paddContent={"0px 10px 10px 10px"}
                                                         mrgnStock={"5px 0 0px 0"}
-                                                        detail={handleDetail}
+                                                        detail={() => handleDetail(e.id)}
                                                     />
                                                 </>
                                             )
@@ -255,7 +258,7 @@ const PageBeranda = () => {
                             {/* Judul */}
                             {getMenuSerba5rb && (
                                 <JudulCard
-                                    txtJudul={getMenuSerba5rb.nameMenu}
+                                    txtJudul={getMenuSerba5rb.name}
                                     page={'/semua-produk/2'}
                                 />
                             )}
@@ -269,13 +272,15 @@ const PageBeranda = () => {
                                             return (
                                                 <>
                                                     <BoxCard
-                                                        key={e._id}
+                                                        key={e.id}
                                                         flxDirectWrapp={"column"}
                                                         heightWrapp={"auto"}
                                                         widthWrapp={"calc(90%)"}
                                                         displayNavBtn={"none"}
-                                                        data={e}
-                                                        image={`http://localhost:6235/${e.image}`}
+                                                        name={e.name}
+                                                        price={e.price}
+                                                        stock={e.stock}
+                                                        image={img}
                                                         displayBtnBuy={"none"}
                                                         mrginWrapp={"10px auto"}
                                                         paddContent={"0px 10px 10px 10px"}
@@ -301,7 +306,7 @@ const PageBeranda = () => {
                             {/* Judul */}
                             {getMenuSerba10rb && (
                                 <JudulCard
-                                    txtJudul={getMenuSerba10rb.nameMenu}
+                                    txtJudul={getMenuSerba10rb.name}
                                     page={'/semua-produk/3'}
                                 />
                             )}
@@ -315,13 +320,15 @@ const PageBeranda = () => {
                                             return (
                                                 <>
                                                     <BoxCard
-                                                        key={e._id}
+                                                        key={e.id}
                                                         flxDirectWrapp={"column"}
                                                         heightWrapp={"auto"}
                                                         widthWrapp={"calc(90%)"}
                                                         displayNavBtn={"none"}
-                                                        data={e}
-                                                        image={`http://localhost:6235/${e.image}`}
+                                                        name={e.name}
+                                                        price={e.price}
+                                                        stock={e.stock}
+                                                        image={img}
                                                         displayBtnBuy={"none"}
                                                         mrginWrapp={"10px auto"}
                                                         paddContent={"0px 10px 10px 10px"}
@@ -344,7 +351,7 @@ const PageBeranda = () => {
                             {/* Judul */}
                             {getMenuSerba15rb && (
                                 <JudulCard
-                                    txtJudul={getMenuSerba15rb.nameMenu}
+                                    txtJudul={getMenuSerba15rb.name}
                                     page={'/semua-produk/4'}
                                 />
                             )}
@@ -358,13 +365,15 @@ const PageBeranda = () => {
                                             return (
                                                 <>
                                                     <BoxCard
-                                                        key={e._id}
+                                                        key={e.id}
                                                         flxDirectWrapp={"column"}
                                                         heightWrapp={"auto"}
                                                         widthWrapp={"calc(90%)"}
                                                         displayNavBtn={"none"}
-                                                        data={e}
-                                                        image={`http://localhost:6235/${e.image}`}
+                                                        name={e.name}
+                                                        price={e.price}
+                                                        stock={e.stock}
+                                                        image={img}
                                                         displayBtnBuy={"none"}
                                                         mrginWrapp={"10px auto"}
                                                         paddContent={"0px 10px 10px 10px"}

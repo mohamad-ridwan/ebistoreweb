@@ -1,27 +1,15 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 
 import '../navbar/Navbar.scss'
 import logMacaroni from '../../img/macaroni.svg'
 import avatarNew from '../../img/newprofil.png'
 import { Link, useHistory } from 'react-router-dom'
 import firebase from 'firebase/app';
+import { GetNamaUserContext } from '../../config/context/namauser/GetNamaUser'
 
 const Navbar = () => {
 
-    // Create Sticky Scroll Bar
-    // let [hide, setHide] = useState(false)
-    // END Create Sticky Scroll Bar
-
-    // useEffect(() => {
-    //     let prevScroll = window.pageYOffset
-    //     window.onscroll = () => {
-    //         let currentScroll = window.pageYOffset
-
-    //         prevScroll > currentScroll ? setHide(false) : setHide(true)
-
-    //         prevScroll = currentScroll
-    //     }
-    // }, [])
+    const [dataNama] = useContext(GetNamaUserContext)
 
     const histori = useHistory()
 
@@ -103,11 +91,17 @@ const Navbar = () => {
                             </Link>
                             {/* END Link Img Profile */}
 
-                            {/* Name Account User */}
-                            <p className="name-act-user-navbar">
-                                {getUser.name}
-                            </p>
-                            {/* END Name Account User */}
+                            {dataNama.data && dataNama.data.length > 0 ? dataNama.data.map(e => {
+                                return (
+                                    <p className="name-act-user-navbar">
+                                        {e.data.username}
+                                    </p>
+                                )
+                            }) : (
+                                    <p className="name-act-user-navbar">
+                                        {getUser.name}
+                                    </p>
+                                )}
                         </div>
                         {/* END Name Brand */}
                     </div>

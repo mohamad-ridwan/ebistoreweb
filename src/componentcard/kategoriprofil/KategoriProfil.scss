@@ -40,13 +40,15 @@
         overflow: hidden;
 
         .deskripsi-kategori-profil{
-            display: flex;
+            display: -webkit-box;
             width: 100%;
             font-size: 10pt;
             color: #aaa;
             white-space: nowrap;
             text-overflow: ellipsis;
             overflow: hidden;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
         }
 
         // icon next
