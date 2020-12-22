@@ -18,6 +18,7 @@ import Helmet from '../../../componentcard/helmet/Helmet'
 import API from '../../../service'
 import Spinner from '../../../componentcard/spinner/Spinner'
 import { GetNamaUserContext } from '../../../config/context/namauser/GetNamaUser'
+import { cloudFirestore } from '../../../config/firebase'
 
 const PageBeranda = () => {
 
@@ -31,24 +32,9 @@ const PageBeranda = () => {
     const [getMenuSerba5rb, setGetMenuSerba5rb] = useState([])
     const [getMenuSerba10rb, setGetMenuSerba10rb] = useState([])
     const [getMenuSerba15rb, setGetMenuSerba15rb] = useState([])
+    const [allProduct, setAllProduct] = useState([])
 
     const getDataAPI = () => {
-        API.APIFirebaseSemuaHarga()
-            .then((result) => {
-                setGetSemuaHarga(result)
-            })
-        API.APIFirebaseLimaRibu()
-            .then((result) => {
-                setGetSerba5rb(result)
-            })
-        API.APIFirebaseSepuluhRibu()
-            .then((result) => {
-                setGetSerba10rb(result)
-            })
-        API.APIFirebaseLimaBelasRibu()
-            .then((result) => {
-                setGetSerba15rb(result)
-            })
         API.APIFirebaseMenuSemuaHarga()
             .then(res => {
                 setGetMenuSemuaHarga(res)
@@ -64,6 +50,22 @@ const PageBeranda = () => {
         API.APIFirebaseMenuLimaBelasRibu()
             .then(res => {
                 setGetMenuSerba15rb(res)
+            })
+        API.APIFirebaseAllProduct()
+            .then((result) => {
+                setAllProduct(result)
+            })
+        API.APIFirebaseSerbaLimaRibu()
+            .then((res) => {
+                setGetSerba5rb(res)
+            })
+        API.APIFirebaseSerbaSepuluhRibu()
+            .then((res) => {
+                setGetSerba10rb(res)
+            })
+        API.APIFirebaseSerbaLimaBelasRibu()
+            .then((res) => {
+                setGetSerba15rb(res)
             })
     }
 
@@ -112,10 +114,12 @@ const PageBeranda = () => {
         histori.push(`/profil/${user}`)
     }
 
-    const params = useHistory()
-
     const handleDetail = (id) => {
-        params.push(`/detail-produk/${id}`)
+        histori.push(`/detail-produk/${id}`)
+    }
+
+    const toAllProduk = (path) => {
+        histori.push(`${path}`)
     }
 
     // carousel react-slick
@@ -124,7 +128,7 @@ const PageBeranda = () => {
         infinite: true,
         slidesToShow: 2,
         slidesToScroll: 2,
-        speed: 400
+        speed: 200
     }
 
     const settings2 = {
@@ -214,7 +218,7 @@ const PageBeranda = () => {
                             {getMenuSemuaHarga && (
                                 <JudulCard
                                     txtJudul={getMenuSemuaHarga.name}
-                                    page={'/semua-produk/1'}
+                                    goPage={() => toAllProduk('semua-produk/allproduct')}
                                 />
                             )}
                             {/* END Judul */}
@@ -222,30 +226,27 @@ const PageBeranda = () => {
                             {/* Section Semua Harga */}
                             <div className="box-group">
                                 <Slider {...settings} className="boxSlide">
-                                    {getSemuaHarga && getSemuaHarga.length > 0
-                                        ? getSemuaHarga.map(e => {
-                                            return (
-                                                <>
-                                                    <BoxCard
-                                                        key={e.id}
-                                                        flxDirectWrapp={"column"}
-                                                        heightWrapp={"auto"}
-                                                        widthWrapp={"calc(90%)"}
-                                                        displayNavBtn={"none"}
-                                                        name={e.name}
-                                                        price={e.price}
-                                                        stock={e.stock}
-                                                        image={img}
-                                                        displayBtnBuy={"none"}
-                                                        mrginWrapp={"10px auto"}
-                                                        paddContent={"0px 10px 10px 10px"}
-                                                        mrgnStock={"5px 0 0px 0"}
-                                                        detail={() => handleDetail(e.id)}
-                                                    />
-                                                </>
-                                            )
-                                        }) : (
-                                            <div className="oke">FAILED</div>
+                                    {allProduct.length > 0 ? allProduct.map(e => {
+                                        return (
+                                            <BoxCard
+                                                key={e.id}
+                                                flxDirectWrapp={"column"}
+                                                heightWrapp={"auto"}
+                                                widthWrapp={"calc(90%)"}
+                                                displayNavBtn={"none"}
+                                                name={e.data.name}
+                                                price={e.data.price}
+                                                stock={e.data.stock}
+                                                image={img}
+                                                displayBtnBuy={"none"}
+                                                mrginWrapp={"10px auto"}
+                                                paddContent={"0px 10px 10px 10px"}
+                                                mrgnStock={"5px 0 0px 0"}
+                                                detail={() => handleDetail(e.id)}
+                                            />
+                                        )
+                                    }) : (
+                                            <div className="wa">oke</div>
                                         )}
                                 </Slider>
                             </div>
@@ -259,7 +260,7 @@ const PageBeranda = () => {
                             {getMenuSerba5rb && (
                                 <JudulCard
                                     txtJudul={getMenuSerba5rb.name}
-                                    page={'/semua-produk/2'}
+                                    goPage={() => toAllProduk('semua-produk/limaribu')}
                                 />
                             )}
                             {/* END Judul */}
@@ -277,15 +278,15 @@ const PageBeranda = () => {
                                                         heightWrapp={"auto"}
                                                         widthWrapp={"calc(90%)"}
                                                         displayNavBtn={"none"}
-                                                        name={e.name}
-                                                        price={e.price}
-                                                        stock={e.stock}
+                                                        name={e.data.name}
+                                                        price={e.data.price}
+                                                        stock={e.data.stock}
                                                         image={img}
                                                         displayBtnBuy={"none"}
                                                         mrginWrapp={"10px auto"}
                                                         paddContent={"0px 10px 10px 10px"}
                                                         mrgnStock={"5px 0 0px 0"}
-                                                        detail={handleDetail}
+                                                        detail={() => handleDetail(e.id)}
                                                     />
                                                 </>
                                             )
@@ -307,7 +308,7 @@ const PageBeranda = () => {
                             {getMenuSerba10rb && (
                                 <JudulCard
                                     txtJudul={getMenuSerba10rb.name}
-                                    page={'/semua-produk/3'}
+                                    goPage={() => toAllProduk('semua-produk/sepuluhribu')}
                                 />
                             )}
                             {/* END Judul */}
@@ -325,15 +326,15 @@ const PageBeranda = () => {
                                                         heightWrapp={"auto"}
                                                         widthWrapp={"calc(90%)"}
                                                         displayNavBtn={"none"}
-                                                        name={e.name}
-                                                        price={e.price}
-                                                        stock={e.stock}
+                                                        name={e.data.name}
+                                                        price={e.data.price}
+                                                        stock={e.data.stock}
                                                         image={img}
                                                         displayBtnBuy={"none"}
                                                         mrginWrapp={"10px auto"}
                                                         paddContent={"0px 10px 10px 10px"}
                                                         mrgnStock={"5px 0 0px 0"}
-                                                        detail={handleDetail}
+                                                        detail={() => handleDetail(e.id)}
                                                     />
                                                 </>
                                             )
@@ -352,7 +353,7 @@ const PageBeranda = () => {
                             {getMenuSerba15rb && (
                                 <JudulCard
                                     txtJudul={getMenuSerba15rb.name}
-                                    page={'/semua-produk/4'}
+                                    goPage={() => toAllProduk('semua-produk/limabelasribu')}
                                 />
                             )}
                             {/* END Judul */}
@@ -370,15 +371,15 @@ const PageBeranda = () => {
                                                         heightWrapp={"auto"}
                                                         widthWrapp={"calc(90%)"}
                                                         displayNavBtn={"none"}
-                                                        name={e.name}
-                                                        price={e.price}
-                                                        stock={e.stock}
+                                                        name={e.data.name}
+                                                        price={e.data.price}
+                                                        stock={e.data.stock}
                                                         image={img}
                                                         displayBtnBuy={"none"}
                                                         mrginWrapp={"10px auto"}
                                                         paddContent={"0px 10px 10px 10px"}
                                                         mrgnStock={"5px 0 0px 0"}
-                                                        detail={handleDetail}
+                                                        detail={() => handleDetail(e.id)}
                                                     />
                                                 </>
                                             )

@@ -20,7 +20,7 @@ const PageAlamat = () => {
     const [dataNama] = useContext(GetNamaUserContext)
     const [dataUser, setDataUser, addDataFirebase] = useContext(DbFirebaseContext)
     const [getUser, setGetUser] = useContext(GetUserLogin)
-    const [alamat, setAlamat] = useState([])
+    const [dataForLoading, setDataForLoading] = useState([])
     const [dataAlamat, setDataAlamat] = useState({
         alamat: '',
         kota: '',
@@ -55,9 +55,9 @@ const PageAlamat = () => {
     }
 
     const getAPIForLoading = () => {
-        API.APISerba5rb()
+        API.APIFirebaseMenuAllProduct()
             .then((result) => {
-                setAlamat(result.data)
+                setDataForLoading(result)
             })
     }
 
@@ -84,7 +84,7 @@ const PageAlamat = () => {
 
     return (
         <>
-            {alamat && alamat.length > 0 ? (
+            {dataForLoading && dataForLoading.length > 0 ? (
                 <>
                     {dataNama.data && dataNama.data.length > 0 ?
                         dataNama.data.map(e => {

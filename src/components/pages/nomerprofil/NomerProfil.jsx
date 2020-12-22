@@ -42,9 +42,9 @@ const NomerProfil = () => {
     }
 
     const getDataAPI = () => {
-        API.APISerba5rb()
+        API.APIFirebaseMenuAllProduct()
             .then((res) => {
-                setGetDataForLoading(res.data)
+                setGetDataForLoading(res)
             })
     }
 

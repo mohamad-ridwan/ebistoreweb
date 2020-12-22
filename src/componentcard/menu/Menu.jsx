@@ -2,18 +2,13 @@ import React from 'react'
 import { NavLink, useHistory, withRouter } from 'react-router-dom'
 import './Menu.scss'
 
-const Menu = ({ linkPage, nameMenu, clickToPage, link }) => {
-
-    // const history = useHistory()
-
-    // const goToPage = () => {
-    //     history.push(`${link}`)
-    // }
+const Menu = ({ linkPage, nameMenu, toPage, link }) => {
 
     return (
         <>
             <NavLink
-                to={link} className="btn-kategori" activeClassName={'active-menu'}>
+                onClick={toPage}
+                to={link} className="btn-kategori-menu" activeClassName={'active-menu'}>
                 {nameMenu}
             </NavLink>
         </>

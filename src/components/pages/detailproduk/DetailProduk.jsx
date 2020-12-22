@@ -7,21 +7,14 @@ import DetailCard from '../../../componentcard/detailcard/DetailCard'
 import Helmet from '../../../componentcard/helmet/Helmet'
 import API from '../../../service'
 import Spinner from '../../../componentcard/spinner/Spinner'
-import Axios from 'axios'
+import img from '../../../img/enambelas.jpg'
+import { cloudFirestore } from '../../../config/firebase'
 
 class DetailProduk extends Component {
 
     state = {
-        post: [
-            {
-                _id: '',
-                name: '',
-                price: '',
-                stock: '',
-                deskripsi: '',
-                image: '',
-            }
-        ],
+        data: {},
+        id: '',
         postKeranjang: {
             id: '',
             label: '',
@@ -56,57 +49,91 @@ class DetailProduk extends Component {
         console.log(this.props)
     }
 
-    // carousel react-slick
-    // settings = {
-    //     slidesToShow: 1,
-    //     slidesToScroll: 1,
-    //     speed: 200
-    // }
-
     // to transaksion
     handleTransaksi = (id) => {
         this.props.history.push(`/detail-produk/transaksi/${id}`)
     }
     // end to transaksion
 
-    componentDidMount() {
-        // dapatkan id dari id yang masuk
+    getDetailProduct = () => {
         const id = this.props.match.params.id
-        API.APIDetailProduk(id)
-            .then(result => {
-                let respon = result.data
-                // Agar bisa mendapatkan data yg masuk
-                // Ganti data yg masuk dengan data yg baru
-                this.setState({
-                    post: [
-                        {
-                            _id: respon._id,
-                            name: respon.name,
-                            price: respon.price,
-                            stock: respon.stock,
-                            deskripsi: respon.deskripsi,
-                            image: respon.image
-                        }
-                    ]
+        const APISemuaHarga = () => {
+            API.APIFirebaseDetailProduct(id)
+                .then((res) => {
+                    this.setState({
+                        data: res
+                    })
+                    console.log(res.id)
+                    console.log(this.state.data)
                 })
-            })
-        this.getAPIForLoading()
+                .catch(err => {
+                    console.log('document semua harga not found', err)
+                })
+        }
+        const APILimaRibu = () => {
+            API.APIFirebaseDPLimaRibu(id)
+                .then((res) => {
+                    this.setState({
+                        data: res
+                    })
+                })
+                .catch(err => {
+                    console.log('document lima ribu not found', err)
+                })
+        }
+        const APISepuluhRibu = () => {
+            API.APIFirebaseDPSepuluhRibu(id)
+                .then((res) => {
+                    this.setState({
+                        data: res
+                    })
+                })
+        }
+        const APILimaBelasRibu = () => {
+            API.APIFirebaseDPLimaBelasRibu(id)
+                .then((res) => {
+                    this.setState({
+                        data: res
+                    })
+                })
+        }
+
+        const AllAPI = {
+            APISemuaHarga,
+            APILimaRibu,
+            APISepuluhRibu,
+            APILimaBelasRibu
+        }
+
+        if (AllAPI.APISemuaHarga) {
+            AllAPI.APISemuaHarga()
+        }
+        if (AllAPI.APILimaRibu) {
+            AllAPI.APILimaRibu()
+        }
+        if (AllAPI.APISepuluhRibu) {
+            AllAPI.APISepuluhRibu()
+        }
+        if (AllAPI.APILimaBelasRibu) {
+            AllAPI.APILimaBelasRibu()
+        }
+    }
+
+    componentDidMount() {
+        this.getDetailProduct();
+        this.getAPIForLoading();
     }
 
     render() {
 
         return (
             <>
-                {this.state.getDataForLoading.length > 0 ? (
+                {this.state.data && this.state.data.name ? (
                     <>
-                        {this.state.post.map((e) => {
-                            return (
-                                <Helmet
-                                    titleHelmet={`Detail Produk | ${e.name} | Ebi Store`}
-                                    contentHelmet={`halaman detail produk | ${e.name} | Ebi Store`}
-                                />
-                            )
-                        })}
+                        <Helmet
+                            titleHelmet={`Detail Produk | ${this.state.data.name} | Ebi Store`}
+                            contentHelmet={`halaman detail produk | ${this.state.data.name} | Ebi Store`}
+                        />
 
                         <div className="wrapp-detail-produk">
                             <NavbarPageCard
@@ -114,20 +141,18 @@ class DetailProduk extends Component {
                                 titlePageNav={'Detail Produk'}
                             />
 
-                            {this.state.post.map(e => {
-                                return (
-                                    <DetailCard
-                                        key={e._id}
-                                        data={e}
-                                        img={`http://localhost:6235/${e.image}`}
-                                        buy={this.handleTransaksi}
-                                        toPageShopp={() => this.addCart(e._id)}
-                                        displayBoxAlamat={"none"}
-                                        valueInput={this.state.order}
-                                        displayInputTotalOrder={'none'}
-                                    />
-                                )
-                            })}
+                            <DetailCard
+                                name={this.state.data.name}
+                                price={this.state.data.price}
+                                stock={this.state.data.stock}
+                                deskripsi={this.state.data.deskripsi}
+                                img={img}
+                                buy={() => this.handleTransaksi(this.state.data.id)}
+                                // toPageShopp={() => this.addCart(e._id)}
+                                displayBoxAlamat={"none"}
+                                valueInput={this.state.order}
+                                displayInputTotalOrder={'none'}
+                            />
                         </div>
                     </>
                 ) : (

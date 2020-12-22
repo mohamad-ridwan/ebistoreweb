@@ -1,6 +1,6 @@
 import { database } from "../config/firebase"
 
-export const GetFirebase = async (path) => {
+export const GetFirebase = async (path, id) => {
     const promise = await new Promise((resolve, reject) => {
         const urlNomerUser = database.ref(`${path}`)
         urlNomerUser.on('value', (snapshot) => {
