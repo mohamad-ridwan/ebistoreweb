@@ -94,7 +94,7 @@ const Navbar = () => {
                             {dataNama.data && dataNama.data.length > 0 ? dataNama.data.map(e => {
                                 return (
                                     <p className="name-act-user-navbar">
-                                        {e.data.username}
+                                        {e.data}
                                     </p>
                                 )
                             }) : (

@@ -24,16 +24,16 @@ const ApiSemuaProdukProvider = ({ children }) => {
     // const product = new URLSearchParams(search).get('product')
     // console.log(product)
 
-    useEffect(() => {
-        Axios.get(`http://localhost:6235/v8/makaroni/getall/`)
-            .then(res => {
-                const respon = res.data
-                setGetApi(respon.data)
-            })
-            .catch(err => {
-                console.log(err)
-            })
-    }, [])
+    // useEffect(() => {
+    //     Axios.get(`http://localhost:6235/v8/makaroni/getall/`)
+    //         .then(res => {
+    //             const respon = res.data
+    //             setGetApi(respon.data)
+    //         })
+    //         .catch(err => {
+    //             console.log(err)
+    //         })
+    // }, [])
 
     return (
         <ApiSemuaProduk.Provider value={[getApi, setGetApi]}>

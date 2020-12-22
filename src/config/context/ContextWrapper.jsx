@@ -3,8 +3,6 @@ import { withRouter } from 'react-router-dom'
 import ApiMenuProvider from './ApiMenu'
 import ApiSemuaProdukProvider from './ApiSemuaProduk'
 import ChangeNumberPhoneProvider from './ChangeNumberPhone'
-import DbFirebaseProvider from './DbFirebase'
-import GetAPIFirebaseProvider from './GetAPIFirebase'
 import GetNumberPhoneProvider from './GetNumberPhone'
 import GetUserLoginProvider from './GetUserLogin.jsx'
 import HelmetProvider from './Helmet'
@@ -12,7 +10,9 @@ import GetNamaUserProvider from './namauser/GetNamaUser'
 import PostNamaUserProvider from './namauser/PostNamaUser'
 import GetNomerUserProvider from './nomerhp/GetNomerUser'
 import PostNomerUserProvider from './nomerhp/PostNomerUser'
+import PostAlamatUserProvider from './alamatuser/PostAlamatUser'
 import PushToCartProvider from './PushToCart'
+import GetAlamatUserProvider from './alamatuser/GetAlamatUser'
 
 
 const ContextWrapper = ({ children }) => {
@@ -21,8 +21,8 @@ const ContextWrapper = ({ children }) => {
             <PostNamaUserProvider>
                 <GetNomerUserProvider>
                     <PostNomerUserProvider>
-                        <GetAPIFirebaseProvider>
-                            <DbFirebaseProvider>
+                        <GetAlamatUserProvider>
+                            <PostAlamatUserProvider>
                                 <PushToCartProvider>
                                     <HelmetProvider>
                                         <GetNumberPhoneProvider>
@@ -38,8 +38,8 @@ const ContextWrapper = ({ children }) => {
                                         </GetNumberPhoneProvider>
                                     </HelmetProvider>
                                 </PushToCartProvider>
-                            </DbFirebaseProvider>
-                        </GetAPIFirebaseProvider>
+                            </PostAlamatUserProvider>
+                        </GetAlamatUserProvider>
                     </PostNomerUserProvider>
                 </GetNomerUserProvider>
             </PostNamaUserProvider>

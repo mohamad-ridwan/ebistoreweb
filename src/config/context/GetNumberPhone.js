@@ -18,17 +18,17 @@ const GetNumberPhoneProvider = ({ children }) => {
         console.log('hasil:', data)
     }
 
-    useEffect(() => {
-        Axios.get('http://localhost:6235/v11/nomerhpuser/getnomer')
-            .then(res => {
-                const respon = res.data
-                setGetDataHp(respon.data)
-            })
-            .catch(err => {
-                console.log(err)
-            })
+    // useEffect(() => {
+    //     Axios.get('http://localhost:6235/v11/nomerhpuser/getnomer')
+    //         .then(res => {
+    //             const respon = res.data
+    //             setGetDataHp(respon.data)
+    //         })
+    //         .catch(err => {
+    //             console.log(err)
+    //         })
 
-    }, [])
+    // }, [])
 
     return (
         <GetNumberPhone.Provider value={[getDataHp, setGetDataHp, handleUpdate, update, setUpdate]}>

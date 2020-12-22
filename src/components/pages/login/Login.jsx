@@ -53,13 +53,18 @@ class Login extends Component {
             // The signed-in user info.
             var user = result.user;
             // ...
+            const id = result.user
+            const storage = localStorage.setItem('userData', JSON.stringify(id))
+            return storage
         })
             .then(() => {
                 this.props.history.push('/')
             })
             .catch(function (error) {
                 console.log(error)
-                alert('Terjadi Kesalahan' + ' ' + '(Error: 404)', error)
+                alert(`Terjadi Kesalahan (Error: 500)
+                    Silahkan login dengan akun yang sudah ada, atau register jika belum
+                `, error)
             });
     }
 

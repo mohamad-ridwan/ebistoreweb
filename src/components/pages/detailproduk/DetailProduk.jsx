@@ -53,8 +53,6 @@ class DetailProduk extends Component {
                     this.setState({
                         data: res
                     })
-                    console.log(res.id)
-                    console.log(this.state.data)
                 })
                 .catch(err => {
                     console.log('document semua harga not found', err)

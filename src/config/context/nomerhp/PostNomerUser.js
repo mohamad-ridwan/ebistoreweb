@@ -11,19 +11,19 @@ const PostNomerUserProvider = ({ children }) => {
     })
 
     const postNomer = (data) => {
-        const userId = getUser.uid
-        database.ref('nomeruser/' + userId).set({
+        const id = getUser.uid
+        database.ref('nomeruser/' + id).set({
             phoneUser: data.phoneUser
         })
     }
 
-    const getUserFromFirebase = () => {
+    const getUserLogin = () => {
         firebase.auth().onAuthStateChanged(function (user) {
             if (user) {
-                const userId = user.uid
+                const uid = user.uid
 
                 setGetUser({
-                    uid: userId
+                    uid: uid
                 })
             } else {
                 // No user is signed in.
@@ -32,7 +32,7 @@ const PostNomerUserProvider = ({ children }) => {
     }
 
     useEffect(() => {
-        getUserFromFirebase();
+        getUserLogin();
     }, [])
 
     return (

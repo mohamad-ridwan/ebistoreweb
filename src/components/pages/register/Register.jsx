@@ -44,6 +44,9 @@ class Register extends Component {
             var token = result.credential.accessToken;
             // The signed-in user info.
             var user = result.user;
+            const id = result.user
+            const storage = localStorage.setItem('userData', JSON.stringify(id))
+            return storage
         })
             .then(() => {
                 this.props.history.push('/')

@@ -32,13 +32,15 @@ const NomerProfil = () => {
     }
 
     const handleSubmit = () => {
+        const storage = JSON.parse(localStorage.getItem('userData'))
         const phoneUser = nomerUser
         const data = {
             phoneUser: phoneUser,
             date: new Date().getTime(),
-            uid: getUser.uid
+            uid: storage.uid
         }
         postNomer(data)
+        console.log(data)
     }
 
     const getDataAPI = () => {

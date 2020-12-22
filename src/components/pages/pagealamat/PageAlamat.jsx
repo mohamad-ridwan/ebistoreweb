@@ -12,13 +12,13 @@ import API from '../../../service'
 import firebase from 'firebase/app';
 import './PageAlamat.scss'
 import { GetUserLogin } from '../../../config/context/GetUserLogin'
-import { DbFirebaseContext } from '../../../config/context/DbFirebase'
 import { GetNamaUserContext } from '../../../config/context/namauser/GetNamaUser'
+import { PostAlamatUserContext } from '../../../config/context/alamatuser/PostAlamatUser'
 
 const PageAlamat = () => {
 
     const [dataNama] = useContext(GetNamaUserContext)
-    const [dataUser, setDataUser, addDataFirebase] = useContext(DbFirebaseContext)
+    const [dataUser, setDataUser, addDataFirebase] = useContext(PostAlamatUserContext)
     const [getUser, setGetUser] = useContext(GetUserLogin)
     const [dataForLoading, setDataForLoading] = useState([])
     const [dataAlamat, setDataAlamat] = useState({
@@ -43,7 +43,7 @@ const PageAlamat = () => {
             kodePos: kodePos,
             namaPenerima: namaPenerima,
             date: new Date().getTime(),
-            userId: userData.uid
+            uid: userData.uid
         }
         addDataFirebase(data)
     }

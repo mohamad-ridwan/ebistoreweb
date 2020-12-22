@@ -29,15 +29,14 @@ const NamaProfil = () => {
     }
 
     const handleSubmit = () => {
+        const storage = JSON.parse(localStorage.getItem('userData'))
         const username = changeNama.username
         const data = {
             username: username,
             date: new Date().getTime(),
-            uid: getUser.uid
+            uid: storage.uid
         }
         PostNamaUser(data)
-        console.log(data)
-        console.log(changeNama)
     }
 
     const history = useHistory()

@@ -1,9 +1,9 @@
 import React, { createContext, useEffect, useState } from "react";
-import firebase, { database } from '../firebase';
+import firebase, { database } from '../../firebase';
 
-export const DbFirebaseContext = createContext()
+export const PostAlamatUserContext = createContext()
 
-const DbFirebaseProvider = ({ children }) => {
+const PostAlamatUserProvider = ({ children }) => {
 
     const [dataUser, setDataUser] = useState({
         uid: '',
@@ -11,8 +11,8 @@ const DbFirebaseProvider = ({ children }) => {
 
     // POST
     const addDataFirebase = (data) => {
-        alert('berhasil Cuk')
-        database.ref('alamatuser/' + data.userId).set({
+        const userId = dataUser.uid
+        database.ref('alamatuser/' + userId).set({
             alamat: data.alamat,
             kota: data.kota,
             kodePos: data.kodePos,
@@ -39,10 +39,10 @@ const DbFirebaseProvider = ({ children }) => {
     }, [])
 
     return (
-        <DbFirebaseContext.Provider value={[dataUser, setDataUser, addDataFirebase]}>
+        <PostAlamatUserContext.Provider value={[dataUser, setDataUser, addDataFirebase]}>
             {children}
-        </DbFirebaseContext.Provider>
+        </PostAlamatUserContext.Provider>
     )
 }
 
-export default DbFirebaseProvider
+export default PostAlamatUserProvider

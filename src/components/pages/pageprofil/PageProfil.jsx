@@ -16,30 +16,19 @@ import { GetNumberPhone } from '../../../config/context/GetNumberPhone'
 import Helmet from '../../../componentcard/helmet/Helmet'
 import Spinner from '../../../componentcard/spinner/Spinner'
 import ReactImageUploading from 'react-images-uploading'
-import { GetAPIFirebaseContext } from '../../../config/context/GetAPIFirebase'
+
 import { GetNomerUserContext } from '../../../config/context/nomerhp/GetNomerUser'
 import API from '../../../service'
 import { GetNamaUserContext } from '../../../config/context/namauser/GetNamaUser'
+import { GetAlamatUserContext } from '../../../config/context/alamatuser/GetAlamatUser'
 
 const PageProfil = () => {
     const [dataNama] = useContext(GetNamaUserContext)
     const [dataNomer, setDataNomer] = useContext(GetNomerUserContext)
-    const [alamat, setAlamat] = useState([])
     const [getUser, setGetUser] = useContext(GetUserLogin)
     const [view, setView] = useState(false)
-    let [notes, setNotes, dataUser] = useContext(GetAPIFirebaseContext)
-
-    const getAlamat = () => {
-        Axios.get('http://localhost:6235/v5/dataalamat/getalamat')
-            .then(result => {
-                const response = result.data
-
-                setAlamat(response.dataAlamat)
-            })
-            .catch(err => {
-                console.log('error', err)
-            })
-    }
+    let [alamatUser, dataUser] = useContext(GetAlamatUserContext)
+    const [dataForLoading, setDataForLoading] = useState([])
 
     const history = useHistory()
 
@@ -55,6 +44,13 @@ const PageProfil = () => {
                     // alert('gagal Log Out' + ' ' + 'Error: 404', error)
                 });
         }
+    }
+
+    const getAPIForLoading = () => {
+        API.APIFirebaseSerbaLimaRibu()
+            .then((res) => {
+                setDataForLoading(res)
+            })
     }
 
     const getUserLogin = () => {
@@ -109,13 +105,13 @@ const PageProfil = () => {
     }
 
     useEffect(() => {
+        getAPIForLoading();
         getUserLogin()
-        getAlamat();
     }, [])
 
     return (
         <>
-            {dataNomer.data && dataNomer.data.length > 0 ? (
+            {dataForLoading && dataForLoading.length > 0 ? (
                 <>
                     {dataNama.data && dataNama.data.length > 0 ?
                         dataNama.data.map(e => {
@@ -123,7 +119,7 @@ const PageProfil = () => {
                                 <Helmet
                                     key={e.id}
                                     titleHelmet={`Profil | ${e.data.username} | Ebi Store`}
-                                    contentHelmet={`halaman profil |${e.data.username} | Ebi Strore`}
+                                    contentHelmet={`halaman profil |${e.data} | Ebi Strore`}
                                 />
                             )
                         }) : (
@@ -170,7 +166,7 @@ const PageProfil = () => {
                                             <p className="name-profil">
                                                 {'Hi !'}
                                                 <br />
-                                                {e.data.username}
+                                                {e.data}
                                             </p>
                                         )
                                     }) : (
@@ -181,7 +177,7 @@ const PageProfil = () => {
                                         </p>
                                     )}
 
-                                <ReactImageUploading
+                                {/* <ReactImageUploading
                                     multiple
                                     value={getUser.imageUpload}
                                     onChange={handleChangeImage}
@@ -198,25 +194,26 @@ const PageProfil = () => {
 
                                         </>
                                     )}
-                                </ReactImageUploading>
+                                </ReactImageUploading> */}
+
+                                <img src={getUser.photo} alt="" className="img-profil" />
 
                             </div>
                             {/* end box orange */}
 
                             <div className="box-kategori">
-                                {dataNama.data && dataNama.data.length > 0 ?
-                                    dataNama.data.map(e => {
-                                        return (
-                                            <KategoriProfil
-                                                key={e.id}
-                                                onClick={() => toPageNamaProfil(e.data.username)}
-                                                linkKategori={'link-kategori'}
-                                                icon={'fas fa-user-tie'}
-                                                title={'Nama'}
-                                                deskripsi={e.data.username}
-                                            />
-                                        )
-                                    }) : (
+                                {dataNama.data && dataNama.data.length > 0 ? dataNama.data.map(e => {
+                                    return (
+                                        <KategoriProfil
+                                            key={e.id}
+                                            onClick={() => toPageNamaProfil(e.data.username)}
+                                            linkKategori={'link-kategori'}
+                                            icon={'fas fa-user-tie'}
+                                            title={'Nama'}
+                                            deskripsi={e.data}
+                                        />
+                                    )
+                                }) : (
                                         <KategoriProfil
                                             onClick={() => toPageNamaProfil(getUser.name || getUser.email)}
                                             linkKategori={'link-kategori'}
@@ -234,19 +231,18 @@ const PageProfil = () => {
                                     deskripsi={getUser.email}
                                 />
 
-                                {dataNomer.data && dataNomer.data.length > 0
-                                    ? dataNomer.data.map(e => {
-                                        return (
-                                            <KategoriProfil
-                                                onClick={() => toPageNomerProfil()}
-                                                key={e.id}
-                                                linkKategori={'link-kategori'}
-                                                icon={'fas fa-mobile'}
-                                                title={'No Hp.'}
-                                                deskripsi={e.data.phoneUser.phoneUser}
-                                            />
-                                        )
-                                    }) : (
+                                {dataNomer.data && dataNomer.data.length > 0 ? dataNomer.data.map(e => {
+                                    return (
+                                        <KategoriProfil
+                                            onClick={() => toPageNomerProfil()}
+                                            key={e.id}
+                                            linkKategori={'link-kategori'}
+                                            icon={'fas fa-mobile'}
+                                            title={'No Hp.'}
+                                            deskripsi={e.data.phoneUser}
+                                        />
+                                    )
+                                }) : (
                                         <KategoriProfil
                                             onClick={() => toPageNomerProfil(getUser.name || getUser.email)}
                                             linkKategori={'link-kategori'}
@@ -256,24 +252,19 @@ const PageProfil = () => {
                                         />
                                     )}
 
-                                {notes.newData && notes.newData.length > 0 ?
-                                    notes.newData.map(e => {
-                                        return (
-                                            <>
-                                                <KategoriProfil
-                                                    key={e.id}
-                                                    onClick={() => toPageAlamat(getUser.name || getUser.email)}
-                                                    linkKategori={'link-kategori'}
-                                                    icon={'fas fa-home'}
-                                                    title={'Alamat'}
-                                                    alamat={e.data.alamat}
-                                                    kota={e.data.kota}
-                                                    kodePos={e.data.kodePos}
-                                                    namaPenerima={e.data.namaPenerima}
-                                                />
-                                            </>
-                                        )
-                                    }) : (
+
+                                {alamatUser && alamatUser ? (
+                                    <KategoriProfil
+                                        onClick={() => toPageAlamat(getUser.name || getUser.email)}
+                                        linkKategori={'link-kategori'}
+                                        icon={'fas fa-home'}
+                                        title={'Alamat'}
+                                        alamat={alamatUser.alamat}
+                                        kota={alamatUser.kota}
+                                        kodePos={alamatUser.kodePos}
+                                        namaPenerima={alamatUser.namaPenerima}
+                                    />
+                                ) : (
                                         <KategoriProfil
                                             onClick={() => toPageAlamat(getUser.name || getUser.email)}
                                             linkKategori={'link-kategori'}
@@ -282,6 +273,9 @@ const PageProfil = () => {
                                             deskripsi={"Kamu belum memiliki alamat yang tercantum"}
                                         />
                                     )}
+
+
+
                             </div>
                         </div>
 

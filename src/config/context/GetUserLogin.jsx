@@ -23,12 +23,11 @@ const GetUserLoginProvider = ({ children }) => {
     // console.log('hs', histori)
     const history = useHistory()
 
-    const getUserWithLocalStorage = () => {
-        JSON.parse(localStorage.getItem('userData'))
-    }
+    // const getUserWithLocalStorage = () => {
+    //     const storage = JSON.parse(localStorage.getItem('userData'))
+    // }
 
-    useEffect(() => {
-        getUserWithLocalStorage();
+    const getUserLogin = () => {
         firebase.auth().onAuthStateChanged(function (user) {
             if (user) {
                 const userId = user.uid
@@ -61,6 +60,11 @@ const GetUserLoginProvider = ({ children }) => {
                 })
             }
         })
+    }
+
+    useEffect(() => {
+        // getUserWithLocalStorage();
+        getUserLogin();
     }, [])
 
     return (

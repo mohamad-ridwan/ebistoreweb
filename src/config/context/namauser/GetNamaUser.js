@@ -8,18 +8,18 @@ const GetNamaUserProvider = ({ children }) => {
 
     const [dataNama, setDataNama] = useState({
         uid: '',
-        data: []
+        data: [],
     })
 
     const GetNamaUser = async () => {
-        const userId = dataNama.uid
+        const userId = JSON.parse(localStorage.getItem('userData'))
         const promise = await new Promise((resolve, reject) => {
-            const UrlAPI = database.ref('namauser/' + userId)
+            const UrlAPI = database.ref('namauser/' + userId.uid)
             UrlAPI.on('value', (snapshot) => {
                 const data = dataNama.data
                 Object.keys(snapshot.val()).map(key => {
                     data.push({
-                        id: key,
+                        id: userId.uid,
                         data: snapshot.val()[key]
                     })
                 })

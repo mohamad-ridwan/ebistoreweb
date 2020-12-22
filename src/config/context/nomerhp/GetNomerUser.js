@@ -12,14 +12,14 @@ const GetNomerUserProvider = ({ children }) => {
     })
 
     const getNomer = () => {
-        const userId = dataNomer.uid
+        const userId = JSON.parse(localStorage.getItem('userData'))
         return new Promise((resolve, reject) => {
-            const urlNomerUser = database.ref('nomeruser/' + userId);
+            const urlNomerUser = database.ref('nomeruser/' + userId.uid);
             urlNomerUser.on('value', (snapshot) => {
                 const data = dataNomer.data
                 Object.keys(snapshot.val()).map(key => {
                     data.push({
-                        id: key,
+                        id: userId.uid,
                         data: snapshot.val()[key]
                     })
                 })

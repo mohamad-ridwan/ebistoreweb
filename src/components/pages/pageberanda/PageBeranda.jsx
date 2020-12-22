@@ -18,7 +18,6 @@ import Helmet from '../../../componentcard/helmet/Helmet'
 import API from '../../../service'
 import Spinner from '../../../componentcard/spinner/Spinner'
 import { GetNamaUserContext } from '../../../config/context/namauser/GetNamaUser'
-import { cloudFirestore } from '../../../config/firebase'
 
 const PageBeranda = () => {
 
@@ -175,7 +174,7 @@ const PageBeranda = () => {
                                     <p className="name-profil">
                                         {'Hi !'}
                                         <br />
-                                        {e.data.username}
+                                        {e.data}
                                     </p>
                                 )
                             }) : (
