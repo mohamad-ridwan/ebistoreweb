@@ -21,16 +21,6 @@ class DetailProduk extends Component {
             name: '',
             price: ''
         },
-        getDataForLoading: []
-    }
-
-    getAPIForLoading = () => {
-        API.APISerba5rb()
-            .then((result) => {
-                this.setState({
-                    getDataForLoading: result.data
-                })
-            })
     }
 
     // addCart = (_id) => {
@@ -121,7 +111,6 @@ class DetailProduk extends Component {
 
     componentDidMount() {
         this.getDetailProduct();
-        this.getAPIForLoading();
     }
 
     render() {
