@@ -24,7 +24,6 @@ const PageBeranda = () => {
 
     const [dataNama] = useContext(GetNamaUserContext)
     const [getUser, setGetUser] = useContext(GetUserLogin)
-    const [getSemuaHarga, setGetSemuaHarga] = useState([])
     const [getSerba5rb, setGetSerba5rb] = useState([])
     const [getSerba10rb, setGetSerba10rb] = useState([])
     const [getSerba15rb, setGetSerba15rb] = useState([])
