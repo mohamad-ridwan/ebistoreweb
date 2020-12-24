@@ -4,26 +4,28 @@ import '../navbarpagecard/NavbarPageCard.scss'
 import { Link } from 'react-router-dom'
 import { useState } from 'react'
 import { useEffect } from 'react'
+import API from '../../service'
 
-const NavbarPageCard = ({ linkPage, titlePageNav, transparant, color, position, backPage }) => {
+const NavbarPageCard = ({ linkPage, titlePageNav, transparant, color, position, backPage, displayIcon, heightNav }) => {
 
-    // const [hide, setHide] = useState(false)
+    const [dataKeranjang, setDataKeranjang] = useState([])
 
-    // useEffect(()=>{
-    //     let prevScroll = window.pageYOffset
-    //     window.onscroll = ()=>{
-    //         let currentScroll = window.pageYOffset
+    const getDataKeranjang = () => {
+        API.APIFirebaseGetKeranjang()
+            .then((res) => {
+                setDataKeranjang(res)
+            })
+    }
 
-    //         prevScroll > currentScroll ? setHide(!true) : setHide (!false)
-
-    //         prevScroll = currentScroll
-    //     }
-    // }, [])
+    useEffect(() => {
+        getDataKeranjang();
+    }, [])
 
     return (
         <>
             {/* Navbar */}
             <div className="navbar-pageCard" style={{
+                height: `${heightNav}`,
                 position: `${position}`,
                 backgroundColor: `${transparant}`
             }}>
@@ -48,6 +50,31 @@ const NavbarPageCard = ({ linkPage, titlePageNav, transparant, color, position, 
                         {titlePageNav}
                     </a>
                     {/* END Title page nav */}
+
+                    <div className="container-box-icon-nav"
+                        style={{
+                            display: `${displayIcon}`
+                        }}
+                    >
+                        <div className="wrapp-box-icon">
+                            <Link to='/keranjang/1' className="box-icon iconCart">
+                                {dataKeranjang && dataKeranjang.length > 0 ? (
+                                    <p className="angka-notif">
+                                        {dataKeranjang.length}
+                                    </p>
+                                ) : (
+                                        <p className="angka-notif"
+                                            style={{
+                                                display: 'none'
+                                            }}
+                                        >
+
+                                        </p>
+                                    )}
+                                <i className="fas fa-shopping-cart"></i>
+                            </Link>
+                        </div>
+                    </div>
                 </div>
                 {/* END Row nav */}
             </div>

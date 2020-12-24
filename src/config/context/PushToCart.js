@@ -2,54 +2,32 @@ import Axios from 'axios';
 import React, { createContext } from 'react'
 import { Component } from 'react';
 import { withRouter } from 'react-router-dom'
+import API from '../../service';
+import { cloudFirestore } from '../firebase';
 
 export const PushToCartContext = createContext();
 
 class PushToCartProvider extends Component {
 
     state = {
-        post: [
-            {
-                _id: '',
-                name: '',
-                price: '',
-                stock: '',
-                deskripsi: '',
-                image: '',
-            }
-        ],
-        cart: []
+        cart: {}
+    }
+
+    addToCart = (cart) => {
+        const newData = this.state.cart
+
+        this.setState((prevState) => ({ cart }))
     }
 
     // componentDidMount() {
-    //     const id = this.props.match.params.id
-    //     Axios.get(`http://localhost:6235/v8/makaroni/getall/${id}`)
-    //         .then(result => {
-    //             let post = result.data
-    //             // Agar bisa mendapatkan data yg masuk
-    //             // Ganti data yg masuk dengan data yg baru
-    //             this.setState({
-    //                 post: [
-    //                     {
-    //                         _id: post._id,
-    //                         name: post.name,
-    //                         price: post.price,
-    //                         stock: post.stock,
-    //                         deskripsi: post.deskripsi,
-    //                         image: post.image
-    //                     }
-    //                 ]
-    //             })
-    //         })
-    //         .catch(err => {
-    //             console.log(err)
-    //         })
+    //     console.log(this.state.cart)
     // }
 
     render() {
-        const { post, cart } = this.state;
+        const { cart } = this.state;
+        const { addToCart } = this;
         return (
-            <PushToCartContext.Provider value={{ post, cart }}>
+            <PushToCartContext.Provider value={{ cart, addToCart }}>
                 {this.props.children}
             </PushToCartContext.Provider>
         )

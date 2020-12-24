@@ -18,7 +18,7 @@
         width: 100%;
         justify-content: flex-end;
         align-items: center;
-        padding: 20px 20px;
+        padding: 10px 20px 20px 20px;
         margin: 0px 0 0px 0;
         background-color: #fff;
 
@@ -39,6 +39,16 @@
             }
         }
 
+        // Wrapp-box-icon
+        .wrapp-box-icon{
+            display: flex;
+            position: relative;
+            padding-left: 5px;
+            padding-top: 10px;
+            padding-bottom: 5px;
+        }
+        // END Wrapp-box-icon
+
         .box-icon{
             display: flex;
             height: 40px;
@@ -56,10 +66,26 @@
                 color: $colorEmpatBelas;
                 text-decoration: none;
             }
+
+            .angka-notif{
+                display: flex;
+                position: absolute;
+                height: 20px;
+                width: 20px;
+                border-radius: 500px;
+                justify-content: center;
+                align-items: center;
+                font-size: 10pt;
+                background-color: $colorLimaBelas;
+                color: #fff;
+                top: 0;
+                left: 0;
+            }
         }
 
         .iconCart{
             margin-right: 10px;
+            // border: 1px solid blue;
         }
     }
     // END Section1

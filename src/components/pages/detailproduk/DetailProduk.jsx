@@ -9,11 +9,16 @@ import API from '../../../service'
 import Spinner from '../../../componentcard/spinner/Spinner'
 import img from '../../../img/enambelas.jpg'
 import { cloudFirestore } from '../../../config/firebase'
+import { PushToCartContext } from '../../../config/context/PushToCart'
+import { resolve } from 'styled-jsx/css'
 
 class DetailProduk extends Component {
 
+    static contextType = PushToCartContext
+
     state = {
         data: {},
+        dataKeranjang: [],
         id: '',
         postKeranjang: {
             id: '',
@@ -21,22 +26,7 @@ class DetailProduk extends Component {
             name: '',
             price: ''
         },
-    }
-
-    // addCart = (_id) => {
-    //     const { post, cart } = this.context;
-    //     const data = post.filter(data => {
-    //         return data._id === _id
-    //     })
-    //     this.setState({
-    //         cart: [...cart, ...data]
-    //     })
-    //     console.log('hasil data baru:', data)
-    // }
-
-    handleKeranjang = (id) => {
-        this.props.history.push(id)
-        console.log(this.props)
+        kondisi: false
     }
 
     // to transaksion
@@ -45,23 +35,73 @@ class DetailProduk extends Component {
     }
     // end to transaksion
 
+    getDataKeranjang = () => {
+        const promise = new Promise((resolve, reject) => {
+            cloudFirestore.collection('keranjang/')
+                .get()
+                .then((querySnapshot) => {
+                    const data = []
+                    resolve(data)
+                    this.setState({ dataKeranjang: data })
+                    querySnapshot.forEach((doc) => {
+                        if (doc.exists) {
+                            Object.keys(doc.data()).map(key => {
+                                data.push({
+                                    id: doc.id,
+                                    data: doc.data()
+                                })
+                            })
+                        }
+                    })
+                })
+        })
+        return promise
+    }
+
+    pushToCart = (id) => {
+        const alertConfirm = window.confirm('Tambahkan Ke Keranjang?')
+        if (alertConfirm) {
+            const dataKeranjang = this.state.dataKeranjang
+            const check = dataKeranjang.every(e => {
+                return e.id !== id
+            })
+            if (check) {
+                const data = this.state.data
+                const id = this.props.match.params.id
+                API.APIFirebasePushKeranjang(data, id)
+                    .then((res) => {
+                        alert('Berhasil di tambahkan ke keranjang')
+                        console.log(res)
+                    })
+                    .catch((err) => {
+                        console.log(err)
+                    })
+            } else {
+                alert('Makaroni Sudah di tambahkan ke keranjang')
+            }
+        }
+    }
+
     getDetailProduct = () => {
         const id = this.props.match.params.id
         const APISemuaHarga = () => {
             API.APIFirebaseDetailProduct(id)
                 .then((res) => {
                     this.setState({
+                        id: id,
                         data: res
                     })
                 })
                 .catch(err => {
                     console.log('document semua harga not found', err)
                 })
+
         }
         const APILimaRibu = () => {
             API.APIFirebaseDPLimaRibu(id)
                 .then((res) => {
                     this.setState({
+                        id: id,
                         data: res
                     })
                 })
@@ -73,6 +113,7 @@ class DetailProduk extends Component {
             API.APIFirebaseDPSepuluhRibu(id)
                 .then((res) => {
                     this.setState({
+                        id: id,
                         data: res
                     })
                 })
@@ -81,6 +122,7 @@ class DetailProduk extends Component {
             API.APIFirebaseDPLimaBelasRibu(id)
                 .then((res) => {
                     this.setState({
+                        id: id,
                         data: res
                     })
                 })
@@ -108,10 +150,12 @@ class DetailProduk extends Component {
     }
 
     componentDidMount() {
+        this.getDataKeranjang();
         this.getDetailProduct();
     }
 
     render() {
+        const { cart, addToCart } = this.context
 
         return (
             <>
@@ -126,6 +170,8 @@ class DetailProduk extends Component {
                             <NavbarPageCard
                                 linkPage={'/'}
                                 titlePageNav={'Detail Produk'}
+                                displayIcon={'flex'}
+                                heightNav={'55px'}
                             />
 
                             <DetailCard
@@ -134,8 +180,8 @@ class DetailProduk extends Component {
                                 stock={this.state.data.stock}
                                 deskripsi={this.state.data.deskripsi}
                                 img={img}
-                                buy={() => this.handleTransaksi(this.state.data.id)}
-                                // toPageShopp={() => this.addCart(e._id)}
+                                buy={() => this.handleTransaksi(this.state.id)}
+                                toPageShopp={() => this.pushToCart(this.state.id)}
                                 displayBoxAlamat={"none"}
                                 valueInput={this.state.order}
                                 displayInputTotalOrder={'none'}

@@ -3,6 +3,8 @@ import { GetAllProduct } from "./allproduct/GetAllProduct"
 import { GetFirebase } from "./GetFirebase"
 import Post from "./Post"
 import { GetDetailProduct } from "./detailproduct/GetDetailProduct"
+import { PostKeranjang } from "./keranjang/PostKeranjang"
+import { GetKeranjang } from "./keranjang/GetKeranjang"
 
 // POST
 const APIPostAlamat = (data) => Post('v5/dataalamat/postalamat', data)
@@ -29,6 +31,9 @@ const APIFirebaseDPLimaBelasRibu = (id) => GetDetailProduct('limabelasribu/', id
 const APIFirebasePageAllProduct = (id) => GetAllProduct(`${id}`)
 // For Menu Page ALL Product (cloud firestore)
 const APIFirebaseMenuAllProduct = () => GetAllProduct(`menu/`)
+// For Push to Keranjang
+const APIFirebasePushKeranjang = (data, id) => PostKeranjang('keranjang/', data, id)
+const APIFirebaseGetKeranjang = () => GetKeranjang('keranjang/')
 
 
 const API = {
@@ -47,7 +52,9 @@ const API = {
     APIFirebaseDPSepuluhRibu,
     APIFirebaseDPLimaBelasRibu,
     APIFirebasePageAllProduct,
-    APIFirebaseMenuAllProduct
+    APIFirebaseMenuAllProduct,
+    APIFirebasePushKeranjang,
+    APIFirebaseGetKeranjang
 }
 
 export default API

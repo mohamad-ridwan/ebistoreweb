@@ -9,72 +9,107 @@ import BoxWhite from '../../../componentcard/boxwhite/BoxWhite'
 import img from '../../../img/enambelas.jpg'
 import { Component } from 'react'
 import { PushToCartContext } from '../../../config/context/PushToCart'
+import API from '../../../service'
+import Spinner from '../../../componentcard/spinner/Spinner'
 
 class PageKeranjang extends Component {
 
     static contextType = PushToCartContext;
 
+    state = {
+        data: [],
+        dataLoading: []
+    }
+
     goToTransaksi = (id) => {
-        this.props.history.push(`/detail-produk/transaksi/${id}`)
+        this.props.history.push(`/detail-produk/${id}`)
+    }
+
+    getDataKeranjang = () => {
+        API.APIFirebaseGetKeranjang()
+            .then((res) => {
+                this.setState({
+                    data: res
+                })
+            })
+        API.APIFirebaseSerbaLimaRibu()
+            .then((res) => {
+                this.setState({
+                    dataLoading: res
+                })
+            })
+    }
+
+    componentDidMount() {
+        this.getDataKeranjang();
     }
 
     render() {
-        const { cart } = this.context;
         return (
             <>
-                <Helmet
-                    titleHelmet={'Keranjang | Ebi Store'}
-                    contentHelmet={'halaman keranjang | Ebi Store'}
-                />
-                {/* Navbar */}
-                <NavbarPageCard linkPage="/" titlePageNav="Keranjang" />
-                {/* END Navbar */}
-                <div className="wrapper-pageKeranjang">
+                {this.state.dataLoading.length > 0 ? (
+                    <>
+                        <Helmet
+                            titleHelmet={'Keranjang | Ebi Store'}
+                            contentHelmet={'halaman keranjang | Ebi Store'}
+                        />
+                        {/* Navbar */}
+                        <NavbarPageCard linkPage="/" titlePageNav="Keranjang" />
+                        {/* END Navbar */}
+                        {this.state.data && this.state.data.length > 0 ? (
+                            <p className="total-keranjang">
+                                Total Keranjang {this.state.data.length}
+                            </p>
+                        ) : (
+                                <p className="total-keranjang" style={{
+                                    display: 'none'
+                                }}>
 
-                    <KeranjangCard
-                        img={img}
-                        name={'Makaroni Original'}
-                        price={'5.000'}
-                    />
-                    <KeranjangCard
-                        img={img}
-                        name={'Makaroni Original'}
-                        price={'5.000'}
-                        to={this.goToTransaksi}
-                    />
+                                </p>
+                            )}
 
-                    {/* Container Body */}
-                    {/* <div className="cont-body-pageKeranjang"> */}
-                    {/* Icon Exclamation */}
-                    {/* <i className="fas fa-exclamation" id="icon-exc-pageKeranjang"></i> */}
-                    {/* END Icon Exclamation */}
+                        <div className="wrapper-pageKeranjang">
+                            {this.state.data && this.state.data.length > 0 ?
+                                this.state.data.map(e => {
+                                    return (
+                                        <KeranjangCard
+                                            key={e.id}
+                                            img={img}
+                                            name={e.data.data.name}
+                                            price={`Rp ${e.data.data.price}`}
+                                            to={() => this.goToTransaksi(e.id)}
+                                        />
+                                    )
+                                }) : (
+                                    <>
+                                        {/* Container Body */}
+                                        <div className="cont-body-pageKeranjang">
 
-                    {/* Icon Circle1 */}
-                    {/* <i className="fas fa-circle" id="icon-circ1-pageKeranjang"></i> */}
-                    {/* END Icon Circle1 */}
-                    {/* Icon Circle2 */}
-                    {/* <i className="fas fa-circle" id="icon-circ2-pageKeranjang"></i> */}
-                    {/* END Icon Circle2 */}
-                    {/* Icon Circle3 */}
-                    {/* <i className="fas fa-circle" id="icon-circ3-pageKeranjang"></i> */}
-                    {/* END Icon Circle3 */}
+                                            {/* Circle Info */}
+                                            <div className="circ-info-pageKeranjang">
+                                                {/* TXT Circle Info */}
+                                                <p className="txt1-circ-inf-pageKeranjang">
+                                                    Tidak ada makaroni yang kamu masukkan ke dalam keranjang
+                                                </p>
+                                                {/* END TXT Circle Info */}
 
-                    {/* Circle Info */}
-                    {/* <div className="circ-info-pageKeranjang"> */}
-                    {/* TXT Circle Info */}
-                    {/* <p className="txt1-circ-inf-pageKeranjang">
-                            Tidak ada makaroni yang kamu masukkan ke dalam keranjang
-                        </p> */}
-                    {/* END TXT Circle Info */}
+                                                {/* Img Circle Info */}
+                                                <img src={imgCircInfo} alt="" className="img-circ-info-pageKeranjang" />
+                                                {/* END Img Circle Info */}
+                                            </div>
+                                            {/* END Circle Info */}
+                                        </div>
+                                        {/* END Container Body */}
+                                    </>
+                                )}
+                        </div>
+                    </>
+                ) : (
+                        <Spinner
+                            bgColorLoading={'#ffa835'}
+                        />
+                    )}
 
-                    {/* Img Circle Info */}
-                    {/* <img src={imgCircInfo} alt="" className="img-circ-info-pageKeranjang" /> */}
-                    {/* END Img Circle Info */}
-                    {/* </div> */}
-                    {/* END Circle Info */}
-                    {/* </div> */}
-                    {/* END Container Body */}
-                </div>
             </>
         )
     }

@@ -1,5 +1,16 @@
 @import '../../../util/variable/variable.scss';
 
+
+// Total keranjang
+.total-keranjang{
+    display: flex;
+    font-size: 15pt;
+    color: $colorLimaBelas;
+    margin-left: 20px;
+    margin-bottom: 20px;
+}
+// END Total keranjang
+
 // Wrapper
 .wrapper-pageKeranjang{
     display: flex;
@@ -17,6 +28,7 @@
         height: $heightBodContPage;
         justify-content: center;
         align-items: center;
+
 
         // Icon Exclamation
         #icon-exc-pageKeranjang{
@@ -77,23 +89,21 @@
             position: absolute;
             height: 200px;
             width: 200px;
-            top: 200px;
-            right: 70px;
             background: $colorSatu;
             box-shadow: $boxShdwCircInfo;
             border-radius: 500px;
             justify-content: center;
             align-items: center;
             padding: 0 20px;
+            top: 100px;
             animation: circle4 600ms ease-out 1;
 
             // TXT Circle Info
             .txt1-circ-inf-pageKeranjang{
                 display: flex;
                 font-size: 12px;
-                font-family: $fontFamilyJudul;
                 text-align: center;
-                color: $colorTiga;
+                color: $colorLima;
             }
             // END TXT Circle Info
 

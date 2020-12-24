@@ -6,10 +6,25 @@ import avatarNew from '../../img/newprofil.png'
 import { Link, useHistory } from 'react-router-dom'
 import firebase from 'firebase/app';
 import { GetNamaUserContext } from '../../config/context/namauser/GetNamaUser'
+import API from '../../service'
 
 const Navbar = () => {
 
     const [dataNama] = useContext(GetNamaUserContext)
+    const [dataKeranjang, setDataKeranjang] = useState([])
+    const [navbar, setNavbar] = useState(false);
+    const [getUser, setGetUser] = useState({
+        name: '',
+        photo: '',
+        email: ''
+    })
+
+    const getDataKeranjang = () => {
+        API.APIFirebaseGetKeranjang()
+            .then((res) => {
+                setDataKeranjang(res)
+            })
+    }
 
     const histori = useHistory()
 
@@ -25,8 +40,6 @@ const Navbar = () => {
         })
     }
 
-    const [navbar, setNavbar] = useState(false);
-
     const changeBackground = () => {
         if (window.scrollY >= 130) {
             setNavbar(true)
@@ -34,17 +47,9 @@ const Navbar = () => {
             setNavbar(false);
         }
     }
-
     window.addEventListener('scroll', changeBackground);
 
-    // For Get user login
-    const [getUser, setGetUser] = useState({
-        name: '',
-        photo: '',
-        email: ''
-    })
-
-    useEffect(() => {
+    const getUserLogin = () => {
         firebase.auth().onAuthStateChanged(function (user) {
             if (user) {
                 const emailUser = user.email
@@ -69,6 +74,11 @@ const Navbar = () => {
                 })
             }
         });
+    }
+
+    useEffect(() => {
+        getDataKeranjang();
+        getUserLogin();
     }, [])
     // END For get user login
 
@@ -110,14 +120,44 @@ const Navbar = () => {
 
                 {/* Row2 */}
                 <div className="row2-navbar">
-                    <Link to='/keranjang/1' className="box-icon iconCart">
-                        <i className="fas fa-shopping-cart"></i>
-                    </Link>
-                    <Link className="box-icon"
-                        onClick={pushNotifikasi}
-                    >
-                        <i class="far fa-bell"></i>
-                    </Link>
+                    <div className="wrapp-box-icon-nav">
+                        <Link to='/keranjang/1' className="box-icon iconCart">
+                            {dataKeranjang && dataKeranjang.length > 0 ? (
+                                <p className="angka-notif-nav">
+                                    {dataKeranjang.length}
+                                </p>
+                            ) : (
+                                    <p className="angka-notif-nav"
+                                        style={{
+                                            display: 'none'
+                                        }}
+                                    >
+                                    </p>
+                                )}
+
+                            <i className="fas fa-shopping-cart"></i>
+                        </Link>
+                    </div>
+
+                    <div className="wrapp-box-icon-nav">
+                        <Link className="box-icon"
+                            onClick={pushNotifikasi}
+                        >
+                            {dataKeranjang && dataKeranjang.length > 0 ? (
+                                <p className="angka-notif-nav">
+                                    {dataKeranjang.length}
+                                </p>
+                            ) : (
+                                    <p className="angka-notif-nav"
+                                        style={{
+                                            display: 'none'
+                                        }}
+                                    >
+                                    </p>
+                                )}
+                            <i class="far fa-bell"></i>
+                        </Link>
+                    </div>
                 </div>
                 {/* END Row2 */}
             </div>

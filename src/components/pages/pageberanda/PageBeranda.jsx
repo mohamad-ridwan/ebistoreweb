@@ -31,6 +31,7 @@ const PageBeranda = () => {
     const [getMenuSerba10rb, setGetMenuSerba10rb] = useState([])
     const [getMenuSerba15rb, setGetMenuSerba15rb] = useState([])
     const [allProduct, setAllProduct] = useState([])
+    const [dataKeranjang, setDataKeranjang] = useState([])
 
     const getDataAPI = () => {
         API.APIFirebaseMenuSemuaHarga()
@@ -64,6 +65,10 @@ const PageBeranda = () => {
         API.APIFirebaseSerbaLimaBelasRibu()
             .then((res) => {
                 setGetSerba15rb(res)
+            })
+        API.APIFirebaseGetKeranjang()
+            .then((res) => {
+                setDataKeranjang(res)
             })
     }
 
@@ -157,14 +162,45 @@ const PageBeranda = () => {
                                 <i className="fas fa-home"
                                 ></i>Beranda
                             </p>
-                            <Link to='/keranjang/1' className="box-icon iconCart">
-                                <i className="fas fa-shopping-cart"></i>
-                            </Link>
-                            <Link className="box-icon"
-                                onClick={pushNotifikasi}
-                            >
-                                <i class="far fa-bell"></i>
-                            </Link>
+                            <div className="wrapp-box-icon">
+                                <Link to='/keranjang/1' className="box-icon iconCart">
+                                    {dataKeranjang && dataKeranjang.length > 0 ? (
+                                        <p className="angka-notif">
+                                            {dataKeranjang.length}
+                                        </p>
+                                    ) : (
+                                            <p className="angka-notif"
+                                                style={{
+                                                    display: 'none'
+                                                }}
+                                            >
+
+                                            </p>
+                                        )}
+                                    <i className="fas fa-shopping-cart"></i>
+                                </Link>
+                            </div>
+                            <div className="wrapp-box-icon">
+                                <Link className="box-icon"
+                                    onClick={pushNotifikasi}
+                                >
+                                    {dataKeranjang && dataKeranjang.length > 0 ? (
+                                        <p className="angka-notif"
+                                        >
+                                            {dataKeranjang.length}
+                                        </p>
+                                    ) : (
+                                            <p className="angka-notif"
+                                                style={{
+                                                    display: `none`
+                                                }}
+                                            >
+
+                                            </p>
+                                        )}
+                                    <i class="far fa-bell"></i>
+                                </Link>
+                            </div>
                         </section>
 
                         {/* Profil */}

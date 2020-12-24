@@ -75,6 +75,16 @@
         justify-content: flex-end;
         padding: 0 20px 0 0;
 
+        // Wrapp-box-icon
+        .wrapp-box-icon-nav{
+            display: flex;
+            position: relative;
+            padding-left: 5px;
+            padding-top: 10px;
+            padding-bottom: 5px;
+        }
+        // END Wrapp-box-icon
+
         .box-icon{
             display: flex;
             height: 35px;
@@ -85,6 +95,21 @@
             background-color: $colorTigaBelas;
             box-shadow: 0 1px 2px -1px rgba(0,0,0,0.1);
             text-decoration: none;
+
+            .angka-notif-nav{
+                display: flex;
+                position: absolute;
+                height: 20px;
+                width: 20px;
+                border-radius: 500px;
+                justify-content: center;
+                align-items: center;
+                font-size: 10pt;
+                background-color: #fff;
+                color: $colorLimaBelas;
+                top: 0;
+                left: 0;
+            }
 
             i{
                 display: flex;
