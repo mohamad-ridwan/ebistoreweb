@@ -8,8 +8,12 @@ import DetailCard from '../../../componentcard/detailcard/DetailCard'
 import Helmet from '../../../componentcard/helmet/Helmet'
 import API from '../../../service'
 import Spinner from '../../../componentcard/spinner/Spinner'
+import img from '../../../img/enambelas.jpg'
+import { GetAlamatUserContext } from '../../../config/context/alamatuser/GetAlamatUser'
 
 class Transaksi extends Component {
+
+    static contextType = GetAlamatUserContext
 
     state = {
         alamat: {
@@ -21,25 +25,17 @@ class Transaksi extends Component {
         },
         // Jika ingin melakukan mapping data
         // maka di perlukan array custom untuk menSupport mapping
-        produk: [
-            {
-                _id: '',
-                label: '',
-                name: '',
-                price: '',
-                image: ''
-            }
-        ],
+        produk: {},
         totalBeli: 1,
         totalPrice: 1,
         getDataForLoading: []
     }
 
     getAPIForLoading = () => {
-        API.APISerba5rb()
-            .then((result) => {
+        API.APIFirebaseSerbaLimaRibu()
+            .then((res) => {
                 this.setState({
-                    getDataForLoading: result.data
+                    getDataForLoading: res
                 })
             })
     }
@@ -71,93 +67,60 @@ class Transaksi extends Component {
     }
 
     // Data Produk
-    produkAPI = () => {
+    setAllAPI = () => {
         let id = this.props.match.params.id
-        API.APIDetailProduk(id)
-            .then(result => {
-                let post = result.data
+        API.APIFirebaseDetailProduct(id)
+            .then((res) => {
                 this.setState({
-                    produk: [
-                        {
-                            _id: post._id,
-                            label: post.label,
-                            name: post.name,
-                            price: post.price,
-                            image: post.image
-                        }
-                    ]
+                    produk: res
                 })
             })
     }
     // end data produk
 
-    // Alamat
-    alamatAPI = () => {
-        Axios.get('http://localhost:6235/v5/dataalamat/getalamat')
-            .then(result => {
-                const respon = result.data
-                this.setState({
-                    alamat: {
-                        _id: respon._id,
-                        alamat: respon.alamat,
-                        kota: respon.kota,
-                        kodePos: respon.kodePos,
-                        namaPenerima: respon.namaPenerima
-                    }
-                })
-            })
-            .catch(err => {
-                console.log('failed', err)
-            })
-    }
-    // END Alamat
-
     componentDidMount() {
-        this.alamatAPI();
-        this.produkAPI();
+        this.setAllAPI();
         this.getAPIForLoading();
     }
 
     render() {
+
+        const { produk } = this.state
+        const alamatUser = this.context
+
         return (
             <>
                 {this.state.getDataForLoading.length > 0 ? (
                     <>
-                        {this.state.produk.map(e => {
-                            return (
-                                <Helmet
-                                    titleHelmet={`Transaksi | ${e.name} | Ebi Store`}
-                                    contentHelmet={`halaman transaksi | ${e.name} | Ebi Store`}
-                                />
-                            )
-                        })}
+                        <Helmet
+                            titleHelmet={`Transaksi | ${produk.name} | Ebi Store`}
+                            contentHelmet={`halaman transaksi | ${produk.name} | Ebi Store`}
+                        />
 
                         <div className="wrapp-transaksi">
                             <NavbarPageCard
                                 backPage={this.handleBackToPageDetailProduk}
                                 titlePageNav={'Transaksi'}
                             />
-                            {/* detail produk pesanan */}
 
-                            {this.state.produk.map(e => {
-                                return (
-                                    <DetailCard
-                                        data={e}
-                                        totalPrice={e.price}
-                                        displayStock={"none"}
-                                        img={`http://localhost:6235/${e.image}`}
-                                        displayCart={"none"}
-                                        displayBtn={"none"}
-                                        minus={this.handleMinus}
-                                        plus={this.handlePlus}
-                                        valueInput={this.state.totalBeli}
-                                        alamat={this.state.alamat.alamat}
-                                        kota={this.state.alamat.kota}
-                                        kodePos={this.state.alamat.kodePos}
-                                        namaPenerima={this.state.alamat.namaPenerima}
-                                    />
-                                )
-                            })}
+                            <DetailCard
+                                name={produk.name}
+                                price={produk.price}
+                                deskripsi={produk.deskripsi}
+                                totalPrice={produk.price}
+                                displayStock={"none"}
+                                img={img}
+                                displayCart={"none"}
+                                displayBtn={"none"}
+                                minus={this.handleMinus}
+                                plus={this.handlePlus}
+                                valueInput={this.state.totalBeli}
+                                alamat={alamatUser.alamat || 'oke'}
+                                kota={alamatUser.kota || 'oke'}
+                                kodePos={alamatUser.kodePos || 'oke'}
+                                namaPenerima={alamatUser.namaPenerima || 'oke'}
+                            />
+
                         </div>
                     </>
                 ) : (

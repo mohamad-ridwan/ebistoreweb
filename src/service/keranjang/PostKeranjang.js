@@ -5,7 +5,6 @@ export const PostKeranjang = async (path, data, id) => {
         cloudFirestore.collection(`${path}`).doc(`${id}`)
             .set({ data })
         resolve(data)
-        // reject(console.log('terjadi kesalahan : (error code : 404)',))
     })
 
     return promise

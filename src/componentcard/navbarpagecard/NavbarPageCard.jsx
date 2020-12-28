@@ -57,7 +57,7 @@ const NavbarPageCard = ({ linkPage, titlePageNav, transparant, color, position, 
                         }}
                     >
                         <div className="wrapp-box-icon">
-                            <Link to='/keranjang/1' className="box-icon iconCart">
+                            <Link to='/keranjang' className="box-icon iconCart">
                                 {dataKeranjang && dataKeranjang.length > 0 ? (
                                     <p className="angka-notif">
                                         {dataKeranjang.length}

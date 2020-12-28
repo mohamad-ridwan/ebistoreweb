@@ -5,7 +5,8 @@ export const ApiMenu = createContext()
 
 const ApiMenuProvider = ({ children }) => {
 
-    const [getDataMenu, setGetDataMenu] = useState([])
+    // const [getDataMenu, setGetDataMenu] = useState([])
+    const [update, setUpdate] = useState('')
 
     // useEffect(() => {
     //     Axios.get('http://localhost:6235/v10/menu/getmenu')
@@ -19,7 +20,7 @@ const ApiMenuProvider = ({ children }) => {
     // }, [])
 
     return (
-        <ApiMenu.Provider value={[getDataMenu, setGetDataMenu]}>
+        <ApiMenu.Provider value={[update, setUpdate]}>
             {children}
         </ApiMenu.Provider>
     )

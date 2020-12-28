@@ -15,13 +15,15 @@ const BoxWhite = (props) => {
                 }}
                 onClick={props.onClick}
             >
-                <button className="btn-delete-card"
+                <div className="btn-delete-card"
                     style={{
                         display: `${props.displayBtnDelete}`
                     }}
                 >
-                    <i class="far fa-trash-alt"></i>
-                </button>
+                    <i class="far fa-trash-alt"
+                        onClick={props.deleteProduct}
+                    ></i>
+                </div>
                 <img src={props.img} alt="" className="img-card"
                     style={{
                         height: `${props.heightImg}`,

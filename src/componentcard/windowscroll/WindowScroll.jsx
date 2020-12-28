@@ -1,16 +1,16 @@
-import React from 'react'
-import { Component } from 'react';
+import firebase from 'firebase/app';
+import { React, Component } from 'react';
 import { withRouter } from 'react-router-dom';
 
 class WindowScroll extends Component {
 
-    componentDidUpdate(prevProps){
-        if(this.props.location !== prevProps.location){
+    componentDidUpdate(prevProps) {
+        if (this.props.location !== prevProps.location) {
             window.scrollTo(0, 0)
         }
     }
 
-    render(){
+    render() {
         return this.props.children
     }
 }

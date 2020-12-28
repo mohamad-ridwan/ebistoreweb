@@ -22,7 +22,9 @@ const BtnCard = ({
     goTo,
     loading,
     colorP,
-    bxShadow
+    bxShadow,
+    imgGoogle,
+    displayGoogle
 }) => {
 
     if (loading) {
@@ -43,7 +45,7 @@ const BtnCard = ({
                 bottom: `${bottomBtn}`,
                 borderRadius: `${bdrRadius}`,
                 backgroundColor: `${bgColor}`,
-                boxShadow: `${bxShadow}`
+                boxShadow: `${bxShadow}`,
             }}
                 onClick={goTo}
             >
@@ -54,7 +56,12 @@ const BtnCard = ({
                 }}>
                     {btnName}
                 </p>
+
+                <img src={imgGoogle} alt="" className={'icon-google-btnCard'} style={{
+                    display: `${displayGoogle}`
+                }} />
             </Link>
+
         </>
     )
 }

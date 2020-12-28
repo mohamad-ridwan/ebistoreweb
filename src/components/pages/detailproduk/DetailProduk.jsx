@@ -11,6 +11,7 @@ import img from '../../../img/enambelas.jpg'
 import { cloudFirestore } from '../../../config/firebase'
 import { PushToCartContext } from '../../../config/context/PushToCart'
 import { resolve } from 'styled-jsx/css'
+import { WhatsappShareButton } from 'react-share'
 
 class DetailProduk extends Component {
 
@@ -35,29 +36,6 @@ class DetailProduk extends Component {
     }
     // end to transaksion
 
-    getDataKeranjang = () => {
-        const promise = new Promise((resolve, reject) => {
-            cloudFirestore.collection('keranjang/')
-                .get()
-                .then((querySnapshot) => {
-                    const data = []
-                    resolve(data)
-                    this.setState({ dataKeranjang: data })
-                    querySnapshot.forEach((doc) => {
-                        if (doc.exists) {
-                            Object.keys(doc.data()).map(key => {
-                                data.push({
-                                    id: doc.id,
-                                    data: doc.data()
-                                })
-                            })
-                        }
-                    })
-                })
-        })
-        return promise
-    }
-
     pushToCart = (id) => {
         const alertConfirm = window.confirm('Tambahkan Ke Keranjang?')
         if (alertConfirm) {
@@ -71,7 +49,6 @@ class DetailProduk extends Component {
                 API.APIFirebasePushKeranjang(data, id)
                     .then((res) => {
                         alert('Berhasil di tambahkan ke keranjang')
-                        console.log(res)
                     })
                     .catch((err) => {
                         console.log(err)
@@ -84,7 +61,8 @@ class DetailProduk extends Component {
 
     getDetailProduct = () => {
         const id = this.props.match.params.id
-        const APISemuaHarga = () => {
+
+        if (API.APIFirebaseDetailProduct(id)) {
             API.APIFirebaseDetailProduct(id)
                 .then((res) => {
                     this.setState({
@@ -92,12 +70,8 @@ class DetailProduk extends Component {
                         data: res
                     })
                 })
-                .catch(err => {
-                    console.log('document semua harga not found', err)
-                })
-
         }
-        const APILimaRibu = () => {
+        if (API.APIFirebaseDPLimaRibu(id)) {
             API.APIFirebaseDPLimaRibu(id)
                 .then((res) => {
                     this.setState({
@@ -105,11 +79,8 @@ class DetailProduk extends Component {
                         data: res
                     })
                 })
-                .catch(err => {
-                    console.log('document lima ribu not found', err)
-                })
         }
-        const APISepuluhRibu = () => {
+        if (API.APIFirebaseDPSepuluhRibu(id)) {
             API.APIFirebaseDPSepuluhRibu(id)
                 .then((res) => {
                     this.setState({
@@ -118,7 +89,7 @@ class DetailProduk extends Component {
                     })
                 })
         }
-        const APILimaBelasRibu = () => {
+        if (API.APIFirebaseDPLimaBelasRibu(id)) {
             API.APIFirebaseDPLimaBelasRibu(id)
                 .then((res) => {
                     this.setState({
@@ -128,34 +99,17 @@ class DetailProduk extends Component {
                 })
         }
 
-        const AllAPI = {
-            APISemuaHarga,
-            APILimaRibu,
-            APISepuluhRibu,
-            APILimaBelasRibu
-        }
-
-        if (AllAPI.APISemuaHarga) {
-            AllAPI.APISemuaHarga()
-        }
-        if (AllAPI.APILimaRibu) {
-            AllAPI.APILimaRibu()
-        }
-        if (AllAPI.APISepuluhRibu) {
-            AllAPI.APISepuluhRibu()
-        }
-        if (AllAPI.APILimaBelasRibu) {
-            AllAPI.APILimaBelasRibu()
-        }
+        API.APIFirebaseGetKeranjang()
+            .then((res) => {
+                this.setState({ dataKeranjang: res })
+            })
     }
 
     componentDidMount() {
-        this.getDataKeranjang();
         this.getDetailProduct();
     }
 
     render() {
-        const { cart, addToCart } = this.context
 
         return (
             <>
@@ -186,6 +140,26 @@ class DetailProduk extends Component {
                                 valueInput={this.state.order}
                                 displayInputTotalOrder={'none'}
                             />
+
+                            <div className="navBottom-detailP">
+                                <p className="title-tanya">
+                                    Tanya Ke Penjual
+                                </p>
+
+                                <WhatsappShareButton
+                                    url={`https://api.whatsapp.com/send?phone=6289611683455`}
+                                    title={`
+                                    ${this.state.data.name}
+                                    ${this.state.data.price}
+                                    ${this.state.data.stock}
+                                    ${this.state.data.deskripsi}
+                                    ${img}
+                                    `}
+                                >
+                                    <i className="fab fa-whatsapp"></i>
+                                </WhatsappShareButton>
+
+                            </div>
                         </div>
                     </>
                 ) : (

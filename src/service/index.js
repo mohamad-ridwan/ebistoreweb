@@ -1,10 +1,10 @@
-import Get from "./Get"
 import { GetAllProduct } from "./allproduct/GetAllProduct"
 import { GetFirebase } from "./GetFirebase"
 import Post from "./Post"
 import { GetDetailProduct } from "./detailproduct/GetDetailProduct"
 import { PostKeranjang } from "./keranjang/PostKeranjang"
 import { GetKeranjang } from "./keranjang/GetKeranjang"
+import { DeleteKeranjang } from "./keranjang/DeleteKeranjang"
 
 // POST
 const APIPostAlamat = (data) => Post('v5/dataalamat/postalamat', data)
@@ -32,9 +32,11 @@ const APIFirebasePageAllProduct = (id) => GetAllProduct(`${id}`)
 // For Menu Page ALL Product (cloud firestore)
 const APIFirebaseMenuAllProduct = () => GetAllProduct(`menu/`)
 // For Push to Keranjang
-const APIFirebasePushKeranjang = (data, id) => PostKeranjang('keranjang/', data, id)
-const APIFirebaseGetKeranjang = () => GetKeranjang('keranjang/')
-
+const APIFirebasePushKeranjang = (data, id) => PostKeranjang(`${user.uid}`, data, id)
+const user = JSON.parse(localStorage.getItem('userData'))
+const APIFirebaseGetKeranjang = () => GetKeranjang(`${user.uid}`)
+// For Delete Keranjang
+const APIFirebaseDeleteKeranjang = (id) => DeleteKeranjang(`${user.uid}`, id)
 
 const API = {
     APIPostAlamat,
@@ -54,7 +56,8 @@ const API = {
     APIFirebasePageAllProduct,
     APIFirebaseMenuAllProduct,
     APIFirebasePushKeranjang,
-    APIFirebaseGetKeranjang
+    APIFirebaseGetKeranjang,
+    APIFirebaseDeleteKeranjang
 }
 
 export default API

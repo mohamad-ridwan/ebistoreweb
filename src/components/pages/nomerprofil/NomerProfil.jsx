@@ -32,15 +32,18 @@ const NomerProfil = () => {
     }
 
     const handleSubmit = () => {
-        const storage = JSON.parse(localStorage.getItem('userData'))
-        const phoneUser = nomerUser
-        const data = {
-            phoneUser: phoneUser,
-            date: new Date().getTime(),
-            uid: storage.uid
+        const windowConfirm = window.confirm('Simpan nomer kamu?')
+        if (windowConfirm) {
+            const storage = JSON.parse(localStorage.getItem('userData'))
+            const phoneUser = nomerUser
+            const data = {
+                phoneUser: phoneUser,
+                date: new Date().getTime(),
+                uid: storage.uid
+            }
+            postNomer(data)
+            alert('Berhasil tersimpan')
         }
-        postNomer(data)
-        console.log(data)
     }
 
     const getDataAPI = () => {

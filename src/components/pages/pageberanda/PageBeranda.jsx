@@ -33,6 +33,17 @@ const PageBeranda = () => {
     const [allProduct, setAllProduct] = useState([])
     const [dataKeranjang, setDataKeranjang] = useState([])
 
+    const removeDuplicate = ((data, index) => {
+        const unique = data
+            .map(e => e[index])
+
+            .map((e, i, final) => final.indexOf(e) === i && i)
+
+            .filter(e => data[e]).map(e => data[e])
+
+        return unique;
+    })
+
     const getDataAPI = () => {
         API.APIFirebaseMenuSemuaHarga()
             .then(res => {
@@ -52,19 +63,19 @@ const PageBeranda = () => {
             })
         API.APIFirebaseAllProduct()
             .then((result) => {
-                setAllProduct(result)
+                setAllProduct(removeDuplicate(result, 'id'))
             })
         API.APIFirebaseSerbaLimaRibu()
             .then((res) => {
-                setGetSerba5rb(res)
+                setGetSerba5rb(removeDuplicate(res, 'id'))
             })
         API.APIFirebaseSerbaSepuluhRibu()
             .then((res) => {
-                setGetSerba10rb(res)
+                setGetSerba10rb(removeDuplicate(res, 'id'))
             })
         API.APIFirebaseSerbaLimaBelasRibu()
             .then((res) => {
-                setGetSerba15rb(res)
+                setGetSerba15rb(removeDuplicate(res, 'id'))
             })
         API.APIFirebaseGetKeranjang()
             .then((res) => {
@@ -149,7 +160,7 @@ const PageBeranda = () => {
 
     return (
         <>
-            {getSerba5rb && getSerba5rb.length > 0 ? (
+            {getSerba10rb && getSerba10rb.length > 0 ? (
                 <>
                     <Helmet
                         titleHelmet={'Ebi Store'}
@@ -163,7 +174,7 @@ const PageBeranda = () => {
                                 ></i>Beranda
                             </p>
                             <div className="wrapp-box-icon">
-                                <Link to='/keranjang/1' className="box-icon iconCart">
+                                <Link to='/keranjang' className="box-icon iconCart">
                                     {dataKeranjang && dataKeranjang.length > 0 ? (
                                         <p className="angka-notif">
                                             {dataKeranjang.length}
@@ -184,7 +195,7 @@ const PageBeranda = () => {
                                 <Link className="box-icon"
                                     onClick={pushNotifikasi}
                                 >
-                                    {dataKeranjang && dataKeranjang.length > 0 ? (
+                                    {/* {dataKeranjang && dataKeranjang.length > 0 ? (
                                         <p className="angka-notif"
                                         >
                                             {dataKeranjang.length}
@@ -197,7 +208,7 @@ const PageBeranda = () => {
                                             >
 
                                             </p>
-                                        )}
+                                        )} */}
                                     <i class="far fa-bell"></i>
                                 </Link>
                             </div>

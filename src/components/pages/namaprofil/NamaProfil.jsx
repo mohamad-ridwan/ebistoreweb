@@ -10,13 +10,15 @@ import { useHistory } from 'react-router'
 import { GetUserLogin } from '../../../config/context/GetUserLogin'
 import { PostNamaUserContext } from '../../../config/context/namauser/PostNamaUser'
 import { GetNamaUserContext } from '../../../config/context/namauser/GetNamaUser'
+import { ApiMenu } from '../../../config/context/ApiMenu'
 // import Helmet from 'react-helmet'
 
 const NamaProfil = () => {
 
     const [dataNama] = useContext(GetNamaUserContext)
     const [getUser, setGetUser] = useContext(GetUserLogin)
-    const [PostNamaUser] = useContext(PostNamaUserContext)
+    const [PostNamaUser, data] = useContext(PostNamaUserContext)
+    const [update] = useContext(ApiMenu)
     const [changeNama, setChangeNama] = useState({
         username: ''
     })
@@ -29,14 +31,18 @@ const NamaProfil = () => {
     }
 
     const handleSubmit = () => {
-        const storage = JSON.parse(localStorage.getItem('userData'))
-        const username = changeNama.username
-        const data = {
-            username: username,
-            date: new Date().getTime(),
-            uid: storage.uid
+        const windowConfirm = window.confirm('Simpan nama kamu?')
+        if (windowConfirm) {
+            const storage = JSON.parse(localStorage.getItem('userData'))
+            const username = changeNama.username
+            const data = {
+                username: username,
+                date: new Date().getTime(),
+                uid: storage.uid
+            }
+            PostNamaUser(data)
+            alert('Berhasil tersimpan')
         }
-        PostNamaUser(data)
     }
 
     const history = useHistory()
@@ -79,33 +85,45 @@ const NamaProfil = () => {
             {dataNama.data && dataNama.data.length > 0 ?
                 dataNama.data.map(e => {
                     return (
-                        <Helmet
-                            key={e.id}
-                            titleHelmet={`Nama Profil | ${e.data.username} | Ebi Store`}
-                            contentHelmet={`halaman rubah nama profil | ${e.data.username} | Ebi Store`}
-                        />
+                        <>
+                            <Helmet
+                                key={e.id}
+                                titleHelmet={`Nama Profil | ${e.data} | Ebi Store`}
+                                contentHelmet={`halaman rubah nama profil | ${e.data} | Ebi Store`}
+                            />
+                            <NavbarPageCard
+                                backPage={() => toProfil(e.data)}
+                                position={'absolute'}
+                                titlePageNav={'Rubah Nama'}
+                                transparant={"transparant"}
+                                color={"#fff"}
+                            />
+                        </>
                     )
                 }) : (
-                    <Helmet
-                        titleHelmet={`Nama Profil | ${getUser.name || getUser.email} | Ebi Store`}
-                        contentHelmet={`halaman rubah nama profil | ${getUser.name || getUser.email} | Ebi Store`}
-                    />
+                    <>
+
+                        <Helmet
+                            titleHelmet={`Nama Profil | ${getUser.name || getUser.email} | Ebi Store`}
+                            contentHelmet={`halaman rubah nama profil | ${getUser.name || getUser.email} | Ebi Store`}
+                        />
+                        <NavbarPageCard
+                            backPage={() => toProfil(getUser.name || getUser.email)}
+                            position={'absolute'}
+                            titlePageNav={'Rubah Nama'}
+                            transparant={"transparant"}
+                            color={"#fff"}
+                        />
+                    </>
                 )}
 
-            <NavbarPageCard
-                backPage={() => toProfil(getUser.name || getUser.email)}
-                position={'absolute'}
-                titlePageNav={'Rubah Nama'}
-                transparant={"transparant"}
-                color={"#fff"}
-            />
             <div className="wrapper-namaProfil">
                 <div className="box-input-nama">
                     <label htmlFor="label" className="name">
                         {changeNama.username}
                     </label>
                     <form onSubmit={handleSubmit}>
-                        <input type="text" className="input-nama" autoFocus name="username"
+                        <input type="text" className="input-nama" autoFocus name="username" value={update}
                             onChange={handleChangeName}
                         />
                     </form>

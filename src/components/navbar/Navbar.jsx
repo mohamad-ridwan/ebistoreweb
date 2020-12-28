@@ -143,7 +143,7 @@ const Navbar = () => {
                         <Link className="box-icon"
                             onClick={pushNotifikasi}
                         >
-                            {dataKeranjang && dataKeranjang.length > 0 ? (
+                            {/* {dataKeranjang && dataKeranjang.length > 0 ? (
                                 <p className="angka-notif-nav">
                                     {dataKeranjang.length}
                                 </p>
@@ -154,7 +154,7 @@ const Navbar = () => {
                                         }}
                                     >
                                     </p>
-                                )}
+                                )} */}
                             <i class="far fa-bell"></i>
                         </Link>
                     </div>

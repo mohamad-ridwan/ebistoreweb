@@ -9,6 +9,7 @@ const PostNamaUserProvider = ({ children }) => {
     const [dataNama, setDataNama] = useState({
         uid: ''
     })
+    const [data, setData] = useState('')
 
     const PostNamaUser = (data) => {
         const userId = dataNama.uid
@@ -36,7 +37,7 @@ const PostNamaUserProvider = ({ children }) => {
     }, [])
 
     return (
-        <PostNamaUserContext.Provider value={[PostNamaUser]}>
+        <PostNamaUserContext.Provider value={[PostNamaUser, setData]}>
             {children}
         </PostNamaUserContext.Provider>
     )

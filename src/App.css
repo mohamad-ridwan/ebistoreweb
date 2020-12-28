@@ -46,6 +46,19 @@ body{
   color: #61dafb;
 }
 
+.error{
+  display: flex;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  justify-content: center;
+  align-items: center;
+  background-color: #fff;
+  z-index: 111111111111;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);

@@ -13,6 +13,7 @@ class Register extends Component {
     state = {
         email: '',
         password: '',
+        isLoading: false
     }
 
     handleChangeText = (e) => {
@@ -38,6 +39,7 @@ class Register extends Component {
     }
 
     handleGoogle = () => {
+        this.setState({ isLoading: true })
         var provider = new firebase.auth.GoogleAuthProvider();
         firebase.auth().signInWithPopup(provider).then(function (result) {
             // This gives you a Google Access Token. You can use it to access the Google API.
@@ -50,11 +52,11 @@ class Register extends Component {
         })
             .then(() => {
                 this.props.history.push('/')
+                this.setState({ isLoading: false })
             })
-            .catch(function (error) {
-                console.log(error)
-                alert('Terjadi Kesalahan' + ' ' + '(Error: 404)', error)
-            });
+            .catch(() => {
+                this.setState({ isLoading: false })
+            })
     }
 
     render() {
@@ -81,6 +83,7 @@ class Register extends Component {
                     valueEmail={this.state.email}
                     valuePassword={this.state.password}
                     clickGoogle={this.handleGoogle}
+                    loadingGoogle={this.state.isLoading}
                 />
                 {/* END Form Register */}
             </>

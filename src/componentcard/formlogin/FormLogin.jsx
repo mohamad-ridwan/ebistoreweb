@@ -126,14 +126,18 @@ const FormLogin = (props) => {
                         </div>
 
                         <div className="btn-icon-login">
-                            <Link
-                                style={{
-                                    textDecoration: 'none'
-                                }}
-                                onClick={props.clickGoogle}
-                            >
-                                <img src={google} alt="" className="icon-google" />
-                            </Link>
+                            <BtnCard
+                                display={props.btnGoogle}
+                                displayGoogle={'flex'}
+                                imgGoogle={google}
+                                heightBtn={'40px'}
+                                widthBtn={'40px'}
+                                marginBtn={'5px'}
+                                bdrRadius={"500px"}
+                                bgColor={"#fff"}
+                                goTo={props.clickGoogle}
+                                loading={props.loadingGoogle}
+                            />
                         </div>
                     </div>
                 </section>

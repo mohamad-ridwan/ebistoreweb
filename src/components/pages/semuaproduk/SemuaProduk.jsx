@@ -33,12 +33,23 @@ class SemuaProduk extends Component {
         this.props.history.push(`/detail-produk/${id}`)
     }
 
+    removeDuplicate = ((data, index) => {
+        const unique = data
+            .map(e => e[index])
+
+            .map((e, i, final) => final.indexOf(e) === i && i)
+
+            .filter(e => data[e]).map(e => data[e])
+
+        return unique;
+    })
+
     setAllAPI = async () => {
         const id = this.props.match.params.id
         API.APIFirebasePageAllProduct(id)
             .then((res) => {
                 this.setState({
-                    data: res
+                    data: this.removeDuplicate(res, 'id')
                 })
             })
         API.APIFirebaseMenuAllProduct()

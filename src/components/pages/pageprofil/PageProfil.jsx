@@ -21,28 +21,37 @@ import { GetNomerUserContext } from '../../../config/context/nomerhp/GetNomerUse
 import API from '../../../service'
 import { GetNamaUserContext } from '../../../config/context/namauser/GetNamaUser'
 import { GetAlamatUserContext } from '../../../config/context/alamatuser/GetAlamatUser'
+import { PostNamaUserContext } from '../../../config/context/namauser/PostNamaUser'
+import { ApiMenu } from '../../../config/context/ApiMenu'
 
 const PageProfil = () => {
     const [dataNama] = useContext(GetNamaUserContext)
+    const [setUpdate] = useContext(ApiMenu)
     const [dataNomer, setDataNomer] = useContext(GetNomerUserContext)
     const [getUser, setGetUser] = useContext(GetUserLogin)
     const [view, setView] = useState(false)
     let [alamatUser, dataUser] = useContext(GetAlamatUserContext)
     const [dataForLoading, setDataForLoading] = useState([])
+    const [isLoading, setIsLoading] = useState(false)
 
     const history = useHistory()
 
     const handleLogOut = () => {
         const alert = window.confirm('Log Out?')
+        setIsLoading(true)
         if (alert) {
-            firebase.auth().signOut().then(function () {
-                // alert('Berhasil Log Out')
-                history.push('/login')
+            const promise = new Promise((resolve, reject) => {
+                setTimeout(() => {
+                    firebase.auth().signOut().then(function () {
+                        history.push('/login')
+                        resolve(setIsLoading(false))
+                    })
+                    reject(setIsLoading(false))
+                }, 3000)
             })
-                .catch(function (error) {
-                    console.log(error)
-                    // alert('gagal Log Out' + ' ' + 'Error: 404', error)
-                });
+            return promise
+        } else {
+            setIsLoading(false)
         }
     }
 
@@ -91,8 +100,9 @@ const PageProfil = () => {
         })
     }
 
-    const toPageNamaProfil = (user) => {
-        history.push(`/profil/${user}/nama-profil`)
+    const toPageNamaProfil = (data) => {
+        history.push(`/profil/${data}/nama-profil`)
+        setUpdate(data)
     }
     const toPageEmail = (user) => {
         history.push(`/profil/${user}/email`)
@@ -118,7 +128,7 @@ const PageProfil = () => {
                             return (
                                 <Helmet
                                     key={e.id}
-                                    titleHelmet={`Profil | ${e.data.username} | Ebi Store`}
+                                    titleHelmet={`Profil | ${e.data} | Ebi Store`}
                                     contentHelmet={`halaman profil |${e.data} | Ebi Strore`}
                                 />
                             )
@@ -206,7 +216,7 @@ const PageProfil = () => {
                                     return (
                                         <KategoriProfil
                                             key={e.id}
-                                            onClick={() => toPageNamaProfil(e.data.username)}
+                                            onClick={() => toPageNamaProfil(e.data)}
                                             linkKategori={'link-kategori'}
                                             icon={'fas fa-user-tie'}
                                             title={'Nama'}
@@ -290,6 +300,7 @@ const PageProfil = () => {
                             fontWeight={"bold"}
                             bxShadow={"0px 5px 15px -5px #ffa835"}
                             goTo={handleLogOut}
+                            loading={isLoading}
                         />
 
 

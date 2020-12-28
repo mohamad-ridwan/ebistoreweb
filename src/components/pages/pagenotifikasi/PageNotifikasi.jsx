@@ -1,10 +1,12 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 
 import '../pagenotifikasi/PageNotifikasi.scss'
 import NavbarPageCard from '../../../componentcard/navbarpagecard/NavbarPageCard'
 import imgInfo from '../../../img/sleeping.svg'
+import Axios from 'axios'
 
 const PageNotifikasi = () => {
+
     return (
         <>
             {/* Wrapper */}
@@ -38,9 +40,9 @@ const PageNotifikasi = () => {
                     {/* END Container Text Info */}
                 </div>
                 {/* END Container Body Page */}
-
             </div>
             {/* END Wrapper */}
+
         </>
     )
 }

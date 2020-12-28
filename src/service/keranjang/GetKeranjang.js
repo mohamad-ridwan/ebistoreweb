@@ -7,15 +7,13 @@ export const GetKeranjang = async (path) => {
             .then((querySnapshot) => {
                 const data = []
                 querySnapshot.forEach((doc) => {
-                    resolve(data)
-                    if (doc.exists) {
-                        Object.keys(doc.data()).map(key => {
-                            data.push({
-                                id: doc.id,
-                                data: doc.data()
-                            })
+                    Object.keys(doc.data()).map(key => {
+                        data.push({
+                            id: doc.id,
+                            data: doc.data()
                         })
-                    }
+                    })
+                    resolve(data)
                 })
             })
     })

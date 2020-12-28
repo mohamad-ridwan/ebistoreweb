@@ -20,6 +20,7 @@ class Login extends Component {
     state = {
         email: '',
         password: '',
+        isLoading: false
     }
 
     handleChangeText = (e) => {
@@ -46,6 +47,7 @@ class Login extends Component {
     }
 
     handleGoogle = () => {
+        this.setState({ isLoading: true })
         var provider = new firebase.auth.GoogleAuthProvider();
         firebase.auth().signInWithPopup(provider).then(function (result) {
             // This gives you a Google Access Token. You can use it to access the Google API.
@@ -54,18 +56,16 @@ class Login extends Component {
             var user = result.user;
             // ...
             const id = result.user
-            const storage = localStorage.setItem('userData', JSON.stringify(id))
-            return storage
+            const saveTostorage = localStorage.setItem('userData', JSON.stringify(id))
+            return saveTostorage
         })
             .then(() => {
                 this.props.history.push('/')
+                this.setState({ isLoading: false })
             })
-            .catch(function (error) {
-                console.log(error)
-                alert(`Terjadi Kesalahan (Error: 500)
-                    Silahkan login dengan akun yang sudah ada, atau register jika belum
-                `, error)
-            });
+            .catch((err) => {
+                this.setState({ isLoading: false })
+            })
     }
 
     render() {
@@ -83,13 +83,14 @@ class Login extends Component {
                     email={"email"}
                     password={"password"}
                     linkRegister={'/register'}
+                    btnGoogle={'flex'}
                     onChangeEmail={this.handleChangeText}
                     onChangePassword={this.handleChangeText}
                     onSubmit={this.handleLogin}
                     handleLogin={this.handleLogin}
-                    loadingLogin={this.props.isLoading}
                     clickGoogle={this.handleGoogle}
-                // linkHome={'/beranda'}
+                    loadingLogin={this.props.isLoading}
+                    loadingGoogle={this.state.isLoading}
                 />
             </>
         )

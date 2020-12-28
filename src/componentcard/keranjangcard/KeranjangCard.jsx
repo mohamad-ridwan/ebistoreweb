@@ -21,6 +21,7 @@ class KeranjangCard extends Component {
                         bgColor={"#fff"}
                         bxShadow={"0 5px 20px -6px rgba(0,0,0,0.1)"}
                         onClick={this.props.to}
+                        deleteProduct={this.props.deleteProduct}
                     />
                 </div>
             </>

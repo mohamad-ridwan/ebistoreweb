@@ -5,7 +5,6 @@ import { Link, useHistory, withRouter } from 'react-router-dom'
 import NavbarPageCard from '../../../componentcard/navbarpagecard/NavbarPageCard'
 import KeranjangCard from '../../../componentcard/keranjangcard/KeranjangCard'
 import Helmet from '../../../componentcard/helmet/Helmet'
-import BoxWhite from '../../../componentcard/boxwhite/BoxWhite'
 import img from '../../../img/enambelas.jpg'
 import { Component } from 'react'
 import { PushToCartContext } from '../../../config/context/PushToCart'
@@ -18,11 +17,22 @@ class PageKeranjang extends Component {
 
     state = {
         data: [],
-        dataLoading: []
+        dataLoading: [],
     }
 
     goToTransaksi = (id) => {
         this.props.history.push(`/detail-produk/${id}`)
+    }
+
+    deleteProduct = async (i, id, name) => {
+        i.stopPropagation()
+        console.log(id)
+        const windowConfirm = window.confirm(`Delete ${name}?`)
+        if (windowConfirm) {
+            API.APIFirebaseDeleteKeranjang(id)
+            alert(`Berhasil delete ${name}`)
+
+        }
     }
 
     getDataKeranjang = () => {
@@ -78,6 +88,7 @@ class PageKeranjang extends Component {
                                             name={e.data.data.name}
                                             price={`Rp ${e.data.data.price}`}
                                             to={() => this.goToTransaksi(e.id)}
+                                            deleteProduct={(i) => this.deleteProduct(i, e.id, e.data.data.name)}
                                         />
                                     )
                                 }) : (
@@ -109,7 +120,6 @@ class PageKeranjang extends Component {
                             bgColorLoading={'#ffa835'}
                         />
                     )}
-
             </>
         )
     }

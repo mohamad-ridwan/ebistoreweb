@@ -32,24 +32,8 @@ const GetNamaUserProvider = ({ children }) => {
         return promise
     }
 
-    const getUserLoginFromFB = () => {
-        firebase.auth().onAuthStateChanged(function (user) {
-            if (user) {
-                const userID = user.uid
-
-                setDataNama({
-                    uid: userID,
-                    data: user
-                })
-            } else {
-                // No user is signed in.
-            }
-        });
-    }
-
     useEffect(() => {
         GetNamaUser();
-        getUserLoginFromFB();
     }, [])
 
     return (

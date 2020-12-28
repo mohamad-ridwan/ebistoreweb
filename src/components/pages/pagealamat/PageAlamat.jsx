@@ -35,17 +35,21 @@ const PageAlamat = () => {
     }
 
     const handleSubmit = () => {
-        const { alamat, kota, kodePos, namaPenerima } = dataAlamat
-        const userData = JSON.parse(localStorage.getItem('userData'))
-        const data = {
-            alamat: alamat,
-            kota: kota,
-            kodePos: kodePos,
-            namaPenerima: namaPenerima,
-            date: new Date().getTime(),
-            uid: userData.uid
+        const windowConfirm = window.confirm('Simpan alamat kamu?')
+        if (windowConfirm) {
+            const { alamat, kota, kodePos, namaPenerima } = dataAlamat
+            const userData = JSON.parse(localStorage.getItem('userData'))
+            const data = {
+                alamat: alamat,
+                kota: kota,
+                kodePos: kodePos,
+                namaPenerima: namaPenerima,
+                date: new Date().getTime(),
+                uid: userData.uid
+            }
+            addDataFirebase(data)
+            alert('Berhasil tersimpan')
         }
-        addDataFirebase(data)
     }
 
     const history = useHistory()
