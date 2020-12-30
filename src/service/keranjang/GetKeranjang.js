@@ -2,7 +2,8 @@ import { cloudFirestore } from "../../config/firebase"
 
 export const GetKeranjang = async (path) => {
     const promise = await new Promise((resolve, reject) => {
-        cloudFirestore.collection(`${path}`)
+        const userId = JSON.parse(localStorage.getItem('userData'))
+        cloudFirestore.collection(`${userId.uid}`)
             .get()
             .then((querySnapshot) => {
                 const data = []

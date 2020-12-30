@@ -1,16 +1,13 @@
 import React, { useState, useEffect, useContext } from 'react'
-
 import '../navbar/Navbar.scss'
-import logMacaroni from '../../img/macaroni.svg'
 import avatarNew from '../../img/newprofil.png'
 import { Link, useHistory } from 'react-router-dom'
 import firebase from 'firebase/app';
-import { GetNamaUserContext } from '../../config/context/namauser/GetNamaUser'
 import API from '../../service'
 
 const Navbar = () => {
 
-    const [dataNama] = useContext(GetNamaUserContext)
+    const [dataNama, setDataNama] = useState({})
     const [dataKeranjang, setDataKeranjang] = useState([])
     const [navbar, setNavbar] = useState(false);
     const [getUser, setGetUser] = useState({
@@ -23,6 +20,10 @@ const Navbar = () => {
         API.APIFirebaseGetKeranjang()
             .then((res) => {
                 setDataKeranjang(res)
+            })
+        API.APIRealtimeNamaProfile()
+            .then((res) => {
+                setDataNama(res)
             })
     }
 
@@ -101,13 +102,11 @@ const Navbar = () => {
                             </Link>
                             {/* END Link Img Profile */}
 
-                            {dataNama.data && dataNama.data.length > 0 ? dataNama.data.map(e => {
-                                return (
-                                    <p className="name-act-user-navbar">
-                                        {e.data}
-                                    </p>
-                                )
-                            }) : (
+                            {dataNama && dataNama ? (
+                                <p className="name-act-user-navbar">
+                                    {dataNama.username}
+                                </p>
+                            ) : (
                                     <p className="name-act-user-navbar">
                                         {getUser.name}
                                     </p>

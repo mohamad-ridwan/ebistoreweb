@@ -17,12 +17,11 @@ import { GetUserLogin } from '../../../config/context/GetUserLogin.jsx'
 import Helmet from '../../../componentcard/helmet/Helmet'
 import API from '../../../service'
 import Spinner from '../../../componentcard/spinner/Spinner'
-import { GetNamaUserContext } from '../../../config/context/namauser/GetNamaUser'
 
 const PageBeranda = () => {
 
-    const [dataNama] = useContext(GetNamaUserContext)
     const [getUser, setGetUser] = useContext(GetUserLogin)
+    const [dataNama, setDataNama] = useState({})
     const [getSerba5rb, setGetSerba5rb] = useState([])
     const [getSerba10rb, setGetSerba10rb] = useState([])
     const [getSerba15rb, setGetSerba15rb] = useState([])
@@ -80,6 +79,10 @@ const PageBeranda = () => {
         API.APIFirebaseGetKeranjang()
             .then((res) => {
                 setDataKeranjang(res)
+            })
+        API.APIRealtimeNamaProfile()
+            .then((res) => {
+                setDataNama(res)
             })
     }
 
@@ -216,22 +219,19 @@ const PageBeranda = () => {
 
                         {/* Profil */}
                         <section className="container-profil">
-                            {dataNama.data && dataNama.data.length > 0 ? dataNama.data.map(e => {
-                                return (
-                                    <p className="name-profil">
-                                        {'Hi !'}
-                                        <br />
-                                        {e.data}
-                                    </p>
-                                )
-                            }) : (
+                            {dataNama && dataNama ? (
+                                <p className="name-profil">
+                                    {'Hi !'}
+                                    <br />
+                                    {dataNama.username}
+                                </p>
+                            ) : (
                                     <p className="name-profil">
                                         {getUser.hi}
                                         <br />
                                         {getUser.name || getUser.email}
                                     </p>
                                 )}
-
 
                             <Link
                                 onClick={() => pushProfil(getUser.name || getUser.email)}

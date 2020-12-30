@@ -32,9 +32,9 @@ const GetNamaUserProvider = ({ children }) => {
         return promise
     }
 
-    useEffect(() => {
-        GetNamaUser();
-    }, [])
+    // useEffect(() => {
+    //     GetNamaUser();
+    // }, [])
 
     return (
         <GetNamaUserContext.Provider value={[dataNama]}>

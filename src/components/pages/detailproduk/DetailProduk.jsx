@@ -12,6 +12,7 @@ import { cloudFirestore } from '../../../config/firebase'
 import { PushToCartContext } from '../../../config/context/PushToCart'
 import { resolve } from 'styled-jsx/css'
 import { WhatsappShareButton } from 'react-share'
+import BtnCard from '../../../componentcard/btncard/BtnCard'
 
 class DetailProduk extends Component {
 
@@ -43,18 +44,26 @@ class DetailProduk extends Component {
             const check = dataKeranjang.every(e => {
                 return e.id !== id
             })
+            this.setState({ kondisi: true })
             if (check) {
+                this.setState({ kondisi: true })
                 const data = this.state.data
                 const id = this.props.match.params.id
-                API.APIFirebasePushKeranjang(data, id)
-                    .then((res) => {
-                        alert('Berhasil di tambahkan ke keranjang')
-                    })
-                    .catch((err) => {
-                        console.log(err)
-                    })
+                setTimeout(() => {
+                    API.APIFirebasePushKeranjang(data, id)
+                        .then((res) => {
+                            alert('Berhasil di tambahkan ke keranjang')
+                            window.location.reload()
+                            this.setState({ kondisi: false })
+                        })
+                        .catch((err) => {
+                            console.log(err)
+                            this.setState({ kondisi: false })
+                        })
+                }, 2000)
             } else {
                 alert('Makaroni Sudah di tambahkan ke keranjang')
+                this.setState({ kondisi: false })
             }
         }
     }
@@ -139,6 +148,7 @@ class DetailProduk extends Component {
                                 displayBoxAlamat={"none"}
                                 valueInput={this.state.order}
                                 displayInputTotalOrder={'none'}
+                                loading={this.state.kondisi}
                             />
 
                             <div className="navBottom-detailP">

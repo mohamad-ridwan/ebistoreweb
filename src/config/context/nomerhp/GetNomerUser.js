@@ -45,10 +45,10 @@ const GetNomerUserProvider = ({ children }) => {
         });
     }
 
-    useEffect(() => {
-        getUserFirebase()
-        getNomer();
-    }, [])
+    // useEffect(() => {
+    //     getUserFirebase()
+    //     getNomer();
+    // }, [])
 
     return (
         <GetNomerUserContext.Provider value={[dataNomer, setDataNomer]}>

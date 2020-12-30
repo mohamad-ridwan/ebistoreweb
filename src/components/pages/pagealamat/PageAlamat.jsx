@@ -47,7 +47,7 @@ const PageAlamat = () => {
                 date: new Date().getTime(),
                 uid: userData.uid
             }
-            addDataFirebase(data)
+            API.APIRealtimePostAlamat(data, getUser.uid)
             alert('Berhasil tersimpan')
         }
     }

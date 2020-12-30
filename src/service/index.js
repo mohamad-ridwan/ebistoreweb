@@ -5,6 +5,12 @@ import { GetDetailProduct } from "./detailproduct/GetDetailProduct"
 import { PostKeranjang } from "./keranjang/PostKeranjang"
 import { GetKeranjang } from "./keranjang/GetKeranjang"
 import { DeleteKeranjang } from "./keranjang/DeleteKeranjang"
+import PostAPIAlamat from "./profile/alamat/PostAlamat"
+import GetAllAPIProfile from "./profile/GetAllAPIProfile"
+import PostNamaUser from "./profile/nama/PostNama"
+import PostNomerUser from "./profile/nomerhp/PostNomer"
+
+const user = JSON.parse(localStorage.getItem('userData'))
 
 // POST
 const APIPostAlamat = (data) => Post('v5/dataalamat/postalamat', data)
@@ -33,10 +39,18 @@ const APIFirebasePageAllProduct = (id) => GetAllProduct(`${id}`)
 const APIFirebaseMenuAllProduct = () => GetAllProduct(`menu/`)
 // For Push to Keranjang
 const APIFirebasePushKeranjang = (data, id) => PostKeranjang(`${user.uid}`, data, id)
-const user = JSON.parse(localStorage.getItem('userData'))
-const APIFirebaseGetKeranjang = () => GetKeranjang(`${user.uid}`)
+const APIFirebaseGetKeranjang = () => GetKeranjang()
 // For Delete Keranjang
 const APIFirebaseDeleteKeranjang = (id) => DeleteKeranjang(`${user.uid}`, id)
+// For API Realtime Database Firebase
+// POST
+const APIRealtimePostAlamat = (data) => PostAPIAlamat('alamatuser/', data)
+const APIRealtimePostNama = (data) => PostNamaUser(data)
+const APIRealtimePostNomer = (data) => PostNomerUser(data)
+// GET
+const APIRealtimeNamaProfile = () => GetAllAPIProfile('namauser/')
+const APIRealtimeNomerProfile = () => GetAllAPIProfile('nomeruser/')
+const APIRealtimeAlamatProfile = () => GetAllAPIProfile('alamatuser/')
 
 const API = {
     APIPostAlamat,
@@ -57,7 +71,13 @@ const API = {
     APIFirebaseMenuAllProduct,
     APIFirebasePushKeranjang,
     APIFirebaseGetKeranjang,
-    APIFirebaseDeleteKeranjang
+    APIFirebaseDeleteKeranjang,
+    APIRealtimePostAlamat,
+    APIRealtimeNamaProfile,
+    APIRealtimeNomerProfile,
+    APIRealtimeAlamatProfile,
+    APIRealtimePostNama,
+    APIRealtimePostNomer
 }
 
 export default API

@@ -5,24 +5,21 @@ import NavbarPageCard from '../../../componentcard/navbarpagecard/NavbarPageCard
 import BtnCard from '../../../componentcard/btncard/BtnCard';
 import { useHistory } from 'react-router-dom';
 import { useContext } from 'react';
-import { ChangeNumberPhone } from '../../../config/context/ChangeNumberPhone';
-import Axios from 'axios';
-import { GetNumberPhone } from '../../../config/context/GetNumberPhone';
 import Helmet from '../../../componentcard/helmet/Helmet';
 import { GetUserLogin } from '../../../config/context/GetUserLogin';
 import API from '../../../service';
 import Spinner from '../../../componentcard/spinner/Spinner';
-import { PostNomerUserContext } from '../../../config/context/nomerhp/PostNomerUser';
 import { GetNamaUserContext } from '../../../config/context/namauser/GetNamaUser';
+import { UpdateStateContext } from '../../../config/context/updatestate/UpdateState';
 
 const NomerProfil = () => {
 
+    const [update] = useContext(UpdateStateContext)
     const [dataNama] = useContext(GetNamaUserContext)
-    const [postNomer] = useContext(PostNomerUserContext)
     const [getUser, setGetUser] = useContext(GetUserLogin)
     const [getDataForLoading, setGetDataForLoading] = useState([])
     const [nomerUser, setNomerUser] = useState({
-        phoneUser: ''
+        phoneUser: `${update}`
     })
 
     const handleChangeNumberPhone = (e) => {
@@ -41,7 +38,7 @@ const NomerProfil = () => {
                 date: new Date().getTime(),
                 uid: storage.uid
             }
-            postNomer(data)
+            API.APIRealtimePostNomer(data)
             alert('Berhasil tersimpan')
         }
     }
@@ -114,7 +111,7 @@ const NomerProfil = () => {
                             </label>
 
                             <form onSubmit={handleSubmit}>
-                                <input onSubmit={handleSubmit} type="number" className="input-nama" autoFocus name="phoneUser"
+                                <input onSubmit={handleSubmit} type="number" className="input-nama" autoFocus name="phoneUser" value={nomerUser.phoneUser}
                                     onChange={handleChangeNumberPhone}
                                 />
                             </form>

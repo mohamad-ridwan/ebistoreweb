@@ -5,6 +5,7 @@ import Slider from 'react-slick'
 import { Link } from 'react-router-dom'
 import BtnCard from '../btncard/BtnCard'
 import indomaret from '../../img/indomaret.svg'
+import Spinner from '../spinner/Spinner'
 
 const DetailCard = (props) => {
 
@@ -12,6 +13,10 @@ const DetailCard = (props) => {
         slidesToShow: 1,
         slidesToScroll: 1,
         speed: 200
+    }
+
+    if (props.loading) {
+        return <Spinner titleLoad={'Mohon Tunggu Sebentar'} />
     }
 
     return (

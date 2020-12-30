@@ -8,19 +8,17 @@ import firebase from 'firebase/app';
 import Helmet from '../../../componentcard/helmet/Helmet'
 import { useHistory } from 'react-router'
 import { GetUserLogin } from '../../../config/context/GetUserLogin'
-import { PostNamaUserContext } from '../../../config/context/namauser/PostNamaUser'
 import { GetNamaUserContext } from '../../../config/context/namauser/GetNamaUser'
-import { ApiMenu } from '../../../config/context/ApiMenu'
-// import Helmet from 'react-helmet'
+import { UpdateStateContext } from '../../../config/context/updatestate/UpdateState'
+import API from '../../../service'
 
 const NamaProfil = () => {
 
     const [dataNama] = useContext(GetNamaUserContext)
     const [getUser, setGetUser] = useContext(GetUserLogin)
-    const [PostNamaUser, data] = useContext(PostNamaUserContext)
-    const [update] = useContext(ApiMenu)
+    const [update] = useContext(UpdateStateContext)
     const [changeNama, setChangeNama] = useState({
-        username: ''
+        username: `${update}`
     })
 
     const handleChangeName = (e) => {
@@ -40,7 +38,7 @@ const NamaProfil = () => {
                 date: new Date().getTime(),
                 uid: storage.uid
             }
-            PostNamaUser(data)
+            API.APIRealtimePostNama(data)
             alert('Berhasil tersimpan')
         }
     }
@@ -123,7 +121,7 @@ const NamaProfil = () => {
                         {changeNama.username}
                     </label>
                     <form onSubmit={handleSubmit}>
-                        <input type="text" className="input-nama" autoFocus name="username" value={update}
+                        <input type="text" className="input-nama" autoFocus name="username" value={changeNama.username}
                             onChange={handleChangeName}
                         />
                     </form>

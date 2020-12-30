@@ -1,6 +1,5 @@
 import React from 'react'
 import { withRouter } from 'react-router-dom'
-import ApiMenuProvider from './ApiMenu'
 import ApiSemuaProdukProvider from './ApiSemuaProduk'
 import ChangeNumberPhoneProvider from './ChangeNumberPhone'
 import GetNumberPhoneProvider from './GetNumberPhone'
@@ -13,6 +12,7 @@ import PostNomerUserProvider from './nomerhp/PostNomerUser'
 import PostAlamatUserProvider from './alamatuser/PostAlamatUser'
 import PushToCartProvider from './PushToCart'
 import GetAlamatUserProvider from './alamatuser/GetAlamatUser'
+import UpdateStateProvider from './updatestate/UpdateState'
 
 
 const ContextWrapper = ({ children }) => {
@@ -27,13 +27,13 @@ const ContextWrapper = ({ children }) => {
                                     <HelmetProvider>
                                         <GetNumberPhoneProvider>
                                             <ChangeNumberPhoneProvider>
-                                                <ApiMenuProvider>
+                                                <UpdateStateProvider>
                                                     <ApiSemuaProdukProvider>
                                                         <GetUserLoginProvider>
                                                             {children}
                                                         </GetUserLoginProvider>
                                                     </ApiSemuaProdukProvider>
-                                                </ApiMenuProvider>
+                                                </UpdateStateProvider>
                                             </ChangeNumberPhoneProvider>
                                         </GetNumberPhoneProvider>
                                     </HelmetProvider>

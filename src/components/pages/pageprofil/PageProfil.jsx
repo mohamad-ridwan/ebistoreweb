@@ -11,56 +11,21 @@ import KategoriProfil from '../../../componentcard/kategoriprofil/KategoriProfil
 import firebase from 'firebase/app';
 import { useContext } from 'react'
 import { GetUserLogin } from '../../../config/context/GetUserLogin.jsx'
-import { ChangeNumberPhone } from '../../../config/context/ChangeNumberPhone'
-import { GetNumberPhone } from '../../../config/context/GetNumberPhone'
-import Helmet from '../../../componentcard/helmet/Helmet'
 import Spinner from '../../../componentcard/spinner/Spinner'
 import ReactImageUploading from 'react-images-uploading'
-
-import { GetNomerUserContext } from '../../../config/context/nomerhp/GetNomerUser'
 import API from '../../../service'
-import { GetNamaUserContext } from '../../../config/context/namauser/GetNamaUser'
-import { GetAlamatUserContext } from '../../../config/context/alamatuser/GetAlamatUser'
-import { PostNamaUserContext } from '../../../config/context/namauser/PostNamaUser'
-import { ApiMenu } from '../../../config/context/ApiMenu'
+import { UpdateStateContext } from '../../../config/context/updatestate/UpdateState'
+import Helmet from '../../../componentcard/helmet/Helmet'
 
 const PageProfil = () => {
-    const [dataNama] = useContext(GetNamaUserContext)
-    const [setUpdate] = useContext(ApiMenu)
-    const [dataNomer, setDataNomer] = useContext(GetNomerUserContext)
+    const [update, setUpdate] = useContext(UpdateStateContext)
     const [getUser, setGetUser] = useContext(GetUserLogin)
-    const [view, setView] = useState(false)
-    let [alamatUser, dataUser] = useContext(GetAlamatUserContext)
     const [dataForLoading, setDataForLoading] = useState([])
+    const [dataNama, setDataNama] = useState({})
+    const [dataNomer, setDataNomer] = useState({})
+    const [dataAlamat, setDataAlamat] = useState({})
     const [isLoading, setIsLoading] = useState(false)
-
-    const history = useHistory()
-
-    const handleLogOut = () => {
-        const alert = window.confirm('Log Out?')
-        setIsLoading(true)
-        if (alert) {
-            const promise = new Promise((resolve, reject) => {
-                setTimeout(() => {
-                    firebase.auth().signOut().then(function () {
-                        history.push('/login')
-                        resolve(setIsLoading(false))
-                    })
-                    reject(setIsLoading(false))
-                }, 3000)
-            })
-            return promise
-        } else {
-            setIsLoading(false)
-        }
-    }
-
-    const getAPIForLoading = () => {
-        API.APIFirebaseSerbaLimaRibu()
-            .then((res) => {
-                setDataForLoading(res)
-            })
-    }
+    const [view, setView] = useState(false)
 
     const getUserLogin = () => {
         firebase.auth().onAuthStateChanged(function (user) {
@@ -94,45 +59,91 @@ const PageProfil = () => {
         })
     }
 
+    const setAllAPI = () => {
+        API.APIRealtimeNamaProfile()
+            .then((res) => {
+                setDataNama(res)
+            })
+        API.APIRealtimeNomerProfile()
+            .then((res) => {
+                if (res) {
+                    setDataNomer(res)
+                }
+            })
+        API.APIRealtimeAlamatProfile()
+            .then((res) => {
+                setDataAlamat(res)
+            })
+    }
+
+    const getAPIForLoading = () => {
+        API.APIFirebaseSerbaLimaRibu()
+            .then((res) => {
+                setDataForLoading(res)
+            })
+    }
+
+    const history = useHistory()
+
+    const handleLogOut = () => {
+        const alert = window.confirm('Log Out?')
+        setIsLoading(true)
+        if (alert) {
+            const promise = new Promise((resolve, reject) => {
+                setTimeout(() => {
+                    firebase.auth().signOut().then(function () {
+                        history.push('/login')
+                        resolve(setIsLoading(false))
+                    })
+                    reject(setIsLoading(false))
+                }, 3000)
+            })
+            return promise
+        } else {
+            setIsLoading(false)
+        }
+    }
+
     const handleChangeImage = (imageList) => {
         setGetUser({
             imageUpload: imageList
         })
     }
 
+    // console.log(update)
     const toPageNamaProfil = (data) => {
         history.push(`/profil/${data}/nama-profil`)
-        setUpdate(data)
+        const isUpdate = setUpdate(data)
+        return isUpdate
     }
     const toPageEmail = (user) => {
         history.push(`/profil/${user}/email`)
     }
     const toPageNomerProfil = (user) => {
         history.push(`/profil/${user}/nomer-profil`)
+        const updateNomerUser = setUpdate(user)
+        return updateNomerUser
     }
     const toPageAlamat = (user) => {
         history.push(`/profil/${user}/alamat`)
     }
 
     useEffect(() => {
-        getAPIForLoading();
         getUserLogin()
+        setAllAPI()
+        getAPIForLoading();
     }, [])
 
     return (
         <>
             {dataForLoading && dataForLoading.length > 0 ? (
                 <>
-                    {dataNama.data && dataNama.data.length > 0 ?
-                        dataNama.data.map(e => {
-                            return (
-                                <Helmet
-                                    key={e.id}
-                                    titleHelmet={`Profil | ${e.data} | Ebi Store`}
-                                    contentHelmet={`halaman profil |${e.data} | Ebi Strore`}
-                                />
-                            )
-                        }) : (
+                    {dataNama && dataNama ? (
+                        <Helmet
+                            titleHelmet={`Profil | ${dataNama.username} | Ebi Store`}
+                            contentHelmet={`halaman profil | ${dataNama.username} | Ebi Strore`}
+                        />
+                    ) : (
                             <Helmet
                                 titleHelmet={`Profil | ${getUser.name || getUser.email} | Ebi Store`}
                                 contentHelmet={`halaman profil |${getUser.name || getUser.email} | Ebi Strore`}
@@ -170,16 +181,13 @@ const PageProfil = () => {
                         <div className="box-white-profile">
                             {/* Box orange */}
                             <div className="box-orange">
-                                {dataNama.data && dataNama.data.length > 0 ?
-                                    dataNama.data.map(e => {
-                                        return (
-                                            <p className="name-profil">
-                                                {'Hi !'}
-                                                <br />
-                                                {e.data}
-                                            </p>
-                                        )
-                                    }) : (
+                                {dataNama && dataNama ? (
+                                    <p className="name-profil">
+                                        {'Hi !'}
+                                        <br />
+                                        {dataNama.username}
+                                    </p>
+                                ) : (
                                         <p className="name-profil">
                                             {'Hi !'}
                                             <br />
@@ -212,18 +220,15 @@ const PageProfil = () => {
                             {/* end box orange */}
 
                             <div className="box-kategori">
-                                {dataNama.data && dataNama.data.length > 0 ? dataNama.data.map(e => {
-                                    return (
-                                        <KategoriProfil
-                                            key={e.id}
-                                            onClick={() => toPageNamaProfil(e.data)}
-                                            linkKategori={'link-kategori'}
-                                            icon={'fas fa-user-tie'}
-                                            title={'Nama'}
-                                            deskripsi={e.data}
-                                        />
-                                    )
-                                }) : (
+                                {dataNama && dataNama ? (
+                                    <KategoriProfil
+                                        onClick={() => toPageNamaProfil(dataNama.username)}
+                                        linkKategori={'link-kategori'}
+                                        icon={'fas fa-user-tie'}
+                                        title={'Nama'}
+                                        deskripsi={dataNama.username}
+                                    />
+                                ) : (
                                         <KategoriProfil
                                             onClick={() => toPageNamaProfil(getUser.name || getUser.email)}
                                             linkKategori={'link-kategori'}
@@ -241,18 +246,15 @@ const PageProfil = () => {
                                     deskripsi={getUser.email}
                                 />
 
-                                {dataNomer.data && dataNomer.data.length > 0 ? dataNomer.data.map(e => {
-                                    return (
-                                        <KategoriProfil
-                                            onClick={() => toPageNomerProfil()}
-                                            key={e.id}
-                                            linkKategori={'link-kategori'}
-                                            icon={'fas fa-mobile'}
-                                            title={'No Hp.'}
-                                            deskripsi={e.data.phoneUser}
-                                        />
-                                    )
-                                }) : (
+                                {dataNomer.phoneUser && dataNomer.phoneUser ? (
+                                    <KategoriProfil
+                                        onClick={() => toPageNomerProfil(dataNomer.phoneUser.phoneUser)}
+                                        linkKategori={'link-kategori'}
+                                        icon={'fas fa-mobile'}
+                                        title={'No Hp.'}
+                                        deskripsi={dataNomer.phoneUser.phoneUser}
+                                    />
+                                ) : (
                                         <KategoriProfil
                                             onClick={() => toPageNomerProfil(getUser.name || getUser.email)}
                                             linkKategori={'link-kategori'}
@@ -262,17 +264,16 @@ const PageProfil = () => {
                                         />
                                     )}
 
-
-                                {alamatUser && alamatUser ? (
+                                {dataAlamat && dataAlamat ? (
                                     <KategoriProfil
-                                        onClick={() => toPageAlamat(getUser.name || getUser.email)}
+                                        onClick={() => toPageAlamat()}
                                         linkKategori={'link-kategori'}
                                         icon={'fas fa-home'}
                                         title={'Alamat'}
-                                        alamat={alamatUser.alamat}
-                                        kota={alamatUser.kota}
-                                        kodePos={alamatUser.kodePos}
-                                        namaPenerima={alamatUser.namaPenerima}
+                                        alamat={dataAlamat.alamat}
+                                        kota={dataAlamat.kota}
+                                        kodePos={dataAlamat.kodePos}
+                                        namaPenerima={dataAlamat.namaPenerima}
                                     />
                                 ) : (
                                         <KategoriProfil
@@ -283,9 +284,6 @@ const PageProfil = () => {
                                             deskripsi={"Kamu belum memiliki alamat yang tercantum"}
                                         />
                                     )}
-
-
-
                             </div>
                         </div>
 
