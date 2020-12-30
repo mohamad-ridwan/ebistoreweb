@@ -1,24 +1,23 @@
 {
   "files": {
-    "main.css": "/static/css/main.2be393ac.chunk.css",
-    "main.js": "/static/js/main.56366f5e.chunk.js",
-    "main.js.map": "/static/js/main.56366f5e.chunk.js.map",
+    "main.css": "/static/css/main.0d3c942a.chunk.css",
+    "main.js": "/static/js/main.07c6a3ff.chunk.js",
+    "main.js.map": "/static/js/main.07c6a3ff.chunk.js.map",
     "runtime-main.js": "/static/js/runtime-main.63b3f9b6.js",
     "runtime-main.js.map": "/static/js/runtime-main.63b3f9b6.js.map",
-    "static/js/2.826c3e7b.chunk.js": "/static/js/2.826c3e7b.chunk.js",
-    "static/js/2.826c3e7b.chunk.js.map": "/static/js/2.826c3e7b.chunk.js.map",
+    "static/js/2.2b11cb36.chunk.js": "/static/js/2.2b11cb36.chunk.js",
+    "static/js/2.2b11cb36.chunk.js.map": "/static/js/2.2b11cb36.chunk.js.map",
     "index.html": "/index.html",
-    "precache-manifest.6d3c23f3f049d9623efbb824f041ab4b.js": "/precache-manifest.6d3c23f3f049d9623efbb824f041ab4b.js",
+    "precache-manifest.a92b7a5ff39eed2ae958469c85465851.js": "/precache-manifest.a92b7a5ff39eed2ae958469c85465851.js",
     "service-worker.js": "/service-worker.js",
-    "static/css/main.2be393ac.chunk.css.map": "/static/css/main.2be393ac.chunk.css.map",
-    "static/js/2.826c3e7b.chunk.js.LICENSE.txt": "/static/js/2.826c3e7b.chunk.js.LICENSE.txt",
+    "static/css/main.0d3c942a.chunk.css.map": "/static/css/main.0d3c942a.chunk.css.map",
+    "static/js/2.2b11cb36.chunk.js.LICENSE.txt": "/static/js/2.2b11cb36.chunk.js.LICENSE.txt",
     "static/media/bgmakaroni2.jpg": "/static/media/bgmakaroni2.ceb6ada9.jpg",
     "static/media/delapanbelas.jpg": "/static/media/delapanbelas.4efe5d4a.jpg",
     "static/media/enambelas.jpg": "/static/media/enambelas.733ce5d6.jpg",
     "static/media/google (1).png": "/static/media/google (1).35d57b78.png",
     "static/media/heart.svg": "/static/media/heart.86acfc45.svg",
     "static/media/indomaret.svg": "/static/media/indomaret.476407a5.svg",
-    "static/media/macaroni.svg": "/static/media/macaroni.e541ae08.svg",
     "static/media/picnic.svg": "/static/media/picnic.09859c6c.svg",
     "static/media/promo.jpg": "/static/media/promo.2dc5e86a.jpg",
     "static/media/satu.jpeg": "/static/media/satu.9176ea22.jpeg",
@@ -26,8 +25,8 @@
   },
   "entrypoints": [
     "static/js/runtime-main.63b3f9b6.js",
-    "static/js/2.826c3e7b.chunk.js",
-    "static/css/main.2be393ac.chunk.css",
-    "static/js/main.56366f5e.chunk.js"
+    "static/js/2.2b11cb36.chunk.js",
+    "static/css/main.0d3c942a.chunk.css",
+    "static/js/main.07c6a3ff.chunk.js"
   ]
 }
