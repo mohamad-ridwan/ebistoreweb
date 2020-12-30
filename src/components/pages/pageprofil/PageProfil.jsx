@@ -10,7 +10,7 @@ import newProfil from '../../../img/newprofil.png'
 import KategoriProfil from '../../../componentcard/kategoriprofil/KategoriProfil'
 import firebase from 'firebase/app';
 import { useContext } from 'react'
-import { GetUserLogin } from '../../../config/context/GetUserLogin.jsx'
+import { GetUserLogin } from '../../../config/context/GetUserLogin'
 import Spinner from '../../../componentcard/spinner/Spinner'
 import ReactImageUploading from 'react-images-uploading'
 import API from '../../../service'

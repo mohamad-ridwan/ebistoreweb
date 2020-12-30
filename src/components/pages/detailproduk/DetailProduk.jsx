@@ -8,11 +8,8 @@ import Helmet from '../../../componentcard/helmet/Helmet'
 import API from '../../../service'
 import Spinner from '../../../componentcard/spinner/Spinner'
 import img from '../../../img/enambelas.jpg'
-import { cloudFirestore } from '../../../config/firebase'
 import { PushToCartContext } from '../../../config/context/PushToCart'
-import { resolve } from 'styled-jsx/css'
 import { WhatsappShareButton } from 'react-share'
-import BtnCard from '../../../componentcard/btncard/BtnCard'
 
 class DetailProduk extends Component {
 
@@ -151,7 +148,7 @@ class DetailProduk extends Component {
                                 loading={this.state.kondisi}
                             />
 
-                            <div className="navBottom-detailP">
+                            {/* <div className="navBottom-detailP">
                                 <p className="title-tanya">
                                     Tanya Ke Penjual
                                 </p>
@@ -169,7 +166,7 @@ class DetailProduk extends Component {
                                     <i className="fab fa-whatsapp"></i>
                                 </WhatsappShareButton>
 
-                            </div>
+                            </div> */}
                         </div>
                     </>
                 ) : (

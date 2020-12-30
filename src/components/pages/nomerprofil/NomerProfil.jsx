@@ -9,13 +9,12 @@ import Helmet from '../../../componentcard/helmet/Helmet';
 import { GetUserLogin } from '../../../config/context/GetUserLogin';
 import API from '../../../service';
 import Spinner from '../../../componentcard/spinner/Spinner';
-import { GetNamaUserContext } from '../../../config/context/namauser/GetNamaUser';
 import { UpdateStateContext } from '../../../config/context/updatestate/UpdateState';
 
 const NomerProfil = () => {
 
+    const [dataNama, setDataNama] = useState({})
     const [update] = useContext(UpdateStateContext)
-    const [dataNama] = useContext(GetNamaUserContext)
     const [getUser, setGetUser] = useContext(GetUserLogin)
     const [getDataForLoading, setGetDataForLoading] = useState([])
     const [nomerUser, setNomerUser] = useState({
@@ -47,6 +46,10 @@ const NomerProfil = () => {
         API.APIFirebaseMenuAllProduct()
             .then((res) => {
                 setGetDataForLoading(res)
+            })
+        API.APIRealtimeNamaProfile()
+            .then((res) => {
+                setDataNama(res)
             })
     }
 
@@ -81,16 +84,13 @@ const NomerProfil = () => {
         <>
             {getDataForLoading && getDataForLoading.length > 0 ? (
                 <>
-                    {dataNama.data && dataNama.data.length > 0 ?
-                        dataNama.data.map(e => {
-                            return (
-                                <Helmet
-                                    key={e.id}
-                                    titleHelmet={`Nomer Telepon | ${e.data.username} | Ebi Store`}
-                                    contentHelmet={`halaman rubah nomer telepon profile | ${e.data.username} | Ebi Store`}
-                                />
-                            )
-                        }) : (
+                    {dataNama && dataNama ?
+                        (
+                            <Helmet
+                                titleHelmet={`Nomer Telepon | ${dataNama.username} | Ebi Store`}
+                                contentHelmet={`halaman rubah nomer telepon profile | ${dataNama.username} | Ebi Store`}
+                            />
+                        ) : (
                             <Helmet
                                 titleHelmet={`Nomer Telepon | ${getUser.name || getUser.name} | Ebi Store`}
                                 contentHelmet={`halaman rubah nomer telepon profile | ${getUser.name || getUser.email} | Ebi Store`}

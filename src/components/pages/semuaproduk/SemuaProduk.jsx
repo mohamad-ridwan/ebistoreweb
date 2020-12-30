@@ -55,7 +55,7 @@ class SemuaProduk extends Component {
         API.APIFirebaseMenuAllProduct()
             .then((res) => {
                 this.setState({
-                    menu: res
+                    menu: this.removeDuplicate(res, 'id')
                 })
             })
     }

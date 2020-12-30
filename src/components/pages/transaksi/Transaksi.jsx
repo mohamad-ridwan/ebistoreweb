@@ -1,7 +1,6 @@
 import React from 'react'
 import NavbarPageCard from '../../../componentcard/navbarpagecard/NavbarPageCard'
 import './Transaksi.scss'
-import Axios from 'axios'
 import { Component } from 'react'
 import { withRouter } from 'react-router-dom'
 import DetailCard from '../../../componentcard/detailcard/DetailCard'
@@ -9,11 +8,8 @@ import Helmet from '../../../componentcard/helmet/Helmet'
 import API from '../../../service'
 import Spinner from '../../../componentcard/spinner/Spinner'
 import img from '../../../img/enambelas.jpg'
-import { GetAlamatUserContext } from '../../../config/context/alamatuser/GetAlamatUser'
 
 class Transaksi extends Component {
-
-    static contextType = GetAlamatUserContext
 
     state = {
         alamat: {
@@ -86,7 +82,6 @@ class Transaksi extends Component {
     render() {
 
         const { produk } = this.state
-        const alamatUser = this.context
 
         return (
             <>
@@ -115,10 +110,10 @@ class Transaksi extends Component {
                                 minus={this.handleMinus}
                                 plus={this.handlePlus}
                                 valueInput={this.state.totalBeli}
-                                alamat={alamatUser.alamat || 'oke'}
-                                kota={alamatUser.kota || 'oke'}
-                                kodePos={alamatUser.kodePos || 'oke'}
-                                namaPenerima={alamatUser.namaPenerima || 'oke'}
+                            // alamat={alamatUser.alamat || 'oke'}
+                            // kota={alamatUser.kota || 'oke'}
+                            // kodePos={alamatUser.kodePos || 'oke'}
+                            // namaPenerima={alamatUser.namaPenerima || 'oke'}
                             />
 
                         </div>

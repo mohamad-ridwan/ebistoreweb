@@ -13,7 +13,7 @@ import { Link, matchPath, useHistory, useLocation, useParams, useRouteMatch, wit
 import Navbar from '../../navbar/Navbar'
 import firebase from 'firebase/app';
 import newProfil from '../../../img/newprofil.png'
-import { GetUserLogin } from '../../../config/context/GetUserLogin.jsx'
+import { GetUserLogin } from '../../../config/context/GetUserLogin'
 import Helmet from '../../../componentcard/helmet/Helmet'
 import API from '../../../service'
 import Spinner from '../../../componentcard/spinner/Spinner'

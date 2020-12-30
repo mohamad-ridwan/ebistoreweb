@@ -7,15 +7,39 @@ import NavbarPageCard from '../../../componentcard/navbarpagecard/NavbarPageCard
 import firebase from 'firebase/app';
 import './Email.scss'
 import { useHistory } from 'react-router-dom'
-import { GetNamaUserContext } from '../../../config/context/namauser/GetNamaUser'
+import API from '../../../service'
 
 const Email = () => {
 
-    const [dataNama] = useContext(GetNamaUserContext)
+    const [dataNama, setDataNama] = useState({})
     const [userLogin, setUserLogin] = useState({
         name: '',
         email: ''
     })
+
+    const setAllAPI = () => {
+        API.APIRealtimeNamaProfile()
+            .then((res) => {
+                setDataNama(res)
+            })
+    }
+
+    const getUserFromLogin = () => {
+        firebase.auth().onAuthStateChanged(function (user) {
+            if (user) {
+                const nameUser = user.displayName
+                const emailUser = user.email
+
+                // Change data Email User yg login
+                setUserLogin({
+                    email: emailUser,
+                    name: nameUser
+                })
+            } else {
+                // No user is signed in.
+            }
+        });
+    }
 
     const history = useHistory()
 
@@ -48,34 +72,19 @@ const Email = () => {
     }
 
     useEffect(() => {
-        firebase.auth().onAuthStateChanged(function (user) {
-            if (user) {
-                const nameUser = user.displayName
-                const emailUser = user.email
-
-                // Change data Email User yg login
-                setUserLogin({
-                    email: emailUser,
-                    name: nameUser
-                })
-            } else {
-                // No user is signed in.
-            }
-        });
+        getUserFromLogin()
+        setAllAPI()
     }, [])
 
     return (
         <>
-            {dataNama.data && dataNama.data.length > 0 ?
-                dataNama.data.map(e => {
-                    return (
-                        <Helmet
-                            key={e.id}
-                            titleHelmet={`Email | ${e.data.username} | Ebi Store`}
-                            contentHelmet={`halaman email | ${e.data.username} | Ebi Store`}
-                        />
-                    )
-                }) : (
+            {dataNama && dataNama ?
+                (
+                    <Helmet
+                        titleHelmet={`Email | ${dataNama.username} | Ebi Store`}
+                        contentHelmet={`halaman email | ${dataNama.username} | Ebi Store`}
+                    />
+                ) : (
                     <Helmet
                         titleHelmet={`Email | ${userLogin.name || userLogin.email} | Ebi Store`}
                         contentHelmet={`halaman email | ${userLogin.name || userLogin.name} | Ebi Store`}

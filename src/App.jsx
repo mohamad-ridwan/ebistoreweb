@@ -20,11 +20,11 @@ import NomerProfil from './components/pages/nomerprofil/NomerProfil';
 import Email from './components/pages/email/Email';
 import firebase from 'firebase/app';
 import { store } from './config/redux';
-import ContextWrapper from './config/context/ContextWrapper';
 import { Provider } from 'react-redux';
 import { createBrowserHistory } from 'history'
 import history from './history';
 import API from './service';
+import ContextWrapper from './config/context/ContextWrapper';
 
 function App() {
 

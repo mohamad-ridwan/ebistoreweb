@@ -8,48 +8,19 @@ import firebase from 'firebase/app';
 import Helmet from '../../../componentcard/helmet/Helmet'
 import { useHistory } from 'react-router'
 import { GetUserLogin } from '../../../config/context/GetUserLogin'
-import { GetNamaUserContext } from '../../../config/context/namauser/GetNamaUser'
 import { UpdateStateContext } from '../../../config/context/updatestate/UpdateState'
 import API from '../../../service'
 
 const NamaProfil = () => {
 
-    const [dataNama] = useContext(GetNamaUserContext)
+    const [dataNama, setDataNama] = useState({})
     const [getUser, setGetUser] = useContext(GetUserLogin)
     const [update] = useContext(UpdateStateContext)
     const [changeNama, setChangeNama] = useState({
         username: `${update}`
     })
 
-    const handleChangeName = (e) => {
-        const newChangeName = e.target.value
-        setChangeNama({
-            username: newChangeName
-        })
-    }
-
-    const handleSubmit = () => {
-        const windowConfirm = window.confirm('Simpan nama kamu?')
-        if (windowConfirm) {
-            const storage = JSON.parse(localStorage.getItem('userData'))
-            const username = changeNama.username
-            const data = {
-                username: username,
-                date: new Date().getTime(),
-                uid: storage.uid
-            }
-            API.APIRealtimePostNama(data)
-            alert('Berhasil tersimpan')
-        }
-    }
-
-    const history = useHistory()
-
-    const toProfil = (user) => {
-        history.push(`/profil/${user}`)
-    }
-
-    useEffect(() => {
+    const getUserFromLogin = () => {
         firebase.auth().onAuthStateChanged((user) => {
             if (user) {
                 const nameUser = user.displayName
@@ -76,29 +47,67 @@ const NamaProfil = () => {
                 })
             }
         });
+    }
+
+    const handleChangeName = (e) => {
+        const newChangeName = e.target.value
+        setChangeNama({
+            username: newChangeName
+        })
+    }
+
+    const setAllAPI = () => {
+        API.APIRealtimeNamaProfile()
+            .then((res) => {
+                setDataNama(res)
+            })
+    }
+
+    const handleSubmit = () => {
+        const windowConfirm = window.confirm('Simpan nama kamu?')
+        if (windowConfirm) {
+            const storage = JSON.parse(localStorage.getItem('userData'))
+            const username = changeNama.username
+            const data = {
+                username: username,
+                date: new Date().getTime(),
+                uid: storage.uid
+            }
+            API.APIRealtimePostNama(data)
+            alert('Berhasil tersimpan')
+        }
+    }
+
+    const history = useHistory()
+
+    const toProfil = (user) => {
+        history.push(`/profil/${user}`)
+    }
+
+    useEffect(() => {
+        getUserFromLogin()
+        setAllAPI()
     }, [])
 
     return (
         <>
-            {dataNama.data && dataNama.data.length > 0 ?
-                dataNama.data.map(e => {
-                    return (
-                        <>
-                            <Helmet
-                                key={e.id}
-                                titleHelmet={`Nama Profil | ${e.data} | Ebi Store`}
-                                contentHelmet={`halaman rubah nama profil | ${e.data} | Ebi Store`}
-                            />
-                            <NavbarPageCard
-                                backPage={() => toProfil(e.data)}
-                                position={'absolute'}
-                                titlePageNav={'Rubah Nama'}
-                                transparant={"transparant"}
-                                color={"#fff"}
-                            />
-                        </>
-                    )
-                }) : (
+            {dataNama && dataNama ?
+                (
+                    <>
+                        <Helmet
+                            titleHelmet={`Nama Profil | ${dataNama.username} | Ebi Store`}
+                            contentHelmet={`halaman rubah nama profil | ${dataNama.username} | Ebi Store`}
+                        />
+
+                        <NavbarPageCard
+                            backPage={() => toProfil(dataNama.username)}
+                            position={'absolute'}
+                            titlePageNav={'Rubah Nama'}
+                            transparant={"transparant"}
+                            color={"#fff"}
+                        />
+                    </>
+                ) : (
                     <>
 
                         <Helmet
