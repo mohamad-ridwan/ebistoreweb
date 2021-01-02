@@ -8,6 +8,7 @@ import Helmet from '../../../componentcard/helmet/Helmet'
 import API from '../../../service'
 import Spinner from '../../../componentcard/spinner/Spinner'
 import img from '../../../img/enambelas.jpg'
+import firebase from 'firebase/app';
 
 class Transaksi extends Component {
 
@@ -27,6 +28,17 @@ class Transaksi extends Component {
         getDataForLoading: []
     }
 
+    getUserLogin = () => {
+        const histori = this.props.history
+        firebase.auth().onAuthStateChanged(function (user) {
+            if (user) {
+
+            } else {
+                histori.push('/login')
+            }
+        })
+    }
+
     getAPIForLoading = () => {
         API.APIFirebaseSerbaLimaRibu()
             .then((res) => {
@@ -37,19 +49,14 @@ class Transaksi extends Component {
     }
 
     handlePlus = () => {
-        // update value state total beli ke value yg di tambahkan
         this.setState({
-            // call propertynya
             totalBeli: this.state.totalBeli + 1,
             price: this.state.price * 2
         })
     }
 
     handleMinus = () => {
-        // update value state total beli ke value yg di kurangkan
-        // handle btn minus ketika value kebih kecil dari 0
         if (this.state.totalBeli > 1) {
-            // Jalankan value lebih besar dr 0
             this.setState({
                 totalBeli: this.state.totalBeli - 1,
                 price: this.state.price * 2
@@ -62,7 +69,6 @@ class Transaksi extends Component {
         this.props.history.push(`/detail-produk/${id}`)
     }
 
-    // Data Produk
     setAllAPI = () => {
         let id = this.props.match.params.id
         API.APIFirebaseDetailProduct(id)
@@ -72,9 +78,9 @@ class Transaksi extends Component {
                 })
             })
     }
-    // end data produk
 
     componentDidMount() {
+        this.getUserLogin()
         this.setAllAPI();
         this.getAPIForLoading();
     }

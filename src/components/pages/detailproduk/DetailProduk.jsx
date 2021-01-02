@@ -8,12 +8,14 @@ import Helmet from '../../../componentcard/helmet/Helmet'
 import API from '../../../service'
 import Spinner from '../../../componentcard/spinner/Spinner'
 import img from '../../../img/enambelas.jpg'
-import { PushToCartContext } from '../../../config/context/PushToCart'
 import { WhatsappShareButton } from 'react-share'
+import firebase from 'firebase/app';
+import PopUp from '../../../componentcard/popup/PopUp'
+import { PustToCartContext } from '../../../config/context/PushToCart'
 
 class DetailProduk extends Component {
 
-    static contextType = PushToCartContext
+    static contextType = PustToCartContext
 
     state = {
         data: {},
@@ -25,14 +27,25 @@ class DetailProduk extends Component {
             name: '',
             price: ''
         },
-        kondisi: false
+        kondisi: false,
+        popUp: false,
+        popUp2: false
     }
 
-    // to transaksion
+    getUserLogin = () => {
+        const histori = this.props.history
+        firebase.auth().onAuthStateChanged(function (user) {
+            if (user) {
+
+            } else {
+                histori.push('/login')
+            }
+        })
+    }
+
     handleTransaksi = (id) => {
         this.props.history.push(`/detail-produk/transaksi/${id}`)
     }
-    // end to transaksion
 
     pushToCart = (id) => {
         const alertConfirm = window.confirm('Tambahkan Ke Keranjang?')
@@ -41,27 +54,28 @@ class DetailProduk extends Component {
             const check = dataKeranjang.every(e => {
                 return e.id !== id
             })
-            this.setState({ kondisi: true })
             if (check) {
                 this.setState({ kondisi: true })
                 const data = this.state.data
                 const id = this.props.match.params.id
-                setTimeout(() => {
-                    API.APIFirebasePushKeranjang(data, id)
-                        .then((res) => {
-                            alert('Berhasil di tambahkan ke keranjang')
-                            window.location.reload()
-                            this.setState({ kondisi: false })
-                        })
-                        .catch((err) => {
-                            console.log(err)
-                            this.setState({ kondisi: false })
-                        })
-                }, 2000)
+                const postCart = this.context
+                const getPostCart = postCart[2]
+                if (getPostCart(id, data)) {
+                    setTimeout(() => {
+                        this.setState({ kondisi: false })
+                        this.setState({ popUp: true })
+                    }, 1000)
+                    setInterval(() => {
+                        this.setState({ popUp: false })
+                    }, 3000)
+                }
             } else {
-                alert('Makaroni Sudah di tambahkan ke keranjang')
+                this.setState({ popUp2: true })
                 this.setState({ kondisi: false })
             }
+            setTimeout(() => {
+                this.setState({ popUp2: false })
+            }, 2000)
         }
     }
 
@@ -112,6 +126,7 @@ class DetailProduk extends Component {
     }
 
     componentDidMount() {
+        this.getUserLogin()
         this.getDetailProduct();
     }
 
@@ -146,6 +161,16 @@ class DetailProduk extends Component {
                                 valueInput={this.state.order}
                                 displayInputTotalOrder={'none'}
                                 loading={this.state.kondisi}
+                            />
+
+                            <PopUp
+                                transformPopUp={this.state.popUp ? 'translateY(0px)' : 'translateY(100px)'}
+                                txtPopUp={'Makaroni berhasil di tambahkan ke keranjang!'} />
+
+                            <PopUp
+                                transformPopUp={this.state.popUp2 ? 'translateY(0px)' : 'translateY(100px)'}
+                                txtPopUp={'Makaroni Sudah di tambahkan ke keranjang!'}
+                                bgColorPopUp={'#db1514'}
                             />
 
                             {/* <div className="navBottom-detailP">

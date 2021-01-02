@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom'
 import BtnCard from '../btncard/BtnCard'
 import indomaret from '../../img/indomaret.svg'
 import Spinner from '../spinner/Spinner'
+import PopUp from '../popup/PopUp'
 
 const DetailCard = (props) => {
 

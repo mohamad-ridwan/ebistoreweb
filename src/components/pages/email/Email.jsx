@@ -16,6 +16,7 @@ const Email = () => {
         name: '',
         email: ''
     })
+    const [isLoading, setIsLoading] = useState(false)
 
     const setAllAPI = () => {
         API.APIRealtimeNamaProfile()
@@ -54,21 +55,21 @@ const Email = () => {
     const handleDeleteUser = () => {
         const confirmAlert = window.confirm(warning)
         if (confirmAlert === true) {
+            setIsLoading(true)
             var user = firebase.auth().currentUser;
-
             user.delete().then(function () {
-                // User deleted.
+
             })
-                .then(result => {
+                .then((res) => {
                     alert('Akun Berhasil Terhapus!')
                     history.push('/login')
                 })
                 .catch(function (error) {
-                    alert('Terjadi Kesalahan (error: code 404)')
+                    alert(`Terjadi Kesalahan (error: code 404) \n ${error}`)
+                    setIsLoading(false)
                     console.log(error)
                 });
         }
-
     }
 
     useEffect(() => {
@@ -131,6 +132,7 @@ const Email = () => {
                     fontWeight={"bold"}
                     bxShadow={"0 3px 9px -1px rgba(0,0,0,0.2)"}
                     goTo={handleDeleteUser}
+                    loading={isLoading}
                 />
                 {/* END Btn Delete Account */}
             </div>

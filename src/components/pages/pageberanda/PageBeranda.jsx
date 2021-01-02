@@ -12,7 +12,6 @@ import './PageBeranda.scss'
 import { Link, matchPath, useHistory, useLocation, useParams, useRouteMatch, withRouter } from 'react-router-dom'
 import Navbar from '../../navbar/Navbar'
 import firebase from 'firebase/app';
-import newProfil from '../../../img/newprofil.png'
 import { GetUserLogin } from '../../../config/context/GetUserLogin'
 import Helmet from '../../../componentcard/helmet/Helmet'
 import API from '../../../service'
@@ -89,34 +88,9 @@ const PageBeranda = () => {
     const getUserLogin = () => {
         firebase.auth().onAuthStateChanged(function (user) {
             if (user) {
-                const emailUser = user.email
-                const nameDefault = 'User'
-                const nameUser = user.displayName
-                const photoUser = user.photoURL
-                const sayHi = 'Hi !'
-                const numberPhone = user.phoneNumber
-                const numberPhoneDefault = 'Kamu belum memiliki nomer hp yang tercantum'
-
-                setGetUser({
-                    email: emailUser,
-                    hi: sayHi,
-                    name: nameUser || emailUser,
-                    photo: photoUser || newProfil,
-                    numberPhone: numberPhone || numberPhoneDefault
-                })
 
             } else {
                 histori.push('/login')
-                const photoDefault = newProfil
-                const nameDefault = 'User'
-                const emailDefault = 'Kamu belum memiliki Email yang tercantum'
-                const numberPhoneDefault = 'Kamu belum memiliki nomer hp yang tercantum'
-                setGetUser({
-                    photo: photoDefault,
-                    name: nameDefault,
-                    email: emailDefault,
-                    numberPhone: numberPhoneDefault
-                })
             }
         })
     }

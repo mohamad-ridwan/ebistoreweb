@@ -16,6 +16,9 @@ export const GetAllProduct = async (path) => {
                     resolve(data)
                 })
             })
+            .catch((err) => {
+                reject(err)
+            })
     })
     return promise
 }

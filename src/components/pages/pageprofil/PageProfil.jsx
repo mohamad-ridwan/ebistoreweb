@@ -16,14 +16,17 @@ import ReactImageUploading from 'react-images-uploading'
 import API from '../../../service'
 import { UpdateStateContext } from '../../../config/context/updatestate/UpdateState'
 import Helmet from '../../../componentcard/helmet/Helmet'
+import { UpdateAlamatContext } from '../../../config/context/updatestate/UpdateAlamat'
 
 const PageProfil = () => {
     const [update, setUpdate] = useContext(UpdateStateContext)
+    const [updateAlamat, setUpdateAlamat] = useContext(UpdateAlamatContext)
     const [getUser, setGetUser] = useContext(GetUserLogin)
     const [dataForLoading, setDataForLoading] = useState([])
     const [dataNama, setDataNama] = useState({})
     const [dataNomer, setDataNomer] = useState({})
     const [dataAlamat, setDataAlamat] = useState({})
+    const [tesNomer, setTesNomer] = useState([])
     const [isLoading, setIsLoading] = useState(false)
     const [view, setView] = useState(false)
 
@@ -68,6 +71,11 @@ const PageProfil = () => {
             .then((res) => {
                 if (res) {
                     setDataNomer(res)
+                    const data = []
+                    Object.keys(res).map(e => {
+                        data.push(res)
+                    })
+                    setTesNomer(data)
                 }
             })
         API.APIRealtimeAlamatProfile()
@@ -110,7 +118,6 @@ const PageProfil = () => {
         })
     }
 
-    // console.log(update)
     const toPageNamaProfil = (data) => {
         history.push(`/profil/${data}/nama-profil`)
         const isUpdate = setUpdate(data)
@@ -121,11 +128,24 @@ const PageProfil = () => {
     }
     const toPageNomerProfil = (user) => {
         history.push(`/profil/${user}/nomer-profil`)
-        const updateNomerUser = setUpdate(user)
-        return updateNomerUser
+        const checkPhone = tesNomer.every((e) => {
+            return e.phoneUser !== e.phoneUser
+        })
+        if (checkPhone) {
+
+        } else {
+            const updateNomerUser = setUpdate(user)
+            return updateNomerUser
+        }
     }
     const toPageAlamat = (user) => {
         history.push(`/profil/${user}/alamat`)
+        setUpdateAlamat({
+            alamat: user.alamat,
+            kota: user.kota,
+            kodePos: user.kodePos,
+            namaPenerima: user.namaPenerima
+        })
     }
 
     useEffect(() => {
@@ -256,7 +276,7 @@ const PageProfil = () => {
                                     />
                                 ) : (
                                         <KategoriProfil
-                                            onClick={() => toPageNomerProfil(getUser.name || getUser.email)}
+                                            onClick={() => toPageNomerProfil()}
                                             linkKategori={'link-kategori'}
                                             icon={'fas fa-mobile'}
                                             title={'No Hp.'}
@@ -266,7 +286,7 @@ const PageProfil = () => {
 
                                 {dataAlamat && dataAlamat ? (
                                     <KategoriProfil
-                                        onClick={() => toPageAlamat()}
+                                        onClick={() => toPageAlamat({ ...dataAlamat })}
                                         linkKategori={'link-kategori'}
                                         icon={'fas fa-home'}
                                         title={'Alamat'}

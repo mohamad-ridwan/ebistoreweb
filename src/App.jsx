@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { BrowserRouter as Router, Switch, Route, withRouter, HashRouter, useHistory } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route, withRouter, HashRouter, useHistory, useLocation } from 'react-router-dom';
 import './App.css';
 import Media from 'react-media';
 import WindowScroll from './componentcard/windowscroll/WindowScroll';
@@ -22,7 +22,6 @@ import firebase from 'firebase/app';
 import { store } from './config/redux';
 import { Provider } from 'react-redux';
 import { createBrowserHistory } from 'history'
-import history from './history';
 import API from './service';
 import ContextWrapper from './config/context/ContextWrapper';
 
@@ -36,22 +35,23 @@ function App() {
       })
   }
 
-  const histori = createBrowserHistory()
-  // console.log(history)
+  const histori = useLocation()
 
   const getUserLogin = () => {
     firebase.auth().onAuthStateChanged(function (user) {
       if (user) {
 
       } else {
-        histori.push('/login')
+        new URLSearchParams(histori.search).get('/login')
       }
     })
   }
 
+  const history = createBrowserHistory()
+
   useEffect(() => {
     getAPI();
-    getUserLogin();
+    // getUserLogin();
   }, [])
 
   return (

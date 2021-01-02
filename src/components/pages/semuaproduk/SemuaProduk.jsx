@@ -10,6 +10,7 @@ import Menu from '../../../componentcard/menu/Menu'
 import Helmet from '../../../componentcard/helmet/Helmet'
 import Spinner from '../../../componentcard/spinner/Spinner'
 import API from '../../../service'
+import firebase from 'firebase/app';
 
 class SemuaProduk extends Component {
 
@@ -22,6 +23,17 @@ class SemuaProduk extends Component {
     state = {
         data: [],
         menu: [],
+    }
+
+    getUserLogin = () => {
+        const histori = this.props.history
+        firebase.auth().onAuthStateChanged(function (user) {
+            if (user) {
+
+            } else {
+                histori.push('/login')
+            }
+        })
     }
 
     handleGoPage = (id) => {
@@ -61,6 +73,7 @@ class SemuaProduk extends Component {
     }
 
     componentDidMount() {
+        this.getUserLogin()
         this.setAllAPI();
     }
 

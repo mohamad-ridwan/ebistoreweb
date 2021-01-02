@@ -9,6 +9,7 @@ export const DeleteKeranjang = async (path, id) => {
             })
             .catch((err) => {
                 reject(err)
+                console.log('error', err)
             })
     })
 

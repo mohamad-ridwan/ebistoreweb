@@ -1,14 +1,11 @@
 import React, { createContext, useEffect, useState } from 'react'
 import firebase from 'firebase/app';
 import newProfil from '../../img/newprofil.png'
-import { Link, matchPath, useHistory, useRouteMatch } from 'react-router-dom';
-import createHistory from 'history/createBrowserHistory'
 
 export const GetUserLogin = React.createContext()
 
 const GetUserLoginProvider = ({ children }) => {
 
-    // Get user login
     const [getUser, setGetUser] = useState({
         uid: '',
         email: '',
@@ -18,14 +15,6 @@ const GetUserLoginProvider = ({ children }) => {
         numberPhone: '',
         imageUpload: []
     })
-    // END get user login
-
-    // console.log('hs', histori)
-    const history = useHistory()
-
-    // const getUserWithLocalStorage = () => {
-    //     const storage = JSON.parse(localStorage.getItem('userData'))
-    // }
 
     const getUserLogin = () => {
         firebase.auth().onAuthStateChanged(function (user) {
@@ -47,7 +36,6 @@ const GetUserLoginProvider = ({ children }) => {
                     numberPhone: numberPhone || numberPhoneDefault
                 })
             } else {
-                history.push('/login')
                 const photoDefault = newProfil
                 const nameDefault = 'User'
                 const emailDefault = 'Kamu belum memiliki Email yang tercantum'
@@ -63,7 +51,6 @@ const GetUserLoginProvider = ({ children }) => {
     }
 
     useEffect(() => {
-        // getUserWithLocalStorage();
         getUserLogin();
     }, [])
 

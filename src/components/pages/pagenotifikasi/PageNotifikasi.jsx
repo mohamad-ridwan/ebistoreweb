@@ -2,8 +2,26 @@ import React, { useEffect, useState } from 'react'
 import '../pagenotifikasi/PageNotifikasi.scss'
 import NavbarPageCard from '../../../componentcard/navbarpagecard/NavbarPageCard'
 import imgInfo from '../../../img/sleeping.svg'
+import firebase from 'firebase/app';
+import { useHistory } from 'react-router';
 
 const PageNotifikasi = () => {
+
+    const histori = useHistory()
+
+    const getUserLogin = () => {
+        firebase.auth().onAuthStateChanged(function (user) {
+            if (user) {
+
+            } else {
+                histori.push('/login')
+            }
+        })
+    }
+
+    useEffect(() => {
+        getUserLogin()
+    })
 
     return (
         <>

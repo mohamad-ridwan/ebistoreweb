@@ -1,25 +1,15 @@
-import React from 'react'
-
+import React, { useContext } from 'react'
 import '../navbarpagecard/NavbarPageCard.scss'
 import { Link } from 'react-router-dom'
 import { useState } from 'react'
 import { useEffect } from 'react'
 import API from '../../service'
+import { PustToCartContext } from '../../config/context/PushToCart'
+import { cloudFirestore } from '../../config/firebase'
 
 const NavbarPageCard = ({ linkPage, titlePageNav, transparant, color, position, backPage, displayIcon, heightNav }) => {
 
-    const [dataKeranjang, setDataKeranjang] = useState([])
-
-    const getDataKeranjang = () => {
-        API.APIFirebaseGetKeranjang()
-            .then((res) => {
-                setDataKeranjang(res)
-            })
-    }
-
-    useEffect(() => {
-        getDataKeranjang();
-    }, [])
+    const [dataCart, setDataCart] = useContext(PustToCartContext)
 
     return (
         <>
@@ -58,9 +48,9 @@ const NavbarPageCard = ({ linkPage, titlePageNav, transparant, color, position, 
                     >
                         <div className="wrapp-box-icon">
                             <Link to='/keranjang' className="box-icon iconCart">
-                                {dataKeranjang && dataKeranjang.length > 0 ? (
+                                {dataCart && dataCart.length > 0 ? (
                                     <p className="angka-notif">
-                                        {dataKeranjang.length}
+                                        {dataCart.length}
                                     </p>
                                 ) : (
                                         <p className="angka-notif"

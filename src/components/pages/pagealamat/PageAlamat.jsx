@@ -8,9 +8,11 @@ import API from '../../../service'
 import firebase from 'firebase/app';
 import './PageAlamat.scss'
 import { GetUserLogin } from '../../../config/context/GetUserLogin'
+import { UpdateAlamatContext } from '../../../config/context/updatestate/UpdateAlamat'
 
 const PageAlamat = () => {
 
+    const [updateAlamat, setUpdateAlamat] = useContext(UpdateAlamatContext)
     const [dataNama, setDataNama] = useState({})
     const [getUser, setGetUser] = useContext(GetUserLogin)
     const [dataAlamat, setDataAlamat] = useState({
@@ -107,24 +109,28 @@ const PageAlamat = () => {
                         valueName={"alamat"}
                         placeholder={"Masukkan Nama Jalan Rumah / Blok / No / RT/RW"}
                         fungsiAutoFocus={'autoFocus'}
+                        valueDefault={updateAlamat.alamat}
                         handle={handleChange}
                     />
                     <FormAlamat
                         title={"Kota atau Kecamatan"}
                         valueName={"kota"}
                         placeholder={"Masukkan Kota / Kecamatan"}
+                        valueDefault={updateAlamat.kota}
                         handle={handleChange}
                     />
                     <FormAlamat
                         title={"Kode Pos"}
                         valueName={"kodePos"}
                         placeholder={"Masukkan Kode Pos"}
+                        valueDefault={updateAlamat.kodePos}
                         handle={handleChange}
                     />
                     <FormAlamat
                         title={"Nama Penerima"}
                         valueName={"namaPenerima"}
                         placeholder={"Masukkan Nama Penerima"}
+                        valueDefault={updateAlamat.namaPenerima}
                         handle={handleChange}
                         submit={handleSubmit}
                     />

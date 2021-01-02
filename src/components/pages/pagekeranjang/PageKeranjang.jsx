@@ -7,17 +7,32 @@ import KeranjangCard from '../../../componentcard/keranjangcard/KeranjangCard'
 import Helmet from '../../../componentcard/helmet/Helmet'
 import img from '../../../img/enambelas.jpg'
 import { Component } from 'react'
-import { PushToCartContext } from '../../../config/context/PushToCart'
 import API from '../../../service'
 import Spinner from '../../../componentcard/spinner/Spinner'
+import firebase from 'firebase/app';
+import PopUp from '../../../componentcard/popup/PopUp'
+import { PustToCartContext } from '../../../config/context/PushToCart'
 
 class PageKeranjang extends Component {
 
-    static contextType = PushToCartContext;
+    static contextType = PustToCartContext
 
     state = {
         data: [],
         dataLoading: [],
+        isLoading: false,
+        popUp: false
+    }
+
+    getUserLogin = () => {
+        const histori = this.props.history
+        firebase.auth().onAuthStateChanged(function (user) {
+            if (user) {
+
+            } else {
+                histori.push('/login')
+            }
+        })
     }
 
     goToTransaksi = (id) => {
@@ -26,13 +41,30 @@ class PageKeranjang extends Component {
 
     deleteProduct = async (i, id, name) => {
         i.stopPropagation()
-        console.log(id)
         const windowConfirm = window.confirm(`Delete ${name}?`)
         if (windowConfirm) {
+            this.setState({ isLoading: true })
+            const getCart = this.context
+            const newGetCart = getCart[3]
             API.APIFirebaseDeleteKeranjang(id)
-            alert(`Berhasil delete ${name}`)
-
+                .then((res) => {
+                    setTimeout(() => {
+                        this.setState({ isLoading: false })
+                        this.setState({ popUp: true })
+                        newGetCart()
+                    }, 1000)
+                    setInterval(() => {
+                        this.setState({ popUp: false })
+                        API.APIFirebaseGetKeranjang()
+                            .then((res) => {
+                                this.setState({
+                                    data: res
+                                })
+                            })
+                    }, 2000)
+                })
         }
+        i.preventDefault()
     }
 
     getDataKeranjang = () => {
@@ -51,6 +83,7 @@ class PageKeranjang extends Component {
     }
 
     componentDidMount() {
+        this.getUserLogin()
         this.getDataKeranjang();
     }
 
@@ -89,6 +122,7 @@ class PageKeranjang extends Component {
                                             price={`Rp ${e.data.data.price}`}
                                             to={() => this.goToTransaksi(e.id)}
                                             deleteProduct={(i) => this.deleteProduct(i, e.id, e.data.data.name)}
+                                            loading={this.state.isLoading}
                                         />
                                     )
                                 }) : (
@@ -114,6 +148,10 @@ class PageKeranjang extends Component {
                                     </>
                                 )}
                         </div>
+
+                        <PopUp
+                            transformPopUp={this.state.popUp ? 'translateY(0px)' : 'translateY(100px)'}
+                            txtPopUp={'1 Makaroni telah dihapus!'} />
                     </>
                 ) : (
                         <Spinner

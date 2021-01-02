@@ -69,9 +69,7 @@ const NamaProfil = () => {
             const storage = JSON.parse(localStorage.getItem('userData'))
             const username = changeNama.username
             const data = {
-                username: username,
-                date: new Date().getTime(),
-                uid: storage.uid
+                username: username
             }
             API.APIRealtimePostNama(data)
             alert('Berhasil tersimpan')

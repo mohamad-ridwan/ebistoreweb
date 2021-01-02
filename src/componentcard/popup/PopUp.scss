@@ -1,0 +1,36 @@
+@import '../../util/variable/variable.scss';
+
+.wrapp-popUp{
+    display: flex;
+    position: fixed;
+    bottom: 0px;
+    height: auto;
+    width: 100%;
+    z-index: 9999;
+    justify-content: center;
+    padding: 20px 0;
+    // animation: show 0.4s forwards;
+    transition: 0.4s ease-in-out;
+    
+
+    .box-txt-popUp{
+        display: flex;
+        background-color: rgba(0,0,0,0.9);
+        align-items: center;
+        padding: 10px 20px;
+        border-radius: 20px;
+        box-shadow: 0px 5px 10px -6px #000;
+    }
+
+    .txt-popUp{
+        display: flex;
+        font-size: 10pt;
+        color: #fff;
+    }
+}
+
+@keyframes show{
+    to{
+        transform: translateY(0px);
+    }
+}

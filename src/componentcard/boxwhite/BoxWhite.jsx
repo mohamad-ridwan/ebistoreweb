@@ -1,8 +1,14 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import Spinner from '../spinner/Spinner'
 import './BoxWhite.scss'
 
 const BoxWhite = (props) => {
+
+    if (props.loading) {
+        return <Spinner titleLoad={'Mohon Tunggu Sebentar'} />
+    }
+
     return (
         <>
             <Link to={props.page} className="box-white"

@@ -1,37 +1,51 @@
-import Axios from 'axios';
-import React, { createContext } from 'react'
-import { Component } from 'react';
-import { withRouter } from 'react-router-dom'
+import React from 'react'
+import { createContext, useEffect, useState } from "react";
 import API from '../../service';
-import { cloudFirestore } from '../firebase';
+import { cloudFirestore } from "../firebase";
 
-export const PushToCartContext = createContext();
+export const PustToCartContext = createContext()
 
-class PushToCartProvider extends Component {
+const PustToCartProvider = ({ children }) => {
 
-    state = {
-        cart: {}
+    const [dataCart, setDataCart] = useState([])
+
+    const getCart = async () => {
+        const promise = await new Promise((resolve, reject) => {
+            API.APIFirebaseGetKeranjang()
+                .then((res) => {
+                    if (res) {
+                        setTimeout(() => {
+                            setDataCart(res)
+                        }, 1000)
+                        resolve(res)
+                    }
+                })
+        })
+
+        return promise
     }
 
-    addToCart = (cart) => {
-        const newData = this.state.cart
+    const postCart = async (id, data) => {
+        const promise = await new Promise((resolve, reject) => {
+            const userId = JSON.parse(localStorage.getItem('userData'))
+            cloudFirestore.collection(`${userId.uid}`).doc(`${id}`)
+                .set({ data })
+            getCart()
+            resolve(data)
+        })
 
-        this.setState((prevState) => ({ cart }))
+        return promise
     }
 
-    // componentDidMount() {
-    //     console.log(this.state.cart)
-    // }
+    useEffect(() => {
+        getCart()
+    }, [])
 
-    render() {
-        const { cart } = this.state;
-        const { addToCart } = this;
-        return (
-            <PushToCartContext.Provider value={{ cart, addToCart }}>
-                {this.props.children}
-            </PushToCartContext.Provider>
-        )
-    }
+    return (
+        <PustToCartContext.Provider value={[dataCart, setDataCart, postCart, getCart]}>
+            {children}
+        </PustToCartContext.Provider>
+    )
 }
 
-export default PushToCartProvider
+export default PustToCartProvider
