@@ -9,7 +9,8 @@ const PostAPIAlamat = async (path, data, userId) => {
                 kodePos: data.kodePos,
                 namaPenerima: data.namaPenerima
             })
-        }, 3000)
+            resolve(data)
+        })
     })
 
     return promise

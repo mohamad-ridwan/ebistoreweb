@@ -27,7 +27,7 @@ const NomerProfil = () => {
         setNomerUser(newNomerUser)
     }
 
-    const handleSubmit = () => {
+    const handleSubmit = (e) => {
         const windowConfirm = window.confirm('Simpan nomer kamu?')
         if (windowConfirm) {
             const storage = JSON.parse(localStorage.getItem('userData'))
@@ -40,6 +40,7 @@ const NomerProfil = () => {
             API.APIRealtimePostNomer(data)
             alert('Berhasil tersimpan')
         }
+        e.preventDefault()
     }
 
     const getDataAPI = () => {

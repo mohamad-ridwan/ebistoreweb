@@ -17,7 +17,7 @@ const PustToCartProvider = ({ children }) => {
                         setTimeout(() => {
                             setDataCart(res)
                         }, 1000)
-                        resolve(res)
+                        resolve(dataCart)
                     }
                 })
         })
@@ -30,7 +30,6 @@ const PustToCartProvider = ({ children }) => {
             const userId = JSON.parse(localStorage.getItem('userData'))
             cloudFirestore.collection(`${userId.uid}`).doc(`${id}`)
                 .set({ data })
-            getCart()
             resolve(data)
         })
 

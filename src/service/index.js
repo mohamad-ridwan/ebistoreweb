@@ -44,7 +44,7 @@ const APIFirebaseGetKeranjang = () => GetKeranjang()
 const APIFirebaseDeleteKeranjang = (id) => DeleteKeranjang(`${user.uid}`, id)
 // For API Realtime Database Firebase
 // POST
-const APIRealtimePostAlamat = (data) => PostAPIAlamat('alamatuser/', data)
+const APIRealtimePostAlamat = (data) => PostAPIAlamat('alamatuser/', data, user.uid)
 const APIRealtimePostNama = (data) => PostNamaUser(data)
 const APIRealtimePostNomer = (data) => PostNomerUser(data)
 // GET

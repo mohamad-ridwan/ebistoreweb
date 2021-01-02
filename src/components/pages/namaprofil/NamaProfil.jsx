@@ -63,7 +63,7 @@ const NamaProfil = () => {
             })
     }
 
-    const handleSubmit = () => {
+    const handleSubmit = (e) => {
         const windowConfirm = window.confirm('Simpan nama kamu?')
         if (windowConfirm) {
             const storage = JSON.parse(localStorage.getItem('userData'))
@@ -74,6 +74,7 @@ const NamaProfil = () => {
             API.APIRealtimePostNama(data)
             alert('Berhasil tersimpan')
         }
+        e.preventDefault()
     }
 
     const history = useHistory()

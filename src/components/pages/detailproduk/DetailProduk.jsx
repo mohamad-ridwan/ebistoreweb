@@ -43,42 +43,6 @@ class DetailProduk extends Component {
         })
     }
 
-    handleTransaksi = (id) => {
-        this.props.history.push(`/detail-produk/transaksi/${id}`)
-    }
-
-    pushToCart = (id) => {
-        const alertConfirm = window.confirm('Tambahkan Ke Keranjang?')
-        if (alertConfirm) {
-            const dataKeranjang = this.state.dataKeranjang
-            const check = dataKeranjang.every(e => {
-                return e.id !== id
-            })
-            if (check) {
-                this.setState({ kondisi: true })
-                const data = this.state.data
-                const id = this.props.match.params.id
-                const postCart = this.context
-                const getPostCart = postCart[2]
-                if (getPostCart(id, data)) {
-                    setTimeout(() => {
-                        this.setState({ kondisi: false })
-                        this.setState({ popUp: true })
-                    }, 1000)
-                    setInterval(() => {
-                        this.setState({ popUp: false })
-                    }, 3000)
-                }
-            } else {
-                this.setState({ popUp2: true })
-                this.setState({ kondisi: false })
-            }
-            setTimeout(() => {
-                this.setState({ popUp2: false })
-            }, 2000)
-        }
-    }
-
     getDetailProduct = () => {
         const id = this.props.match.params.id
 
@@ -123,6 +87,53 @@ class DetailProduk extends Component {
             .then((res) => {
                 this.setState({ dataKeranjang: res })
             })
+    }
+
+    getPushToCartContext = {
+        postCart: this.context,
+        getCart: this.context,
+        dataCart: this.context
+    }
+
+    pushToCart = (id) => {
+        API.APIFirebaseGetKeranjang()
+            .then((res) => {
+                this.setState({ dataKeranjang: res })
+            })
+        const alertConfirm = window.confirm('Tambahkan Ke Keranjang?')
+        if (alertConfirm) {
+            const dataKeranjang = this.state.dataKeranjang
+            const check = dataKeranjang.every(e => {
+                return e.id !== id
+            })
+            if (check) {
+                this.setState({ kondisi: true })
+                const data = this.state.data
+                const id = this.props.match.params.id
+                const getCart = this.getPushToCartContext.getCart[3]
+                const postCart = this.getPushToCartContext.postCart[2]
+                if (postCart(id, data)) {
+                    getCart()
+                    setTimeout(() => {
+                        this.setState({ kondisi: false })
+                        this.setState({ popUp: true })
+                    }, 1000)
+                    setInterval(() => {
+                        this.setState({ popUp: false })
+                    }, 3000)
+                }
+            } else {
+                this.setState({ popUp2: true })
+                this.setState({ kondisi: false })
+            }
+            setTimeout(() => {
+                this.setState({ popUp2: false })
+            }, 2000)
+        }
+    }
+
+    handleTransaksi = (id) => {
+        this.props.history.push(`/detail-produk/transaksi/${id}`)
     }
 
     componentDidMount() {

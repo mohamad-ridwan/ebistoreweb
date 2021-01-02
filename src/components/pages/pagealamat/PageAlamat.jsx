@@ -16,10 +16,10 @@ const PageAlamat = () => {
     const [dataNama, setDataNama] = useState({})
     const [getUser, setGetUser] = useContext(GetUserLogin)
     const [dataAlamat, setDataAlamat] = useState({
-        alamat: '',
-        kota: '',
-        kodePos: '',
-        namaPenerima: ''
+        alamat: `${updateAlamat.alamat}`,
+        kota: `${updateAlamat.kota}`,
+        kodePos: `${updateAlamat.kodePos}`,
+        namaPenerima: `${updateAlamat.namaPenerima}`
     })
 
     const handleChange = (e) => {
@@ -28,7 +28,7 @@ const PageAlamat = () => {
         setDataAlamat(newDataAlamat)
     }
 
-    const handleSubmit = () => {
+    const handleSubmit = (e) => {
         const windowConfirm = window.confirm('Simpan alamat kamu?')
         if (windowConfirm) {
             const { alamat, kota, kodePos, namaPenerima } = dataAlamat
@@ -38,12 +38,12 @@ const PageAlamat = () => {
                 kota: kota,
                 kodePos: kodePos,
                 namaPenerima: namaPenerima,
-                date: new Date().getTime(),
                 uid: userData.uid
             }
-            API.APIRealtimePostAlamat(data, getUser.uid)
+            API.APIRealtimePostAlamat(data)
             alert('Berhasil tersimpan')
         }
+        e.preventDefault()
     }
 
     const history = useHistory()
@@ -109,28 +109,28 @@ const PageAlamat = () => {
                         valueName={"alamat"}
                         placeholder={"Masukkan Nama Jalan Rumah / Blok / No / RT/RW"}
                         fungsiAutoFocus={'autoFocus'}
-                        valueDefault={updateAlamat.alamat}
+                        valueDefault={dataAlamat.alamat}
                         handle={handleChange}
                     />
                     <FormAlamat
                         title={"Kota atau Kecamatan"}
                         valueName={"kota"}
                         placeholder={"Masukkan Kota / Kecamatan"}
-                        valueDefault={updateAlamat.kota}
+                        valueDefault={dataAlamat.kota}
                         handle={handleChange}
                     />
                     <FormAlamat
                         title={"Kode Pos"}
                         valueName={"kodePos"}
                         placeholder={"Masukkan Kode Pos"}
-                        valueDefault={updateAlamat.kodePos}
+                        valueDefault={dataAlamat.kodePos}
                         handle={handleChange}
                     />
                     <FormAlamat
                         title={"Nama Penerima"}
                         valueName={"namaPenerima"}
                         placeholder={"Masukkan Nama Penerima"}
-                        valueDefault={updateAlamat.namaPenerima}
+                        valueDefault={dataAlamat.namaPenerima}
                         handle={handleChange}
                         submit={handleSubmit}
                     />
