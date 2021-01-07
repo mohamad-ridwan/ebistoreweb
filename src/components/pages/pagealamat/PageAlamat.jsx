@@ -9,12 +9,15 @@ import firebase from 'firebase/app';
 import './PageAlamat.scss'
 import { GetUserLogin } from '../../../config/context/GetUserLogin'
 import { UpdateAlamatContext } from '../../../config/context/updatestate/UpdateAlamat'
+import PopUp from '../../../componentcard/popup/PopUp'
 
 const PageAlamat = () => {
 
     const [updateAlamat, setUpdateAlamat] = useContext(UpdateAlamatContext)
-    const [dataNama, setDataNama] = useState({})
     const [getUser, setGetUser] = useContext(GetUserLogin)
+    const [dataNama, setDataNama] = useState({})
+    const [loading, setLoading] = useState(false)
+    const [popUp, setPopUp] = useState(false)
     const [dataAlamat, setDataAlamat] = useState({
         alamat: `${updateAlamat.alamat}`,
         kota: `${updateAlamat.kota}`,
@@ -31,6 +34,7 @@ const PageAlamat = () => {
     const handleSubmit = (e) => {
         const windowConfirm = window.confirm('Simpan alamat kamu?')
         if (windowConfirm) {
+            setLoading(true)
             const { alamat, kota, kodePos, namaPenerima } = dataAlamat
             const userData = JSON.parse(localStorage.getItem('userData'))
             const data = {
@@ -40,16 +44,29 @@ const PageAlamat = () => {
                 namaPenerima: namaPenerima,
                 uid: userData.uid
             }
-            API.APIRealtimePostAlamat(data)
-            alert('Berhasil tersimpan')
+            if (API.APIRealtimePostAlamat(data)) {
+                setTimeout(() => {
+                    setLoading(false)
+                    setPopUp(true)
+                }, 2000)
+                setInterval(() => {
+                    setPopUp(false)
+                }, 3000)
+            }
         }
         e.preventDefault()
     }
 
     const history = useHistory()
 
-    const toProfil = (user) => {
-        history.push(`/profil/${user}`)
+    const toProfil = function (user) {
+        const getIdProduct = window.location.pathname.split('/profil/').join('').split('/alamat').join('')
+        const getUsername = window.location.pathname.split('/profil/').join('').split('/alamat').join('').split('%20').join(' ')
+        if (user === getUsername) {
+            history.push(`/profil/${user}`)
+        } else {
+            history.push(`/detail-produk/transaksi/${getIdProduct}`)
+        }
     }
 
     const getAllAPI = () => {
@@ -65,10 +82,10 @@ const PageAlamat = () => {
                 const nameUser = user.displayName
                 const emailUser = user.email
 
-                // setGetUser({
-                //     name: nameUser,
-                //     email: emailUser
-                // })
+                setGetUser({
+                    name: nameUser,
+                    email: emailUser
+                })
             } else {
                 // No user is signed in.
             }
@@ -142,7 +159,6 @@ const PageAlamat = () => {
                         onClick={handleSubmit}
                     >
                         <BtnCard
-                            // display={props.displayBtnTransaksis}
                             heightBtn={'40px'}
                             widthBtn={'auto'}
                             btnName={'Simpan Alamat'}
@@ -152,9 +168,12 @@ const PageAlamat = () => {
                             colorP={"#fff"}
                             fontWeight={"bold"}
                             bxShadow={"0 3px 9px -1px rgba(0,0,0,0.2)"}
-                        // link={"/pageprofil"}
-                        // goTo={() => props.buy(props.data._id)}
+                            loading={loading}
                         />
+
+                        <PopUp
+                            transformPopUp={popUp ? 'translateY(0px)' : 'translateY(100px)'}
+                            txtPopUp={'Alamat telah di simpan!'} />
                     </Link>
                 </div>
             </div>

@@ -2,11 +2,12 @@ import React from 'react'
 import './DetailCard.scss'
 import imgProduk from '../../img/satu.jpeg'
 import Slider from 'react-slick'
-import { Link } from 'react-router-dom'
+import { Link, NavLink } from 'react-router-dom'
 import BtnCard from '../btncard/BtnCard'
 import indomaret from '../../img/indomaret.svg'
 import Spinner from '../spinner/Spinner'
 import PopUp from '../popup/PopUp'
+import jne from '../../img/jne.jpg'
 
 const DetailCard = (props) => {
 
@@ -17,7 +18,7 @@ const DetailCard = (props) => {
     }
 
     if (props.loading) {
-        return <Spinner titleLoad={'Mohon Tunggu Sebentar'} />
+        return <Spinner titleLoad={'Loading...'} />
     }
 
     return (
@@ -48,18 +49,14 @@ const DetailCard = (props) => {
                     {props.data.label}
                 </p> */}
                         <p className="price-produk marginGroup">
-                            Rp {props.price}
+                            {props.price}
                         </p>
                         <p className="name-produk marginGroup">
                             {props.name}
                         </p>
-                        <p className="stock-produk labelGroup marginGroup"
-                            style={{
-                                display: `${props.displayStock}`
-                            }}
-                        >
-                            Stock ({props.stock})
-                </p>
+                        <p className="stock-produk labelGroup marginGroup">
+                            {props.stock}
+                        </p>
                     </div>
 
                     <p className="paragraph paragrapGroup">
@@ -75,7 +72,8 @@ const DetailCard = (props) => {
                         >
                             <i className="fas fa-minus"></i>
                         </button>
-                        <input type="number" className="input-angka" value={props.valueInput} />
+                        <input type="number" className="input-angka" value={props.valueInput} onChange={props.changeTotalShop}
+                        />
                         <button className="btn-plus btnGroup"
                             onClick={props.plus}
                         >
@@ -89,39 +87,89 @@ const DetailCard = (props) => {
                         display: `${props.displayBoxAlamat}`
                     }}>
                         <div className="box-orange">
+
+                            <div className="wrapp-popUp-isi-alamat"
+                                style={{
+                                    display: `${props.displayPopUpIsiAlamat}`
+                                }}
+                            >
+                                <p className="popUp-isi-alamat">
+                                    Mohon isi alamat terlebih dahulu untuk melanjutkan pembayaran!
+                                </p>
+                            </div>
+
+
                             <p className="title-alamat">
                                 Alamat
                             </p>
 
-                            <p className="txt-alamat">
-                                {props.alamat}
-                                <br />
-                                {props.kota}
-                                <br />
-                                {props.kodePos}
-                                <br />
-                                {props.namaPenerima}
-                            </p>
+                            <div className="container-btn-goAlamat" style={{
+                                display: `${props.displayGoAlamat}`
+                            }} ref={props.myRef} id='#kampret'>
+                                <p className="ket-non-alamat fontGroup">
+                                    Kamu Belum Memiliki Alamat!
+                                    <br />
+                                    Isi Alamat kamu terlebih dahulu untuk melanjutkan pembayaran!
+                                </p>
+                                <BtnCard
+                                    // display={props.displayBtnTransaksis}
+                                    heightBtn={'40px'}
+                                    widthBtn={'100%'}
+                                    btnName={'Isi Alamat'}
+                                    marginBtn={'5px 0'}
+                                    bdrRadius={"10px"}
+                                    bgColor={"#fff"}
+                                    colorP={"#ffa835"}
+                                    fontWeight={"bold"}
+                                    bxShadow={"0 3px 9px -1px rgba(0,0,0,0.2)"}
+                                    goTo={props.goAlamat}
+                                // goTo={() => props.buy(props.data._id)}
+                                />
+                            </div>
+
+
+                            <div className="container-alamat" style={{
+                                display: `${props.displayContAlamat}`
+                            }}>
+                                <p className="nama-penerima fontGroup">
+                                    {props.namaPenerima}
+                                </p>
+                                <p className="nomer-telpon fontGroup">
+                                    {props.nomerHp}
+                                </p>
+                                <p className="txt-alamat">
+                                    {props.alamat}
+                                    <br />
+                                    {props.kota}
+                                    <br />
+                                    {props.kodePos}
+                                    <br />
+                                </p>
+                            </div>
 
                             <p className="pengiriman fontGroup">
-                                Pengiriman Next Day
+                                Pengiriman • {props.nameKurir}
                             </p>
+
+                            <img src={props.imgLogoKurir} alt="" className="img-jasaKurir" />
 
                             <p className="durasi fontGroup">
-                                Durasi 1 hari • JNE
+                                {props.durasiPengiriman}
                             </p>
 
-                            <p className="price-pengiriman fontGroup">
-                                Rp2.000 <i className="fas fa-angle-down"></i>
+                            <p className="price-pengiriman fontGroup"
+                                onClick={props.showJasa}
+                            >
+                                Rp{props.ongkir} <i className="fas fa-angle-down"></i>
                             </p>
 
-                            <div className="box-jasa-transaksi">
+                            {/* <div className="box-jasa-transaksi">
                                 <img src={indomaret} alt="" className="logo-jasa" />
 
                                 <p className="txt-name-jasa">
                                     • Indomaret
                                 </p>
-                            </div>
+                            </div> */}
 
                             <div className="garis-putih">
 
@@ -145,8 +193,8 @@ const DetailCard = (props) => {
                                     colorP={"#ffa835"}
                                     fontWeight={"bold"}
                                     bxShadow={"0 3px 9px -1px rgba(0,0,0,0.2)"}
-                                    link={"/transaksi/1"}
-                                // goTo={() => props.buy(props.data._id)}
+                                    // link={'#'}
+                                    goTo={props.nextTransaksi}
                                 />
                             </div>
                         </div>

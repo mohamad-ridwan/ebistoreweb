@@ -59,21 +59,21 @@ const PageBeranda = () => {
             .then(res => {
                 setGetMenuSerba15rb(res)
             })
-        API.APIFirebaseAllProduct()
+        API.APIFirebaseAllProduct('allproduct')
             .then((result) => {
                 setAllProduct(removeDuplicate(result, 'id'))
             })
-        API.APIFirebaseSerbaLimaRibu()
-            .then((res) => {
-                setGetSerba5rb(removeDuplicate(res, 'id'))
+        API.APIFirebaseAllProduct('limaribu')
+            .then((result) => {
+                setGetSerba5rb(removeDuplicate(result, 'id'))
             })
-        API.APIFirebaseSerbaSepuluhRibu()
-            .then((res) => {
-                setGetSerba10rb(removeDuplicate(res, 'id'))
+        API.APIFirebaseAllProduct('sepuluhribu')
+            .then((result) => {
+                setGetSerba10rb(removeDuplicate(result, 'id'))
             })
-        API.APIFirebaseSerbaLimaBelasRibu()
-            .then((res) => {
-                setGetSerba15rb(removeDuplicate(res, 'id'))
+        API.APIFirebaseAllProduct('limabelasribu')
+            .then((result) => {
+                setGetSerba15rb(removeDuplicate(result, 'id'))
             })
         API.APIFirebaseGetKeranjang()
             .then((res) => {

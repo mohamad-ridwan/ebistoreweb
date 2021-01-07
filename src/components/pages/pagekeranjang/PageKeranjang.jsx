@@ -39,29 +39,28 @@ class PageKeranjang extends Component {
         this.props.history.push(`/detail-produk/${id}`)
     }
 
-    deleteProduct = async (i, id, name) => {
+    deleteProduct = (i, id, name) => {
         i.stopPropagation()
         const windowConfirm = window.confirm(`Delete ${name}?`)
         if (windowConfirm) {
             this.setState({ isLoading: true })
-            const getCart = this.context
-            const newGetCart = getCart[3]
+            const getCart = this.context[3]
             API.APIFirebaseDeleteKeranjang(id)
                 .then((res) => {
+                    getCart()
                     setTimeout(() => {
                         this.setState({ isLoading: false })
                         this.setState({ popUp: true })
-                        newGetCart()
-                    }, 1000)
-                    setInterval(() => {
-                        this.setState({ popUp: false })
                         API.APIFirebaseGetKeranjang()
                             .then((res) => {
                                 this.setState({
                                     data: res
                                 })
                             })
-                    }, 2000)
+                    }, 1000)
+                    setInterval(() => {
+                        this.setState({ popUp: false })
+                    }, 3000)
                 })
         }
         i.preventDefault()

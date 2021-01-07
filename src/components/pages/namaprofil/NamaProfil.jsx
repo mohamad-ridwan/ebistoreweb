@@ -10,12 +10,15 @@ import { useHistory } from 'react-router'
 import { GetUserLogin } from '../../../config/context/GetUserLogin'
 import { UpdateStateContext } from '../../../config/context/updatestate/UpdateState'
 import API from '../../../service'
+import PopUp from '../../../componentcard/popup/PopUp'
 
 const NamaProfil = () => {
 
-    const [dataNama, setDataNama] = useState({})
     const [getUser, setGetUser] = useContext(GetUserLogin)
     const [update] = useContext(UpdateStateContext)
+    const [dataNama, setDataNama] = useState({})
+    const [loading, setLoading] = useState(false)
+    const [popUp, setPopUp] = useState(false)
     const [changeNama, setChangeNama] = useState({
         username: `${update}`
     })
@@ -66,13 +69,20 @@ const NamaProfil = () => {
     const handleSubmit = (e) => {
         const windowConfirm = window.confirm('Simpan nama kamu?')
         if (windowConfirm) {
-            const storage = JSON.parse(localStorage.getItem('userData'))
+            setLoading(true)
             const username = changeNama.username
             const data = {
                 username: username
             }
-            API.APIRealtimePostNama(data)
-            alert('Berhasil tersimpan')
+            if (API.APIRealtimePostNama(data)) {
+                setTimeout(() => {
+                    setLoading(false)
+                    setPopUp(true)
+                }, 2000)
+                setInterval(() => {
+                    setPopUp(false)
+                }, 3000)
+            }
         }
         e.preventDefault()
     }
@@ -145,7 +155,12 @@ const NamaProfil = () => {
                         fontWeight={"bold"}
                         bxShadow={"0 3px 9px -1px rgba(0,0,0,0.2)"}
                         goTo={handleSubmit}
+                        loading={loading}
                     />
+
+                    <PopUp
+                        transformPopUp={popUp ? 'translateY(0px)' : 'translateY(100px)'}
+                        txtPopUp={'Nama telah di simpan!'} />
                 </div>
             </div>
         </>

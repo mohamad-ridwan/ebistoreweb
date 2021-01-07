@@ -28,7 +28,7 @@ const BtnCard = ({
 }) => {
 
     if (loading) {
-        return <Spinner titleLoad={'Mohon Tunggu Sebentar'} />
+        return <Spinner titleLoad={'Loading...'} />
     }
 
     return (

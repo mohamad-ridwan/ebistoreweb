@@ -149,6 +149,11 @@
                 font-size: 11pt;
                 color: $colorLimaBelas;
                 background: transparent;
+                overflow: hidden;
+
+                i{
+                    overflow: hidden;
+                }
             }
 
             .input-angka{
@@ -175,6 +180,46 @@
             background: rgb(255,255,255);
             background: linear-gradient(90deg, rgba(250,250,250,1) 0%, rgba(239,239,245,0.6113795860140931) 100%);
 
+            .wrapp-popUp-isi-alamat{
+                display: none;
+                position: absolute;
+                bottom: 400px;
+                height: auto;
+                width: auto;
+                left: 20px;
+                right: 20px;
+                padding: 20px 0;
+                z-index: 999999999999;
+
+                .popUp-isi-alamat{
+                    display: flex;
+                    height: auto;
+                    width: 100%;
+                    background-color: rgba(0,0,0,0.1);
+                    border-radius: 10px;
+                    text-align: start;
+                    font-size: 11pt;
+                    padding: 10px;
+                    overflow: hidden;
+                    animation: opacity 0.3s forwards;
+                }
+    
+                .popUp-isi-alamat::after{
+                    position: absolute;
+                    content: '';
+                    display: block;
+                    position: absolute;
+                    bottom: 0px;
+                    left: 20px;
+                    border-top: solid 20px rgba(0,0,0,0.1);
+                    border-left: solid 15px transparent;
+                    border-right: solid 15px transparent;
+                    animation: opaBorder 0.3s forwards;
+                }
+            }
+
+            
+
             .box-orange{
                 display: flex;
                 flex-direction: column;
@@ -192,10 +237,37 @@
                     font-weight: bold;
                 }
 
-                .txt-alamat{
+                .container-btn-goAlamat{
                     display: flex;
-                    font-size: 10pt;
+                    flex-direction: column;
+                    height: auto;
+                    width: 100%;
                     text-align: start;
+                    margin-top: 10px;
+
+                    .btn-goAlamat{
+                        display: flex;
+                    }
+                }
+
+                .container-alamat{
+                    display: flex;
+                    flex-direction: column;
+                    height: auto;
+                    width: 100%;
+                    text-align: start;
+                    margin-top: 10px;
+
+                    .nama-penerima{
+                        display: flex;
+                        color: #555;
+                    }
+                    
+                    .txt-alamat{
+                        display: flex;
+                        font-size: 10pt;
+                        text-align: start;
+                    }
                 }
 
                 .fontGroup{
@@ -204,7 +276,17 @@
                 }
 
                 .pengiriman{
-                    margin-top: 20px;
+                    margin-top: 10px;
+                }
+
+                .img-jasaKurir{
+                    display: flex;
+                    height: 30px;
+                    width: 100px;
+                    object-fit: cover;
+                    object-position: center;
+                    border-radius: 3px;
+                    margin: 5px 0;
                 }
 
                 .durasi{
@@ -217,6 +299,7 @@
 
                     i{
                         margin-left: 5px;
+                        overflow: hidden;
                     }
                 }
 
@@ -272,3 +355,14 @@
     // end deskripsi
 }
 
+@keyframes opacity{
+    to{
+        background-color: rgba(0,0,0,0.8);
+    }
+}
+
+@keyframes opaBorder{
+    to{
+        border-top: solid 20px rgba(0,0,0,0.8);
+    }
+}

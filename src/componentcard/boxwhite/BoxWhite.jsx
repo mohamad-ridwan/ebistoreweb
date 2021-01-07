@@ -6,7 +6,7 @@ import './BoxWhite.scss'
 const BoxWhite = (props) => {
 
     if (props.loading) {
-        return <Spinner titleLoad={'Mohon Tunggu Sebentar'} />
+        return <Spinner titleLoad={'Loading...'} />
     }
 
     return (

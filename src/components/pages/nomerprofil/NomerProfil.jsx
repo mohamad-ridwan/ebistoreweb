@@ -10,13 +10,16 @@ import { GetUserLogin } from '../../../config/context/GetUserLogin';
 import API from '../../../service';
 import Spinner from '../../../componentcard/spinner/Spinner';
 import { UpdateStateContext } from '../../../config/context/updatestate/UpdateState';
+import PopUp from '../../../componentcard/popup/PopUp';
 
 const NomerProfil = () => {
 
-    const [dataNama, setDataNama] = useState({})
     const [update] = useContext(UpdateStateContext)
     const [getUser, setGetUser] = useContext(GetUserLogin)
+    const [dataNama, setDataNama] = useState({})
     const [getDataForLoading, setGetDataForLoading] = useState([])
+    const [loading, setLoading] = useState(false)
+    const [popUp, setPopUp] = useState(false)
     const [nomerUser, setNomerUser] = useState({
         phoneUser: `${update}`
     })
@@ -30,6 +33,7 @@ const NomerProfil = () => {
     const handleSubmit = (e) => {
         const windowConfirm = window.confirm('Simpan nomer kamu?')
         if (windowConfirm) {
+            setLoading(true)
             const storage = JSON.parse(localStorage.getItem('userData'))
             const phoneUser = nomerUser
             const data = {
@@ -37,8 +41,15 @@ const NomerProfil = () => {
                 date: new Date().getTime(),
                 uid: storage.uid
             }
-            API.APIRealtimePostNomer(data)
-            alert('Berhasil tersimpan')
+            if (API.APIRealtimePostNomer(data)) {
+                setTimeout(() => {
+                    setLoading(false)
+                    setPopUp(true)
+                }, 2000)
+                setInterval(() => {
+                    setPopUp(false)
+                }, 3000)
+            }
         }
         e.preventDefault()
     }
@@ -128,7 +139,12 @@ const NomerProfil = () => {
                                 fontWeight={"bold"}
                                 bxShadow={"0 3px 9px -1px rgba(0,0,0,0.2)"}
                                 goTo={handleSubmit}
+                                loading={loading}
                             />
+
+                            <PopUp
+                                transformPopUp={popUp ? 'translateY(0px)' : 'translateY(100px)'}
+                                txtPopUp={'Nomer telah di simpan!'} />
                         </div>
                     </div>
                 </>

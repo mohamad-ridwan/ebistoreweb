@@ -20,7 +20,6 @@ class DetailProduk extends Component {
     state = {
         data: {},
         dataKeranjang: [],
-        id: '',
         postKeranjang: {
             id: '',
             label: '',
@@ -29,7 +28,11 @@ class DetailProduk extends Component {
         },
         kondisi: false,
         popUp: false,
-        popUp2: false
+        popUp2: false,
+        postCart: this.context,
+        getCart: this.context,
+        dataCart: this.context,
+        id: this.props.match.params.id,
     }
 
     getUserLogin = () => {
@@ -44,40 +47,34 @@ class DetailProduk extends Component {
     }
 
     getDetailProduct = () => {
-        const id = this.props.match.params.id
-
-        if (API.APIFirebaseDetailProduct(id)) {
-            API.APIFirebaseDetailProduct(id)
+        if (API.APIFirebaseDetailProduct('allproduct', this.state.id)) {
+            API.APIFirebaseDetailProduct('allproduct', this.state.id)
                 .then((res) => {
                     this.setState({
-                        id: id,
                         data: res
                     })
                 })
         }
-        if (API.APIFirebaseDPLimaRibu(id)) {
-            API.APIFirebaseDPLimaRibu(id)
+        if (API.APIFirebaseDetailProduct('limaribu', this.state.id)) {
+            API.APIFirebaseDetailProduct('limaribu', this.state.id)
                 .then((res) => {
                     this.setState({
-                        id: id,
                         data: res
                     })
                 })
         }
-        if (API.APIFirebaseDPSepuluhRibu(id)) {
-            API.APIFirebaseDPSepuluhRibu(id)
+        if (API.APIFirebaseDetailProduct('sepuluhribu', this.state.id)) {
+            API.APIFirebaseDetailProduct('sepuluhribu', this.state.id)
                 .then((res) => {
                     this.setState({
-                        id: id,
                         data: res
                     })
                 })
         }
-        if (API.APIFirebaseDPLimaBelasRibu(id)) {
-            API.APIFirebaseDPLimaBelasRibu(id)
+        if (API.APIFirebaseDetailProduct('limabelasribu', this.state.id)) {
+            API.APIFirebaseDetailProduct('limabelasribu', this.state.id)
                 .then((res) => {
                     this.setState({
-                        id: id,
                         data: res
                     })
                 })
@@ -87,19 +84,9 @@ class DetailProduk extends Component {
             .then((res) => {
                 this.setState({ dataKeranjang: res })
             })
-    }
-
-    getPushToCartContext = {
-        postCart: this.context,
-        getCart: this.context,
-        dataCart: this.context
     }
 
     pushToCart = (id) => {
-        API.APIFirebaseGetKeranjang()
-            .then((res) => {
-                this.setState({ dataKeranjang: res })
-            })
         const alertConfirm = window.confirm('Tambahkan Ke Keranjang?')
         if (alertConfirm) {
             const dataKeranjang = this.state.dataKeranjang
@@ -109,14 +96,17 @@ class DetailProduk extends Component {
             if (check) {
                 this.setState({ kondisi: true })
                 const data = this.state.data
-                const id = this.props.match.params.id
-                const getCart = this.getPushToCartContext.getCart[3]
-                const postCart = this.getPushToCartContext.postCart[2]
-                if (postCart(id, data)) {
+                const getCart = this.state.getCart[3]
+                const postCart = this.state.postCart[2]
+                if (postCart(this.state.id, data)) {
                     getCart()
                     setTimeout(() => {
                         this.setState({ kondisi: false })
                         this.setState({ popUp: true })
+                        API.APIFirebaseGetKeranjang()
+                            .then((res) => {
+                                this.setState({ dataKeranjang: res })
+                            })
                     }, 1000)
                     setInterval(() => {
                         this.setState({ popUp: false })
@@ -128,7 +118,7 @@ class DetailProduk extends Component {
             }
             setTimeout(() => {
                 this.setState({ popUp2: false })
-            }, 2000)
+            }, 3000)
         }
     }
 
@@ -162,8 +152,8 @@ class DetailProduk extends Component {
 
                             <DetailCard
                                 name={this.state.data.name}
-                                price={this.state.data.price}
-                                stock={this.state.data.stock}
+                                price={`Rp${this.state.data.price}`}
+                                stock={`Stock (${this.state.data.stock})`}
                                 deskripsi={this.state.data.deskripsi}
                                 img={img}
                                 buy={() => this.handleTransaksi(this.state.id)}

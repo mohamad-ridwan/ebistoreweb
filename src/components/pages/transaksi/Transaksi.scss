@@ -11,4 +11,79 @@
     margin-bottom: 0px;
     background: rgb(255,255,255);
     background: linear-gradient(90deg, rgba(250,250,250,1) 0%, rgba(239,239,245,0.6113795860140931) 100%);    
+
+    .popUp-jasaPembayaran{
+        display: flex;
+        flex-direction: column;
+        position: fixed;
+        height: 100vh;
+        width: 100%;
+        background-color: rgba(0,0,0,0.6);
+        z-index: 1111;
+        animation: show 0.9s forwards;
+
+        span{
+            display: flex;
+            position: absolute;
+            top: 25px;
+            left: 20px;
+            font-size: $fontSzBtnBckNav;
+            color: #fff;
+        }
+
+        .box-white-popUp{
+            display: flex;
+            flex-direction: column;
+            position: absolute;
+            height: auto;
+            width: 100%;
+            background-color: #fff;
+            animation: popUpBoxWhite 0.2s forwards;
+            transform: translateY(400px);
+            bottom: 0;
+
+            .jasaGroup{
+                display: flex;
+                padding: 20px;
+                align-items: center;
+
+                .logoJasaGroup{
+                    display: flex;
+                    height: 30px;
+                    width: 100px;
+                    object-fit: cover;
+                    object-position: center;
+                    margin-right: 10px;
+                }
+
+                .box-txt-jasa{
+                    display: flex;
+                    flex-direction: column;
+
+                    .ket-pengiriman{
+                        font-size: 10pt;
+                        color: #555;
+                        margin-top: 5px;
+                    }
+                    .txt-ongkir{
+                        font-size: 10pt;
+                        margin-top: 5px;
+                        color: #555;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@keyframes show{
+    to{
+        opacity: 1;
+    }
+}
+
+@keyframes popUpBoxWhite{
+    to{
+        transform: translateY(0);
+    }
 }
