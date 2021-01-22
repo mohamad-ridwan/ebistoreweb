@@ -1,0 +1,124 @@
+@import '../../util/variable/variable.scss';
+
+.wrapper-registrasi-nama{
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    width: 100%;
+    background: $colorEnamBelas;
+    background: $colorTujuhBelas;
+
+    .box-input-nama{
+        display: flex;
+        flex-direction: column;
+        height: auto;
+        width: 100%;
+        padding: 0 45px;
+        margin-top: 150px;
+        text-align: center;
+        align-items: center;
+
+        .name{
+            display: flex;
+            font-size: 15pt;
+            color: #fff;
+        }
+
+        .form-inputNama{
+            display: flex;
+            flex-direction: column;
+            height: auto;
+            width: 100%;
+            // padding: 5px;
+
+            .ket-nama{
+                display: flex;
+                font-size: 11pt;
+                color: $colorLimaBelas;
+                margin-left: 5px;
+            }
+
+            .column-input{
+                display: flex;
+                height: auto;
+                width: auto;
+                position: relative;
+                align-items: center;
+                padding: 5px;
+
+                i{
+                    display: flex;
+                    position: absolute;
+                    font-size: 11pt;
+                    top: 26px;
+                    left: 15px;
+                    padding: 1px;
+                }
+
+                .input-nama{
+                    display: flex;
+                    height: 40px;
+                    width: 100%;
+                    border: none;
+                    outline: none;
+                    border-radius: 10px;
+                    padding: 20px 20px 20px 30px;
+                    margin-top: 10px;
+                    box-shadow: 0 3px 5px -1px rgba(0,0,0,0.2);
+                    overflow: hidden;
+                }
+            }
+        }
+
+        .wrapp-popUp-regNama{
+            display: none;
+            position: absolute;
+            bottom: 540px;
+            height: auto;
+            width: auto;
+            left: 60px;
+            right: 60px;
+            padding: 20px 0;
+            z-index: 999999999999;
+
+            .popUp-isi-alamat{
+                display: flex;
+                height: auto;
+                width: 100%;
+                background-color: rgba(0,0,0,0.1);
+                border-radius: 10px;
+                text-align: start;
+                font-size: 11pt;
+                padding: 10px;
+                overflow: hidden;
+                color: #fff;
+                animation: opacity 0.3s forwards;
+            }
+
+            .popUp-isi-alamat::after{
+                position: absolute;
+                content: '';
+                display: block;
+                position: absolute;
+                bottom: 0px;
+                left: 20px;
+                border-top: solid 20px rgba(0,0,0,0.1);
+                border-left: solid 15px transparent;
+                border-right: solid 15px transparent;
+                animation: opaBorder 0.3s forwards;
+            }
+        }
+    }
+}
+
+@keyframes opacity{
+    to{
+        background-color: rgba(0,0,0,0.8);
+    }
+}
+
+@keyframes opaBorder{
+    to{
+        border-top: solid 20px rgba(0,0,0,0.8);
+    }
+}

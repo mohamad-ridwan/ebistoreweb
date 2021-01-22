@@ -6,25 +6,28 @@ import HelmetProvider from './Helmet'
 import PushToCartProvider from './PushToCart'
 import UpdateAlamatProvider from './updatestate/UpdateAlamat'
 import UpdateStateProvider from './updatestate/UpdateState'
+import VerifikasiProvider from './verifikasi/Verifikasi'
 
 
 const ContextWrapper = ({ children }) => {
     return (
-        <UpdateAlamatProvider>
-            <PushToCartProvider>
-                <HelmetProvider>
-                    <ChangeNumberPhoneProvider>
-                        <UpdateStateProvider>
-                            <ApiSemuaProdukProvider>
-                                <GetUserLoginProvider>
-                                    {children}
-                                </GetUserLoginProvider>
-                            </ApiSemuaProdukProvider>
-                        </UpdateStateProvider>
-                    </ChangeNumberPhoneProvider>
-                </HelmetProvider>
-            </PushToCartProvider>
-        </UpdateAlamatProvider>
+        <VerifikasiProvider>
+            <UpdateAlamatProvider>
+                <PushToCartProvider>
+                    <HelmetProvider>
+                        <ChangeNumberPhoneProvider>
+                            <UpdateStateProvider>
+                                <ApiSemuaProdukProvider>
+                                    <GetUserLoginProvider>
+                                        {children}
+                                    </GetUserLoginProvider>
+                                </ApiSemuaProdukProvider>
+                            </UpdateStateProvider>
+                        </ChangeNumberPhoneProvider>
+                    </HelmetProvider>
+                </PushToCartProvider>
+            </UpdateAlamatProvider>
+        </VerifikasiProvider>
     )
 }
 

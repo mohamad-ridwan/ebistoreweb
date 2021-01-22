@@ -1,0 +1,12 @@
+@import '../../../util/variable/variable.scss';
+
+.wrapp-verifikasi-nomerHp{
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    width: 100%;
+    background: $colorEnamBelas;
+    background: $colorTujuhBelas;
+    justify-content: center;
+    align-items: center;
+}

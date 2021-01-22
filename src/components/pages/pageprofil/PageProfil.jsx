@@ -20,8 +20,7 @@ import { UpdateAlamatContext } from '../../../config/context/updatestate/UpdateA
 
 const PageProfil = () => {
     const [update, setUpdate] = useContext(UpdateStateContext)
-    const [updateAlamat, setUpdateAlamat] = useContext(UpdateAlamatContext)
-    const [getUser, setGetUser] = useContext(GetUserLogin)
+    const [getUser, setGetUser, updateAlamat, setUpdateAlamat] = useContext(GetUserLogin)
     const [dataForLoading, setDataForLoading] = useState([])
     const [dataNama, setDataNama] = useState({})
     const [dataNomer, setDataNomer] = useState({})
@@ -85,7 +84,7 @@ const PageProfil = () => {
     }
 
     const getAPIForLoading = () => {
-        API.APIFirebaseSerbaLimaRibu()
+        API.APIFirebaseAllProduct('allproduct')
             .then((res) => {
                 setDataForLoading(res)
             })
@@ -139,12 +138,13 @@ const PageProfil = () => {
         }
     }
     const toPageAlamat = (user) => {
-        history.push(`/profil/${user}/alamat`)
+        history.push(`/profil/${getUser.name || getUser.email}/alamat`)
         setUpdateAlamat({
             alamat: user.alamat,
             kota: user.kota,
             kodePos: user.kodePos,
-            namaPenerima: user.namaPenerima
+            namaPenerima: user.namaPenerima,
+            nomerHp: user.nomerHp
         })
     }
 
@@ -294,6 +294,7 @@ const PageProfil = () => {
                                         kota={dataAlamat.kota}
                                         kodePos={dataAlamat.kodePos}
                                         namaPenerima={dataAlamat.namaPenerima}
+                                        nomerHp={dataAlamat.nomerHp}
                                     />
                                 ) : (
                                         <KategoriProfil

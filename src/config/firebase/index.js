@@ -19,5 +19,6 @@ firebase.initializeApp(firebaseConfig);
 
 export const database = firebase.database();
 export const cloudFirestore = firebase.firestore();
+export const messaging = firebase.messaging
 
 export default firebase

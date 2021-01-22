@@ -10,6 +10,7 @@
     "connected-react-router": "^6.8.0",
     "easy-peasy": "^4.0.1",
     "firebase": "^8.1.1",
+    "firebaseui": "^4.7.1",
     "install": "^0.13.0",
     "node-sass": "^4.14.1",
     "react": "^16.13.1",
@@ -29,7 +30,8 @@
     "redux": "^4.0.5",
     "redux-thunk": "^2.3.0",
     "slick-carousel": "^1.8.1",
-    "styled-jsx": "^3.3.0"
+    "styled-jsx": "^3.3.0",
+    "yarn": "^1.22.10"
   },
   "scripts": {
     "start": "react-scripts start",

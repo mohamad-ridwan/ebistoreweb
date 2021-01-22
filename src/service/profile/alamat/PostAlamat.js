@@ -7,9 +7,11 @@ const PostAPIAlamat = async (path, data, userId) => {
                 alamat: data.alamat,
                 kota: data.kota,
                 kodePos: data.kodePos,
+                nomerHp: data.nomerHp,
                 namaPenerima: data.namaPenerima
             })
             resolve(data)
+            console.log('hasil : ', data)
         })
     })
 

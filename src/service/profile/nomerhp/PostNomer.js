@@ -8,6 +8,7 @@ const PostNomerUser = async (data) => {
                 .set({
                     phoneUser: data.phoneUser
                 })
+            resolve(data)
         }, 0)
     })
 

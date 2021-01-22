@@ -8,6 +8,7 @@ const UpdateAlamatProvider = ({ children }) => {
         alamat: '',
         kota: '',
         kodePos: '',
+        nomerHp: '',
         namaPenerima: ''
     })
 

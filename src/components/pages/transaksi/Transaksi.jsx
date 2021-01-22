@@ -1,4 +1,4 @@
-import React, { useRef } from 'react'
+import React, { useContext, useRef } from 'react'
 import NavbarPageCard from '../../../componentcard/navbarpagecard/NavbarPageCard'
 import './Transaksi.scss'
 import { Component } from 'react'
@@ -12,8 +12,11 @@ import firebase from 'firebase/app';
 import jne from '../../../img/jne.jpg'
 import jnt from '../../../img/jnt.png'
 import sicepat from '../../../img/sicepat.png'
+import { GetUserLogin } from '../../../config/context/GetUserLogin'
 
 class Transaksi extends Component {
+
+    static contextType = GetUserLogin
 
     state = {
         // Jika ingin melakukan mapping data
@@ -21,6 +24,8 @@ class Transaksi extends Component {
         dataAlamat: {},
         produk: {},
         newPrice: {},
+        username: '',
+        email: '',
         totalBeli: 1,
         show: false,
         displayAlamat: false,
@@ -69,7 +74,7 @@ class Transaksi extends Component {
     }
 
     getAPIForLoading = () => {
-        API.APIFirebaseSerbaLimaRibu()
+        API.APIFirebaseAllProduct('allproduct')
             .then((res) => {
                 this.setState({
                     getDataForLoading: res
@@ -79,68 +84,39 @@ class Transaksi extends Component {
 
     setAllAPI = () => {
         let id = this.props.match.params.id
-        if (API.APIFirebaseDetailProduct('allproduct', id)) {
-            API.APIFirebaseDetailProduct('allproduct', id)
-                .then((res) => {
-                    this.setState({
-                        produk: res
+        const path = ['allproduct', 'limaribu', 'sepuluhribu', 'limabelasribu']
+        path.forEach((e, i) => {
+            if (API.APIFirebaseDetailProduct(path[e, i], id)) {
+                API.APIFirebaseDetailProduct(path[e, i], id)
+                    .then((res) => {
+                        this.setState({
+                            produk: res
+                        })
+                        tes(res)
                     })
-                    const priceJasaP = this.state.newDataJasa.ongkir.split('.').join('')
-                    const changePriceJasaPToInt = parseInt(priceJasaP)
-                    const price = res.price.split('.').join('')
-                    const toInteger = (parseInt(price) * this.state.totalBeli) + changePriceJasaPToInt
-                    const jumlahKan = toInteger.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.')
-                    this.setState({ newPrice: jumlahKan })
-                })
-        }
-        if (API.APIFirebaseDetailProduct('limaribu', id)) {
-            API.APIFirebaseDetailProduct('limaribu', id)
-                .then((res) => {
-                    this.setState({
-                        produk: res
-                    })
-                    const priceJasaP = this.state.newDataJasa.ongkir.split('.').join('')
-                    const changePriceJasaPToInt = parseInt(priceJasaP)
-                    const price = res.price.split('.').join('')
-                    const toInteger = (parseInt(price) * this.state.totalBeli) + changePriceJasaPToInt
-                    const jumlahKan = toInteger.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.')
-                    this.setState({ newPrice: jumlahKan })
-                })
-        }
-        if (API.APIFirebaseDetailProduct('sepuluhribu', id)) {
-            API.APIFirebaseDetailProduct('sepuluhribu', id)
-                .then((res) => {
-                    this.setState({
-                        produk: res
-                    })
-                    const priceJasaP = this.state.newDataJasa.ongkir.split('.').join('')
-                    const changePriceJasaPToInt = parseInt(priceJasaP)
-                    const price = res.price.split('.').join('')
-                    const toInteger = (parseInt(price) * this.state.totalBeli) + changePriceJasaPToInt
-                    const jumlahKan = toInteger.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.')
-                    this.setState({ newPrice: jumlahKan })
-                })
-        }
-        if (API.APIFirebaseDetailProduct('limabelasribu', id)) {
-            API.APIFirebaseDetailProduct('limabelasribu', id)
-                .then((res) => {
-                    this.setState({
-                        produk: res
-                    })
-                    const priceJasaP = this.state.newDataJasa.ongkir.split('.').join('')
-                    const changePriceJasaPToInt = parseInt(priceJasaP)
-                    const price = res.price.split('.').join('')
-                    const toInteger = (parseInt(price) * this.state.totalBeli) + changePriceJasaPToInt
-                    const jumlahKan = toInteger.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.')
-                    this.setState({ newPrice: jumlahKan })
-                })
+            }
+        })
+
+        function tes(res) {
+            const priceJasaP = this.state.newDataJasa.ongkir.split('.').join('')
+            const changePriceJasaPToInt = parseInt(priceJasaP)
+            const price = res.price.split('.').join('')
+            const toInteger = (parseInt(price) * this.state.totalBeli) + changePriceJasaPToInt
+            const jumlahKan = toInteger.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.')
+            this.setState({ newPrice: jumlahKan })
         }
 
         API.APIRealtimeAlamatProfile()
             .then((res) => {
                 this.setState({ dataAlamat: res })
             })
+    }
 
+    componentDidMount() {
+        // this.check()
+        this.getUserLogin()
+        this.setAllAPI();
+        this.getAPIForLoading();
     }
 
     showJasa = () => {
@@ -173,31 +149,64 @@ class Transaksi extends Component {
     handleChangeTotalShop = (e) => {
         const getStock = this.state.produk.stock
         const getValue = e.target.value
+        const btnMinus = document.querySelector('.btn-minus')
+        const btnPlus = document.querySelector('.btn-plus')
         if (getValue > 1 && getValue < (getStock + 1)) {
             this.setState({
-                totalBeli: e.target.value
+                totalBeli: parseInt(getValue)
             }, this.setAllAPI())
+            btnMinus.style.border = '2px solid #ffa835'
+            btnMinus.style.color = '#ffa835'
+            btnPlus.style.border = '2px solid #ffa835'
+            btnPlus.style.color = '#ffa835'
+            if (parseInt(getValue) === getStock) {
+                btnPlus.style.border = '2px solid #ddd'
+                btnPlus.style.color = '#ddd'
+            }
         } else if (getValue >= 1 && getValue < getStock) {
             this.setState({
-                totalBeli: e.target.value
+                totalBeli: parseInt(getValue)
             }, this.setAllAPI())
+            btnPlus.style.border = '2px solid #ffa835'
+            btnPlus.style.color = '#ffa835'
+            if (getValue) {
+                btnMinus.style.border = '2px solid #ddd'
+                btnMinus.style.color = '#ddd'
+            }
         }
     }
 
     handlePlus = () => {
         const getStock = this.state.produk.stock
+        const btnMinus = document.querySelector('.btn-minus')
+        const btnPlus = document.querySelector('.btn-plus')
         if (this.state.totalBeli < getStock) {
             this.setState({
-                totalBeli: this.state.totalBeli + 1,
+                totalBeli: this.state.totalBeli += 1,
             }, this.setAllAPI())
+            btnPlus.classList.remove('maxPlus')
+            btnMinus.style.border = '2px solid #ffa835'
+            btnMinus.style.color = '#ffa835'
+            if (this.state.totalBeli === getStock) {
+                btnPlus.style.border = '2px solid #ddd'
+                btnPlus.style.color = '#ddd'
+            }
         }
     }
 
     handleMinus = () => {
+        const btnMinus = document.querySelector('.btn-minus')
+        const btnPlus = document.querySelector('.btn-plus')
         if (this.state.totalBeli > 1) {
             this.setState({
                 totalBeli: this.state.totalBeli - 1,
             }, this.setAllAPI())
+            btnPlus.style.border = '2px solid #ffa835'
+            btnPlus.style.color = '#ffa835'
+            if (this.state.totalBeli === 2) {
+                btnMinus.style.border = '2px solid #ddd'
+                btnMinus.style.color = '#ddd'
+            }
         }
     }
 
@@ -206,9 +215,18 @@ class Transaksi extends Component {
         this.props.history.push(`/detail-produk/${id}`)
     }
 
-    handlePageAlamat = () => {
+    handlePageAlamat = (dataAlamat) => {
+        const getUser = this.context[0]
         const id = this.props.match.params.id
-        this.props.history.push(`/profil/${id}/alamat`)
+        this.props.history.push(`/profil/${id}-${getUser.name || getUser.email}/alamat`)
+        let { alamat, kota, kodePos, nomerHp, namaPenerima } = dataAlamat
+        if (dataAlamat) {
+            this.context[2].alamat = alamat
+            this.context[2].kota = kota
+            this.context[2].kodePos = kodePos
+            this.context[2].nomerHp = nomerHp
+            this.context[2].namaPenerima = namaPenerima
+        }
     }
 
     nextTransaksi = (e) => {
@@ -238,13 +256,6 @@ class Transaksi extends Component {
     //         return hasil
     //     })
     // }
-
-    componentDidMount() {
-        // this.check()
-        this.getUserLogin()
-        this.setAllAPI();
-        this.getAPIForLoading();
-    }
 
     render() {
 
@@ -286,12 +297,16 @@ class Transaksi extends Component {
                                 ongkir={newDataJasa.ongkir}
                                 minus={this.handleMinus}
                                 plus={this.handlePlus}
+                                colorPlus={produk.stock === 1 ? '#ddd' : '#ffa835'}
+                                borderPlus={produk.stock === 1 ? '2px solid #ddd' : 'border 2px solid #ffa835'}
                                 valueInput={this.state.totalBeli}
                                 changeTotalShop={this.handleChangeTotalShop}
+                                editAlamat={() => this.handlePageAlamat({ ...dataAlamat })}
                                 alamat={dataAlamat && dataAlamat ? dataAlamat.alamat : ''}
                                 kota={dataAlamat && dataAlamat ? dataAlamat.kota : ''}
                                 kodePos={dataAlamat && dataAlamat ? dataAlamat.kodePos : ''}
                                 namaPenerima={dataAlamat && dataAlamat ? dataAlamat.namaPenerima : ''}
+                                nomerHp={dataAlamat && dataAlamat ? dataAlamat.nomerHp : ''}
                             />
 
                             <div className="popUp-jasaPembayaran"

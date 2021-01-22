@@ -1,6 +1,7 @@
 import React, { createContext, useEffect, useState } from 'react'
 import firebase from 'firebase/app';
 import newProfil from '../../img/newprofil.png'
+import API from '../../service';
 
 export const GetUserLogin = React.createContext()
 
@@ -16,6 +17,14 @@ const GetUserLoginProvider = ({ children }) => {
         imageUpload: []
     })
 
+    const [updateAlamat, setUpdateAlamat] = useState({
+        alamat: '',
+        kodePos: '',
+        kota: '',
+        namaPenerima: '',
+        nomerHp: ''
+    })
+
     const getUserLogin = () => {
         firebase.auth().onAuthStateChanged(function (user) {
             if (user) {
@@ -26,13 +35,14 @@ const GetUserLoginProvider = ({ children }) => {
                 const sayHi = 'Hi !'
                 const numberPhone = user.phoneNumber
                 const numberPhoneDefault = 'Kamu belum memiliki nomer hp yang tercantum'
+                const photoDefault = newProfil
 
                 setGetUser({
                     uid: userId,
                     email: emailUser,
                     hi: sayHi,
                     name: nameUser || emailUser,
-                    photo: photoUser || newProfil,
+                    photo: photoUser || photoDefault,
                     numberPhone: numberPhone || numberPhoneDefault
                 })
             } else {
@@ -52,10 +62,11 @@ const GetUserLoginProvider = ({ children }) => {
 
     useEffect(() => {
         getUserLogin();
+
     }, [])
 
     return (
-        <GetUserLogin.Provider value={[getUser, setGetUser]}>
+        <GetUserLogin.Provider value={[getUser, setGetUser, updateAlamat, setUpdateAlamat]}>
             {children}
         </GetUserLogin.Provider>
     )

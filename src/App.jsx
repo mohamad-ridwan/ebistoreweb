@@ -24,6 +24,9 @@ import { Provider } from 'react-redux';
 import { createBrowserHistory } from 'history'
 import API from './service';
 import ContextWrapper from './config/context/ContextWrapper';
+import RegistrasiNama from './components/pages/registrasinama/RegistrasiNama';
+import VerifikasiNomer from './components/pages/verifikasinomer/VerifikasiNomer';
+import KodeVerifikasi from './components/pages/kodeverifikasi/KodeVerifikasi';
 
 function App() {
 
@@ -31,7 +34,13 @@ function App() {
   const getAPI = () => {
     API.APIFirebaseAllProduct()
       .catch(err => {
-        setErrorMessage('SERVER ERROR (ERROR: 500)', err)
+        setErrorMessage(`SERVER ERROR (Error Code: 500)`, err)
+      })
+    API.APIRealtimeAlamatProfile()
+      .catch((err) => {
+        if (err == !err) {
+          setErrorMessage(`SERVER ERROR (Error Code: 500)`)
+        }
       })
   }
 
@@ -58,13 +67,24 @@ function App() {
     <ContextWrapper>
       <Provider store={store}>
         <div className="App" id="app">
-          <Media query="(max-width: 450px)" render={() => (
+          <Media query="(max-width: 425px)" render={() => (
             <>
-
               <Router history={history}>
 
                 <WindowScroll>
                   <Switch>
+
+                    <Route path='/kode-verifikasi'>
+                      <KodeVerifikasi />
+                    </Route>
+
+                    <Route path='/verifikasi-nomor'>
+                      <VerifikasiNomer />
+                    </Route>
+
+                    <Route path='/registrasi-nama'>
+                      <RegistrasiNama />
+                    </Route>
 
                     <Route path='/profil/:user/email'>
                       <Email />

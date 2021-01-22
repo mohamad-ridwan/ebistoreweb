@@ -2,6 +2,7 @@ import { cloudFirestore } from "../../config/firebase"
 
 export const GetAllProduct = async (path) => {
     const promise = await new Promise((resolve, reject) => {
+        const storage = localStorage.getItem('userData').uid
         cloudFirestore.collection(`${path}`)
             .get()
             .then((querySnapshot) => {

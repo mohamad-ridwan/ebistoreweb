@@ -8,20 +8,21 @@ const FormAlamat = ({
     handle,
     placeholder,
     valueDefault,
-    submit
-})=>{
-    return(
+    submit,
+    type
+}) => {
+    return (
         <>
-        <form onSubmit={submit} className="form-alamat">
-            <label htmlFor="" className="labelGroup">
-                {title}
-            </label>
-            <input type="text" value={valueDefault} name={valueName} className="inputGroup"
-                placeholder={placeholder}
-                autoFocus={fungsiAutoFocus}
-                onChange={handle}
-            />
-        </form>
+            <form onSubmit={submit} className="form-alamat">
+                <label htmlFor="" className="labelGroup">
+                    {title}
+                </label>
+                <input type={type} value={valueDefault} name={valueName} className="inputGroup"
+                    placeholder={placeholder}
+                    autoFocus={fungsiAutoFocus}
+                    onChange={handle}
+                />
+            </form>
         </>
     )
 }

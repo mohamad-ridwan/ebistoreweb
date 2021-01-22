@@ -26,6 +26,7 @@ class DetailProduk extends Component {
             name: '',
             price: ''
         },
+        errorServer: false,
         kondisi: false,
         popUp: false,
         popUp2: false,
@@ -47,38 +48,49 @@ class DetailProduk extends Component {
     }
 
     getDetailProduct = () => {
-        if (API.APIFirebaseDetailProduct('allproduct', this.state.id)) {
-            API.APIFirebaseDetailProduct('allproduct', this.state.id)
-                .then((res) => {
-                    this.setState({
-                        data: res
+        const path = ['allproduct', 'limaribu', 'sepuluhribu', 'limabelasribu']
+        path.forEach((e, i) => {
+            if (API.APIFirebaseDetailProduct(`${e, i}`, this.state.id)) {
+                API.APIFirebaseDetailProduct(`${e, i}`, this.state.id)
+                    .then((res) => {
+                        this.setState({
+                            data: res
+                        })
                     })
-                })
-        }
-        if (API.APIFirebaseDetailProduct('limaribu', this.state.id)) {
-            API.APIFirebaseDetailProduct('limaribu', this.state.id)
-                .then((res) => {
-                    this.setState({
-                        data: res
-                    })
-                })
-        }
-        if (API.APIFirebaseDetailProduct('sepuluhribu', this.state.id)) {
-            API.APIFirebaseDetailProduct('sepuluhribu', this.state.id)
-                .then((res) => {
-                    this.setState({
-                        data: res
-                    })
-                })
-        }
-        if (API.APIFirebaseDetailProduct('limabelasribu', this.state.id)) {
-            API.APIFirebaseDetailProduct('limabelasribu', this.state.id)
-                .then((res) => {
-                    this.setState({
-                        data: res
-                    })
-                })
-        }
+            }
+        })
+        // if (API.APIFirebaseDetailProduct('allproduct', this.state.id)) {
+        //     API.APIFirebaseDetailProduct('allproduct', this.state.id)
+        //         .then((res) => {
+        //             this.setState({
+        //                 data: res
+        //             })
+        //         })
+        // }
+        // if (API.APIFirebaseDetailProduct('limaribu', this.state.id)) {
+        //     API.APIFirebaseDetailProduct('limaribu', this.state.id)
+        //         .then((res) => {
+        //             this.setState({
+        //                 data: res
+        //             })
+        //         })
+        // }
+        // if (API.APIFirebaseDetailProduct('sepuluhribu', this.state.id)) {
+        //     API.APIFirebaseDetailProduct('sepuluhribu', this.state.id)
+        //         .then((res) => {
+        //             this.setState({
+        //                 data: res
+        //             })
+        //         })
+        // }
+        // if (API.APIFirebaseDetailProduct('limabelasribu', this.state.id)) {
+        //     API.APIFirebaseDetailProduct('limabelasribu', this.state.id)
+        //         .then((res) => {
+        //             this.setState({
+        //                 data: res
+        //             })
+        //         })
+        // }
 
         API.APIFirebaseGetKeranjang()
             .then((res) => {
@@ -100,17 +112,32 @@ class DetailProduk extends Component {
                 const postCart = this.state.postCart[2]
                 if (postCart(this.state.id, data)) {
                     getCart()
-                    setTimeout(() => {
-                        this.setState({ kondisi: false })
-                        this.setState({ popUp: true })
-                        API.APIFirebaseGetKeranjang()
-                            .then((res) => {
-                                this.setState({ dataKeranjang: res })
-                            })
-                    }, 1000)
-                    setInterval(() => {
-                        this.setState({ popUp: false })
-                    }, 3000)
+                    postCart(this.state.id, data)
+                        .then((res) => {
+                            if (res) {
+                                setTimeout(() => {
+                                    this.setState({ kondisi: false })
+                                    this.setState({ popUp: true })
+                                    API.APIFirebaseGetKeranjang()
+                                        .then((res) => {
+                                            this.setState({ dataKeranjang: res })
+                                        })
+                                }, 1000)
+                                setInterval(() => {
+                                    this.setState({ popUp: false })
+                                }, 3000)
+                            }
+
+                            return res
+                        }, () => {
+                            setTimeout(() => {
+                                this.setState({ kondisi: false })
+                                this.setState({ errorServer: true })
+                            }, 1000)
+                            setInterval(() => {
+                                this.setState({ errorServer: false })
+                            }, 4000)
+                        })
                 }
             } else {
                 this.setState({ popUp2: true })
@@ -171,6 +198,12 @@ class DetailProduk extends Component {
                             <PopUp
                                 transformPopUp={this.state.popUp2 ? 'translateY(0px)' : 'translateY(100px)'}
                                 txtPopUp={'Makaroni Sudah di tambahkan ke keranjang!'}
+                                bgColorPopUp={'#db1514'}
+                            />
+
+                            <PopUp
+                                transformPopUp={this.state.errorServer ? 'translateY(0px)' : 'translateY(100px)'}
+                                txtPopUp={'Terjadi Kesalahan Server, Mohon coba lagi nanti!'}
                                 bgColorPopUp={'#db1514'}
                             />
 

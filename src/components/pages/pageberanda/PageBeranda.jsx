@@ -16,6 +16,7 @@ import { GetUserLogin } from '../../../config/context/GetUserLogin'
 import Helmet from '../../../componentcard/helmet/Helmet'
 import API from '../../../service'
 import Spinner from '../../../componentcard/spinner/Spinner'
+import newProfil from '../../../img/newprofil.png'
 
 const PageBeranda = () => {
 
@@ -30,6 +31,39 @@ const PageBeranda = () => {
     const [getMenuSerba15rb, setGetMenuSerba15rb] = useState([])
     const [allProduct, setAllProduct] = useState([])
     const [dataKeranjang, setDataKeranjang] = useState([])
+    const [photoProfil, setPhotoProfil] = useState({
+        photoUrl: ''
+    })
+
+    const getUserLogin = async () => {
+        const fb = firebase.auth().onAuthStateChanged(function (user) {
+            if (user) {
+                const photo = user.photoURL
+                const photoDefault = `${newProfil}`
+                setPhotoProfil({ photoUrl: photo || photoDefault })
+
+                if (user) {
+                    API.APIRealtimeNamaProfile()
+                        .then((res) => {
+                            if (!res) {
+                                histori.push('/registrasi-nama')
+                            }
+                        })
+                } else if (user) {
+                    API.APIRealtimeNomerProfile()
+                        .then((res) => {
+                            if (!res) {
+                                histori.push('/verifikasi-nomor')
+                            }
+                        })
+                }
+            } else {
+                histori.push('/login')
+            }
+        })
+
+        return fb
+    }
 
     const removeDuplicate = ((data, index) => {
         const unique = data
@@ -83,16 +117,6 @@ const PageBeranda = () => {
             .then((res) => {
                 setDataNama(res)
             })
-    }
-
-    const getUserLogin = () => {
-        firebase.auth().onAuthStateChanged(function (user) {
-            if (user) {
-
-            } else {
-                histori.push('/login')
-            }
-        })
     }
 
     const histori = useHistory()
@@ -210,7 +234,7 @@ const PageBeranda = () => {
                             <Link
                                 onClick={() => pushProfil(getUser.name || getUser.email)}
                             >
-                                <img src={getUser.photo} alt="" className="img-profil" />
+                                <img src={getUser.photo || photoProfil.photoUrl} alt="" className="img-profil" />
                             </Link>
                         </section>
                         {/* END Profil */}

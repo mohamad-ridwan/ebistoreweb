@@ -17,12 +17,42 @@ const NomerProfil = () => {
     const [update] = useContext(UpdateStateContext)
     const [getUser, setGetUser] = useContext(GetUserLogin)
     const [dataNama, setDataNama] = useState({})
-    const [getDataForLoading, setGetDataForLoading] = useState([])
     const [loading, setLoading] = useState(false)
     const [popUp, setPopUp] = useState(false)
+    const [nomerUser2, setNomerUser2] = useState({})
     const [nomerUser, setNomerUser] = useState({
-        phoneUser: `${update}`
+        phoneUser: `${update || nomerUser2}`
     })
+
+    const getUserFromLogin = () => {
+        firebase.auth().onAuthStateChanged(function (user) {
+            if (user) {
+                const nameUser = user.displayName
+                const emailUser = user.email
+
+                setGetUser({
+                    name: nameUser,
+                    email: emailUser
+                })
+            } else {
+                // No user is signed in.
+            }
+        });
+    }
+
+    const getDataAPI = () => {
+        API.APIRealtimeNamaProfile()
+            .then((res) => {
+                setDataNama(res)
+            })
+        API.APIRealtimeNomerProfile()
+            .then(res => {
+                if (res) {
+                    setNomerUser({ phoneUser: res.phoneUser.phoneUser })
+                    setNomerUser2(res)
+                }
+            })
+    }
 
     const handleChangeNumberPhone = (e) => {
         const newNomerUser = { ...nomerUser }
@@ -54,37 +84,10 @@ const NomerProfil = () => {
         e.preventDefault()
     }
 
-    const getDataAPI = () => {
-        API.APIFirebaseMenuAllProduct()
-            .then((res) => {
-                setGetDataForLoading(res)
-            })
-        API.APIRealtimeNamaProfile()
-            .then((res) => {
-                setDataNama(res)
-            })
-    }
-
     const histori = useHistory()
 
     const toProfil = (user) => {
         histori.push(`/profil/${user}`)
-    }
-
-    const getUserFromLogin = () => {
-        firebase.auth().onAuthStateChanged(function (user) {
-            if (user) {
-                const nameUser = user.displayName
-                const emailUser = user.email
-
-                setGetUser({
-                    name: nameUser,
-                    email: emailUser
-                })
-            } else {
-                // No user is signed in.
-            }
-        });
     }
 
     useEffect(() => {
@@ -94,7 +97,7 @@ const NomerProfil = () => {
 
     return (
         <>
-            {getDataForLoading && getDataForLoading.length > 0 ? (
+            {nomerUser2 && nomerUser2.phoneUser ? (
                 <>
                     {dataNama && dataNama ?
                         (
@@ -116,14 +119,14 @@ const NomerProfil = () => {
                         transparant={"transparant"}
                         color={"#fff"}
                     />
-                    <div className="wrapper-namaProfil">
-                        <div className="box-input-nama">
+                    <div className="wrapper-nomerProfil">
+                        <div className="box-input-nomer">
                             <label htmlFor="label" className="name">
                                 {nomerUser.phoneUser}
                             </label>
 
                             <form onSubmit={handleSubmit}>
-                                <input onSubmit={handleSubmit} type="number" className="input-nama" autoFocus name="phoneUser" value={nomerUser.phoneUser}
+                                <input onSubmit={handleSubmit} type="text" className="input-nomer" autoFocus name="phoneUser" value={nomerUser.phoneUser}
                                     onChange={handleChangeNumberPhone}
                                 />
                             </form>

@@ -23,7 +23,19 @@ class SemuaProduk extends Component {
     state = {
         data: [],
         menu: [],
+        loading: false
     }
+
+    removeDuplicate = ((data, index) => {
+        const unique = data
+            .map(e => e[index])
+
+            .map((e, i, final) => final.indexOf(e) === i && i)
+
+            .filter(e => data[e]).map(e => data[e])
+
+        return unique;
+    })
 
     getUserLogin = () => {
         const histori = this.props.history
@@ -37,24 +49,22 @@ class SemuaProduk extends Component {
     }
 
     handleGoPage = (id) => {
+        this.setState({ loading: true })
+        API.APIFirebasePageAllProduct(id)
+            .then((res) => {
+                if (res) {
+                    this.setState({
+                        data: this.removeDuplicate(res, 'id')
+                    })
+                    this.setState({ loading: false })
+                }
+            })
         this.props.history.push(`${id}`)
-        window.location.reload()
     }
 
     handleDetail = (id) => {
         this.props.history.push(`/detail-produk/${id}`)
     }
-
-    removeDuplicate = ((data, index) => {
-        const unique = data
-            .map(e => e[index])
-
-            .map((e, i, final) => final.indexOf(e) === i && i)
-
-            .filter(e => data[e]).map(e => data[e])
-
-        return unique;
-    })
 
     setAllAPI = async () => {
         const id = this.props.match.params.id
@@ -91,6 +101,11 @@ class SemuaProduk extends Component {
                                 />
                             )
                         })}
+
+                        <Spinner
+                            displaySpinner={this.state.loading ? 'flex' : 'none'}
+                            bgColorLoading={'#ffa835'}
+                        />
 
                         <div className="wrapper-semua-produk">
                             <NavbarPageCard

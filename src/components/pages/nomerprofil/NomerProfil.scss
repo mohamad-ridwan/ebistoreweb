@@ -1,13 +1,13 @@
 @import '../../../util/variable/variable.scss';
 
-.wrapper-namaProfil{
+.wrapper-nomerProfil{
     display: flex;
     flex-direction: column;
     height: 100vh;
     width: 100%;
     background-color: $colorLimaBelas;
 
-    .box-input-nama{
+    .box-input-nomer{
         display: flex;
         flex-direction: column;
         height: auto;
@@ -32,7 +32,7 @@
             box-shadow: 0 3px 9px -1px rgba(0,0,0,0.2);
             overflow: hidden;
             
-            .input-nama{
+            .input-nomer{
                 display: flex;
                 height: 100%;
                 width: 100%;

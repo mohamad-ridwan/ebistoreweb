@@ -29,8 +29,12 @@ const PustToCartProvider = ({ children }) => {
         const promise = await new Promise((resolve, reject) => {
             const userId = JSON.parse(localStorage.getItem('userData'))
             cloudFirestore.collection(`${userId.uid}`).doc(`${id}`)
-                .set({ data })
-            resolve(data)
+                .set({ data: data, userId: userId.uid })
+            if (reject(console.log('terjadi kesalahan server! \nbad request : 500'))) {
+                return reject()
+            } else if (!reject() && resolve(data)) {
+                return resolve(data)
+            }
         })
 
         return promise

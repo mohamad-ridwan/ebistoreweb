@@ -11,6 +11,7 @@ import { GetUserLogin } from '../../../config/context/GetUserLogin'
 import { UpdateStateContext } from '../../../config/context/updatestate/UpdateState'
 import API from '../../../service'
 import PopUp from '../../../componentcard/popup/PopUp'
+import Spinner from '../../../componentcard/spinner/Spinner'
 
 const NamaProfil = () => {
 
@@ -23,11 +24,29 @@ const NamaProfil = () => {
         username: `${update}`
     })
 
+    const history = useHistory()
+
     const getUserFromLogin = () => {
-        firebase.auth().onAuthStateChanged((user) => {
+        const fb = firebase.auth().onAuthStateChanged((user) => {
             if (user) {
                 const nameUser = user.displayName
                 const emailUser = user.email
+
+                if (user) {
+                    API.APIRealtimeNamaProfile()
+                        .then((res) => {
+                            if (!res) {
+                                history.push('/registrasi-nama')
+                            }
+                        })
+                } else if (user) {
+                    API.APIRealtimeNomerProfile()
+                        .then((res) => {
+                            if (!res) {
+                                history.push('/verifikasi-nomor')
+                            }
+                        })
+                }
 
                 // Change Data User yg masuk
                 setGetUser({
@@ -50,6 +69,7 @@ const NamaProfil = () => {
                 })
             }
         });
+        return fb
     }
 
     const handleChangeName = (e) => {
@@ -63,6 +83,7 @@ const NamaProfil = () => {
         API.APIRealtimeNamaProfile()
             .then((res) => {
                 setDataNama(res)
+                setChangeNama(res)
             })
     }
 
@@ -87,8 +108,6 @@ const NamaProfil = () => {
         e.preventDefault()
     }
 
-    const history = useHistory()
-
     const toProfil = (user) => {
         history.push(`/profil/${user}`)
     }
@@ -100,69 +119,78 @@ const NamaProfil = () => {
 
     return (
         <>
-            {dataNama && dataNama ?
-                (
-                    <>
-                        <Helmet
-                            titleHelmet={`Nama Profil | ${dataNama.username} | Ebi Store`}
-                            contentHelmet={`halaman rubah nama profil | ${dataNama.username} | Ebi Store`}
-                        />
+            {dataNama && dataNama.username ? (
+                <>
+                    {dataNama && dataNama.username ?
+                        (
+                            <>
+                                <Helmet
+                                    titleHelmet={`Nama Profil | ${dataNama.username} | Ebi Store`}
+                                    contentHelmet={`halaman rubah nama profil | ${dataNama.username} | Ebi Store`}
+                                />
 
-                        <NavbarPageCard
-                            backPage={() => toProfil(dataNama.username)}
-                            position={'absolute'}
-                            titlePageNav={'Rubah Nama'}
-                            transparant={"transparant"}
-                            color={"#fff"}
-                        />
-                    </>
-                ) : (
-                    <>
+                                <NavbarPageCard
+                                    backPage={() => toProfil(dataNama.username)}
+                                    position={'absolute'}
+                                    titlePageNav={'Rubah Nama'}
+                                    transparant={"transparant"}
+                                    color={"#fff"}
+                                />
+                            </>
+                        ) : (
+                            <>
 
-                        <Helmet
-                            titleHelmet={`Nama Profil | ${getUser.name || getUser.email} | Ebi Store`}
-                            contentHelmet={`halaman rubah nama profil | ${getUser.name || getUser.email} | Ebi Store`}
-                        />
-                        <NavbarPageCard
-                            backPage={() => toProfil(getUser.name || getUser.email)}
-                            position={'absolute'}
-                            titlePageNav={'Rubah Nama'}
-                            transparant={"transparant"}
-                            color={"#fff"}
-                        />
-                    </>
+                                <Helmet
+                                    titleHelmet={`Nama Profil | ${getUser.name || getUser.email} | Ebi Store`}
+                                    contentHelmet={`halaman rubah nama profil | ${getUser.name || getUser.email} | Ebi Store`}
+                                />
+                                <NavbarPageCard
+                                    backPage={() => toProfil(getUser.name || getUser.email)}
+                                    position={'absolute'}
+                                    titlePageNav={'Rubah Nama'}
+                                    transparant={"transparant"}
+                                    color={"#fff"}
+                                />
+                            </>
+                        )}
+
+                    <div className="wrapper-namaProfil">
+                        <div className="box-input-nama">
+                            <label htmlFor="label" className="name">
+                                {changeNama.username}
+                            </label>
+                            <form onSubmit={handleSubmit}>
+                                <input type="text" className="input-nama" autoFocus name="username" value={changeNama.username}
+                                    onChange={handleChangeName}
+                                />
+                            </form>
+
+                            <BtnCard
+                                heightBtn={'45px'}
+                                widthBtn={'100%'}
+                                btnName={'Simpan Nama'}
+                                marginBtn={'20px 0px 20px 0px'}
+                                bdrRadius={"100px"}
+                                bgColor={"#fff"}
+                                colorP={"#ffa835"}
+                                fontWeight={"bold"}
+                                bxShadow={"0 3px 9px -1px rgba(0,0,0,0.2)"}
+                                goTo={handleSubmit}
+                                loading={loading}
+                            />
+
+                            <PopUp
+                                transformPopUp={popUp ? 'translateY(0px)' : 'translateY(100px)'}
+                                txtPopUp={'Nama telah di simpan!'} />
+                        </div>
+                    </div>
+                </>
+            ) : (
+                    <Spinner
+                        bgColorLoading={'#ffa835'}
+                    />
                 )}
 
-            <div className="wrapper-namaProfil">
-                <div className="box-input-nama">
-                    <label htmlFor="label" className="name">
-                        {changeNama.username}
-                    </label>
-                    <form onSubmit={handleSubmit}>
-                        <input type="text" className="input-nama" autoFocus name="username" value={changeNama.username}
-                            onChange={handleChangeName}
-                        />
-                    </form>
-
-                    <BtnCard
-                        heightBtn={'45px'}
-                        widthBtn={'100%'}
-                        btnName={'Simpan Nama'}
-                        marginBtn={'20px 0px 20px 0px'}
-                        bdrRadius={"100px"}
-                        bgColor={"#fff"}
-                        colorP={"#ffa835"}
-                        fontWeight={"bold"}
-                        bxShadow={"0 3px 9px -1px rgba(0,0,0,0.2)"}
-                        goTo={handleSubmit}
-                        loading={loading}
-                    />
-
-                    <PopUp
-                        transformPopUp={popUp ? 'translateY(0px)' : 'translateY(100px)'}
-                        txtPopUp={'Nama telah di simpan!'} />
-                </div>
-            </div>
         </>
     )
 }

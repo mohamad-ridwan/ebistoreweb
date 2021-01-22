@@ -14,13 +14,15 @@ import { loginUserAPI } from '../../../config/redux/action'
 import firebase from 'firebase/app';
 import Spinner from '../../../componentcard/spinner/Spinner'
 import Helmet from '../../../componentcard/helmet/Helmet'
+import API from '../../../service'
 
 class Login extends Component {
 
     state = {
         email: '',
         password: '',
-        isLoading: false
+        isLoading: false,
+        namaUser: []
     }
 
     handleChangeText = (e) => {
@@ -40,7 +42,15 @@ class Login extends Component {
                 email: '',
                 password: ''
             })
-            this.props.history.push('/')
+            API.APIRealtimeNamaProfile()
+                .then((res) => {
+                    if (res) {
+                        this.props.history.push('/')
+                    } else if (!res) {
+                        this.props.history.push('/registrasi-nama')
+                    }
+                })
+
         } else {
             alert('email atau password tidak terdaftar!!')
         }
@@ -67,6 +77,7 @@ class Login extends Component {
                 this.setState({ isLoading: false })
             })
     }
+
 
     render() {
         return (

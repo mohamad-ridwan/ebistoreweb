@@ -138,7 +138,7 @@
             justify-content: center;
             align-items: center;
 
-            .btnGroup{
+            .btn-plus{
                 display: flex;
                 height: 30px;
                 width: 30px;
@@ -150,11 +150,44 @@
                 color: $colorLimaBelas;
                 background: transparent;
                 overflow: hidden;
+                outline: none;
 
                 i{
                     overflow: hidden;
                 }
             }
+
+            // .maxPlus{
+            //     color: $colorDelapanBelas;
+            //     border: 2px solid $colorDelapanBelas;
+            //     cursor: not-allowed;
+            // }
+
+            .btn-minus{
+                display: flex;
+                height: 30px;
+                width: 30px;
+                border-radius: 500px;
+                border: 2px solid $colorDelapanBelas;
+                justify-content: center;
+                align-items: center;
+                font-size: 11pt;
+                color: $colorDelapanBelas;
+                background: transparent;
+                overflow: hidden;
+                outline: none;
+
+                i{
+                    overflow: hidden;
+                }
+            }
+
+            // .maxMin{
+            //     color: $colorLimaBelas;
+            //     border: 2px solid $colorLimaBelas;
+                
+            //     cursor: not-allowed;
+            // }
 
             .input-angka{
                 display: flex;
@@ -258,9 +291,23 @@
                     text-align: start;
                     margin-top: 10px;
 
+                    .btn-edit-alamat{
+                        display: flex;
+                        position: absolute;
+                        height: auto;
+                        width: 100px;
+                        right: 15px;
+                        border: none;
+                        outline: none;
+                        background-color: transparent;
+                        font-size: 11pt;
+                        color: #fff;
+                    }
+
                     .nama-penerima{
                         display: flex;
                         color: #555;
+                        margin-top: 20px;
                     }
                     
                     .txt-alamat{

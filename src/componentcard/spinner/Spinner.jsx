@@ -1,12 +1,13 @@
 import React from 'react'
 import './Spinner.scss'
 
-const Spinner = ({ titleLoad, bgColorLoading }) => {
+const Spinner = ({ titleLoad, bgColorLoading, displaySpinner }) => {
     return (
         <>
             <div className="wrapper-spinner"
                 style={{
-                    backgroundColor: `${bgColorLoading}`
+                    display: `${displaySpinner}`,
+                    backgroundColor: `${bgColorLoading}`,
                 }}
             >
                 <div className="circle-loader">

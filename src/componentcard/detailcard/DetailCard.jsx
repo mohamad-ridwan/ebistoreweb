@@ -67,14 +67,18 @@ const DetailCard = (props) => {
                     <div className="box-input-total" style={{
                         display: `${props.displayInputTotalOrder}`
                     }}>
-                        <button className="btn-minus btnGroup"
+                        <button className="btn-minus"
                             onClick={props.minus}
                         >
                             <i className="fas fa-minus"></i>
                         </button>
                         <input type="number" className="input-angka" value={props.valueInput} onChange={props.changeTotalShop}
                         />
-                        <button className="btn-plus btnGroup"
+                        <button className="btn-plus"
+                            style={{
+                                color: `${props.colorPlus}`,
+                                border: `${props.borderPlus}`
+                            }}
                             onClick={props.plus}
                         >
                             <i className="fas fa-plus"></i>
@@ -130,7 +134,13 @@ const DetailCard = (props) => {
 
                             <div className="container-alamat" style={{
                                 display: `${props.displayContAlamat}`
-                            }}>
+                            }}
+                            >
+                                <button className="btn-edit-alamat"
+                                    onClick={props.editAlamat}
+                                >
+                                    Edit Alamat
+                                </button>
                                 <p className="nama-penerima fontGroup">
                                     {props.namaPenerima}
                                 </p>

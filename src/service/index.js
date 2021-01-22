@@ -25,9 +25,6 @@ const APIFirebaseMenuSepuluhRibu = () => GetFirebase('menu/sepuluhribu')
 const APIFirebaseMenuLimaBelasRibu = () => GetFirebase(`menu/limabelasribu`)
 // For All Product Firebase (cloud firestore)
 const APIFirebaseAllProduct = (endpoint) => GetAllProduct(`${endpoint}/`)
-const APIFirebaseSerbaLimaRibu = () => GetAllProduct('limaribu/')
-const APIFirebaseSerbaSepuluhRibu = () => GetAllProduct('sepuluhribu/')
-const APIFirebaseSerbaLimaBelasRibu = () => GetAllProduct('limabelasribu/')
 // For DetailProduct Firebase (cloud firestore)
 const APIFirebaseDetailProduct = (endpoint, id) => GetDetailProduct(`${endpoint}/`, id)
 const APIFirebaseDPLimaRibu = (id) => GetDetailProduct('limaribu/', id)
@@ -61,10 +58,7 @@ const API = {
     APIFirebaseMenuLimaBelasRibu,
     APIFirebaseAllProduct,
     APIFirebaseDetailProduct,
-    APIFirebaseSerbaLimaRibu,
     APIFirebaseDPLimaRibu,
-    APIFirebaseSerbaSepuluhRibu,
-    APIFirebaseSerbaLimaBelasRibu,
     APIFirebaseDPSepuluhRibu,
     APIFirebaseDPLimaBelasRibu,
     APIFirebasePageAllProduct,

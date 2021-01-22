@@ -8,6 +8,7 @@ import firebase from 'firebase/app';
 import './Email.scss'
 import { useHistory } from 'react-router-dom'
 import API from '../../../service'
+import Spinner from '../../../componentcard/spinner/Spinner'
 
 const Email = () => {
 
@@ -79,63 +80,72 @@ const Email = () => {
 
     return (
         <>
-            {dataNama && dataNama ?
-                (
-                    <Helmet
-                        titleHelmet={`Email | ${dataNama.username} | Ebi Store`}
-                        contentHelmet={`halaman email | ${dataNama.username} | Ebi Store`}
+            {userLogin && userLogin.name || userLogin.email ? (
+                <>
+                    {dataNama && dataNama ?
+                        (
+                            <Helmet
+                                titleHelmet={`Email | ${dataNama.username} | Ebi Store`}
+                                contentHelmet={`halaman email | ${dataNama.username} | Ebi Store`}
+                            />
+                        ) : (
+                            <Helmet
+                                titleHelmet={`Email | ${userLogin.name || userLogin.email} | Ebi Store`}
+                                contentHelmet={`halaman email | ${userLogin.name || userLogin.name} | Ebi Store`}
+                            />
+                        )}
+
+                    <NavbarPageCard
+                        backPage={() => toProfil(userLogin.name || userLogin.email)}
+                        position={'absolute'}
+                        titlePageNav={'Email'}
+                        transparant={"transparant"}
+                        color={"#fff"}
                     />
-                ) : (
-                    <Helmet
-                        titleHelmet={`Email | ${userLogin.name || userLogin.email} | Ebi Store`}
-                        contentHelmet={`halaman email | ${userLogin.name || userLogin.name} | Ebi Store`}
+
+                    <div className="wrapp-page-email">
+                        <p className="title-email">
+                            {userLogin.email}
+                        </p>
+
+                        {/* Btn Change Account */}
+                        <BtnCard
+                            heightBtn={'45px'}
+                            widthBtn={'100%'}
+                            btnName={'Ganti Akun'}
+                            marginBtn={'20px 0px 0px 0px'}
+                            bdrRadius={"100px"}
+                            bgColor={"#fff"}
+                            colorP={"#ffa835"}
+                            fontWeight={"bold"}
+                            bxShadow={"0 3px 9px -1px rgba(0,0,0,0.2)"}
+                        // goTo={handleSubmit}
+                        />
+                        {/* END Btn Change Account */}
+
+                        {/* Btn Delete Account */}
+                        <BtnCard
+                            heightBtn={'45px'}
+                            widthBtn={'100%'}
+                            btnName={'Hapus Akun Dan Keluar'}
+                            marginBtn={'20px 0px 20px 0px'}
+                            bdrRadius={"100px"}
+                            bgColor={"#DB2F35"}
+                            colorP={"#fff"}
+                            fontWeight={"bold"}
+                            bxShadow={"0 3px 9px -1px rgba(0,0,0,0.2)"}
+                            goTo={handleDeleteUser}
+                            loading={isLoading}
+                        />
+                        {/* END Btn Delete Account */}
+                    </div>
+                </>
+            ) : (
+                    <Spinner
+                        bgColorLoading={'#ffa835'}
                     />
                 )}
 
-            <NavbarPageCard
-                backPage={() => toProfil(userLogin.name || userLogin.email)}
-                position={'absolute'}
-                titlePageNav={'Email'}
-                transparant={"transparant"}
-                color={"#fff"}
-            />
-
-            <div className="wrapp-page-email">
-                <p className="title-email">
-                    {userLogin.email}
-                </p>
-
-                {/* Btn Change Account */}
-                <BtnCard
-                    heightBtn={'45px'}
-                    widthBtn={'100%'}
-                    btnName={'Ganti Akun'}
-                    marginBtn={'20px 0px 0px 0px'}
-                    bdrRadius={"100px"}
-                    bgColor={"#fff"}
-                    colorP={"#ffa835"}
-                    fontWeight={"bold"}
-                    bxShadow={"0 3px 9px -1px rgba(0,0,0,0.2)"}
-                // goTo={handleSubmit}
-                />
-                {/* END Btn Change Account */}
-
-                {/* Btn Delete Account */}
-                <BtnCard
-                    heightBtn={'45px'}
-                    widthBtn={'100%'}
-                    btnName={'Hapus Akun Dan Keluar'}
-                    marginBtn={'20px 0px 20px 0px'}
-                    bdrRadius={"100px"}
-                    bgColor={"#DB2F35"}
-                    colorP={"#fff"}
-                    fontWeight={"bold"}
-                    bxShadow={"0 3px 9px -1px rgba(0,0,0,0.2)"}
-                    goTo={handleDeleteUser}
-                    loading={isLoading}
-                />
-                {/* END Btn Delete Account */}
-            </div>
         </>
     )
 }

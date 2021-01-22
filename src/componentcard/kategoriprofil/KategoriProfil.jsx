@@ -12,7 +12,8 @@ const KategoriProfil = ({
     kota,
     kodePos,
     namaPenerima,
-    onClick
+    onClick,
+    nomerHp
 }) => {
     return (
         <>
@@ -29,6 +30,7 @@ const KategoriProfil = ({
                         {kota}
                         {kodePos}
                         {namaPenerima}
+                        {nomerHp}
                     </p>
                     <span class="material-icons next">
                         navigate_next
