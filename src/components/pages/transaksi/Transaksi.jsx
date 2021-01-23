@@ -92,24 +92,24 @@ class Transaksi extends Component {
                         this.setState({
                             produk: res
                         })
-                        tes(res)
+                        this.responAPI(res)
                     })
             }
         })
-
-        function tes(res) {
-            const priceJasaP = this.state.newDataJasa.ongkir.split('.').join('')
-            const changePriceJasaPToInt = parseInt(priceJasaP)
-            const price = res.price.split('.').join('')
-            const toInteger = (parseInt(price) * this.state.totalBeli) + changePriceJasaPToInt
-            const jumlahKan = toInteger.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.')
-            this.setState({ newPrice: jumlahKan })
-        }
 
         API.APIRealtimeAlamatProfile()
             .then((res) => {
                 this.setState({ dataAlamat: res })
             })
+    }
+
+    responAPI(res) {
+        const priceJasaP = this.state.newDataJasa.ongkir.split('.').join('')
+        const changePriceJasaPToInt = parseInt(priceJasaP)
+        const price = res.price.split('.').join('')
+        const toInteger = (parseInt(price) * this.state.totalBeli) + changePriceJasaPToInt
+        const jumlahKan = toInteger.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.')
+        this.setState({ newPrice: jumlahKan })
     }
 
     componentDidMount() {

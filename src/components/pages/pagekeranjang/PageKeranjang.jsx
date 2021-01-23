@@ -73,7 +73,7 @@ class PageKeranjang extends Component {
                     data: res
                 })
             })
-        API.APIFirebaseSerbaLimaRibu()
+        API.APIFirebaseAllProduct('allproduct')
             .then((res) => {
                 this.setState({
                     dataLoading: res

@@ -50,8 +50,8 @@ class DetailProduk extends Component {
     getDetailProduct = () => {
         const path = ['allproduct', 'limaribu', 'sepuluhribu', 'limabelasribu']
         path.forEach((e, i) => {
-            if (API.APIFirebaseDetailProduct(`${e, i}`, this.state.id)) {
-                API.APIFirebaseDetailProduct(`${e, i}`, this.state.id)
+            if (API.APIFirebaseDetailProduct(path[e, i], this.state.id)) {
+                API.APIFirebaseDetailProduct(path[e, i], this.state.id)
                     .then((res) => {
                         this.setState({
                             data: res
@@ -59,38 +59,6 @@ class DetailProduk extends Component {
                     })
             }
         })
-        // if (API.APIFirebaseDetailProduct('allproduct', this.state.id)) {
-        //     API.APIFirebaseDetailProduct('allproduct', this.state.id)
-        //         .then((res) => {
-        //             this.setState({
-        //                 data: res
-        //             })
-        //         })
-        // }
-        // if (API.APIFirebaseDetailProduct('limaribu', this.state.id)) {
-        //     API.APIFirebaseDetailProduct('limaribu', this.state.id)
-        //         .then((res) => {
-        //             this.setState({
-        //                 data: res
-        //             })
-        //         })
-        // }
-        // if (API.APIFirebaseDetailProduct('sepuluhribu', this.state.id)) {
-        //     API.APIFirebaseDetailProduct('sepuluhribu', this.state.id)
-        //         .then((res) => {
-        //             this.setState({
-        //                 data: res
-        //             })
-        //         })
-        // }
-        // if (API.APIFirebaseDetailProduct('limabelasribu', this.state.id)) {
-        //     API.APIFirebaseDetailProduct('limabelasribu', this.state.id)
-        //         .then((res) => {
-        //             this.setState({
-        //                 data: res
-        //             })
-        //         })
-        // }
 
         API.APIFirebaseGetKeranjang()
             .then((res) => {
