@@ -114,7 +114,7 @@ class Transaksi extends Component {
 
     componentDidMount() {
         // this.check()
-        this.getUserLogin()
+        this.getUserLogin();
         this.setAllAPI();
         this.getAPIForLoading();
     }
